@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, X, ChevronRight, ChevronLeft, Clock } from "lucide-react";
+import { Check, X, ChevronRight, ChevronLeft, Clock, Award, Sparkles } from "lucide-react";
 import GradientButton from "./GradientButton";
 
 const QuizCard = () => {
@@ -32,15 +32,15 @@ const QuizCard = () => {
     
     // Reset timer when question changes
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
           clearInterval(timer);
           if (!hasAnswered) {
             skipQuestion();
           }
           return 0;
         }
-        return prev - 1;
+        return prevTime - 1;
       });
     }, 1000);
     
@@ -66,7 +66,7 @@ const QuizCard = () => {
 
   const getOptionClasses = (optionIndex: number) => {
     if (!hasAnswered) {
-      return "bg-white hover:bg-gray-50";
+      return "bg-white hover:bg-gray-50 hover:border-black/20 hover:shadow-md";
     }
     
     if (optionIndex === selectedOption) {
@@ -82,31 +82,38 @@ const QuizCard = () => {
     return "bg-white opacity-70";
   };
 
+  // Get brand color for the progress indicator
+  const getBrandColor = (index: number) => {
+    const colors = ['bg-cognilense-green', 'bg-cognilense-yellow', 'bg-cognilense-blue', 'bg-cognilense-orange'];
+    return colors[index % colors.length];
+  };
+
   return (
     <div className="w-full max-w-3xl mx-auto">
       <div className="mb-8">
         <div className="flex justify-between items-center text-sm mb-2">
-          <span className="px-3 py-1 bg-black bg-opacity-5 rounded-full">
+          <span className="px-3 py-1 bg-black bg-opacity-5 rounded-full font-medium flex items-center">
+            <Award size={16} className="mr-1.5 text-cognilense-blue" />
             Question {currentQuestionIndex + 1}/{questions.length}
           </span>
-          <div className="flex items-center text-muted-foreground">
-            <Clock size={16} className="mr-1" />
+          <div className="flex items-center text-muted-foreground px-3 py-1 bg-black bg-opacity-5 rounded-full">
+            <Clock size={16} className="mr-1.5 text-cognilense-orange" />
             <span>{timeLeft} seconds</span>
           </div>
         </div>
         
-        <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+        <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
           <div 
             className="timer-bar h-full" 
             style={{ 
               width: `${(timeLeft / 60) * 100}%`,
-              transition: "width 1s linear"
+              animationDuration: `${timeLeft}s`
             }}
           />
         </div>
       </div>
       
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden relative">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden relative gradient-border">
         <div className="px-6 py-8">
           <motion.h2 
             key={`question-${currentQuestion.id}`}
@@ -160,9 +167,12 @@ const QuizCard = () => {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-lg"
+                className="mt-8 p-5 bg-blue-50 border border-blue-100 rounded-lg"
               >
-                <h3 className="text-lg font-semibold mb-2 font-domine">Explanation</h3>
+                <div className="flex items-center mb-2">
+                  <Sparkles size={20} className="text-cognilense-blue mr-2" />
+                  <h3 className="text-lg font-semibold font-domine">Explanation</h3>
+                </div>
                 <p className="text-gray-700">{currentQuestion.explanation}</p>
               </motion.div>
             )}
@@ -210,22 +220,22 @@ const QuizCard = () => {
         <div className="flex gap-2">
           {questions.map((_, index) => {
             const questionAnswer = answers.find(a => a.questionId === questions[index].id);
-            let bgColor = "bg-gray-300"; // Unanswered
+            let bgColorClass = "bg-gray-300"; // Unanswered
             
             if (questionAnswer) {
               if (questionAnswer.selectedOption === null) {
-                bgColor = "bg-gray-500"; // Skipped
+                bgColorClass = "bg-gray-500"; // Skipped
               } else if (questionAnswer.isCorrect) {
-                bgColor = "bg-green-500"; // Correct
+                bgColorClass = getBrandColor(index); // Correct - use brand colors
               } else {
-                bgColor = "bg-red-500"; // Incorrect
+                bgColorClass = "bg-red-500"; // Incorrect
               }
             }
             
             return (
               <div 
                 key={`indicator-${index}`} 
-                className={`w-3 h-3 rounded-full ${bgColor} ${index === currentQuestionIndex ? "ring-2 ring-offset-2 ring-black" : ""}`}
+                className={`w-3 h-3 rounded-full ${bgColorClass} ${index === currentQuestionIndex ? "ring-2 ring-offset-2 ring-black" : ""}`}
               />
             );
           })}
