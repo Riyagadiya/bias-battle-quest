@@ -26,13 +26,11 @@ const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "relative rounded-lg font-worksans font-bold transition-all duration-300",
+        "gradient-border-button relative rounded-lg font-worksans font-bold",
         "bg-cognilense-background text-foreground py-3 px-6",
-        "before:absolute before:inset-0 before:-z-10 before:rounded-lg before:p-[2px]",
-        "before:bg-gradient-to-r before:from-cognilense-black before:via-cognilense-green before:via-cognilense-yellow before:via-cognilense-blue before:to-cognilense-orange",
-        "before:bg-size-200 before:animate-shine",
-        "hover:shadow-lg hover:shadow-black/20 hover:scale-[1.02] hover:before:bg-size-200",
-        "active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
+        "transition-all duration-300 ease-in-out",
+        "hover:shadow-glow active:scale-[0.98]",
+        "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
         disabled && "opacity-70 pointer-events-none",
         className
       )}
