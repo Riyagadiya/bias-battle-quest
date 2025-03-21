@@ -45,7 +45,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           >
             Cognitive Biases:
             <br /> 
-            <span className="bg-gradient-to-r from-cognilense-black via-cognilense-blue to-cognilense-green bg-clip-text text-transparent animate-gradient-flow">
+            <span className="text-foreground">
               How Rational Are You?
             </span>
           </motion.h1>
