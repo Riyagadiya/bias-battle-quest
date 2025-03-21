@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
 import GradientButton from "./GradientButton";
