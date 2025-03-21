@@ -10,7 +10,7 @@ const PromoSection = () => {
       <div className="container mx-auto relative z-10">
         <div className="flex flex-col items-center text-center pt-12 max-w-3xl mx-auto">
           <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-4">
-            Discover the full potential<br />
+            "Discover the full potential"<br />
             <span>of CogniLense!</span>
           </h2>
           

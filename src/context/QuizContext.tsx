@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { Question } from '../data/questions';
+import { questions } from '../data/questions';
 
 export interface QuizContextType {
   currentQuestionIndex: number;
@@ -15,7 +15,11 @@ export interface QuizContextType {
   setQuizCompleted: React.Dispatch<React.SetStateAction<boolean>>;
   selectedOption: string | null;
   setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
-  timePerQuestion: number; // Added missing property
+  timePerQuestion: number;
+  status: string;
+  startQuiz: () => void;
+  restartQuiz: () => void;
+  questions: any[];
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -27,7 +31,24 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [timePerQuestion] = useState(30); // Set to 30 seconds as requested
+  const [timePerQuestion] = useState(30);
+  const [status, setStatus] = useState<string>("initial"); // initial, active, complete
+
+  // Add startQuiz and restartQuiz functions
+  const startQuiz = () => {
+    setQuizStarted(true);
+    setStatus("active");
+  };
+
+  const restartQuiz = () => {
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setAnswers({});
+    setQuizCompleted(false);
+    setSelectedOption(null);
+    setQuizStarted(true);
+    setStatus("active");
+  };
 
   const value = {
     currentQuestionIndex,
@@ -43,6 +64,10 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
     selectedOption,
     setSelectedOption,
     timePerQuestion,
+    status,
+    startQuiz,
+    restartQuiz,
+    questions,
   };
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
