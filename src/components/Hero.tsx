@@ -38,7 +38,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
         <div 
           className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
           style={{
-            backgroundImage: "url('/lovable-uploads/54bf67b5-2084-4989-bca5-671388e54ae4.png')",
+            backgroundImage: "url('/lovable-uploads/e7e51539-77f2-43b9-920c-2c0bf8627640.png')",
           }}
         ></div>
       </div>
@@ -49,7 +49,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-normal tracking-[-3%] mb-6"
+            className="font-inter font-bold text-5xl md:text-6xl lg:text-[64px] leading-normal tracking-[-3%] mb-6"
           >
             Cognitive Biases:
             <br /> 
