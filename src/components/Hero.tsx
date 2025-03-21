@@ -38,7 +38,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
         <div 
           className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
           style={{
-            backgroundImage: "url('/public/lovable-uploads/54bf67b5-2084-4989-bca5-671388e54ae4.png')",
+            backgroundImage: "url('/lovable-uploads/54bf67b5-2084-4989-bca5-671388e54ae4.png')",
           }}
         ></div>
       </div>
@@ -62,7 +62,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-[32px] tracking-normal text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-10"
           >
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
