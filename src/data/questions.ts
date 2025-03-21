@@ -10,115 +10,115 @@ export interface QuizQuestion {
 export const quizQuestions: QuizQuestion[] = [
   {
     id: 1,
-    question: "You're at a restaurant and the first dish you see on the menu is $25. When deciding what to order later, you find yourself comparing other prices to this amount. What cognitive bias is influencing your decision?",
+    question: "What is the Anchoring Bias?",
     options: [
-      "Anchoring Bias",
-      "Availability Heuristic",
-      "Loss Aversion",
-      "Confirmation Bias"
+      "The tendency to rely too heavily on the first piece of information encountered",
+      "The tendency to see patterns where none exist",
+      "The tendency to follow what others are doing",
+      "The tendency to favor information that confirms existing beliefs"
     ],
     correctAnswer: 0,
-    explanation: "This scenario demonstrates Anchoring Bias - the tendency to rely too heavily on the first piece of information encountered (the 'anchor'). The initial price becomes a reference point that influences how you perceive other prices on the menu."
+    explanation: "Anchoring Bias is our tendency to rely too heavily on the first piece of information we encounter (the 'anchor') when making decisions. This initial piece of information has a disproportionate effect on subsequent judgments."
   },
   {
     id: 2,
-    question: "After reading news stories about plane crashes, you feel anxious about an upcoming flight, even though you know statistically flying is very safe. What cognitive bias is affecting your risk assessment?",
+    question: "Which of the following best describes the Availability Heuristic?",
     options: [
-      "Fundamental Attribution Error",
-      "Availability Heuristic",
-      "Optimism Bias",
-      "Dunning-Kruger Effect"
+      "Making decisions based on past similar experiences",
+      "Judging the likelihood of events based on how easily examples come to mind",
+      "Believing you have control over random events",
+      "Preferring the status quo over any changes"
     ],
     correctAnswer: 1,
-    explanation: "This illustrates the Availability Heuristic - judging probability based on how easily examples come to mind. Recent or vivid news stories about plane crashes make these events seem more likely than they actually are."
+    explanation: "The Availability Heuristic is our tendency to judge the likelihood or frequency of events based on how easily examples come to mind. Vivid or recent examples often seem more common than they actually are."
   },
   {
     id: 3,
-    question: "You strongly believe in a political viewpoint and primarily follow news sources that align with your perspective. When you encounter contradicting information, you quickly dismiss it. What bias is at play?",
+    question: "What is Confirmation Bias?",
     options: [
-      "Self-serving Bias",
-      "Halo Effect",
-      "Confirmation Bias",
-      "Bandwagon Effect"
+      "The tendency to overestimate one's knowledge or abilities",
+      "The preference for immediate smaller rewards over delayed larger rewards",
+      "The tendency to search for information that confirms our existing beliefs",
+      "The tendency to remember interrupted tasks better than completed ones"
     ],
     correctAnswer: 2,
-    explanation: "This scenario demonstrates Confirmation Bias - the tendency to search for, interpret, and remember information that confirms your existing beliefs while giving disproportionately less consideration to alternative possibilities."
+    explanation: "Confirmation Bias is our tendency to search for, interpret, favor, and recall information that confirms our pre-existing beliefs or hypotheses while giving less consideration to alternative possibilities."
   },
   {
     id: 4,
-    question: "After taking a single introductory course in psychology, your friend claims they can now analyze and diagnose anyone's mental health issues with confidence. What cognitive bias might explain this behavior?",
+    question: "The Dunning-Kruger Effect refers to:",
     options: [
-      "Optimism Bias",
-      "Dunning-Kruger Effect",
-      "Hindsight Bias",
-      "Actor-Observer Bias"
+      "The tendency to place too much confidence in technology",
+      "A cognitive bias where people with low ability overestimate their skills",
+      "The preference for familiar things over novel ones",
+      "The tendency to believe events are more predictable than they actually are"
     ],
     correctAnswer: 1,
-    explanation: "This scenario illustrates the Dunning-Kruger Effect - a cognitive bias where people with limited knowledge or competence in a given intellectual or social domain overestimate their expertise. They lack the metacognitive ability to recognize their own incompetence."
+    explanation: "The Dunning-Kruger Effect is a cognitive bias where people with low ability at a task overestimate their ability. It involves a lack of self-awareness preventing them from accurately assessing their own skills."
   },
   {
     id: 5,
-    question: "You meet someone who is well-dressed and articulate at a business conference. Without knowing much else about them, you assume they must also be intelligent, trustworthy, and successful. What bias is influencing your judgment?",
+    question: "What is the Halo Effect?",
     options: [
-      "Fundamental Attribution Error",
-      "Self-serving Bias",
-      "Bandwagon Effect",
-      "Halo Effect"
+      "The tendency to make decisions based on gut feelings",
+      "The tendency to remember the beginning and end of something, but not the middle",
+      "The tendency to overestimate the influence of personality on behavior",
+      "The tendency to let positive impressions of one trait influence opinion of other traits"
     ],
     correctAnswer: 3,
-    explanation: "This scenario demonstrates the Halo Effect - the tendency to let one positive trait (in this case, appearance and communication skills) influence your opinion of other unrelated traits (like intelligence, trustworthiness, and success)."
+    explanation: "The Halo Effect is a cognitive bias where our overall impression of a person influences how we feel and think about their character. This especially applies to first impressions where one positive quality dominates how that person is viewed."
   },
   {
     id: 6,
-    question: "You've spent months working on a project that's clearly failing, but you continue investing time and resources because you've already put so much into it. What fallacy explains this behavior?",
+    question: "The Sunk Cost Fallacy describes:",
     options: [
-      "Sunk Cost Fallacy",
-      "Gambler's Fallacy",
-      "Planning Fallacy",
-      "Framing Effect"
+      "The tendency to continue an endeavor due to previously invested resources",
+      "The tendency to underestimate how long tasks will take",
+      "The tendency to fear missing out on something",
+      "The tendency to compare ourselves to others"
     ],
     correctAnswer: 0,
-    explanation: "This scenario demonstrates the Sunk Cost Fallacy - continuing a behavior or endeavor due to previously invested resources (time, money, effort) despite evidence suggesting that the cost of continuing outweighs the benefits."
+    explanation: "The Sunk Cost Fallacy is our tendency to continue an endeavor due to previously invested resources (time, money, effort) despite new evidence suggesting that the cost of continuing outweighs the benefits."
   },
   {
     id: 7,
-    question: "You notice that a particular cryptocurrency is gaining popularity among your social circle. Despite knowing little about it, you invest because 'everyone else is doing it.' What cognitive bias is driving your decision?",
+    question: "What is the Bandwagon Effect?",
     options: [
-      "Bandwagon Effect",
-      "Optimism Bias",
-      "IKEA Effect",
-      "Spotlight Effect"
+      "The tendency to do something because everyone else is doing it",
+      "The tendency to favor the first option presented",
+      "The tendency to overestimate the chances of positive outcomes",
+      "The tendency to remember interrupted tasks better than completed ones"
     ],
     correctAnswer: 0,
-    explanation: "This scenario illustrates the Bandwagon Effect - the tendency to adopt behaviors or beliefs because others are doing so, regardless of your own underlying evidence or beliefs. It's driven by the desire to conform and the assumption that if many people are doing something, it must be correct."
+    explanation: "The Bandwagon Effect is the tendency to adopt beliefs, ideas, or behaviors because they are popular or others are adopting them, regardless of their underlying evidence."
   },
   {
     id: 8,
-    question: "Your coworker is late to a meeting, and you immediately think it's because they're lazy and disorganized. When you're late to a meeting, you attribute it to heavy traffic. What cognitive bias explains this discrepancy?",
+    question: "The Fundamental Attribution Error refers to:",
     options: [
-      "Self-serving Bias",
-      "Hindsight Bias",
-      "Fundamental Attribution Error",
-      "Availability Heuristic"
+      "Overestimating the impact of situational factors on others' behavior",
+      "The tendency to remember only information that confirms our beliefs",
+      "Overestimating the impact of personal characteristics on others' behavior",
+      "The preference for simple rather than complex explanations"
     ],
     correctAnswer: 2,
-    explanation: "This scenario demonstrates the Fundamental Attribution Error - the tendency to attribute others' behaviors to their character or personality while attributing your own behavior to external circumstances. We tend to underestimate situational factors when judging others."
+    explanation: "The Fundamental Attribution Error is our tendency to overemphasize personal characteristics and underemphasize situational factors when judging others' behavior. Essentially, we attribute others' actions to their character rather than their circumstances."
   },
   {
     id: 9,
-    question: "You're offered a 50/50 chance to either gain $100 or lose $100. The prospect of losing makes you decline the offer, even though mathematically it's a neutral bet. What cognitive bias is at work?",
+    question: "What is Loss Aversion?",
     options: [
-      "Framing Effect",
-      "Loss Aversion",
-      "Status Quo Bias",
-      "Endowment Effect"
+      "The tendency to avoid doing anything when faced with uncertainty",
+      "The tendency to prefer avoiding losses over acquiring equivalent gains",
+      "The preference for spending money now rather than saving it",
+      "The tendency to become less sensitive to stimuli over time"
     ],
     correctAnswer: 1,
-    explanation: "This scenario illustrates Loss Aversion - the tendency to prefer avoiding losses over acquiring equivalent gains. Studies suggest that losses are psychologically about twice as powerful as gains - losing $100 hurts more than gaining $100 feels good."
+    explanation: "Loss Aversion is our tendency to prefer avoiding losses over acquiring equivalent gains. Studies suggest that losses are psychologically about twice as powerful as gains - losing $100 hurts more than gaining $100 feels good."
   },
   {
     id: 10,
-    question: "You recently learned about a rare medical condition. Suddenly, you notice articles, references, and discussions about it everywhere. What cognitive phenomenon explains this experience?",
+    question: "Which bias describes our tendency to notice things after they've been pointed out to us?",
     options: [
       "Attentional Bias",
       "Frequency Illusion (Baader-Meinhof Phenomenon)",
@@ -126,6 +126,66 @@ export const quizQuestions: QuizQuestion[] = [
       "Observer Effect"
     ],
     correctAnswer: 1,
-    explanation: "This scenario demonstrates the Frequency Illusion, also known as the Baader-Meinhof Phenomenon - when something that has recently come to your attention suddenly seems to appear with improbable frequency. It's a combination of selective attention and confirmation bias."
+    explanation: "The Frequency Illusion, also known as the Baader-Meinhof Phenomenon, is when something that has recently come to your attention suddenly seems to appear with improbable frequency. It's a combination of selective attention and confirmation bias."
+  },
+  {
+    id: 11,
+    question: "The Optimism Bias leads people to:",
+    options: [
+      "Overestimate their abilities compared to others",
+      "Remember positive events more easily than negative ones",
+      "Believe they are less likely to experience negative events than others",
+      "Make decisions based on emotions rather than facts"
+    ],
+    correctAnswer: 2,
+    explanation: "The Optimism Bias is our tendency to believe we are less likely to experience negative events and more likely to experience positive events than others. This can lead to underestimation of risks and poor planning."
+  },
+  {
+    id: 12,
+    question: "What is the IKEA Effect?",
+    options: [
+      "The tendency to value things we helped create more highly",
+      "The tendency to prefer products from certain countries",
+      "The tendency to purchase unnecessary items when shopping",
+      "The tendency to follow instruction manuals incorrectly"
+    ],
+    correctAnswer: 0,
+    explanation: "The IKEA Effect is a cognitive bias where people place a disproportionately high value on products they partially created themselves, regardless of the quality of the end result."
+  },
+  {
+    id: 13,
+    question: "Which cognitive bias describes our tendency to see ourselves as less biased than others?",
+    options: [
+      "Superiority Bias",
+      "Blind Spot Bias",
+      "Illusion of Transparency",
+      "Self-Serving Bias"
+    ],
+    correctAnswer: 1,
+    explanation: "Blind Spot Bias is the tendency to recognize the impact of biases on the judgment of others, while failing to see the impact of biases on one's own judgment. Essentially, it's the bias of thinking we are less biased than others."
+  },
+  {
+    id: 14,
+    question: "What is the Illusory Truth Effect?",
+    options: [
+      "The tendency to believe statements that seem logical must be true",
+      "The tendency to believe something is true because an authority figure says it is",
+      "The tendency to believe repeated statements are more likely to be true",
+      "The tendency to confuse familiarity with truth"
+    ],
+    correctAnswer: 2,
+    explanation: "The Illusory Truth Effect is the tendency to believe information is correct after repeated exposure. This is why repetition is a common element of propaganda - statements seem more true when we've heard them multiple times."
+  },
+  {
+    id: 15,
+    question: "The Spotlight Effect refers to:",
+    options: [
+      "The tendency to overestimate how much others notice our appearance or behavior",
+      "The tendency to remember the most impressive person in a group",
+      "The tendency to focus only on the positive aspects of a situation",
+      "The tendency to pay more attention to people with authority"
+    ],
+    correctAnswer: 0,
+    explanation: "The Spotlight Effect is our tendency to overestimate how much others notice our appearance or behavior. We feel like we're in the spotlight, but in reality, others are typically far less aware of our actions than we believe."
   }
 ];

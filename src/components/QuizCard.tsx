@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -41,7 +40,17 @@ const QuizCard: React.FC<QuizCardProps> = ({
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      {/* Timer bar is now moved to QuizSection component */}
+      {/* Timer bar */}
+      {selectedAnswer === null && (
+        <div className="w-full h-1 bg-gray-200 rounded-full mb-6">
+          <div 
+            className="timer-bar rounded-full"
+            style={{ 
+              animationDuration: `${timePerQuestion}s`,
+            }}
+          />
+        </div>
+      )}
       
       <div className="mb-8">
         <h3 className="text-xl md:text-2xl font-domine mb-2">{question}</h3>
