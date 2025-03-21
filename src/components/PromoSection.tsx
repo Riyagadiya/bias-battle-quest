@@ -8,22 +8,13 @@ const PromoSection = () => {
     <section className="py-20 px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-cognilense-background to-white/60 z-0"></div>
       
-      {/* Card deck image */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl">
-        <img 
-          src="/lovable-uploads/7230cc9c-7de8-4104-802f-c77a9810fe53.png" 
-          alt="CogniLense Card Decks" 
-          className="w-full h-auto object-contain" 
-        />
-      </div>
-      
       <div className="container mx-auto relative z-10">
-        <div className="flex flex-col items-center text-center pt-[280px] md:pt-[320px] max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-domine font-bold mb-6">
+        <div className="flex flex-col items-center text-center pt-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-domine font-bold mb-4">
             Discover the full potential of CogniLense!
           </h2>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl">
+          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl">
             Whether you're looking to solve product challenges or dive deeper into insights through our workshops, let's collaborate.
           </p>
           
