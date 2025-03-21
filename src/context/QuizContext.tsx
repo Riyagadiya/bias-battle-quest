@@ -1,82 +1,126 @@
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { questions } from '../data/questions';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { questionData } from "../data/questions";
 
-export interface QuizContextType {
-  currentQuestionIndex: number;
-  setCurrentQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
+type Question = {
+  id: number;
+  question: string;
+  options: { text: string; isCorrect: boolean }[];
+  explanation: string;
+  type: string;
+};
+
+type QuizContextType = {
+  questions: Question[];
+  currentQuestion: number;
+  answers: (string | null)[];
   score: number;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
-  answers: Record<number, string>;
-  setAnswers: React.Dispatch<React.SetStateAction<Record<number, string>>>;
-  quizStarted: boolean;
-  setQuizStarted: React.Dispatch<React.SetStateAction<boolean>>;
-  quizCompleted: boolean;
-  setQuizCompleted: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedOption: string | null;
-  setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
-  timePerQuestion: number;
-  status: string;
+  status: "idle" | "active" | "complete";
+  percentCorrect: number;
   startQuiz: () => void;
-  restartQuiz: () => void;
-  questions: any[];
-}
+  resetQuiz: () => void;
+  handleAnswer: (answer: string, isCorrect: boolean) => void;
+  goToNextQuestion: () => void;
+};
 
-const QuizContext = createContext<QuizContextType | undefined>(undefined);
+// Default context values
+const defaultContextValue: QuizContextType = {
+  questions: [],
+  currentQuestion: 0,
+  answers: [],
+  score: 0,
+  status: "idle",
+  percentCorrect: 0,
+  startQuiz: () => {},
+  resetQuiz: () => {},
+  handleAnswer: () => {},
+  goToNextQuestion: () => {},
+};
 
-export const QuizProvider = ({ children }: { children: ReactNode }) => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const QuizContext = createContext<QuizContextType>(defaultContextValue);
+
+export const useQuiz = () => useContext(QuizContext);
+
+export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [score, setScore] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [timePerQuestion] = useState(30);
-  const [status, setStatus] = useState<string>("initial"); // initial, active, complete
+  const [status, setStatus] = useState<"idle" | "active" | "complete">("idle");
+  const [percentCorrect, setPercentCorrect] = useState(0);
+  const navigate = useNavigate();
 
-  // Add startQuiz and restartQuiz functions
+  // Load questions
+  useEffect(() => {
+    setQuestions(questionData);
+    // Initialize answers array with nulls based on question count
+    setAnswers(Array(questionData.length).fill(null));
+  }, []);
+
   const startQuiz = () => {
-    setQuizStarted(true);
     setStatus("active");
+    setCurrentQuestion(0);
+    setScore(0);
+    setAnswers(Array(questions.length).fill(null));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const restartQuiz = () => {
-    setCurrentQuestionIndex(0);
+  const resetQuiz = () => {
+    setStatus("idle");
+    setCurrentQuestion(0);
     setScore(0);
-    setAnswers({});
-    setQuizCompleted(false);
-    setSelectedOption(null);
-    setQuizStarted(true);
-    setStatus("active");
+    setAnswers(Array(questions.length).fill(null));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAnswer = (answer: string, isCorrect: boolean) => {
+    // Update answers array
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = answer;
+    setAnswers(newAnswers);
+
+    // Update score if correct
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    // Delay moving to next question or results to allow animation
+    setTimeout(() => {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        // Calculate percentage correct
+        const percent = Math.round((score / questions.length) * 100);
+        setPercentCorrect(percent);
+        setStatus("complete");
+      }
+    }, 1000);
+  };
+
+  const goToNextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      // Calculate percentage correct
+      const percent = Math.round((score / questions.length) * 100);
+      setPercentCorrect(percent);
+      setStatus("complete");
+    }
   };
 
   const value = {
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-    score,
-    setScore,
-    answers,
-    setAnswers,
-    quizStarted,
-    setQuizStarted,
-    quizCompleted,
-    setQuizCompleted,
-    selectedOption,
-    setSelectedOption,
-    timePerQuestion,
-    status,
-    startQuiz,
-    restartQuiz,
     questions,
+    currentQuestion,
+    answers,
+    score,
+    status,
+    percentCorrect,
+    startQuiz,
+    resetQuiz,
+    handleAnswer,
+    goToNextQuestion,
   };
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
-};
-
-export const useQuiz = (): QuizContextType => {
-  const context = useContext(QuizContext);
-  if (context === undefined) {
-    throw new Error('useQuiz must be used within a QuizProvider');
-  }
-  return context;
 };
