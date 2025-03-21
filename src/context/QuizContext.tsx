@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { quizQuestions, QuizQuestion } from "@/data/questions";
 
@@ -24,6 +23,7 @@ interface QuizContextType {
   skipQuestion: () => void;
   restartQuiz: () => void;
   setTimeLeft: (time: number) => void;
+  timePerQuestion: number;
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -32,13 +32,14 @@ export const QuizProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [status, setStatus] = useState<QuizStatus>("idle");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(30);
+  const timePerQuestion = 30;
 
   const startQuiz = () => {
     setStatus("active");
     setCurrentQuestionIndex(0);
     setAnswers([]);
-    setTimeLeft(60);
+    setTimeLeft(30);
   };
 
   const selectAnswer = (optionIndex: number) => {
@@ -74,7 +75,7 @@ export const QuizProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const goToNextQuestion = () => {
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-      setTimeLeft(60);
+      setTimeLeft(30);
     } else {
       setStatus("complete");
     }
@@ -83,7 +84,7 @@ export const QuizProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const goToPreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prev) => prev - 1);
-      setTimeLeft(60);
+      setTimeLeft(30);
     }
   };
 
@@ -127,6 +128,7 @@ export const QuizProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     answers,
     score,
     timeLeft,
+    timePerQuestion,
     startQuiz,
     goToNextQuestion,
     goToPreviousQuestion,
