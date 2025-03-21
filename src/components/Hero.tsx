@@ -37,17 +37,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-4"
-          >
-            <span className="inline-block px-3 py-1 text-xs font-medium bg-white bg-opacity-70 backdrop-blur-sm rounded-full shadow-sm text-cognilense-blue mb-4">
-              Cognilense Cognitive Bias Cards
-            </span>
-          </motion.div>
-          
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
