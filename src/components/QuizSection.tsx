@@ -7,7 +7,7 @@ import { Progress } from "./ui/progress";
 
 const QuizSection = () => {
   const {
-    currentQuestionIndex,
+    currentQuestion: currentQuestionIndex,
     setCurrentQuestionIndex,
     setScore,
     answers,
@@ -46,7 +46,9 @@ const QuizSection = () => {
     const currentQuestion = questions[currentQuestionIndex];
     setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
     
-    if (selectedAnswer === currentQuestion.correctAnswer) {
+    const correctAnswer = currentQuestion.options.find(option => option.isCorrect)?.text || "";
+    
+    if (selectedAnswer === correctAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
     
@@ -134,8 +136,8 @@ const QuizSection = () => {
             >
               <QuizCard
                 question={currentQuestion.question}
-                options={currentQuestion.options}
-                correctAnswer={currentQuestion.correctAnswer}
+                options={currentQuestion.options.map(option => option.text)}
+                correctAnswer={currentQuestion.options.find(option => option.isCorrect)?.text || ""}
                 explanation={currentQuestion.explanation}
                 onAnswer={handleAnswer}
               />
