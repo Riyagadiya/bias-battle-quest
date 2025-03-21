@@ -1,148 +1,57 @@
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { quizQuestions, QuizQuestion } from "@/data/questions";
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { Question } from '../data/questions';
 
-type QuizStatus = "idle" | "active" | "complete";
-
-interface QuizAnswer {
-  questionId: number;
-  selectedOption: number | null;
-  isCorrect: boolean;
-}
-
-interface QuizContextType {
-  status: QuizStatus;
-  questions: QuizQuestion[];
+export interface QuizContextType {
   currentQuestionIndex: number;
-  answers: QuizAnswer[];
+  setCurrentQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
   score: number;
-  timeLeft: number;
-  startQuiz: () => void;
-  goToNextQuestion: () => void;
-  goToPreviousQuestion: () => void;
-  selectAnswer: (optionIndex: number) => void;
-  skipQuestion: () => void;
-  restartQuiz: () => void;
-  setTimeLeft: (time: number) => void;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  answers: Record<number, string>;
+  setAnswers: React.Dispatch<React.SetStateAction<Record<number, string>>>;
+  quizStarted: boolean;
+  setQuizStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  quizCompleted: boolean;
+  setQuizCompleted: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedOption: string | null;
+  setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
+  timePerQuestion: number; // Added missing property
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-export const QuizProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [status, setStatus] = useState<QuizStatus>("idle");
+export const QuizProvider = ({ children }: { children: ReactNode }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [timeLeft, setTimeLeft] = useState(60);
-
-  const startQuiz = () => {
-    setStatus("active");
-    setCurrentQuestionIndex(0);
-    setAnswers([]);
-    setTimeLeft(60);
-  };
-
-  const selectAnswer = (optionIndex: number) => {
-    const currentQuestion = quizQuestions[currentQuestionIndex];
-    const isCorrect = optionIndex === currentQuestion.correctAnswer;
-    
-    setAnswers((prev) => {
-      const existingAnswerIndex = prev.findIndex(
-        (answer) => answer.questionId === currentQuestion.id
-      );
-      
-      if (existingAnswerIndex >= 0) {
-        const newAnswers = [...prev];
-        newAnswers[existingAnswerIndex] = {
-          questionId: currentQuestion.id,
-          selectedOption: optionIndex,
-          isCorrect,
-        };
-        return newAnswers;
-      } else {
-        return [
-          ...prev,
-          {
-            questionId: currentQuestion.id,
-            selectedOption: optionIndex,
-            isCorrect,
-          },
-        ];
-      }
-    });
-  };
-
-  const goToNextQuestion = () => {
-    if (currentQuestionIndex < quizQuestions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setTimeLeft(60);
-    } else {
-      setStatus("complete");
-    }
-  };
-
-  const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prev) => prev - 1);
-      setTimeLeft(60);
-    }
-  };
-
-  const skipQuestion = () => {
-    const currentQuestion = quizQuestions[currentQuestionIndex];
-    
-    setAnswers((prev) => {
-      const existingAnswerIndex = prev.findIndex(
-        (answer) => answer.questionId === currentQuestion.id
-      );
-      
-      if (existingAnswerIndex >= 0) {
-        return prev;
-      } else {
-        return [
-          ...prev,
-          {
-            questionId: currentQuestion.id,
-            selectedOption: null,
-            isCorrect: false,
-          },
-        ];
-      }
-    });
-    
-    goToNextQuestion();
-  };
-
-  const restartQuiz = () => {
-    setStatus("idle");
-    setCurrentQuestionIndex(0);
-    setAnswers([]);
-  };
-
-  const score = answers.filter((answer) => answer.isCorrect).length;
+  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [timePerQuestion] = useState(30); // Set to 30 seconds as requested
 
   const value = {
-    status,
-    questions: quizQuestions,
     currentQuestionIndex,
-    answers,
+    setCurrentQuestionIndex,
     score,
-    timeLeft,
-    startQuiz,
-    goToNextQuestion,
-    goToPreviousQuestion,
-    selectAnswer,
-    skipQuestion,
-    restartQuiz,
-    setTimeLeft,
+    setScore,
+    answers,
+    setAnswers,
+    quizStarted,
+    setQuizStarted,
+    quizCompleted,
+    setQuizCompleted,
+    selectedOption,
+    setSelectedOption,
+    timePerQuestion,
   };
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 };
 
-export const useQuiz = () => {
+export const useQuiz = (): QuizContextType => {
   const context = useContext(QuizContext);
   if (context === undefined) {
-    throw new Error("useQuiz must be used within a QuizProvider");
+    throw new Error('useQuiz must be used within a QuizProvider');
   }
   return context;
 };
