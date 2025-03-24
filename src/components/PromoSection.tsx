@@ -10,12 +10,16 @@ const PromoSection = () => {
       <div className="container mx-auto relative z-10">
         {/* Gradient background container */}
         <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden">
-          {/* Subtle gradient background */}
+          {/* Freeform gradient background */}
           <div 
-            className="absolute inset-0 opacity-15"
+            className="absolute inset-0"
             style={{
-              background: "linear-gradient(135deg, #71BD45, #F7D465, #518FF7, #E59B72)",
-              opacity: "0.15", // Subtle gradient
+              background: `
+                radial-gradient(circle at 20% 30%, rgba(113, 189, 69, 0.15) 0%, rgba(113, 189, 69, 0) 50%),
+                radial-gradient(circle at 80% 20%, rgba(247, 212, 101, 0.15) 0%, rgba(247, 212, 101, 0) 60%),
+                radial-gradient(circle at 40% 80%, rgba(81, 143, 247, 0.15) 0%, rgba(81, 143, 247, 0) 50%),
+                radial-gradient(circle at 70% 70%, rgba(229, 155, 114, 0.15) 0%, rgba(229, 155, 114, 0) 60%)
+              `,
               borderRadius: "1rem"
             }}
           ></div>
