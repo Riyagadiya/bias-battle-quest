@@ -26,10 +26,10 @@ const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "gradient-border-button relative rounded-full font-worksans font-normal",
+        "gradient-border-button relative rounded-full font-worksans font-bold",
         "bg-cognilense-background text-foreground py-3 px-6",
         "transition-all duration-300 ease-in-out",
-        "hover:shadow-glow hover:scale-[1.02] hover:font-medium",
+        "hover:shadow-glow hover:scale-[1.02]",
         "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
         disabled && "opacity-70 pointer-events-none",
         className
