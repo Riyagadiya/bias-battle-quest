@@ -18,7 +18,7 @@ const PromoSection = () => {
         </div>
         
         {/* Gradient background container */}
-        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-40 md:mt-52">
+        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-44 md:mt-56">
           {/* Freeform gradient background */}
           <div 
             className="absolute inset-0"
@@ -33,25 +33,27 @@ const PromoSection = () => {
             }}
           ></div>
           
-          <div className="flex flex-col items-center text-center pt-14 pb-6 relative z-10">
-            <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-4">
+          <div className="flex flex-col items-center text-center pt-20 pb-10 relative z-10 space-y-6">
+            <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[1.3] tracking-[-0.03em] mb-2">
               Discover the full potential<br />
               <span>of CogniLense!</span>
             </h2>
             
-            <p className="font-inter font-normal text-lg md:text-[20px] leading-normal tracking-tight text-muted-foreground mb-8 max-w-2xl">
+            <p className="font-inter font-normal text-lg md:text-[20px] leading-normal tracking-tight text-muted-foreground max-w-2xl">
               Whether you're looking to solve product challenges or dive deeper into insights through our workshops, let's collaborate.
             </p>
             
-            <a 
-              href="https://monsoonfish.com/cognilense/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <GradientButton className="px-8 py-4">
-                Know more about card decks
-              </GradientButton>
-            </a>
+            <div className="mt-4">
+              <a 
+                href="https://monsoonfish.com/cognilense/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <GradientButton className="px-8 py-4">
+                  Know more about card decks
+                </GradientButton>
+              </a>
+            </div>
           </div>
         </div>
       </div>
