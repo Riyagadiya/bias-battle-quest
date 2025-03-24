@@ -113,20 +113,23 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-20 mb-20 max-w-6xl mx-auto"
+          className="mt-20 mb-20 max-w-6xl mx-auto relative"
         >
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Freeflow gradient rectangle */}
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[85%] h-[120%] md:h-[140%] rounded-2xl bg-gradient-to-r from-cognilense-yellow/20 to-cognilense-blue/30 z-0"></div>
+          
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
             <div className="w-full md:w-1/2 text-left">
               <h2 className="mb-3">
                 <span className="font-worksans font-normal text-2xl md:text-3xl block mb-1">See the world from an</span>
                 <span className="font-domine font-bold text-3xl md:text-4xl">experts' lens</span>
               </h2>
             </div>
-            <div className="w-full md:w-1/2 flex justify-end">
+            <div className="w-full md:w-1/2 flex justify-end relative">
               <img 
                 src="/lovable-uploads/6ca639a2-2a6a-4d5c-8a21-0e21ce4ace97.png" 
                 alt="Person experiencing cognitive stress" 
-                className="w-full max-w-sm"
+                className="w-full max-w-sm relative z-10 transform translate-x-4"
               />
             </div>
           </div>
