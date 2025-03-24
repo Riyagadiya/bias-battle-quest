@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -28,6 +27,12 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       }
     };
   }, []);
+
+  const handleStartQuiz = () => {
+    if (startQuiz && typeof startQuiz === 'function') {
+      startQuiz();
+    }
+  };
 
   const biasCards = [
     {
@@ -108,7 +113,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
             className="flex justify-center mt-16"
           >
-            <GradientButton onClick={startQuiz} className="text-base md:text-lg px-8 py-4">
+            <GradientButton onClick={handleStartQuiz} className="text-base md:text-lg px-8 py-4">
               Take the Challenge
             </GradientButton>
           </motion.div>
