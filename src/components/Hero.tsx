@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -58,7 +57,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       className="min-h-screen flex items-center justify-center py-16 px-6 md:px-8 relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[#f9f9f9]">
-        {/* First background layer - pattern with full opacity */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
@@ -66,7 +64,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           }}
         ></div>
         
-        {/* Second background layer - existing background image with reduced opacity */}
         <div 
           className="absolute inset-0 bg-no-repeat bg-top z-10"
           style={{
@@ -115,14 +112,12 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             </GradientButton>
           </motion.div>
           
-          {/* Micro animation icons in linear layout */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
             transition={{ duration: 0.5, delay: 0.8 }}
             className="flex justify-center gap-10 mt-12"
           >
-            {/* Brain icon with pulse animation */}
             <motion.div
               animate={{ 
                 scale: [1, 1.05, 1],
@@ -141,7 +136,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </div>
             </motion.div>
             
-            {/* Target icon with rotate animation */}
             <motion.div
               animate={{ 
                 rotate: [0, 5, 0, -5, 0]
@@ -160,7 +154,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </div>
             </motion.div>
             
-            {/* Zap icon with pulse and float animation */}
             <motion.div
               animate={{ 
                 y: [0, -5, 0],
@@ -185,7 +178,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-96 mb-6 max-w-6xl mx-auto relative"
+          className="mt-60 mb-6 max-w-6xl mx-auto relative"
         >
           <div className="absolute right-0 top-0 w-[50%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
