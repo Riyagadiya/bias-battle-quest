@@ -64,7 +64,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           style={{
             backgroundImage: "url('/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png')",
             backgroundSize: "100% auto",
-            filter: "grayscale(100%) opacity(0.3)",
+            filter: "grayscale(100%) opacity(0.6)", // Increased opacity from 0.3 to 0.6
             maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))",
             WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))"
           }}
