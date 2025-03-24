@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -29,7 +28,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
     };
   }, []);
 
-  // Cognitive bias cards data
   const biasCards = [
     {
       title: "Framing bias",
@@ -58,7 +56,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       ref={heroRef}
       className="min-h-screen flex items-center justify-center py-16 px-6 md:px-8 relative overflow-hidden"
     >
-      {/* Background with wave pattern and gradient dissolve */}
       <div className="absolute inset-0 bg-[#f9f9f9]">
         <div 
           className="absolute inset-0 bg-no-repeat bg-top"
@@ -109,18 +106,15 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Illustration section - scaled down to fit in one fold */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
           className="mt-12 max-w-6xl mx-auto relative"
         >
-          {/* Gradient background rectangle */}
           <div className="absolute right-0 top-0 w-3/5 h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
           <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
-            {/* Left text content */}
             <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-8">
               <div className="mb-5">
                 <h2 className="font-worksans font-normal text-xl md:text-2xl">See the world from an</h2>
@@ -132,11 +126,9 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </button>
             </div>
             
-            {/* Right content - with image positioned and scaled down */}
             <div className="w-full md:w-3/5 flex flex-col mt-6 md:mt-0">
               <div className="relative">
-                {/* Image positioned to extend outside the gradient rectangle on the left, but scaled down */}
-                <div className="relative -left-1/6 md:-left-1/6 w-[115%]">
+                <div className="relative -left-1/6 md:-left-1/6 w-[105%]">
                   <img 
                     src="/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png" 
                     alt="Man with hands on head illustrating cognitive bias" 
