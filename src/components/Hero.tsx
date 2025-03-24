@@ -57,8 +57,21 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       ref={heroRef}
       className="min-h-screen flex items-center justify-center py-24 px-6 md:px-8 relative overflow-hidden"
     >
-      {/* Wave background image */}
+      {/* Wave background pattern */}
       <div className="absolute inset-0 bg-[#f9f9f9] opacity-60">
+        {/* First wave pattern (colorful but grayscaled) */}
+        <div 
+          className="absolute inset-0 bg-contain bg-center opacity-25"
+          style={{
+            backgroundImage: "url('/lovable-uploads/dc1377b4-c8af-482a-8fb2-804f21559ba4.png')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            filter: "grayscale(100%)"
+          }}
+        ></div>
+        
+        {/* Secondary pattern as backup/texture */}
         <div 
           className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-15"
           style={{
