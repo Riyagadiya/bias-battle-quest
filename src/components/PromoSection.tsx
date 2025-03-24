@@ -17,8 +17,8 @@ const PromoSection = () => {
           />
         </div>
         
-        {/* Gradient background container */}
-        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-40 md:mt-52">
+        {/* Gradient background container - increased top margin and padding */}
+        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-48 md:mt-64">
           {/* Freeform gradient background */}
           <div 
             className="absolute inset-0"
@@ -33,13 +33,13 @@ const PromoSection = () => {
             }}
           ></div>
           
-          <div className="flex flex-col items-center text-center pt-14 pb-6 relative z-10">
-            <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-4">
+          <div className="flex flex-col items-center text-center pt-24 pb-8 relative z-10">
+            <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-6">
               Discover the full potential<br />
               <span>of CogniLense!</span>
             </h2>
             
-            <p className="font-inter font-normal text-lg md:text-[20px] leading-normal tracking-tight text-muted-foreground mb-8 max-w-2xl">
+            <p className="font-inter font-normal text-lg md:text-[20px] leading-normal tracking-tight text-muted-foreground mb-10 max-w-2xl">
               Whether you're looking to solve product challenges or dive deeper into insights through our workshops, let's collaborate.
             </p>
             
