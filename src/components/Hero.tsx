@@ -113,7 +113,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           transition={{ duration: 0.7, delay: 0.7 }}
           className="mt-12 max-w-6xl mx-auto relative"
         >
-          <div className="absolute right-0 top-0 w-3/5 h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
+          <div className="absolute right-0 top-0 w-[55%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
           <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
             <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-8">
