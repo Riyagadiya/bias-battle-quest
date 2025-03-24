@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import GradientButton from "./GradientButton";
 
 const Hero = () => {
-  const { startQuiz: contextStartQuiz } = useQuiz();
+  const { startQuiz } = useQuiz();
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -36,7 +36,6 @@ const Hero = () => {
   const handleStartQuiz = () => {
     try {
       toast.success("Starting quiz challenge!");
-      contextStartQuiz();
       navigate("/quiz");
     } catch (error) {
       console.error("Error navigating to quiz:", error);

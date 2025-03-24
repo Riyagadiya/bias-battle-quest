@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
@@ -10,27 +10,31 @@ import { toast } from "sonner";
 
 const Quiz = () => {
   const navigate = useNavigate();
-  const { startQuiz, quizStarted, quizCompleted } = useQuiz();
+  const { startQuiz, status, quizCompleted } = useQuiz();
   
   // Start the quiz when the page loads
   useEffect(() => {
-    // Start the quiz
-    try {
-      startQuiz();
-      
-      // If the quiz is completed, navigate to the results page
-      if (quizCompleted) {
-        navigate("/results");
-      }
-    } catch (error) {
-      console.error("Error starting quiz:", error);
-      toast.error("There was an error starting the quiz");
-      navigate("/");
+    // If the quiz is already completed, navigate to results
+    if (quizCompleted) {
+      navigate("/results");
+      return;
     }
-  }, [quizCompleted, navigate, startQuiz]);
+    
+    // Start the quiz if we're in idle state
+    if (status === "idle") {
+      try {
+        startQuiz();
+        toast.success("Quiz started! Good luck!");
+      } catch (error) {
+        console.error("Error starting quiz:", error);
+        toast.error("There was an error starting the quiz");
+        navigate("/");
+      }
+    }
+  }, [quizCompleted, navigate, startQuiz, status]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-cognilense-background">
+    <div className="flex flex-col min-h-screen">
       <Header />
       
       <main className="flex-grow">
