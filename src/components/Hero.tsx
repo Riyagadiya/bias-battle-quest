@@ -125,6 +125,10 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               <button className="flex items-center gap-2 border border-gray-300 rounded-full px-5 py-2 text-sm md:text-base font-worksans hover:bg-gray-50 transition-colors">
                 Meet the Expert <ArrowUpRight size={16} />
               </button>
+              
+              <p className="font-worksans text-sm md:text-base text-gray-700 mt-4 max-w-lg">
+                We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
+              </p>
             </div>
             
             <div className="w-full md:w-3/5 flex flex-col mt-6 md:mt-0">
@@ -135,12 +139,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                     alt="Man with hands on head illustrating cognitive bias" 
                     className="w-full h-auto object-contain z-10"
                   />
-                </div>
-                
-                <div className="relative px-4 md:px-6 py-3 mt-1">
-                  <p className="font-worksans text-sm md:text-base text-gray-700">
-                    We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
-                  </p>
                 </div>
               </div>
             </div>
