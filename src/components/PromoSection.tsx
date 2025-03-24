@@ -8,8 +8,17 @@ const PromoSection = () => {
       <div className="absolute inset-0 bg-[#f9f9f9] z-0"></div>
       
       <div className="container mx-auto relative z-10">
+        {/* Cards image - positioned to overlap with the gradient container */}
+        <div className="absolute left-1/2 -translate-x-1/2 -top-10 md:-top-20 w-full max-w-xl mx-auto z-20">
+          <img 
+            src="/lovable-uploads/7c1b09cd-f3e8-458c-b468-6a939ae1cd4b.png" 
+            alt="CogniLense Card Deck" 
+            className="w-full h-auto"
+          />
+        </div>
+        
         {/* Gradient background container */}
-        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden">
+        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-40 md:mt-52">
           {/* Freeform gradient background */}
           <div 
             className="absolute inset-0"
