@@ -56,7 +56,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   return (
     <section 
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center py-24 px-6 md:px-8 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center py-16 px-6 md:px-8 relative overflow-hidden"
     >
       {/* Background with wave pattern and gradient dissolve */}
       <div className="absolute inset-0 bg-[#f9f9f9]">
@@ -73,12 +73,12 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       </div>
       
       <div className="container mx-auto relative">
-        <div className="max-w-4xl mx-auto text-center pt-10 md:pt-16">
+        <div className="max-w-4xl mx-auto text-center pt-8 md:pt-12">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-8"
+            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-6"
           >
             Cognitive Biases:
             <br /> 
@@ -91,7 +91,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-12"
+            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-8"
           >
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
@@ -109,34 +109,34 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Illustration section - with image positioned as requested */}
+        {/* Illustration section - scaled down to fit in one fold */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-20 mb-20 max-w-6xl mx-auto relative overflow-visible"
+          className="mt-12 max-w-6xl mx-auto relative"
         >
           {/* Gradient background rectangle */}
           <div className="absolute right-0 top-0 w-3/5 h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
           <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
             {/* Left text content */}
-            <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-16">
-              <div className="mb-6">
-                <h2 className="font-worksans font-normal text-2xl md:text-3xl">See the world from an</h2>
-                <h2 className="font-domine font-bold text-5xl md:text-6xl mt-1">experts' lens</h2>
+            <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-8">
+              <div className="mb-5">
+                <h2 className="font-worksans font-normal text-xl md:text-2xl">See the world from an</h2>
+                <h2 className="font-domine font-bold text-4xl md:text-5xl mt-1">experts' lens</h2>
               </div>
               
-              <button className="flex items-center gap-2 border border-gray-300 rounded-full px-6 py-3 text-base font-worksans hover:bg-gray-50 transition-colors">
-                Meet the Expert <ArrowUpRight size={18} />
+              <button className="flex items-center gap-2 border border-gray-300 rounded-full px-5 py-2 text-sm md:text-base font-worksans hover:bg-gray-50 transition-colors">
+                Meet the Expert <ArrowUpRight size={16} />
               </button>
             </div>
             
-            {/* Right content - with image positioned as requested */}
-            <div className="w-full md:w-3/5 flex flex-col mt-10 md:mt-0">
+            {/* Right content - with image positioned and scaled down */}
+            <div className="w-full md:w-3/5 flex flex-col mt-6 md:mt-0">
               <div className="relative">
-                {/* Image positioned to extend outside the gradient rectangle on the left */}
-                <div className="relative -left-1/4 md:-left-1/4 w-[125%]">
+                {/* Image positioned to extend outside the gradient rectangle on the left, but scaled down */}
+                <div className="relative -left-1/6 md:-left-1/6 w-[115%]">
                   <img 
                     src="/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png" 
                     alt="Man with hands on head illustrating cognitive bias" 
@@ -144,8 +144,8 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                   />
                 </div>
                 
-                <div className="relative px-4 md:px-8 py-4 mt-2">
-                  <p className="font-worksans text-base md:text-lg text-gray-700">
+                <div className="relative px-4 md:px-6 py-3 mt-1">
+                  <p className="font-worksans text-sm md:text-base text-gray-700">
                     We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
                   </p>
                 </div>
@@ -158,9 +158,9 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 60 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 max-w-6xl mx-auto"
+          className="mt-16 max-w-6xl mx-auto"
         >
-          <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-10">
+          <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-8">
             Sneak Peak into Cognitive Biases
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
