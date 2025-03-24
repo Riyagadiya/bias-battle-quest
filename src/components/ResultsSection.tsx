@@ -44,9 +44,7 @@ const ResultsSection = () => {
   }
 
   return (
-    <section className="py-24 px-6 md:px-8 min-h-screen flex items-center relative">
-      <div className="absolute inset-0 wave-pattern"></div>
-      
+    <section className="py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10">
