@@ -8,17 +8,8 @@ const PromoSection = () => {
       <div className="absolute inset-0 bg-[#f9f9f9] z-0"></div>
       
       <div className="container mx-auto relative z-10">
-        {/* Cards image - positioned to overlap with the gradient container */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-10 md:-top-20 w-full max-w-xl mx-auto z-20">
-          <img 
-            src="/lovable-uploads/7c1b09cd-f3e8-458c-b468-6a939ae1cd4b.png" 
-            alt="CogniLense Card Deck" 
-            className="w-full h-auto"
-          />
-        </div>
-        
-        {/* Gradient background container - increased top margin and padding */}
-        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden mt-48 md:mt-64">
+        {/* Gradient background container */}
+        <div className="relative max-w-4xl mx-auto rounded-2xl p-10 overflow-hidden">
           {/* Freeform gradient background */}
           <div 
             className="absolute inset-0"
@@ -33,7 +24,16 @@ const PromoSection = () => {
             }}
           ></div>
           
-          <div className="flex flex-col items-center text-center pt-24 pb-8 relative z-10">
+          <div className="flex flex-col items-center text-center relative z-10 pt-10 pb-8">
+            {/* Cards image - now positioned inside the gradient container, above the title */}
+            <div className="w-full max-w-md mx-auto mb-10">
+              <img 
+                src="/lovable-uploads/7c1b09cd-f3e8-458c-b468-6a939ae1cd4b.png" 
+                alt="CogniLense Card Deck" 
+                className="w-full h-auto"
+              />
+            </div>
+            
             <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-6">
               Discover the full potential<br />
               <span>of CogniLense!</span>
