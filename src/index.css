@@ -88,7 +88,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 9999px; /* full rounded */
+    border-radius: 0.5rem; /* rounded-lg instead of rounded-full */
     padding: 2px;
     background: linear-gradient(90deg, #71BD45, #F7D465, #518FF7, #E59B72);
     background-size: 200% auto;
