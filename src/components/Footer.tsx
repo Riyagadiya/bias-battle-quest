@@ -21,7 +21,7 @@ const Footer = () => {
           </p>
           
           <a 
-            href="https://www.amazon.com" 
+            href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-cognilense-blue hover:underline"
