@@ -49,7 +49,7 @@ const ResultsSection = () => {
       <div className="absolute inset-0 wave-pattern"></div>
       
       <div className="container mx-auto relative">
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="px-6 py-8 md:p-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -85,9 +85,9 @@ const ResultsSection = () => {
             </motion.div>
           </div>
           
-          <div className="px-6 py-5 bg-gray-50 border-t">
-            <div className="max-w-2xl mx-auto">
-              <h3 className="font-domine font-semibold mb-4">Question Summary</h3>
+          <div className="px-6 py-8 bg-gray-50 border-t">
+            <div className="max-w-4xl mx-auto">
+              <h3 className="font-domine font-semibold text-xl mb-6">Question Summary</h3>
               <QuestionSummaryList answersArray={answersArray} questions={questions} />
             </div>
           </div>

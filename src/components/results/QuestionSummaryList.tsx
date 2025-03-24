@@ -1,5 +1,6 @@
 
 import { CheckCircle, XCircle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface Question {
   id: number;
@@ -22,32 +23,36 @@ interface QuestionSummaryListProps {
 
 const QuestionSummaryList = ({ answersArray, questions }: QuestionSummaryListProps) => {
   return (
-    <div className="space-y-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {answersArray.map((answer, index) => (
-        <div 
+        <Card 
           key={`summary-${index}`}
-          className="flex items-start gap-3 p-3 rounded-md bg-white border"
+          className="border border-gray-200 overflow-hidden bg-white transition-all"
         >
-          {answer.isCorrect ? (
-            <CheckCircle size={20} className="text-green-500 flex-shrink-0 mt-0.5" />
-          ) : (
-            <XCircle size={20} className="text-red-500 flex-shrink-0 mt-0.5" />
-          )}
-          <div>
-            <p className="font-medium">
-              {questions[answer.questionIndex].question}
-            </p>
-            {answer.selectedOption !== null ? (
-              <p className="text-sm text-muted-foreground mt-1">
-                Your answer: {answer.selectedOption}
-              </p>
-            ) : (
-              <p className="text-sm text-muted-foreground mt-1">
-                Skipped
-              </p>
-            )}
-          </div>
-        </div>
+          <CardContent className="p-5">
+            <div className="flex items-start gap-3">
+              {answer.isCorrect ? (
+                <CheckCircle size={20} className="text-cognilense-green flex-shrink-0 mt-0.5" />
+              ) : (
+                <XCircle size={20} className="text-red-500 flex-shrink-0 mt-0.5" />
+              )}
+              <div>
+                <p className="font-domine font-medium text-base">
+                  {questions[answer.questionIndex].question}
+                </p>
+                {answer.selectedOption !== null ? (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Your answer: {answer.selectedOption}
+                  </p>
+                ) : (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Skipped
+                  </p>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       ))}
     </div>
   );
