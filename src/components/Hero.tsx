@@ -43,13 +43,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
     }
   };
 
-  const handleLearnMore = () => {
-    const biasCardsSection = document.querySelector('.bias-cards-section');
-    if (biasCardsSection) {
-      biasCardsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const biasCards = [
     {
       title: "Framing bias",
@@ -127,7 +120,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.9 }}
             transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-            className="flex justify-center gap-4 mt-16"
+            className="flex justify-center mt-16"
           >
             <GradientButton 
               onClick={handleStartQuiz} 
@@ -135,14 +128,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               icon={true}
             >
               Take the Challenge
-            </GradientButton>
-            
-            <GradientButton 
-              onClick={handleLearnMore} 
-              className="text-base md:text-lg px-8 py-4 bg-white hover:bg-gray-50"
-              icon={false}
-            >
-              Learn More
             </GradientButton>
           </motion.div>
           
