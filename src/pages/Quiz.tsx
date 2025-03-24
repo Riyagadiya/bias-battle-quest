@@ -27,7 +27,7 @@ const Quiz = () => {
       toast.error("There was an error starting the quiz");
       navigate("/");
     }
-  }, [quizCompleted, navigate]);
+  }, [quizCompleted, navigate, startQuiz]);  // Added startQuiz to the dependency array
 
   return (
     <div className="flex flex-col min-h-screen">
