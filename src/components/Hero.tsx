@@ -58,8 +58,17 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       className="min-h-screen flex items-center justify-center py-16 px-6 md:px-8 relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[#f9f9f9]">
+        {/* First background layer - pattern with full opacity */}
         <div 
-          className="absolute inset-0 bg-no-repeat bg-top"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          style={{
+            backgroundImage: "url('/lovable-uploads/151f7968-44c7-4234-837a-9cbded9c6f9e.png')",
+          }}
+        ></div>
+        
+        {/* Second background layer - existing background image with reduced opacity */}
+        <div 
+          className="absolute inset-0 bg-no-repeat bg-top z-10"
           style={{
             backgroundImage: "url('/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png')",
             backgroundSize: "100% auto",
