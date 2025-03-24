@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -128,7 +129,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             
             <div className="w-full md:w-3/5 flex flex-col mt-6 md:mt-0">
               <div className="relative">
-                <div className="relative -left-1/6 md:-left-1/6 w-[105%]">
+                <div className="relative -left-1/6 md:-left-1/6 w-[90%]">
                   <img 
                     src="/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png" 
                     alt="Man with hands on head illustrating cognitive bias" 
