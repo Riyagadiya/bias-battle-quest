@@ -11,10 +11,9 @@ const ResultsSection = () => {
   
   if (status !== "complete") return null;
   
-  // Convert the answers record to an array for easier processing
-  const answersArray = Object.entries(answers).map(([questionIndex, answer]) => {
-    const index = parseInt(questionIndex);
-    const question = questions[index];
+  // Process the answers array for easier handling
+  const answersArray = questions.map((question, index) => {
+    const answer = answers[index];
     const isCorrect = answer === question.options.find(option => option.isCorrect)?.text;
     
     return {

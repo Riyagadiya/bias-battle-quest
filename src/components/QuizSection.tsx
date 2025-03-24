@@ -44,7 +44,11 @@ const QuizSection = () => {
 
   const handleAnswer = (selectedAnswer: string) => {
     const currentQuestion = questions[currentQuestionIndex];
-    setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
+    
+    // Update answers array properly
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = selectedAnswer;
+    setAnswers(newAnswers);
     
     const correctAnswer = currentQuestion.options.find(option => option.isCorrect)?.text || "";
     
@@ -82,7 +86,11 @@ const QuizSection = () => {
   };
   
   const handleSkip = () => {
-    setAnswers({ ...answers, [currentQuestionIndex]: "skipped" });
+    // Update the answers array properly for skipped questions
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = "skipped";
+    setAnswers(newAnswers);
+    
     handleNext();
   };
 
