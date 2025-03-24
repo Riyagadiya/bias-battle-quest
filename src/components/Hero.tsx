@@ -1,9 +1,10 @@
+
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Target, Zap } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
@@ -36,7 +37,8 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   const handleStartQuiz = () => {
     try {
       toast.success("Starting quiz challenge!");
-      contextStartQuiz();
+      // Instead of starting the quiz here, we'll navigate to the quiz page
+      navigate("/quiz");
     } catch (error) {
       console.error("Error starting quiz:", error);
       toast.error("Couldn't start the quiz. Please try again.");
