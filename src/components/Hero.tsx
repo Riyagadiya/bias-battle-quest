@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Brain, Target, Zap } from "lucide-react";
 
 const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -113,6 +113,71 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             <GradientButton onClick={startQuiz} className="text-base md:text-lg px-8 py-4">
               Take the Challenge
             </GradientButton>
+          </motion.div>
+          
+          {/* Micro animation icons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="flex justify-center gap-10 mt-12"
+          >
+            {/* Brain icon with pulse animation */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.05, 1],
+                opacity: [0.85, 1, 0.85]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "mirror"
+              }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-cognilense-green/10 rounded-full blur-md" />
+              <div className="relative bg-white p-3 rounded-full shadow-md">
+                <Brain className="w-8 h-8 text-cognilense-green" strokeWidth={1.5} />
+              </div>
+            </motion.div>
+            
+            {/* Target icon with rotate animation */}
+            <motion.div
+              animate={{ 
+                rotate: [0, 5, 0, -5, 0]
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                repeatType: "mirror",
+                ease: "easeInOut"
+              }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-cognilense-blue/10 rounded-full blur-md" />
+              <div className="relative bg-white p-3 rounded-full shadow-md">
+                <Target className="w-8 h-8 text-cognilense-blue" strokeWidth={1.5} />
+              </div>
+            </motion.div>
+            
+            {/* Zap icon with pulse and float animation */}
+            <motion.div
+              animate={{ 
+                y: [0, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "mirror"
+              }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-cognilense-yellow/10 rounded-full blur-md" />
+              <div className="relative bg-white p-3 rounded-full shadow-md">
+                <Zap className="w-8 h-8 text-cognilense-yellow" strokeWidth={1.5} />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
