@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -108,29 +109,44 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Illustration section - right aligned image, left aligned text */}
+        {/* Illustration section - updated to match the reference image */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-20 mb-20 max-w-6xl mx-auto relative"
+          className="mt-20 mb-20 max-w-6xl mx-auto relative overflow-visible"
         >
-          {/* Freeflow gradient rectangle */}
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[85%] h-[120%] md:h-[140%] rounded-2xl bg-gradient-to-r from-cognilense-yellow/20 to-cognilense-blue/30 z-0"></div>
+          {/* Gradient background rectangle */}
+          <div className="absolute right-0 top-0 w-3/5 h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
-            <div className="w-full md:w-1/2 text-left">
-              <h2 className="mb-3">
-                <span className="font-worksans font-normal text-2xl md:text-3xl block mb-1">See the world from an</span>
-                <span className="font-domine font-bold text-3xl md:text-4xl">experts' lens</span>
-              </h2>
+          <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
+            {/* Left text content */}
+            <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-16">
+              <div className="mb-6">
+                <h2 className="font-worksans font-normal text-2xl md:text-3xl">See the world from an</h2>
+                <h2 className="font-domine font-bold text-5xl md:text-6xl mt-1">experts' lens</h2>
+              </div>
+              
+              <button className="flex items-center gap-2 border border-gray-300 rounded-full px-6 py-3 text-base font-worksans hover:bg-gray-50 transition-colors">
+                Meet the Expert <ArrowUpRight size={18} />
+              </button>
             </div>
-            <div className="w-full md:w-1/2 flex justify-end relative">
-              <img 
-                src="/lovable-uploads/6ca639a2-2a6a-4d5c-8a21-0e21ce4ace97.png" 
-                alt="Person experiencing cognitive stress" 
-                className="w-full max-w-sm relative z-10 transform translate-x-4"
-              />
+            
+            {/* Right image and text */}
+            <div className="w-full md:w-3/5 flex flex-col mt-10 md:mt-0">
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/cd0f6854-01ab-4795-8b16-005df81d6f9d.png" 
+                  alt="Expert with brain lens" 
+                  className="w-full object-contain z-10"
+                />
+                
+                <div className="mt-6 md:mt-8 px-4 md:px-8 pb-8">
+                  <p className="font-worksans text-base md:text-lg text-gray-700">
+                    We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
