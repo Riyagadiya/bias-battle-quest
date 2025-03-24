@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -64,7 +63,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           style={{
             backgroundImage: "url('/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png')",
             backgroundSize: "100% auto",
-            filter: "grayscale(100%) opacity(0.6)", // Increased opacity from 0.3 to 0.6
+            filter: "grayscale(100%) opacity(0.6)",
             maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))",
             WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))"
           }}
@@ -72,7 +71,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       </div>
       
       <div className="container mx-auto relative">
-        <div className="max-w-4xl mx-auto text-center pt-16 md:pt-24">
+        <div className="max-w-4xl mx-auto text-center pt-10 md:pt-16">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
