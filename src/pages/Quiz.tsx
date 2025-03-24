@@ -6,6 +6,7 @@ import { useQuiz } from "@/context/QuizContext";
 import Header from "@/components/Header";
 import QuizSection from "@/components/QuizSection";
 import Footer from "@/components/Footer";
+import { toast } from "sonner";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -13,13 +14,20 @@ const Quiz = () => {
   
   // Start the quiz when the page loads
   useEffect(() => {
-    startQuiz();
-    
-    // If the quiz is completed, navigate to the results page
-    if (quizCompleted) {
-      navigate("/results");
+    // Start the quiz
+    try {
+      startQuiz();
+      
+      // If the quiz is completed, navigate to the results page
+      if (quizCompleted) {
+        navigate("/results");
+      }
+    } catch (error) {
+      console.error("Error starting quiz:", error);
+      toast.error("There was an error starting the quiz");
+      navigate("/");
     }
-  }, [startQuiz, quizCompleted, navigate]);
+  }, [quizCompleted, navigate]);
 
   return (
     <div className="flex flex-col min-h-screen">

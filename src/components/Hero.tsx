@@ -37,10 +37,10 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   const handleStartQuiz = () => {
     try {
       toast.success("Starting quiz challenge!");
-      // Instead of starting the quiz here, we'll navigate to the quiz page
+      // Navigate directly to the quiz page
       navigate("/quiz");
     } catch (error) {
-      console.error("Error starting quiz:", error);
+      console.error("Error navigating to quiz:", error);
       toast.error("Couldn't start the quiz. Please try again.");
     }
   };
