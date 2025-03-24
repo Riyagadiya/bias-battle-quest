@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useQuiz } from "../context/QuizContext";
+import { Card, CardContent } from "./ui/card";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Check, Clock, Brain, AlertTriangle } from "lucide-react";
 
 export interface QuizCardProps {
   question: string;
@@ -20,42 +23,9 @@ const QuizCard = ({
 }: QuizCardProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30); // Default to 30 seconds
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  
   const { timePerQuestion, setSelectedOption: setContextSelectedOption } = useQuiz();
   
-  // Set initial time based on context
-  useEffect(() => {
-    setTimeLeft(timePerQuestion);
-  }, [timePerQuestion]);
-
-  // Timer effect
-  useEffect(() => {
-    if (timeLeft > 0 && !showFeedback) {
-      timerRef.current = setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-    } else if (timeLeft === 0 && !showFeedback) {
-      handleOptionSelect("Time's up!");
-    }
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [timeLeft, showFeedback]);
-
-  // Reset timer when question changes
-  useEffect(() => {
-    setTimeLeft(timePerQuestion);
-    setSelectedOption(null);
-    setShowFeedback(false);
-    
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [question, timePerQuestion]);
-
+  // Handle option selection
   const handleOptionSelect = (option: string) => {
     if (showFeedback || selectedOption) return;
     
@@ -63,32 +33,14 @@ const QuizCard = ({
     setContextSelectedOption(option);
     setShowFeedback(true);
     
-    if (timerRef.current) clearTimeout(timerRef.current);
-    
     setTimeout(() => {
       onAnswer(option);
       setShowFeedback(false);
     }, 1500);
   };
 
-  const getTimerColor = () => {
-    if (timeLeft > 20) return "bg-gradient-to-r from-green-300 to-green-500";
-    if (timeLeft > 10) return "bg-gradient-to-r from-yellow-300 to-yellow-500";
-    return "bg-gradient-to-r from-orange-300 to-red-500";
-  };
-
   return (
-    <div className="w-full">
-      {/* Timer bar */}
-      <div className="w-full h-1 bg-gray-200 rounded-full mb-6 overflow-hidden">
-        <motion.div
-          className={`h-full ${getTimerColor()}`}
-          initial={{ width: "100%" }}
-          animate={{ width: `${(timeLeft / timePerQuestion) * 100}%` }}
-          transition={{ duration: 1, ease: "linear" }}
-        />
-      </div>
-      
+    <div className="w-full relative">      
       {/* Question */}
       <h3 className="font-inter text-xl md:text-2xl mb-8 font-medium">{question}</h3>
       
@@ -115,6 +67,20 @@ const QuizCard = ({
           >
             <div className="flex items-start">
               <span className="font-inter text-base md:text-lg">{option}</span>
+              {selectedOption === option && showFeedback && (
+                <span className="ml-auto">
+                  {option === correctAnswer ? (
+                    <Check className="text-green-500" />
+                  ) : (
+                    <AlertTriangle className="text-red-500" />
+                  )}
+                </span>
+              )}
+              {showFeedback && option === correctAnswer && selectedOption !== option && (
+                <span className="ml-auto">
+                  <Check className="text-green-500" />
+                </span>
+              )}
             </div>
           </motion.button>
         ))}

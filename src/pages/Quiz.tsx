@@ -39,6 +39,7 @@ const Quiz = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
+          className="container mx-auto"
         >
           <QuizSection />
         </motion.div>
