@@ -49,48 +49,52 @@ const ResultsSection = () => {
       <div className="absolute inset-0 wave-pattern"></div>
       
       <div className="container mx-auto relative">
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="px-6 py-8 md:p-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-10"
-            >
-              <h2 className="text-3xl md:text-4xl font-domine font-bold mb-4">
-                Your Results
-              </h2>
-              <p className="text-muted-foreground">
-                See how well you understand cognitive biases
-              </p>
-            </motion.div>
-            
-            <ResultsSummary 
-              percentage={percentage} 
-              correctAnswers={correctAnswers} 
-              totalQuestions={questions.length} 
-              resultMessage={resultMessage} 
-              resultDescription={resultDescription} 
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="border-t pt-8"
-            >
-              <DiscountSection />
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10">
+            <div className="px-6 py-8 md:p-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-10"
+              >
+                <h2 className="text-3xl md:text-4xl font-domine font-bold mb-4">
+                  Your Results
+                </h2>
+                <p className="text-muted-foreground">
+                  See how well you understand cognitive biases
+                </p>
+              </motion.div>
               
-              <ActionButtons restartQuiz={restartQuiz} />
-            </motion.div>
-          </div>
-          
-          <div className="px-6 py-5 bg-gray-50 border-t">
-            <div className="max-w-2xl mx-auto">
-              <h3 className="font-domine font-semibold mb-4">Question Summary</h3>
-              <QuestionSummaryList answersArray={answersArray} questions={questions} />
+              <ResultsSummary 
+                percentage={percentage} 
+                correctAnswers={correctAnswers} 
+                totalQuestions={questions.length} 
+                resultMessage={resultMessage} 
+                resultDescription={resultDescription} 
+              />
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="border-t pt-8"
+              >
+                <DiscountSection />
+                
+                <ActionButtons restartQuiz={restartQuiz} />
+              </motion.div>
             </div>
           </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-10"
+          >
+            <QuestionSummaryList answersArray={answersArray} questions={questions} />
+          </motion.div>
         </div>
       </div>
     </section>
