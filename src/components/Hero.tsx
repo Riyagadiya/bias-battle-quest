@@ -60,9 +60,11 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       {/* Wave background image */}
       <div className="absolute inset-0 bg-[#f9f9f9] opacity-60">
         <div 
-          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-15"
           style={{
-            backgroundImage: "url('/lovable-uploads/e7e51539-77f2-43b9-920c-2c0bf8627640.png')",
+            backgroundImage: "url('/lovable-uploads/ee9b8163-9760-4942-a96c-c4bea457f891.png')",
+            backgroundSize: "cover",
+            filter: "grayscale(100%)"
           }}
         ></div>
       </div>
