@@ -110,7 +110,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-20 mb-6 max-w-6xl mx-auto relative"
+          className="mt-24 mb-6 max-w-6xl mx-auto relative"
         >
           <div className="absolute right-0 top-0 w-[50%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
@@ -179,4 +179,3 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
 };
 
 export default Hero;
-
