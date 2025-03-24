@@ -87,7 +87,7 @@ const ResultsSection = () => {
           
           <div className="px-6 py-8 bg-gray-50 border-t">
             <div className="max-w-4xl mx-auto">
-              <h3 className="font-domine font-semibold text-xl mb-6">Question Summary</h3>
+              <h3 className="font-domine font-semibold text-xl mb-6">Common Cognitive Biases</h3>
               <QuestionSummaryList answersArray={answersArray} questions={questions} />
             </div>
           </div>
