@@ -138,8 +138,8 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                 {/* Image positioned to extend outside the gradient rectangle on the left */}
                 <div className="relative -left-1/4 md:-left-1/4 w-[125%]">
                   <img 
-                    src="/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png" 
-                    alt="Expert lens visualization" 
+                    src="/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png" 
+                    alt="Man with hands on head illustrating cognitive bias" 
                     className="w-full h-auto object-contain z-10"
                   />
                 </div>
