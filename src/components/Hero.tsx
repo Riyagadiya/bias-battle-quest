@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Target, Zap } from "lucide-react";
+import { useQuiz } from "@/context/QuizContext";
 
 const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
+  const { startQuiz: contextStartQuiz } = useQuiz();
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -29,8 +31,16 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   }, []);
 
   const handleStartQuiz = () => {
-    if (startQuiz && typeof startQuiz === 'function') {
+    console.log('Start Quiz button clicked');
+    console.log('Props startQuiz:', startQuiz);
+    console.log('Context startQuiz:', contextStartQuiz);
+    
+    if (contextStartQuiz) {
+      contextStartQuiz();
+    } else if (startQuiz && typeof startQuiz === 'function') {
       startQuiz();
+    } else {
+      console.error('No startQuiz method found');
     }
   };
 
