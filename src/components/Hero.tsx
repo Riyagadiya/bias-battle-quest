@@ -109,7 +109,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Illustration section - without image */}
+        {/* Illustration section - with image positioned as requested */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
@@ -132,12 +132,23 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </button>
             </div>
             
-            {/* Right content - no image */}
+            {/* Right content - with image positioned as requested */}
             <div className="w-full md:w-3/5 flex flex-col mt-10 md:mt-0">
-              <div className="relative px-4 md:px-8 py-8 mt-5 md:mt-10">
-                <p className="font-worksans text-base md:text-lg text-gray-700">
-                  We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
-                </p>
+              <div className="relative">
+                {/* Image positioned to extend outside the gradient rectangle on the left */}
+                <div className="relative -left-1/4 md:-left-1/4 w-[125%]">
+                  <img 
+                    src="/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png" 
+                    alt="Expert lens visualization" 
+                    className="w-full h-auto object-contain z-10"
+                  />
+                </div>
+                
+                <div className="relative px-4 md:px-8 py-4 mt-2">
+                  <p className="font-worksans text-base md:text-lg text-gray-700">
+                    We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
