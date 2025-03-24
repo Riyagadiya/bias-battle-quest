@@ -115,14 +115,14 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             </GradientButton>
           </motion.div>
           
-          {/* Micro animation icons in non-linear layout */}
+          {/* Micro animation icons in linear layout */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="relative h-40 mt-12"
+            className="flex justify-center gap-10 mt-12"
           >
-            {/* Brain icon with pulse animation - top left */}
+            {/* Brain icon with pulse animation */}
             <motion.div
               animate={{ 
                 scale: [1, 1.05, 1],
@@ -133,7 +133,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                 repeat: Infinity,
                 repeatType: "mirror"
               }}
-              className="absolute left-1/4 top-0"
+              className="relative"
             >
               <div className="absolute inset-0 bg-cognilense-green/10 rounded-full blur-md" />
               <div className="relative bg-white p-3 rounded-full shadow-md">
@@ -141,7 +141,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </div>
             </motion.div>
             
-            {/* Target icon with rotate animation - bottom middle */}
+            {/* Target icon with rotate animation */}
             <motion.div
               animate={{ 
                 rotate: [0, 5, 0, -5, 0]
@@ -152,7 +152,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                 repeatType: "mirror",
                 ease: "easeInOut"
               }}
-              className="absolute left-1/2 bottom-0 transform -translate-x-1/2"
+              className="relative"
             >
               <div className="absolute inset-0 bg-cognilense-blue/10 rounded-full blur-md" />
               <div className="relative bg-white p-3 rounded-full shadow-md">
@@ -160,7 +160,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
               </div>
             </motion.div>
             
-            {/* Zap icon with pulse and float animation - top right */}
+            {/* Zap icon with pulse and float animation */}
             <motion.div
               animate={{ 
                 y: [0, -5, 0],
@@ -171,7 +171,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                 repeat: Infinity,
                 repeatType: "mirror"
               }}
-              className="absolute right-1/4 top-0"
+              className="relative"
             >
               <div className="absolute inset-0 bg-cognilense-yellow/10 rounded-full blur-md" />
               <div className="relative bg-white p-3 rounded-full shadow-md">
