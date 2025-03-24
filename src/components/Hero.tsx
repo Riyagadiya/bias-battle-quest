@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -216,7 +217,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 60 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 max-w-6xl mx-auto"
+          className="mt-32 max-w-6xl mx-auto"
         >
           <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-8">
             Sneak Peak into Cognitive Biases
