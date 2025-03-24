@@ -72,7 +72,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       </div>
       
       <div className="container mx-auto relative">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center pt-16 md:pt-24">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
