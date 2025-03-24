@@ -109,7 +109,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 60 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 max-w-6xl mx-auto"
+          className="mt-48 md:mt-64 lg:mt-80 max-w-6xl mx-auto"
         >
           <h3 className="font-domine text-3xl font-semibold text-center mb-10">
             Sneak Peak into Cognitive Biases
