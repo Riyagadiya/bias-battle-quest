@@ -115,7 +115,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-48 md:mt-64 lg:mt-80 max-w-6xl mx-auto"
         >
-          <h3 className="font-domine text-3xl font-semibold text-center mb-10">
+          <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-10">
             Sneak Peak into Cognitive Biases
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
