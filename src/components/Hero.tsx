@@ -1,9 +1,7 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Brain, Target, Zap } from "lucide-react";
+import { Brain, Target, Zap, ArrowUpRight } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
 import { toast } from "sonner";
 
@@ -33,17 +31,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       }
     };
   }, []);
-
-  const handleStartQuiz = () => {
-    try {
-      toast.success("Starting quiz challenge!");
-      // Navigate directly to the quiz page
-      navigate("/quiz");
-    } catch (error) {
-      console.error("Error navigating to quiz:", error);
-      toast.error("Couldn't start the quiz. Please try again.");
-    }
-  };
 
   const biasCards = [
     {
@@ -117,21 +104,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
           </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.9 }}
-            transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-            className="flex justify-center mt-16"
-          >
-            <GradientButton 
-              onClick={handleStartQuiz} 
-              className="text-base md:text-lg px-8 py-4"
-              icon={true}
-            >
-              Take the Challenge
-            </GradientButton>
-          </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
