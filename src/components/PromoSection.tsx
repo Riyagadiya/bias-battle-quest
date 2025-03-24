@@ -5,7 +5,7 @@ import GradientButton from "./GradientButton";
 const PromoSection = () => {
   return (
     <section className="py-20 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-cognilense-background to-white/60 z-0"></div>
+      <div className="absolute inset-0 bg-[#f9f9f9] z-0"></div>
       
       <div className="container mx-auto relative z-10">
         <div className="flex flex-col items-center text-center pt-12 max-w-3xl mx-auto">
