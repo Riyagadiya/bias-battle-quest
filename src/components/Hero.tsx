@@ -6,7 +6,7 @@ import { useQuiz } from "@/context/QuizContext";
 import { toast } from "sonner";
 import GradientButton from "./GradientButton";
 
-const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
+const Hero = () => {
   const { startQuiz: contextStartQuiz } = useQuiz();
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -36,6 +36,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
   const handleStartQuiz = () => {
     try {
       toast.success("Starting quiz challenge!");
+      contextStartQuiz();
       navigate("/quiz");
     } catch (error) {
       console.error("Error navigating to quiz:", error);

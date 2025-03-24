@@ -1,6 +1,6 @@
 
 import { Dispatch, SetStateAction } from "react";
-import { Question, QuizStatus, QuizAnswer } from "../types/quiz";
+import { Question, QuizStatus, QuizAnswer, QuestionResponse } from "../types/quiz";
 
 // Define the type for the QuizContext
 export type QuizContextType = {
@@ -23,6 +23,7 @@ export type QuizContextType = {
   setScore: Dispatch<SetStateAction<number>>;
   setAnswers: Dispatch<SetStateAction<QuizAnswer[]>>;
   restartQuiz: () => void;
+  responses: QuestionResponse[];
 };
 
 // Default context values for safety
@@ -37,7 +38,7 @@ export const defaultContextValue: QuizContextType = {
   resetQuiz: () => {},
   handleAnswer: () => {},
   goToNextQuestion: () => {},
-  timePerQuestion: 15,
+  timePerQuestion: 30,
   setSelectedOption: () => {},
   quizStarted: false,
   quizCompleted: false,
@@ -46,4 +47,5 @@ export const defaultContextValue: QuizContextType = {
   setScore: () => {},
   setAnswers: () => {},
   restartQuiz: () => {},
+  responses: [],
 };
