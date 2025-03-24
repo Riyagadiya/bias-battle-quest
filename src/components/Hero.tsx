@@ -57,8 +57,19 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       ref={heroRef}
       className="min-h-screen flex items-center justify-center py-24 px-6 md:px-8 relative overflow-hidden"
     >
-      {/* Simple background color instead of patterns */}
-      <div className="absolute inset-0 bg-[#f9f9f9]"></div>
+      {/* Background with wave pattern and gradient dissolve */}
+      <div className="absolute inset-0 bg-[#f9f9f9]">
+        <div 
+          className="absolute inset-0 bg-no-repeat bg-top"
+          style={{
+            backgroundImage: "url('/lovable-uploads/0e279057-67c4-4f2e-ba37-277f234ea783.png')",
+            backgroundSize: "100% auto",
+            filter: "grayscale(100%) opacity(0.3)",
+            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))",
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))"
+          }}
+        ></div>
+      </div>
       
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto text-center">
