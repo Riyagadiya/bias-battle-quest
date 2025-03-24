@@ -76,7 +76,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-relaxed tracking-[-3%] mb-6"
+            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-6"
           >
             Cognitive Biases:
             <br /> 
@@ -107,7 +107,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Cognitive Biases Sneak Peak Section */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 60 }}
