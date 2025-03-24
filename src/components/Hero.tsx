@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
@@ -125,7 +124,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
           >
             <GradientButton 
               onClick={handleStartQuiz} 
-              className="text-base md:text-lg px-8 py-4 rounded-lg" 
+              className="text-base md:text-lg px-8 py-4"
               icon={true}
             >
               Take the Challenge
