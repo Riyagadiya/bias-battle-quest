@@ -107,20 +107,27 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             </GradientButton>
           </motion.div>
 
-          {/* Illustration between button and bias cards */}
+          {/* Illustration section - left aligned with right-aligned text */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
             transition={{ duration: 0.7, delay: 0.7 }}
-            className="mt-20 mb-20 flex justify-center"
+            className="mt-20 mb-20 flex flex-col md:flex-row items-center justify-between gap-8"
           >
-            <div className="max-w-md relative">
+            <div className="w-full md:w-1/2 flex justify-start">
               <img 
                 src="/lovable-uploads/6ca639a2-2a6a-4d5c-8a21-0e21ce4ace97.png" 
                 alt="Person experiencing cognitive stress" 
-                className="w-full max-w-sm mx-auto shadow-xl rounded-lg"
+                className="w-full max-w-sm shadow-xl rounded-lg"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/30 rounded-lg"></div>
+            </div>
+            <div className="w-full md:w-1/2 text-right">
+              <p className="font-worksans text-xl md:text-2xl text-muted-foreground mb-2">
+                See the world from an
+              </p>
+              <h4 className="font-domine font-bold text-2xl md:text-3xl">
+                experts' lens
+              </h4>
             </div>
           </motion.div>
         </div>
