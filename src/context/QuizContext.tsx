@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionData } from "../data/quizData";
@@ -32,8 +33,9 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Load questions immediately when the provider mounts
   useEffect(() => {
-    console.log("QuizProvider: Loading questions from data source");
-    setQuestions(questionData);
+    console.log("QuizProvider: Loading questions from data source", questionData);
+    // Force synchronous loading of questions
+    setQuestions([...questionData]);
     // Initialize answers array with nulls based on question count
     setAnswers(Array(questionData.length).fill(null));
   }, []);
@@ -41,8 +43,8 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
   const startQuiz = async () => {
     return new Promise<void>((resolve) => {
       console.log("Starting quiz with questions:", questionData.length);
-      // Ensure questions are loaded
-      setQuestions(questionData);
+      // Ensure questions are loaded - force a new array reference to trigger state updates
+      setQuestions([...questionData]);
       setStatus("active");
       setCurrentQuestion(0);
       setScore(0);

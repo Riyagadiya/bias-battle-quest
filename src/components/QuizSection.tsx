@@ -30,14 +30,17 @@ const QuizSection = () => {
     quizStarted, 
     quizCompleted, 
     questionCount: questions?.length,
+    questionsData: questions,
     isLoading
   });
   
   useEffect(() => {
     // Set initial loading state
     if (questions && questions.length > 0) {
+      console.log("Questions loaded in QuizSection:", questions);
       setIsLoading(false);
     } else {
+      console.log("No questions available in QuizSection");
       setIsLoading(true);
     }
   }, [questions]);
@@ -118,6 +121,7 @@ const QuizSection = () => {
 
   // Show loading state when questions aren't ready
   if (isLoading || !questions || questions.length === 0) {
+    console.log("Showing loading skeleton for quiz");
     return (
       <div className="py-12 px-6 text-center">
         <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
@@ -137,12 +141,15 @@ const QuizSection = () => {
   const currentQuestion = questions[currentQuestionIndex];
   
   if (!currentQuestion) {
+    console.log("Current question not found for index:", currentQuestionIndex);
     return (
       <div className="py-12 px-6 text-center">
         <h2 className="text-xl font-medium">Question not found. Please try again.</h2>
       </div>
     );
   }
+
+  console.log("Rendering question:", currentQuestion);
 
   return (
     <section className="py-12 px-6 flex flex-col md:flex-row gap-8 items-start justify-between">

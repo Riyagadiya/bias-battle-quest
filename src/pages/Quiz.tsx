@@ -20,6 +20,11 @@ const Quiz = () => {
   
   const [isInitializing, setIsInitializing] = useState(true);
   
+  // Force the component to render when questions update
+  useEffect(() => {
+    console.log("Questions updated in Quiz component:", questions.length);
+  }, [questions]);
+  
   useEffect(() => {
     if (quizCompleted) {
       navigate("/results");
@@ -32,7 +37,10 @@ const Quiz = () => {
         await startQuiz();
         setQuizStarted(true);
         toast.success("Quiz started! Good luck!");
-        setIsInitializing(false);
+        // Delay to ensure questions are loaded
+        setTimeout(() => {
+          setIsInitializing(false);
+        }, 500);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");
