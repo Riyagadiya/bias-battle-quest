@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
@@ -22,27 +21,15 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  // Add debug logging
-  console.log("QuizSection rendering:", { 
-    currentQuestionIndex, 
-    quizStarted, 
-    quizCompleted, 
-    questionCount: questions?.length,
-    questionsData: questions,
-    isLoading
-  });
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
-    // Set initial loading state
-    if (questions && questions.length > 0) {
-      console.log("Questions loaded in QuizSection:", questions);
-      setIsLoading(false);
-    } else {
-      console.log("No questions available in QuizSection");
-      setIsLoading(true);
-    }
+    console.log("QuizSection mounted with questions count:", questions?.length);
+  }, []);
+  
+  useEffect(() => {
+    console.log("Questions changed in QuizSection:", questions?.length);
+    setIsLoading(!questions || questions.length === 0);
   }, [questions]);
   
   useEffect(() => {
@@ -119,9 +106,8 @@ const QuizSection = () => {
     handleNext();
   };
 
-  // Show loading state when questions aren't ready
-  if (isLoading || !questions || questions.length === 0) {
-    console.log("Showing loading skeleton for quiz");
+  if (isLoading) {
+    console.log("QuizSection showing loading skeleton (questions not ready)");
     return (
       <div className="py-12 px-6 text-center">
         <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
@@ -142,6 +128,7 @@ const QuizSection = () => {
   
   if (!currentQuestion) {
     console.log("Current question not found for index:", currentQuestionIndex);
+    console.log("Available questions:", questions);
     return (
       <div className="py-12 px-6 text-center">
         <h2 className="text-xl font-medium">Question not found. Please try again.</h2>
@@ -149,7 +136,7 @@ const QuizSection = () => {
     );
   }
 
-  console.log("Rendering question:", currentQuestion);
+  console.log("Rendering question:", currentQuestion.question);
 
   return (
     <section className="py-12 px-6 flex flex-col md:flex-row gap-8 items-start justify-between">

@@ -20,9 +20,8 @@ const Quiz = () => {
   
   const [isInitializing, setIsInitializing] = useState(true);
   
-  // Force the component to render when questions update
   useEffect(() => {
-    console.log("Questions updated in Quiz component:", questions.length);
+    console.log("Quiz component rendering with questions:", questions.length);
   }, [questions]);
   
   useEffect(() => {
@@ -37,10 +36,11 @@ const Quiz = () => {
         await startQuiz();
         setQuizStarted(true);
         toast.success("Quiz started! Good luck!");
-        // Delay to ensure questions are loaded
+        
+        // Shorter delay to show questions faster
         setTimeout(() => {
           setIsInitializing(false);
-        }, 500);
+        }, 300);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");
@@ -53,18 +53,7 @@ const Quiz = () => {
     } else {
       setIsInitializing(false);
     }
-    
-    return () => {
-      // Any cleanup if needed
-    };
   }, [quizCompleted, navigate, startQuiz, setQuizStarted, quizStarted]);
-
-  // Add console log to debug
-  console.log("Quiz component rendering:", { 
-    isInitializing, 
-    quizStarted, 
-    questionsLoaded: questions && questions.length > 0 
-  });
 
   return (
     <div className="flex flex-col min-h-screen">

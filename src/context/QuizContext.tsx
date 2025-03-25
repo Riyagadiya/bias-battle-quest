@@ -1,5 +1,4 @@
-
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionData } from "../data/quizData";
 import { QuizContextType, defaultContextValue } from "./QuizContextType";
@@ -14,9 +13,9 @@ export { useQuiz } from "../hooks/useQuizContext";
 
 // Quiz Provider Component
 export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[]>(questionData);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswer[]>([]);
+  const [answers, setAnswers] = useState<QuizAnswer[]>(Array(questionData.length).fill(null));
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState<"idle" | "active" | "complete">("idle");
   const [percentCorrect, setPercentCorrect] = useState(0);
@@ -30,20 +29,17 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
 
   // For compatibility with existing components
   const setCurrentQuestionIndex = setCurrentQuestion;
-
-  // Load questions immediately when the provider mounts
+  
+  // Debug log questions
   useEffect(() => {
-    console.log("QuizProvider: Loading questions from data source", questionData);
-    // Force synchronous loading of questions
-    setQuestions([...questionData]);
-    // Initialize answers array with nulls based on question count
-    setAnswers(Array(questionData.length).fill(null));
+    console.log("QuizProvider initialized with questions count:", questions.length);
+    console.log("Sample question:", questions[0]);
   }, []);
 
-  const startQuiz = async () => {
+  const startQuiz = useCallback(async () => {
     return new Promise<void>((resolve) => {
       console.log("Starting quiz with questions:", questionData.length);
-      // Ensure questions are loaded - force a new array reference to trigger state updates
+      // Ensure questions are loaded from source data each time
       setQuestions([...questionData]);
       setStatus("active");
       setCurrentQuestion(0);
@@ -55,12 +51,13 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
       setStartTime(Date.now());
       window.scrollTo({ top: 0, behavior: "smooth" });
       
-      // Add a small delay to ensure state updates have propagated
+      // Give time for state to update
       setTimeout(() => {
+        console.log("Quiz started with questions:", questionData.length);
         resolve();
       }, 300);
     });
-  };
+  }, []);
 
   const resetQuiz = () => {
     setStatus("idle");
