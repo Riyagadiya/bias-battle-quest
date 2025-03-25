@@ -17,6 +17,7 @@ export type QuizContextType = {
   timePerQuestion: number;
   setSelectedOption: Dispatch<SetStateAction<string | null>>;
   quizStarted: boolean;
+  setQuizStarted: Dispatch<SetStateAction<boolean>>;
   quizCompleted: boolean;
   setQuizCompleted: Dispatch<SetStateAction<boolean>>;
   setCurrentQuestionIndex: Dispatch<SetStateAction<number>>;
@@ -41,6 +42,7 @@ export const defaultContextValue: QuizContextType = {
   timePerQuestion: 30,
   setSelectedOption: () => {},
   quizStarted: false,
+  setQuizStarted: () => {},
   quizCompleted: false,
   setQuizCompleted: () => {},
   setCurrentQuestionIndex: () => {},

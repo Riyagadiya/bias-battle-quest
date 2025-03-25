@@ -26,7 +26,9 @@ const Quiz = () => {
       try {
         // Force the status to "active" when on quiz page
         await startQuiz();
-        setQuizStarted(true);
+        if (setQuizStarted) {
+          setQuizStarted(true);
+        }
         setLoading(false);
         toast.success("Quiz started! Good luck!");
       } catch (error) {
