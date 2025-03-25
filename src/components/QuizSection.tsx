@@ -4,6 +4,7 @@ import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
 import QuizContent from "./quiz/QuizContent";
 import QuizSidebar from "./quiz/QuizSidebar";
+import { Skeleton } from "./ui/skeleton";
 
 const QuizSection = () => {
   const {
@@ -21,6 +22,25 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Add debug logging
+  console.log("QuizSection rendering:", { 
+    currentQuestionIndex, 
+    quizStarted, 
+    quizCompleted, 
+    questionCount: questions?.length,
+    isLoading
+  });
+  
+  useEffect(() => {
+    // Set initial loading state
+    if (questions && questions.length > 0) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  }, [questions]);
   
   useEffect(() => {
     if (!quizStarted || quizCompleted) return;
@@ -96,20 +116,30 @@ const QuizSection = () => {
     handleNext();
   };
 
-  // Remove the conditional return that was causing the component to not render
-  if (!questions || questions.length === 0) {
+  // Show loading state when questions aren't ready
+  if (isLoading || !questions || questions.length === 0) {
     return (
       <div className="py-12 px-6 text-center">
-        <h2 className="text-xl font-medium">Loading quiz questions...</h2>
+        <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
+        <div className="space-y-4 max-w-2xl mx-auto">
+          <Skeleton className="h-24 w-full rounded-lg" />
+          <div className="grid grid-cols-1 gap-3">
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+          </div>
+        </div>
       </div>
     );
   }
 
   const currentQuestion = questions[currentQuestionIndex];
+  
   if (!currentQuestion) {
     return (
       <div className="py-12 px-6 text-center">
-        <h2 className="text-xl font-medium">Loading quiz questions...</h2>
+        <h2 className="text-xl font-medium">Question not found. Please try again.</h2>
       </div>
     );
   }

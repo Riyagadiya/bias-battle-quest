@@ -51,6 +51,13 @@ const Quiz = () => {
     };
   }, [quizCompleted, navigate, startQuiz, setQuizStarted, quizStarted]);
 
+  // Add console log to debug
+  console.log("Quiz component rendering:", { 
+    isInitializing, 
+    quizStarted, 
+    questionsLoaded: questions && questions.length > 0 
+  });
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
