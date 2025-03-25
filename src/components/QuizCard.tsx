@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useQuiz } from "../context/QuizContext";
+import { useQuiz } from "@/context/QuizContext";
 import { Check, AlertTriangle } from "lucide-react";
 
 export interface QuizCardProps {

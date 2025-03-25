@@ -18,6 +18,8 @@ const Quiz = () => {
     questions
   } = useQuiz();
   
+  const [isInitializing, setIsInitializing] = useState(true);
+  
   useEffect(() => {
     if (quizCompleted) {
       navigate("/results");
@@ -25,10 +27,12 @@ const Quiz = () => {
     }
 
     const initializeQuiz = async () => {
+      setIsInitializing(true);
       try {
         await startQuiz();
         setQuizStarted(true);
         toast.success("Quiz started! Good luck!");
+        setIsInitializing(false);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");
@@ -38,6 +42,8 @@ const Quiz = () => {
     
     if (!quizStarted) {
       initializeQuiz();
+    } else {
+      setIsInitializing(false);
     }
     
     return () => {
@@ -57,7 +63,14 @@ const Quiz = () => {
           transition={{ duration: 0.4 }}
           className="container mx-auto"
         >
-          <QuizSection />
+          {isInitializing ? (
+            <div className="py-12 px-6 text-center">
+              <h2 className="text-2xl font-bold mb-4">Loading your quiz...</h2>
+              <p className="text-gray-600">Preparing your cognitive bias challenge</p>
+            </div>
+          ) : (
+            <QuizSection />
+          )}
         </motion.div>
       </main>
       

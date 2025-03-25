@@ -31,13 +31,13 @@ const QuizContent = ({
 }: QuizContentProps) => {
   if (!currentQuestion) return null;
 
-  const progress = Math.round((currentQuestionIndex / questionsLength) * 100);
+  const progress = Math.round(((currentQuestionIndex + 1) / questionsLength) * 100);
 
   return (
     <div className="w-full md:w-3/5 lg:w-2/3">
       <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden pb-24 gradient-border">
         <QuizProgress 
-          currentQuestion={currentQuestionIndex} 
+          currentQuestion={currentQuestionIndex + 1} 
           totalQuestions={questionsLength}
           progress={progress}
         />

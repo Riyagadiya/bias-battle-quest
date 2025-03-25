@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { useQuiz } from "../hooks/useQuizContext";
+import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
 import QuizContent from "./quiz/QuizContent";
 import QuizSidebar from "./quiz/QuizSidebar";
@@ -96,13 +96,22 @@ const QuizSection = () => {
     handleNext();
   };
 
-  if (!quizStarted || quizCompleted || !questions || questions.length === 0) {
-    return null;
+  // Remove the conditional return that was causing the component to not render
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="py-12 px-6 text-center">
+        <h2 className="text-xl font-medium">Loading quiz questions...</h2>
+      </div>
+    );
   }
 
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
-    return null;
+    return (
+      <div className="py-12 px-6 text-center">
+        <h2 className="text-xl font-medium">Loading quiz questions...</h2>
+      </div>
+    );
   }
 
   return (
