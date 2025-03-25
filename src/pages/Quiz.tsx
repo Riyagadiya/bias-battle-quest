@@ -35,7 +35,6 @@ const Quiz = () => {
       try {
         await startQuiz();
         setQuizStarted(true);
-        toast.success("Quiz started! Good luck!");
         
         // Shorter delay to show questions faster
         setTimeout(() => {
@@ -56,7 +55,7 @@ const Quiz = () => {
   }, [quizCompleted, navigate, startQuiz, setQuizStarted, quizStarted]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       
       <main className="flex-grow pt-20">
@@ -65,7 +64,7 @@ const Quiz = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="container mx-auto"
+          className="container mx-auto px-4"
         >
           {isInitializing ? (
             <div className="py-12 px-6 text-center">

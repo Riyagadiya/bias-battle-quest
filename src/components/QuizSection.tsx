@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
 import QuizContent from "./quiz/QuizContent";
-import BiasIllustration from "./quiz/BiasIllustration";
 import { Skeleton } from "./ui/skeleton";
-import QuizStatusBar from "./quiz/QuizStatusBar";
 
 const QuizSection = () => {
   const {
@@ -82,7 +80,7 @@ const QuizSection = () => {
       } else {
         setQuizCompleted(true);
       }
-    }, 5000); // Give 5 seconds to read explanation
+    }, 1500); // Give 1.5 seconds to read feedback before moving on
   };
   
   const handlePrevious = () => {
@@ -149,58 +147,26 @@ const QuizSection = () => {
 
   return (
     <section className="py-8 px-6">
-      <QuizStatusBar 
-        currentQuestion={currentQuestionIndex + 1} 
-        totalQuestions={questions.length}
-        answers={answers}
-      />
-      
-      <div className="flex flex-col lg:flex-row gap-8 mt-8">
-        <div className="w-full lg:w-3/5">
-          <motion.div
-            className="gradient-border shadow-glow rounded-xl overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <QuizContent
-              currentQuestion={currentQuestion}
-              currentQuestionIndex={currentQuestionIndex}
-              questionsLength={questions.length}
-              timeLeft={timeLeft}
-              timePerQuestion={timePerQuestion}
-              handleAnswer={handleAnswer}
-              handlePrevious={handlePrevious}
-              handleNext={handleNext}
-              handleSkip={handleSkip}
-              showExplanation={showExplanation}
-            />
-          </motion.div>
-        </div>
-        
-        <div className="w-full lg:w-2/5">
-          <motion.div 
-            className="bg-white rounded-xl shadow-md p-6 sticky top-24"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <h3 className="text-lg font-medium mb-4">Cognitive Bias Illustrated</h3>
-            <BiasIllustration biasType={currentQuestion.type} />
-            
-            {showExplanation && (
-              <motion.div 
-                className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h4 className="font-medium mb-2">Understanding {currentQuestion.options.find(option => option.isCorrect)?.text}</h4>
-                <p className="text-sm text-gray-600">{currentQuestion.explanation}</p>
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          className="bg-white rounded-lg shadow-md overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <QuizContent
+            currentQuestion={currentQuestion}
+            currentQuestionIndex={currentQuestionIndex}
+            questionsLength={questions.length}
+            timeLeft={timeLeft}
+            timePerQuestion={timePerQuestion}
+            handleAnswer={handleAnswer}
+            handlePrevious={handlePrevious}
+            handleNext={handleNext}
+            handleSkip={handleSkip}
+            showExplanation={showExplanation}
+          />
+        </motion.div>
       </div>
     </section>
   );

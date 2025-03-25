@@ -1,10 +1,9 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, ChevronLeft, ChevronRight, SkipForward, CheckCircle2, XCircle } from "lucide-react";
-import { Progress } from "../ui/progress";
+import { ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
 import { Button } from "../ui/button";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Checkbox } from "../ui/checkbox";
 
 interface QuizContentProps {
   currentQuestion: any;
@@ -23,8 +22,6 @@ const QuizContent = ({
   currentQuestion,
   currentQuestionIndex,
   questionsLength,
-  timeLeft,
-  timePerQuestion,
   handleAnswer,
   handlePrevious,
   handleNext,
@@ -32,15 +29,6 @@ const QuizContent = ({
   showExplanation
 }: QuizContentProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const correctOption = currentQuestion.options.find((option: any) => option.isCorrect)?.text;
-  
-  const timerProgress = (timeLeft / timePerQuestion) * 100;
-  
-  const getTimerColor = () => {
-    if (timerProgress > 66) return "bg-green-500";
-    if (timerProgress > 33) return "bg-yellow-500";
-    return "bg-red-500";
-  };
   
   const handleOptionSelect = (option: string) => {
     if (showExplanation) return;
@@ -49,17 +37,7 @@ const QuizContent = ({
   };
 
   return (
-    <div className="bg-white p-6 relative pb-24">
-      {/* Timer */}
-      <div className="mb-6 flex items-center gap-2">
-        <Clock className="w-4 h-4 text-gray-400" />
-        <Progress 
-          value={timerProgress} 
-          className={`h-2 ${getTimerColor()} bg-gray-100`} 
-        />
-        <span className="text-xs font-medium">{timeLeft}s</span>
-      </div>
-      
+    <div className="bg-white p-6 md:p-10 relative pb-24 min-h-[400px]">
       {/* Question */}
       <div className="mb-8">
         <AnimatePresence mode="wait">
@@ -69,7 +47,7 @@ const QuizContent = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-xl md:text-2xl font-medium"
+            className="text-2xl md:text-3xl font-semibold text-gray-900"
           >
             {currentQuestion.question}
           </motion.h3>
@@ -77,50 +55,39 @@ const QuizContent = ({
       </div>
       
       {/* Options */}
-      <div className="space-y-3 mb-8">
-        <RadioGroup value={selectedOption || ""} className="space-y-3">
-          {currentQuestion.options.map((option: any, idx: number) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.1 }}
+      <div className="space-y-4 mb-8">
+        {currentQuestion.options.map((option: any, idx: number) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: idx * 0.1 }}
+          >
+            <div
+              className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
+                selectedOption === option.text
+                  ? "border-cognilense-blue bg-blue-50"
+                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+              }`}
+              onClick={() => handleOptionSelect(option.text)}
             >
-              <label
-                className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
-                  selectedOption === option.text
-                    ? selectedOption === correctOption
-                      ? "border-green-500 bg-green-50"
-                      : "border-red-500 bg-red-50"
-                    : "border-gray-200 hover:border-cognilense-blue hover:bg-gray-50"
-                } ${
-                  showExplanation && option.text === correctOption && selectedOption !== option.text
-                    ? "border-green-500 bg-green-50"
-                    : ""
-                }`}
-                onClick={() => handleOptionSelect(option.text)}
-              >
-                <div className="flex-grow">
-                  <div className="flex items-center">
-                    <RadioGroupItem
-                      value={option.text}
-                      id={`option-${idx}`}
-                      disabled={showExplanation}
-                      className="mr-3"
-                    />
-                    <span className="text-base md:text-lg">{option.text}</span>
+              <div className="flex items-center w-full">
+                <div className="h-5 w-5 mr-3 flex items-center justify-center">
+                  <div className={`h-5 w-5 rounded-full border ${
+                    selectedOption === option.text
+                      ? "border-cognilense-blue"
+                      : "border-gray-300"
+                  }`}>
+                    {selectedOption === option.text && (
+                      <div className="h-3 w-3 rounded-full bg-cognilense-blue m-0.5"></div>
+                    )}
                   </div>
                 </div>
-                {showExplanation && option.text === correctOption && (
-                  <CheckCircle2 className="w-5 h-5 text-green-500 ml-2" />
-                )}
-                {showExplanation && selectedOption === option.text && option.text !== correctOption && (
-                  <XCircle className="w-5 h-5 text-red-500 ml-2" />
-                )}
-              </label>
-            </motion.div>
-          ))}
-        </RadioGroup>
+                <span className="text-base md:text-lg text-gray-800">{option.text}</span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
       
       {/* Navigation */}
@@ -131,7 +98,6 @@ const QuizContent = ({
             onClick={handlePrevious}
             disabled={currentQuestionIndex === 0 || showExplanation}
             className="gap-1"
-            size="sm"
           >
             <ChevronLeft className="w-4 h-4" /> Previous
           </Button>
@@ -141,9 +107,8 @@ const QuizContent = ({
             onClick={handleSkip}
             disabled={showExplanation}
             className="text-muted-foreground hover:text-foreground gap-1"
-            size="sm"
           >
-            Skip <SkipForward className="w-4 h-4" />
+            Skip
           </Button>
           
           <Button
@@ -151,7 +116,6 @@ const QuizContent = ({
             onClick={handleNext}
             disabled={showExplanation}
             className="bg-cognilense-blue text-white hover:bg-blue-600 gap-1"
-            size="sm"
           >
             {currentQuestionIndex === questionsLength - 1 ? "Finish" : "Next"} 
             <ChevronRight className="w-4 h-4" />
