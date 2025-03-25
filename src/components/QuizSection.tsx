@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
 import QuizContent from "./quiz/QuizContent";
-import QuizSidebar from "./quiz/QuizSidebar";
+import BiasIllustration from "./quiz/BiasIllustration";
 import { Skeleton } from "./ui/skeleton";
+import QuizStatusBar from "./quiz/QuizStatusBar";
 
 const QuizSection = () => {
   const {
@@ -22,6 +24,7 @@ const QuizSection = () => {
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   const [isLoading, setIsLoading] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
   
   useEffect(() => {
     console.log("QuizSection mounted with questions count:", questions?.length);
@@ -36,6 +39,7 @@ const QuizSection = () => {
     if (!quizStarted || quizCompleted) return;
     
     setTimeLeft(timePerQuestion);
+    setShowExplanation(false);
     
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -68,20 +72,24 @@ const QuizSection = () => {
     }
     
     setSelectedOption(null);
+    setShowExplanation(true);
     
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => {
+    // Delay moving to next question to allow user to see explanation
+    setTimeout(() => {
+      if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
-      }, 1500);
-    } else {
-      setQuizCompleted(true);
-    }
+        setShowExplanation(false);
+      } else {
+        setQuizCompleted(true);
+      }
+    }, 5000); // Give 5 seconds to read explanation
   };
   
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
       setSelectedOption(null);
+      setShowExplanation(false);
     }
   };
   
@@ -91,6 +99,7 @@ const QuizSection = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption(null);
+      setShowExplanation(false);
     } else {
       setQuizCompleted(true);
     }
@@ -139,25 +148,60 @@ const QuizSection = () => {
   console.log("Rendering question:", currentQuestion.question);
 
   return (
-    <section className="py-12 px-6 flex flex-col md:flex-row gap-8 items-start justify-between">
-      <QuizContent
-        currentQuestion={currentQuestion}
-        currentQuestionIndex={currentQuestionIndex}
-        questionsLength={questions.length}
-        timeLeft={timeLeft}
-        timePerQuestion={timePerQuestion}
-        handleAnswer={handleAnswer}
-        handlePrevious={handlePrevious}
-        handleNext={handleNext}
-        handleSkip={handleSkip}
-      />
-      
-      <QuizSidebar
-        currentQuestion={currentQuestion}
-        questions={questions}
-        currentQuestionIndex={currentQuestionIndex}
+    <section className="py-8 px-6">
+      <QuizStatusBar 
+        currentQuestion={currentQuestionIndex + 1} 
+        totalQuestions={questions.length}
         answers={answers}
       />
+      
+      <div className="flex flex-col lg:flex-row gap-8 mt-8">
+        <div className="w-full lg:w-3/5">
+          <motion.div
+            className="gradient-border shadow-glow rounded-xl overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <QuizContent
+              currentQuestion={currentQuestion}
+              currentQuestionIndex={currentQuestionIndex}
+              questionsLength={questions.length}
+              timeLeft={timeLeft}
+              timePerQuestion={timePerQuestion}
+              handleAnswer={handleAnswer}
+              handlePrevious={handlePrevious}
+              handleNext={handleNext}
+              handleSkip={handleSkip}
+              showExplanation={showExplanation}
+            />
+          </motion.div>
+        </div>
+        
+        <div className="w-full lg:w-2/5">
+          <motion.div 
+            className="bg-white rounded-xl shadow-md p-6 sticky top-24"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <h3 className="text-lg font-medium mb-4">Cognitive Bias Illustrated</h3>
+            <BiasIllustration biasType={currentQuestion.type} />
+            
+            {showExplanation && (
+              <motion.div 
+                className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h4 className="font-medium mb-2">Understanding {currentQuestion.options.find(option => option.isCorrect)?.text}</h4>
+                <p className="text-sm text-gray-600">{currentQuestion.explanation}</p>
+              </motion.div>
+            )}
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

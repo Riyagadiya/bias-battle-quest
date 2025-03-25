@@ -21,7 +21,7 @@ const Quiz = () => {
   const [isInitializing, setIsInitializing] = useState(true);
   
   useEffect(() => {
-    console.log("Quiz component rendering with questions:", questions.length);
+    console.log("Quiz component rendering with questions:", questions?.length);
   }, [questions]);
   
   useEffect(() => {
