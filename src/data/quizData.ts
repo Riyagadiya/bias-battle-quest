@@ -74,5 +74,53 @@ export const questionData: Question[] = [
     ],
     explanation: "The Clustering Illusion is the tendency to see patterns in random events when none actually exist. James mistakenly believes he's identified a meaningful pattern in stock performance, which is largely random in the short term.",
     type: "clustering"
+  },
+  {
+    id: 7,
+    question: "Lisa attributes her team's project success to her leadership, but blames external factors when projects fail. What cognitive bias is Lisa demonstrating?",
+    options: [
+      { text: "Self-serving Bias", isCorrect: true },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false },
+      { text: "Halo Effect", isCorrect: false }
+    ],
+    explanation: "Self-serving bias is the tendency to attribute successes to personal factors (skills, effort) while attributing failures to external factors (bad luck, unfair conditions). This protects self-esteem but can hinder learning from mistakes.",
+    type: "self-serving"
+  },
+  {
+    id: 8,
+    question: "David reads a horoscope that says he'll face challenges this week. When he has a difficult day, he thinks the horoscope was accurate, ignoring the vague prediction and all the good moments. What cognitive bias is this?",
+    options: [
+      { text: "Barnum Effect", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Backfire Effect", isCorrect: false },
+      { text: "Recency Bias", isCorrect: false }
+    ],
+    explanation: "Confirmation bias is the tendency to search for, interpret, and recall information in a way that confirms one's preexisting beliefs. David notices and remembers events that confirm the horoscope while ignoring evidence that contradicts it.",
+    type: "confirmation"
+  },
+  {
+    id: 9,
+    question: "After being promoted, John believes he always deserved the position and that his success was inevitable. Looking back, all signs pointed to his promotion. What cognitive bias is John experiencing?",
+    options: [
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Hindsight Bias", isCorrect: true },
+      { text: "Outcome Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false }
+    ],
+    explanation: "Hindsight bias is the tendency to believe, after an event has occurred, that one would have predicted or expected it beforehand. John now sees his promotion as predictable when it may not have been so obvious at the time.",
+    type: "hindsight"
+  },
+  {
+    id: 10,
+    question: "Maria has an interview for her dream job. She spends hours worrying that she'll say something embarrassing, believing everyone will notice and judge her harshly. What cognitive bias is Maria experiencing?",
+    options: [
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Pessimism Bias", isCorrect: false },
+      { text: "Negativity Bias", isCorrect: false },
+      { text: "Impostor Syndrome", isCorrect: false }
+    ],
+    explanation: "The Spotlight Effect is the tendency to overestimate how much others notice about us. Maria believes she's under a spotlight when in reality, others are typically less focused on our flaws and mistakes than we think.",
+    type: "spotlight"
   }
 ];

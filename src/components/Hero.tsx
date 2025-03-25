@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -45,11 +44,12 @@ const Hero = () => {
   };
 
   const handleLearnMore = () => {
-    // Scroll to the bias cards section
-    const biasCardsSection = document.querySelector('.bias-cards-section');
-    if (biasCardsSection) {
-      biasCardsSection.scrollIntoView({ behavior: 'smooth' });
-      toast.info("Explore common cognitive biases below");
+    try {
+      toast.success("Starting the cognitive bias quiz!");
+      navigate("/quiz");
+    } catch (error) {
+      console.error("Error navigating to quiz:", error);
+      toast.error("Couldn't start the quiz. Please try again.");
     }
   };
 
@@ -136,7 +136,7 @@ const Hero = () => {
               variant="secondary"
             >
               <Info className="mr-2 h-5 w-5" />
-              Learn More
+              Quiz
             </GradientButton>
           </motion.div>
           
