@@ -1,7 +1,8 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Brain, Target, Zap, ArrowUpRight } from "lucide-react";
+import { Brain, Target, Zap, ArrowUpRight, Info } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
 import { toast } from "sonner";
 import GradientButton from "./GradientButton";
@@ -40,6 +41,15 @@ const Hero = () => {
     } catch (error) {
       console.error("Error navigating to quiz:", error);
       toast.error("Couldn't start the quiz. Please try again.");
+    }
+  };
+
+  const handleLearnMore = () => {
+    // Scroll to the bias cards section
+    const biasCardsSection = document.querySelector('.bias-cards-section');
+    if (biasCardsSection) {
+      biasCardsSection.scrollIntoView({ behavior: 'smooth' });
+      toast.info("Explore common cognitive biases below");
     }
   };
 
@@ -109,7 +119,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.9 }}
             transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-            className="flex justify-center mt-16"
+            className="flex justify-center gap-4 mt-16"
           >
             <GradientButton 
               onClick={handleStartQuiz} 
@@ -117,6 +127,16 @@ const Hero = () => {
               icon={true}
             >
               Take the challenge
+            </GradientButton>
+            
+            <GradientButton 
+              onClick={handleLearnMore}
+              className="text-base md:text-lg px-8 py-4 bg-white hover:bg-gray-50"
+              icon={false}
+              variant="secondary"
+            >
+              <Info className="mr-2 h-5 w-5" />
+              Learn More
             </GradientButton>
           </motion.div>
           
