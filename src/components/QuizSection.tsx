@@ -22,7 +22,16 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
+  const [isLoading, setIsLoading] = useState(true);
   
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (!quizStarted || quizCompleted) return;
     
@@ -98,12 +107,12 @@ const QuizSection = () => {
     return "bg-red-400";
   };
 
-  if (!quizStarted || quizCompleted) {
+  if (isLoading || !quizStarted || quizCompleted || !questions || questions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Loading Quiz...</h2>
-          <p className="text-gray-600">Please wait while we prepare your cognitive bias challenge.</p>
+          <h2 className="text-2xl font-bold mb-4">Preparing Quiz...</h2>
+          <p className="text-gray-600">Please wait while we set up your cognitive bias challenge.</p>
         </div>
       </div>
     );
