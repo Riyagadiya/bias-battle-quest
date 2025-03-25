@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
 import QuizCard from "./QuizCard";
@@ -24,7 +23,6 @@ const QuizSection = () => {
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   
-  // Timer effect
   useEffect(() => {
     if (!quizStarted || quizCompleted) return;
     
@@ -47,7 +45,6 @@ const QuizSection = () => {
   const handleAnswer = (selectedAnswer: string) => {
     const currentQuestion = questions[currentQuestionIndex];
     
-    // Update answers array properly
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = selectedAnswer;
     setAnswers(newAnswers);
@@ -58,10 +55,8 @@ const QuizSection = () => {
       setScore((prevScore) => prevScore + 1);
     }
     
-    // Clear selected option
     setSelectedOption(null);
     
-    // Move to next question or complete quiz
     if (currentQuestionIndex < questions.length - 1) {
       setTimeout(() => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -88,7 +83,6 @@ const QuizSection = () => {
   };
   
   const handleSkip = () => {
-    // Update the answers array properly for skipped questions
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = "skipped";
     setAnswers(newAnswers);
@@ -96,10 +90,8 @@ const QuizSection = () => {
     handleNext();
   };
 
-  // Calculate timer progress percentage
   const timerProgress = (timeLeft / timePerQuestion) * 100;
   
-  // Determine timer color based on time left
   const getTimerColor = () => {
     if (timerProgress > 66) return "bg-green-400";
     if (timerProgress > 33) return "bg-yellow-400";
@@ -107,13 +99,28 @@ const QuizSection = () => {
   };
 
   if (!quizStarted || quizCompleted) {
-    return null;
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center p-8 bg-white rounded-xl shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">Loading Quiz...</h2>
+          <p className="text-gray-600">Please wait while we prepare your cognitive bias challenge.</p>
+        </div>
+      </div>
+    );
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  if (!currentQuestion) return null;
+  if (!currentQuestion) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center p-8 bg-white rounded-xl shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">No Questions Available</h2>
+          <p className="text-gray-600">There seems to be an issue loading the questions.</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Define cognitive bias illustrations - map bias types to unique illustrations
   const getBiasIllustration = (questionType: string) => {
     switch (questionType) {
       case "framing":
@@ -231,7 +238,6 @@ const QuizSection = () => {
             <div className="w-full">
               <div className="h-20 bg-white relative">
                 <div className="absolute inset-0 overflow-hidden">
-                  {/* Stylized stock chart */}
                   <svg viewBox="0 0 100 50" className="w-full h-full">
                     <path 
                       d="M0,25 L10,20 L20,22 L30,18 L40,15 L50,10 L60,8 L70,5 L80,3 L90,4 L100,2" 
@@ -261,10 +267,8 @@ const QuizSection = () => {
 
   return (
     <section className="py-12 px-6 flex flex-col md:flex-row gap-8 items-start justify-between">
-      {/* Left side - Quiz Questions */}
       <div className="w-full md:w-3/5 lg:w-2/3">
         <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden pb-24 gradient-border">
-          {/* Progress indicator */}
           <div className="flex justify-between mb-6 items-center">
             <span className="font-semibold text-sm md:text-base flex items-center gap-2">
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-700">
@@ -277,7 +281,6 @@ const QuizSection = () => {
             </span>
           </div>
           
-          {/* Timer progress bar */}
           <div className="mb-6 flex items-center gap-2">
             <Clock className="w-4 h-4 text-muted-foreground" />
             <Progress 
@@ -305,7 +308,6 @@ const QuizSection = () => {
             </motion.div>
           </AnimatePresence>
           
-          {/* Navigation buttons */}
           <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
             <div className="flex justify-between">
               <Button
@@ -345,7 +347,6 @@ const QuizSection = () => {
         </div>
       </div>
       
-      {/* Right side - Illustration & Explanation Card */}
       <div className="w-full md:w-2/5 lg:w-1/3 space-y-6 sticky top-24">
         <div className="bg-white rounded-xl shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Understanding Cognitive Biases</h3>
@@ -358,7 +359,6 @@ const QuizSection = () => {
           </p>
         </div>
         
-        {/* Progress tracking */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <h4 className="font-medium mb-3">Your Progress</h4>
           <div className="space-y-1">

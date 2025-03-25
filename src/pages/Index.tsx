@@ -19,7 +19,7 @@ const Index = () => {
 
 // Content component that uses the quiz context
 const IndexContent = () => {
-  const { status } = useQuiz();
+  const { status, startQuiz } = useQuiz();
   const navigate = useNavigate();
   
   // If quiz is active or complete, redirect to the appropriate page
@@ -30,6 +30,10 @@ const IndexContent = () => {
       navigate("/results");
     }
   }, [status, navigate]);
+
+  const handleStartQuiz = () => {
+    navigate("/quiz");
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -44,7 +48,7 @@ const IndexContent = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Hero />
+            <Hero onStartQuiz={handleStartQuiz} />
           </motion.div>
         </AnimatePresence>
       </main>
