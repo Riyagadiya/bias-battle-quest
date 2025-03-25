@@ -38,17 +38,21 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
     setAnswers(Array(questionData.length).fill(null));
   }, []);
 
-  const startQuiz = () => {
-    setStatus("active");
-    setCurrentQuestion(0);
-    setScore(0);
-    setAnswers(Array(questions.length).fill(null));
-    setResponses([]);
-    setQuizStarted(true);
-    setQuizCompleted(false);
-    setStartTime(Date.now());
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    toast.success("Quiz started! Good luck!");
+  const startQuiz = async () => {
+    return new Promise<void>((resolve) => {
+      // Ensure questions are loaded
+      setQuestions(questionData);
+      setStatus("active");
+      setCurrentQuestion(0);
+      setScore(0);
+      setAnswers(Array(questionData.length).fill(null));
+      setResponses([]);
+      setQuizStarted(true);
+      setQuizCompleted(false);
+      setStartTime(Date.now());
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      resolve();
+    });
   };
 
   const resetQuiz = () => {
@@ -147,7 +151,7 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
     timePerQuestion,
     setSelectedOption,
     quizStarted,
-    setQuizStarted,  // Added this missing property
+    setQuizStarted,
     quizCompleted,
     setQuizCompleted,
     setCurrentQuestionIndex,

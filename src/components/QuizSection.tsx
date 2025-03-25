@@ -22,14 +22,10 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-    
-    return () => clearTimeout(timer);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -52,7 +48,10 @@ const QuizSection = () => {
   }, [currentQuestionIndex, quizStarted, quizCompleted]);
 
   const handleAnswer = (selectedAnswer: string) => {
+    if (!questions || questions.length === 0) return;
+    
     const currentQuestion = questions[currentQuestionIndex];
+    if (!currentQuestion) return;
     
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = selectedAnswer;
@@ -83,6 +82,8 @@ const QuizSection = () => {
   };
   
   const handleNext = () => {
+    if (!questions || questions.length === 0) return;
+    
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption(null);
@@ -92,6 +93,8 @@ const QuizSection = () => {
   };
   
   const handleSkip = () => {
+    if (!questions || questions.length === 0) return;
+    
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = "skipped";
     setAnswers(newAnswers);
@@ -108,26 +111,12 @@ const QuizSection = () => {
   };
 
   if (isLoading || !quizStarted || quizCompleted || !questions || questions.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Preparing Quiz...</h2>
-          <p className="text-gray-600">Please wait while we set up your cognitive bias challenge.</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">No Questions Available</h2>
-          <p className="text-gray-600">There seems to be an issue loading the questions.</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const getBiasIllustration = (questionType: string) => {
