@@ -31,10 +31,6 @@ const IndexContent = () => {
     }
   }, [status, navigate]);
 
-  const handleStartQuiz = () => {
-    navigate("/quiz");
-  };
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -48,7 +44,7 @@ const IndexContent = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Hero onStartQuiz={handleStartQuiz} />
+            <Hero />
           </motion.div>
         </AnimatePresence>
       </main>

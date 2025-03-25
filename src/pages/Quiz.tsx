@@ -20,8 +20,8 @@ const Quiz = () => {
       return;
     }
     
-    // Start the quiz if we're in idle state
-    if (status === "idle") {
+    // Force the status to "active" when on quiz page
+    if (status !== "active") {
       try {
         startQuiz();
         toast.success("Quiz started! Good luck!");
@@ -31,7 +31,7 @@ const Quiz = () => {
         navigate("/");
       }
     }
-  }, [quizCompleted, navigate, startQuiz, status]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
