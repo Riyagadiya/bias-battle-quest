@@ -147,6 +147,7 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
     timePerQuestion,
     setSelectedOption,
     quizStarted,
+    setQuizStarted,  // Added this missing property
     quizCompleted,
     setQuizCompleted,
     setCurrentQuestionIndex,

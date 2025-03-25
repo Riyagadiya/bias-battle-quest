@@ -26,11 +26,13 @@ const Quiz = () => {
       try {
         // Force the status to "active" when on quiz page
         await startQuiz();
-        if (setQuizStarted) {
-          setQuizStarted(true);
-        }
-        setLoading(false);
-        toast.success("Quiz started! Good luck!");
+        setQuizStarted(true);
+        
+        // Wait a short moment before hiding the loading state to ensure data is ready
+        setTimeout(() => {
+          setLoading(false);
+          toast.success("Quiz started! Good luck!");
+        }, 500);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");
