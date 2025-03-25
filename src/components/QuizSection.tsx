@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { useQuiz } from "../context/QuizContext";
+import { useQuiz } from "../hooks/useQuizContext";
 import { motion } from "framer-motion";
 import QuizContent from "./quiz/QuizContent";
 import QuizSidebar from "./quiz/QuizSidebar";
@@ -21,12 +21,7 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  const [isLoading, setIsLoading] = useState(false);
   
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
   useEffect(() => {
     if (!quizStarted || quizCompleted) return;
     
@@ -101,7 +96,7 @@ const QuizSection = () => {
     handleNext();
   };
 
-  if (isLoading || !quizStarted || quizCompleted || !questions || questions.length === 0) {
+  if (!quizStarted || quizCompleted || !questions || questions.length === 0) {
     return null;
   }
 

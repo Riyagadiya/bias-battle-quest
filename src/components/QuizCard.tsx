@@ -1,10 +1,8 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useQuiz } from "../context/QuizContext";
-import { Card, CardContent } from "./ui/card";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Check, Clock, Brain, AlertTriangle } from "lucide-react";
+import { Check, AlertTriangle } from "lucide-react";
 
 export interface QuizCardProps {
   question: string;
@@ -23,7 +21,7 @@ const QuizCard = ({
 }: QuizCardProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
-  const { timePerQuestion, setSelectedOption: setContextSelectedOption } = useQuiz();
+  const { setSelectedOption: setContextSelectedOption } = useQuiz();
   
   // Handle option selection
   const handleOptionSelect = (option: string) => {
@@ -36,6 +34,7 @@ const QuizCard = ({
     setTimeout(() => {
       onAnswer(option);
       setShowFeedback(false);
+      setSelectedOption(null);
     }, 1500);
   };
 
