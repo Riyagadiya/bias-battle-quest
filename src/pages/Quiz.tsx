@@ -34,12 +34,11 @@ const Quiz = () => {
       setIsInitializing(true);
       try {
         await startQuiz();
-        setQuizStarted(true);
-        
-        // Shorter delay to show questions faster
+        // After startQuiz completes, set a small delay to allow context to update
         setTimeout(() => {
+          setQuizStarted(true);
           setIsInitializing(false);
-        }, 300);
+        }, 500);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");

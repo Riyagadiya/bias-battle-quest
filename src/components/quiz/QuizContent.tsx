@@ -1,9 +1,10 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
 import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../ui/label";
 
 interface QuizContentProps {
   currentQuestion: any;
@@ -30,10 +31,15 @@ const QuizContent = ({
 }: QuizContentProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   
-  const handleOptionSelect = (option: string) => {
+  // Clear selected option when question changes
+  useEffect(() => {
+    setSelectedOption(null);
+  }, [currentQuestionIndex]);
+  
+  const handleOptionSelect = (value: string) => {
     if (showExplanation) return;
-    setSelectedOption(option);
-    handleAnswer(option);
+    setSelectedOption(value);
+    handleAnswer(value);
   };
 
   return (
@@ -56,38 +62,40 @@ const QuizContent = ({
       
       {/* Options */}
       <div className="space-y-4 mb-8">
-        {currentQuestion.options.map((option: any, idx: number) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: idx * 0.1 }}
-          >
-            <div
-              className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
-                selectedOption === option.text
-                  ? "border-cognilense-blue bg-blue-50"
-                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-              }`}
-              onClick={() => handleOptionSelect(option.text)}
+        <RadioGroup value={selectedOption || ""} onValueChange={handleOptionSelect}>
+          {currentQuestion.options.map((option: any, idx: number) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.1 }}
             >
-              <div className="flex items-center w-full">
-                <div className="h-5 w-5 mr-3 flex items-center justify-center">
-                  <div className={`h-5 w-5 rounded-full border ${
-                    selectedOption === option.text
-                      ? "border-cognilense-blue"
-                      : "border-gray-300"
-                  }`}>
-                    {selectedOption === option.text && (
-                      <div className="h-3 w-3 rounded-full bg-cognilense-blue m-0.5"></div>
-                    )}
+              <div
+                className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
+                  selectedOption === option.text
+                    ? "border-cognilense-blue bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                }`}
+                onClick={() => !showExplanation && handleOptionSelect(option.text)}
+              >
+                <div className="flex items-center w-full gap-3">
+                  <div className="h-5 w-5 flex items-center justify-center">
+                    <div className={`h-5 w-5 rounded-full border ${
+                      selectedOption === option.text
+                        ? "border-cognilense-blue"
+                        : "border-gray-300"
+                    }`}>
+                      {selectedOption === option.text && (
+                        <div className="h-3 w-3 rounded-full bg-cognilense-blue m-0.5"></div>
+                      )}
+                    </div>
                   </div>
+                  <span className="text-base md:text-lg text-gray-800">{option.text}</span>
                 </div>
-                <span className="text-base md:text-lg text-gray-800">{option.text}</span>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </RadioGroup>
       </div>
       
       {/* Navigation */}
@@ -108,7 +116,7 @@ const QuizContent = ({
             disabled={showExplanation}
             className="text-muted-foreground hover:text-foreground gap-1"
           >
-            Skip
+            Skip <SkipForward className="w-4 h-4" />
           </Button>
           
           <Button
