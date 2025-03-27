@@ -11,9 +11,10 @@ const ResultsSection = () => {
   
   if (status !== "complete") return null;
   
-  // Process the answers array for easier handling
-  const answersArray = questions.map((question, index) => {
-    const answer = answers[index];
+  // Convert the answers record to an array for easier processing
+  const answersArray = Object.entries(answers).map(([questionIndex, answer]) => {
+    const index = parseInt(questionIndex);
+    const question = questions[index];
     const isCorrect = answer === question.options.find(option => option.isCorrect)?.text;
     
     return {
@@ -44,7 +45,9 @@ const ResultsSection = () => {
   }
 
   return (
-    <section className="py-24 px-6 md:px-8 min-h-screen flex items-center">
+    <section className="py-24 px-6 md:px-8 min-h-screen flex items-center relative">
+      <div className="absolute inset-0 wave-pattern"></div>
+      
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10">

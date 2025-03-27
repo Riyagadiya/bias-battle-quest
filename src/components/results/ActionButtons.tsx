@@ -9,7 +9,7 @@ const ActionButtons = ({ restartQuiz }: ActionButtonsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <a 
-        href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true" 
+        href="https://www.amazon.com" 
         target="_blank" 
         rel="noopener noreferrer"
         className="group flex items-center justify-between p-4 rounded-lg border hover:border-cognilense-blue hover:shadow-md transition-all"
