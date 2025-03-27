@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
@@ -9,7 +8,7 @@ import QuestionSummaryList from "./results/QuestionSummaryList";
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
   
-  if (status !== "complete") return null;
+  if (status !== "active") return null;
   
   // Process the answers array for easier handling
   const answersArray = questions.map((question, index) => {
