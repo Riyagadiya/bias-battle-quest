@@ -76,7 +76,8 @@ export default {
 			},
 			fontFamily: {
 				domine: ['Domine', 'serif'],
-				worksans: ['Work Sans', 'sans-serif']
+				worksans: ['Work Sans', 'sans-serif'],
+				inter: ['Inter', 'sans-serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

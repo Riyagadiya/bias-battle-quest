@@ -1,7 +1,6 @@
 
 import React from "react";
 import GradientButton from "./GradientButton";
-import { ArrowUpRight } from "lucide-react";
 
 const PromoSection = () => {
   return (
@@ -10,11 +9,12 @@ const PromoSection = () => {
       
       <div className="container mx-auto relative z-10">
         <div className="flex flex-col items-center text-center pt-12 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-domine font-bold mb-4">
-            Discover the full potential of CogniLense!
+          <h2 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] mb-4">
+            "Discover the full potential"<br />
+            <span>of CogniLense!</span>
           </h2>
           
-          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl">
+          <p className="font-inter font-normal text-lg md:text-[20px] leading-normal tracking-tight text-muted-foreground mb-8 max-w-2xl">
             Whether you're looking to solve product challenges or dive deeper into insights through our workshops, let's collaborate.
           </p>
           
