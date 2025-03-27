@@ -1,5 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface Question {
   id: number;
@@ -21,49 +22,50 @@ interface QuestionSummaryListProps {
 }
 
 const QuestionSummaryList = ({ answersArray, questions }: QuestionSummaryListProps) => {
-  // Cognitive bias cards data
-  const biasCards = [
-    {
-      title: "Framing bias",
-      description: "Equivalent information can be more or less attractive depending on how it is presented, influencing our decisions.",
-      image: "/lovable-uploads/f0b791d6-bd23-4b3a-beff-64efd67f762b.png"
-    },
-    {
-      title: "Recall bias",
-      description: "Individuals do not accurately remember past events or experiences or leave out details while reporting about them.",
-      image: "/lovable-uploads/f02f5f6f-6f15-429c-a14c-1a74343bad09.png"
-    },
-    {
-      title: "Belief Bias",
-      description: "We are more likely to accept the fact of something if it matches our pre-existing beliefs.",
-      image: "/lovable-uploads/12d32dda-2c05-4a8e-a769-0b0e153e53aa.png"
-    },
-    {
-      title: "Groupthink bias",
-      description: "A group of individuals reaches a consensus without critical reasoning or evaluation of the consequences or alternatives, simply doing or agreeing because everyone else is.",
-      image: "/lovable-uploads/2c66cb1d-3be2-44cf-ae55-2cdcc2f2faf3.png"
-    }
-  ];
-
   return (
-    <div className="space-y-6">
-      <h3 className="font-domine text-2xl font-semibold text-center mb-6">
-        Cognitive Biases - Sneak Peak
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {biasCards.map((card, index) => (
-          <div key={`bias-card-${index}`} className="flex flex-col h-full">
-            <Card className="overflow-hidden h-full">
-              <CardContent className="p-0 h-full">
-                <img 
-                  src={card.image} 
-                  alt={card.title} 
-                  className="w-full h-auto object-cover"
-                />
-              </CardContent>
-            </Card>
-          </div>
-        ))}
+    <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+      {answersArray.map((answer, index) => (
+        <Card key={`question-${index}`} className="overflow-hidden border-l-4 border-l-gray-300">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="mt-1">
+                {answer.isCorrect ? (
+                  <CheckCircle size={18} className="text-green-500" />
+                ) : (
+                  <XCircle size={18} className="text-red-500" />
+                )}
+              </div>
+              <div>
+                <p className="font-medium mb-1 text-sm">
+                  Question {index + 1}
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  {answer.selectedOption ? (
+                    <>Your answer: <span className={answer.isCorrect ? "text-green-600 font-medium" : "text-red-600 font-medium"}>
+                      {answer.selectedOption}
+                    </span></>
+                  ) : (
+                    <span className="text-amber-600">Skipped</span>
+                  )}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+      
+      <div className="pt-4">
+        <h4 className="font-domine text-lg font-semibold mb-3">
+          Cognitive Bias Cards
+        </h4>
+        <p className="text-sm text-muted-foreground mb-4">
+          Improve your critical thinking with our bias card deck
+        </p>
+        <img 
+          src="/lovable-uploads/f0b791d6-bd23-4b3a-beff-64efd67f762b.png"
+          alt="Cognitive Bias Card"
+          className="w-full h-auto rounded-lg shadow-sm"
+        />
       </div>
     </div>
   );

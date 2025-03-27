@@ -47,14 +47,14 @@ const ResultsSection = () => {
     <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* Main results box - Left side (2 columns on md screens) */}
+          {/* Box 1: Main results box - Left side */}
           <motion.div 
-            className="md:col-span-2"
+            className="md:col-span-2 md:row-span-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
               <div className="px-6 py-8 md:p-10">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -103,31 +103,35 @@ const ResultsSection = () => {
                 />
               </div>
             </div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-10"
-            >
-              <QuestionSummaryList answersArray={answersArray} questions={questions} />
-            </motion.div>
           </motion.div>
           
-          {/* Action box - Right side (1 column) */}
+          {/* Box 2: Action box - Top right */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden sticky top-24">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
               <div className="px-6 py-8">
                 <DiscountSection />
                 <div className="mt-8">
                   <ActionButtons restartQuiz={restartQuiz} />
                 </div>
               </div>
+            </div>
+          </motion.div>
+          
+          {/* Box 3: Question summary - Bottom right */}
+          <motion.div
+            className="md:col-span-1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 h-full">
+              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+              <QuestionSummaryList answersArray={answersArray} questions={questions} />
             </div>
           </motion.div>
         </div>
