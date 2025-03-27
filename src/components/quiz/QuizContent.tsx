@@ -74,11 +74,14 @@ const QuizContent = ({
                 Question {currentQuestionIndex + 1} of {questionsLength}
               </span>
             </div>
-            {/* Updated timer with minimal gradient */}
+            {/* Progressive timer with #f7d465 color */}
             <div className="h-1 w-full bg-gray-100">
               <div 
-                className="h-full bg-gradient-to-r from-cognilense-blue via-cognilense-green to-cognilense-blue transition-all duration-300"
-                style={{ width: `${progress}%` }}
+                className="h-full transition-all duration-300"
+                style={{ 
+                  width: `${progress}%`,
+                  backgroundColor: "#f7d465" 
+                }}
               ></div>
             </div>
           </div>
