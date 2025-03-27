@@ -1,8 +1,7 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Brain, Target, Zap, ArrowUpRight, Info } from "lucide-react";
+import { Brain, Target, Zap, Info } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
 import { toast } from "sonner";
 import GradientButton from "./GradientButton";
@@ -37,16 +36,6 @@ const Hero = () => {
   const handleStartQuiz = () => {
     try {
       toast.success("Starting quiz challenge!");
-      navigate("/quiz");
-    } catch (error) {
-      console.error("Error navigating to quiz:", error);
-      toast.error("Couldn't start the quiz. Please try again.");
-    }
-  };
-
-  const handleLearnMore = () => {
-    try {
-      toast.success("Starting the cognitive bias quiz!");
       navigate("/quiz");
     } catch (error) {
       console.error("Error navigating to quiz:", error);
@@ -129,16 +118,6 @@ const Hero = () => {
             >
               Take the challenge
             </GradientButton>
-            
-            <GradientButton 
-              onClick={handleLearnMore}
-              className="text-base md:text-lg px-8 py-4 bg-white hover:bg-gray-50"
-              icon={false}
-              variant="secondary"
-            >
-              <Info className="mr-2 h-5 w-5" />
-              Quiz
-            </GradientButton>
           </motion.div>
           
           <motion.div 
@@ -209,7 +188,6 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.7 }}
           className="mt-60 mb-16 max-w-6xl mx-auto relative"
         >
-          {/* Increased the width of the background by 30% */}
           <div className="absolute right-0 top-0 w-[65%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
           <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
@@ -224,7 +202,6 @@ const Hero = () => {
               </p>
             </div>
             
-            {/* Increased the width of the image container by 30% */}
             <div className="w-full md:w-2/3 flex flex-col mt-6 md:mt-0">
               <div className="relative">
                 <div className="relative -left-1/6 md:-left-1/6 w-[117%]">
