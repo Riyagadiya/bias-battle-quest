@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock } from "lucide-react";
@@ -149,7 +148,7 @@ const QuizContent = ({
                 <Button
                   variant="outline"
                   onClick={handlePrevious}
-                  disabled={currentQuestionIndex === 0 || showExplanation}
+                  disabled={currentQuestionIndex === 0}
                   className="gap-1"
                 >
                   <ChevronLeft className="w-4 h-4" /> Previous
@@ -167,7 +166,6 @@ const QuizContent = ({
                 <Button
                   variant="default"
                   onClick={handleNext}
-                  disabled={showExplanation}
                   className="bg-cognilense-blue text-white hover:bg-blue-600 gap-1"
                 >
                   {currentQuestionIndex === questionsLength - 1 ? "Finish" : "Next"} 
