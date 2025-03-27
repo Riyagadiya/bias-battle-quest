@@ -71,7 +71,10 @@ const ResultsSummary = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <span className="text-lg font-medium text-muted-foreground">
+          <span className="text-3xl font-bold text-gray-800">
+            {percentage}%
+          </span>
+          <span className="text-sm font-medium text-muted-foreground">
             {correctAnswers}/{totalQuestions} correct
           </span>
         </motion.div>
