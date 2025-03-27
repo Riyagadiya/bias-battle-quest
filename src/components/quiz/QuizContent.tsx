@@ -47,12 +47,6 @@ const QuizContent = ({
     handleAnswer(value);
   };
 
-  const getTimerColor = () => {
-    if (progress > 66) return "bg-green-500";
-    if (progress > 33) return "bg-yellow-500";
-    return "bg-red-500";
-  };
-
   // Helper function to determine if an option is correct
   const isCorrectOption = (option: any) => {
     return option.isCorrect === true;
@@ -80,10 +74,13 @@ const QuizContent = ({
                 Question {currentQuestionIndex + 1} of {questionsLength}
               </span>
             </div>
-            <Progress 
-              value={progress} 
-              className={`h-1 rounded-none ${getTimerColor()}`} 
-            />
+            {/* Updated timer with minimal gradient */}
+            <div className="h-1 w-full bg-gray-100">
+              <div 
+                className="h-full bg-gradient-to-r from-cognilense-blue via-cognilense-green to-cognilense-blue transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
           </div>
           
           {/* Question */}
@@ -245,18 +242,11 @@ const QuizContent = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Card className="bg-white p-6 shadow">
-              <h4 className="font-domine text-lg font-medium mb-3">
-                {selectedOption === getCorrectOptionText() ? 
-                  <span className="text-green-600">Correct Answer!</span> : 
-                  <span className="text-red-600">Incorrect Answer</span>
-                }
+            <Card className="bg-white p-6 shadow border border-blue-200">
+              <h4 className="font-domine text-lg font-medium mb-3 text-blue-700">
+                Explanation
               </h4>
-              <div className={`p-4 rounded-lg ${
-                selectedOption === getCorrectOptionText() ? 
-                  "bg-green-50 border border-green-200" : 
-                  "bg-red-50 border border-red-200"
-              }`}>
+              <div className="p-4 rounded-lg bg-blue-50 border border-blue-100">
                 <p className="text-sm mb-3">{currentQuestion.explanation}</p>
                 <p className="text-sm font-medium">
                   <span className="text-gray-700">Cognitive Bias:</span>{" "}
@@ -266,21 +256,6 @@ const QuizContent = ({
             </Card>
           </motion.div>
         )}
-        
-        {/* Quiz progress stats */}
-        <Card className="bg-white p-4 shadow">
-          <h4 className="font-medium mb-3 font-worksans">Your Progress</h4>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center text-sm">
-              <span>Completed</span>
-              <span className="font-medium">{currentQuestionIndex}/{questionsLength}</span>
-            </div>
-            <Progress 
-              value={(currentQuestionIndex / questionsLength) * 100} 
-              className="h-2"
-            />
-          </div>
-        </Card>
       </div>
     </div>
   );
