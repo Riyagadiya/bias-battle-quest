@@ -28,14 +28,15 @@ const ResultsSection = () => {
   
   let resultMessage = "";
   
-  if (percentage >= 80) {
-    resultMessage = "You have an analytical mind!";
-  } else if (percentage >= 60) {
-    resultMessage = "You think clearly!";
-  } else if (percentage >= 40) {
-    resultMessage = "You're on the right track!";
-  } else {
-    resultMessage = "Time to learn more!";
+  // Updated result messages based on the new ranges
+  if (correctAnswers === 0) {
+    resultMessage = "Lost in Bias!";
+  } else if (correctAnswers >= 1 && correctAnswers <= 2) {
+    resultMessage = "Cognitive Fog Ahead!";
+  } else if (correctAnswers >= 3 && correctAnswers <= 5) {
+    resultMessage = "Getting Wiser!";
+  } else if (correctAnswers >= 6 && correctAnswers <= 10) {
+    resultMessage = "Sharp & Unbiased!";
   }
 
   // Count answered questions (not skipped or null)
