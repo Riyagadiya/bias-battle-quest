@@ -53,20 +53,6 @@ const QuestionSummaryList = ({ answersArray, questions }: QuestionSummaryListPro
           </CardContent>
         </Card>
       ))}
-      
-      <div className="pt-4">
-        <h4 className="font-domine text-lg font-semibold mb-3">
-          Cognitive Bias Cards
-        </h4>
-        <p className="text-sm text-muted-foreground mb-4">
-          Improve your critical thinking with our bias card deck
-        </p>
-        <img 
-          src="/lovable-uploads/f0b791d6-bd23-4b3a-beff-64efd67f762b.png"
-          alt="Cognitive Bias Card"
-          className="w-full h-auto rounded-lg shadow-sm"
-        />
-      </div>
     </div>
   );
 };
