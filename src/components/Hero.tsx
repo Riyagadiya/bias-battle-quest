@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -230,8 +231,8 @@ const Hero = () => {
               <div className="relative">
                 <div className="relative -left-1/6 md:-left-1/6 w-[90%]">
                   <img 
-                    src="/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png" 
-                    alt="Man with hands on head illustrating cognitive bias" 
+                    src="/lovable-uploads/becd3b5c-147e-42fc-b050-4450b76ca3e1.png" 
+                    alt="Brain lens illustration showing cognitive perspective" 
                     className="w-full h-auto object-contain z-10"
                   />
                 </div>
