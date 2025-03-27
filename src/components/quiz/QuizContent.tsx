@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { RadioGroup } from "../ui/radio-group";
 import { Progress } from "../ui/progress";
 import { Card } from "../ui/card";
+import BiasIllustration from "./BiasIllustration";
 
 interface QuizContentProps {
   currentQuestion: any;
