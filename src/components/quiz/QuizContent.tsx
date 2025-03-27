@@ -166,33 +166,6 @@ const QuizContent = ({
               </RadioGroup>
             </div>
             
-            {/* Explanation card (flips in when answer is selected) */}
-            {showExplanation && (
-              <motion.div
-                initial={{ rotateX: 90, opacity: 0 }}
-                animate={{ rotateX: 0, opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className={`p-4 rounded-lg border mb-4 ${
-                  selectedOption === getCorrectOptionText()
-                    ? "border-green-500 bg-green-50"
-                    : "border-red-500 bg-red-50"
-                }`}
-              >
-                <h4 className={`font-domine font-semibold mb-1 ${
-                  selectedOption === getCorrectOptionText()
-                    ? "text-green-700"
-                    : "text-red-700"
-                }`}>
-                  {selectedOption === getCorrectOptionText() ? "Correct!" : "Incorrect!"}
-                </h4>
-                <p className="text-sm font-worksans">{currentQuestion.explanation}</p>
-                <p className="text-sm font-medium mt-2">
-                  <span className="text-gray-600">Cognitive Bias: </span>
-                  <span className="italic">{currentQuestion.type}</span>
-                </p>
-              </motion.div>
-            )}
-            
             {/* Navigation */}
             <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-20">
               <div className="flex justify-between">
@@ -248,7 +221,7 @@ const QuizContent = ({
         </div>
       </div>
       
-      {/* Right side - Illustration and info */}
+      {/* Right side - Explanation and info */}
       <div className="w-full md:w-2/5 space-y-4">
         {/* Cognitive bias illustration */}
         <Card className="bg-white p-6 shadow">
@@ -264,6 +237,35 @@ const QuizContent = ({
             Each question in this quiz highlights a different bias that affects our thinking.
           </p>
         </Card>
+        
+        {/* Explanation Card - Shows when an answer is selected */}
+        {showExplanation && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Card className="bg-white p-6 shadow">
+              <h4 className="font-domine text-lg font-medium mb-3">
+                {selectedOption === getCorrectOptionText() ? 
+                  <span className="text-green-600">Correct Answer!</span> : 
+                  <span className="text-red-600">Incorrect Answer</span>
+                }
+              </h4>
+              <div className={`p-4 rounded-lg ${
+                selectedOption === getCorrectOptionText() ? 
+                  "bg-green-50 border border-green-200" : 
+                  "bg-red-50 border border-red-200"
+              }`}>
+                <p className="text-sm mb-3">{currentQuestion.explanation}</p>
+                <p className="text-sm font-medium">
+                  <span className="text-gray-700">Cognitive Bias:</span>{" "}
+                  <span className="italic">{currentQuestion.type}</span>
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+        )}
         
         {/* Quiz progress stats */}
         <Card className="bg-white p-4 shadow">
