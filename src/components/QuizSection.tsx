@@ -37,23 +37,21 @@ const QuizSection = () => {
     if (!quizStarted || quizCompleted) return;
     
     setTimeLeft(timePerQuestion);
+    setShowExplanation(false);
     
-    // Only reset timer if not showing explanation
-    if (!showExplanation) {
-      const timer = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(timer);
-            handleSkip();
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-      
-      return () => clearInterval(timer);
-    }
-  }, [currentQuestionIndex, quizStarted, quizCompleted, showExplanation]);
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          handleSkip();
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [currentQuestionIndex, quizStarted, quizCompleted]);
 
   const handleAnswer = (selectedAnswer: string) => {
     if (!questions || questions.length === 0) return;
@@ -71,16 +69,24 @@ const QuizSection = () => {
       setScore((prevScore) => prevScore + 1);
     }
     
-    setSelectedOption(selectedAnswer);
+    setSelectedOption(null);
     setShowExplanation(true);
     
-    // Don't automatically move to next question, let user read explanation and click next
+    // Delay moving to next question to allow user to see explanation
+    setTimeout(() => {
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setShowExplanation(false);
+      } else {
+        setQuizCompleted(true);
+      }
+    }, 1500); // Give 1.5 seconds to read feedback before moving on
   };
   
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setSelectedOption(answers[currentQuestionIndex - 1] || null);
+      setSelectedOption(null);
       setShowExplanation(false);
     }
   };
@@ -90,7 +96,7 @@ const QuizSection = () => {
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(answers[currentQuestionIndex + 1] || null);
+      setSelectedOption(null);
       setShowExplanation(false);
     } else {
       setQuizCompleted(true);
@@ -112,7 +118,7 @@ const QuizSection = () => {
     return (
       <div className="py-12 px-6 text-center">
         <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
-        <div className="space-y-4 max-w-3xl mx-auto">
+        <div className="space-y-4 max-w-2xl mx-auto">
           <Skeleton className="h-24 w-full rounded-lg" />
           <div className="grid grid-cols-1 gap-3">
             <Skeleton className="h-16 w-full rounded-lg" />
@@ -140,9 +146,10 @@ const QuizSection = () => {
   console.log("Rendering question:", currentQuestion.question);
 
   return (
-    <section className="py-8 px-4 md:px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-8 px-6">
+      <div className="max-w-3xl mx-auto">
         <motion.div
+          className="bg-white rounded-lg shadow-md overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
