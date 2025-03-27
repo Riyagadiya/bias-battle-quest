@@ -1,153 +1,135 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useQuiz } from "../context/QuizContext";
+import { cn } from "@/lib/utils";
+import { Check, X } from "lucide-react";
 
-export interface QuizCardProps {
+interface QuizCardProps {
   question: string;
   options: string[];
-  correctAnswer: string;
+  correctAnswer: number;
   explanation: string;
-  onAnswer: (selectedAnswer: string) => void;
+  onAnswer: (isCorrect: boolean) => void;
+  timePerQuestion?: number;
 }
 
-const QuizCard = ({
+const QuizCard: React.FC<QuizCardProps> = ({
   question,
   options,
   correctAnswer,
   explanation,
   onAnswer,
-}: QuizCardProps) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30); // Default to 30 seconds
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  
-  const { timePerQuestion, setSelectedOption: setContextSelectedOption } = useQuiz();
-  
-  // Set initial time based on context
+  timePerQuestion = 30, // Default to 30 seconds if not provided
+}) => {
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+
   useEffect(() => {
-    setTimeLeft(timePerQuestion);
-  }, [timePerQuestion]);
+    // Reset state when question changes
+    setSelectedAnswer(null);
+    setIsFlipped(false);
+  }, [question]);
 
-  // Timer effect
-  useEffect(() => {
-    if (timeLeft > 0 && !showFeedback) {
-      timerRef.current = setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-    } else if (timeLeft === 0 && !showFeedback) {
-      handleOptionSelect("Time's up!");
-    }
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [timeLeft, showFeedback]);
-
-  // Reset timer when question changes
-  useEffect(() => {
-    setTimeLeft(timePerQuestion);
-    setSelectedOption(null);
-    setShowFeedback(false);
+  const handleAnswerClick = (index: number) => {
+    if (selectedAnswer !== null) return; // Prevent multiple selections
     
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [question, timePerQuestion]);
-
-  const handleOptionSelect = (option: string) => {
-    if (showFeedback || selectedOption) return;
+    setSelectedAnswer(index);
+    const correct = index === correctAnswer;
+    setIsCorrect(correct);
     
-    setSelectedOption(option);
-    setContextSelectedOption(option);
-    setShowFeedback(true);
-    
-    if (timerRef.current) clearTimeout(timerRef.current);
-    
+    // Delay the flip animation
     setTimeout(() => {
-      onAnswer(option);
-      setShowFeedback(false);
-    }, 1500);
+      setIsFlipped(true);
+      onAnswer(correct);
+    }, 500);
   };
 
-  const getTimerColor = () => {
-    if (timeLeft > 20) return "bg-gradient-to-r from-green-300 to-green-500";
-    if (timeLeft > 10) return "bg-gradient-to-r from-yellow-300 to-yellow-500";
-    return "bg-gradient-to-r from-orange-300 to-red-500";
-  };
-
-  // Safely render options with a null check
+  // Safely check if options is available and is an array before mapping
   const renderOptions = () => {
-    if (!options || !Array.isArray(options) || options.length === 0) {
-      return (
-        <div className="p-4 border border-gray-200 rounded-lg">
-          <p>No options available</p>
-        </div>
-      );
+    if (!options || !Array.isArray(options)) {
+      return <p>No options available</p>;
     }
 
-    return options.map((option, idx) => (
+    return options.map((option, index) => (
       <motion.button
-        key={idx}
-        onClick={() => handleOptionSelect(option)}
-        disabled={showFeedback}
-        className={`p-4 md:p-6 border text-left rounded-lg transition-all duration-200 ${
-          selectedOption === option && showFeedback
-            ? option === correctAnswer
-              ? "border-green-500 bg-green-50"
-              : "border-red-500 bg-red-50"
-            : "border-gray-200 hover:border-cognilense-blue hover:shadow-md"
-        } ${
-          showFeedback && option === correctAnswer && selectedOption !== option
-            ? "border-green-500 bg-green-50"
-            : ""
-        }`}
-        whileHover={!showFeedback ? { scale: 1.02 } : {}}
-        whileTap={!showFeedback ? { scale: 0.98 } : {}}
+        key={index}
+        onClick={() => handleAnswerClick(index)}
+        disabled={selectedAnswer !== null}
+        className={cn(
+          "answer-card relative p-4 md:p-6 rounded-lg text-left transition-all",
+          "border-2 hover:border-black/50 focus:outline-none focus:ring-2 focus:ring-black/20",
+          selectedAnswer === null 
+            ? "bg-white hover:shadow-md" 
+            : selectedAnswer === index
+              ? isCorrect
+                ? "border-cognilense-green bg-cognilense-green/10"
+                : "border-red-500 bg-red-500/10"
+              : index === correctAnswer && isFlipped
+                ? "border-cognilense-green bg-cognilense-green/10"
+                : "border-gray-200 bg-gray-50 opacity-60"
+        )}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.1 }}
       >
-        <div className="flex items-start">
-          <span className="font-inter text-base md:text-lg">{option}</span>
+        <div className="flex items-start gap-3">
+          <div 
+            className={cn(
+              "flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5",
+              selectedAnswer === null 
+                ? "border-2 border-gray-300" 
+                : selectedAnswer === index
+                  ? isCorrect
+                    ? "bg-cognilense-green text-white"
+                    : "bg-red-500 text-white"
+                  : index === correctAnswer && isFlipped
+                    ? "bg-cognilense-green text-white"
+                    : "border-2 border-gray-300"
+            )}
+          >
+            {selectedAnswer === index && isCorrect && <Check size={14} />}
+            {selectedAnswer === index && !isCorrect && <X size={14} />}
+            {selectedAnswer !== index && index === correctAnswer && isFlipped && <Check size={14} />}
+          </div>
+          <span className="text-base md:text-lg">{option}</span>
         </div>
       </motion.button>
     ));
   };
 
-  if (!question) {
-    return <div>Loading question...</div>;
-  }
-
   return (
-    <div className="w-full">
+    <div className="w-full max-w-3xl mx-auto">
       {/* Timer bar */}
-      <div className="w-full h-1 bg-gray-200 rounded-full mb-6 overflow-hidden">
-        <motion.div
-          className={`h-full ${getTimerColor()}`}
-          initial={{ width: "100%" }}
-          animate={{ width: `${(timeLeft / timePerQuestion) * 100}%` }}
-          transition={{ duration: 1, ease: "linear" }}
-        />
+      {selectedAnswer === null && timePerQuestion && (
+        <div className="w-full h-1 bg-gray-200 rounded-full mb-6">
+          <div 
+            className="timer-bar rounded-full"
+            style={{ 
+              animationDuration: `${timePerQuestion}s`,
+            }}
+          />
+        </div>
+      )}
+      
+      <div className="mb-8">
+        <h3 className="text-xl md:text-2xl font-domine mb-2">{question}</h3>
       </div>
       
-      {/* Question */}
-      <h3 className="font-inter text-xl md:text-2xl mb-8 font-medium">{question}</h3>
-      
-      {/* Options */}
-      <div className="grid gap-4">
+      <div className="grid grid-cols-1 gap-4">
         {renderOptions()}
       </div>
       
-      {/* Feedback */}
-      {showFeedback && (
-        <motion.div
+      {/* Explanation */}
+      {isFlipped && (
+        <motion.div 
+          className="mt-8 p-6 bg-white rounded-lg border border-gray-200 shadow-sm"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg"
+          transition={{ duration: 0.3 }}
         >
-          <p className="font-inter text-sm">
-            <span className="font-medium">Explanation: </span>
-            {explanation}
-          </p>
+          <h4 className="font-domine text-lg font-semibold mb-2">Explanation:</h4>
+          <p className="text-muted-foreground">{explanation}</p>
         </motion.div>
       )}
     </div>

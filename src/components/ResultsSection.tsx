@@ -12,20 +12,7 @@ const ResultsSection = () => {
   
   if (status !== "complete") return null;
   
-  // Convert the answers record to an array for easier processing
-  const answersArray = Object.entries(answers).map(([questionIndex, answer]) => {
-    const index = parseInt(questionIndex);
-    const question = questions[index];
-    const isCorrect = answer === question.correctAnswer;
-    
-    return {
-      questionIndex: index,
-      selectedOption: answer === "skipped" ? null : answer,
-      isCorrect
-    };
-  });
-  
-  const correctAnswers = answersArray.filter(a => a.isCorrect).length;
+  const correctAnswers = answers.filter(a => a.isCorrect).length;
   const percentage = Math.round((correctAnswers / questions.length) * 100);
   
   let resultMessage = "";
@@ -223,7 +210,7 @@ const ResultsSection = () => {
             <div className="max-w-2xl mx-auto">
               <h3 className="font-domine font-semibold mb-4">Question Summary</h3>
               <div className="space-y-3">
-                {answersArray.map((answer, index) => (
+                {answers.map((answer, index) => (
                   <div 
                     key={`summary-${index}`}
                     className="flex items-start gap-3 p-3 rounded-md bg-white border"
@@ -235,11 +222,11 @@ const ResultsSection = () => {
                     )}
                     <div>
                       <p className="font-medium">
-                        {questions[answer.questionIndex].question}
+                        {questions[index].question}
                       </p>
                       {answer.selectedOption !== null ? (
                         <p className="text-sm text-muted-foreground mt-1">
-                          Your answer: {questions[answer.questionIndex].options[answer.selectedOption]}
+                          Your answer: {questions[index].options[answer.selectedOption]}
                         </p>
                       ) : (
                         <p className="text-sm text-muted-foreground mt-1">
