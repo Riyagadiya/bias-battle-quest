@@ -1,219 +1,23 @@
 
-import React, { useState, useEffect } from "react";
-import { useQuiz } from "../context/QuizContext";
+import { useQuiz } from "@/context/QuizContext";
 import QuizCard from "./QuizCard";
-import { motion, AnimatePresence } from "framer-motion";
-import { Progress } from "./ui/progress";
+import { motion } from "framer-motion";
 
 const QuizSection = () => {
-  const {
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-    setScore,
-    answers,
-    setAnswers,
-    quizStarted,
-    quizCompleted,
-    setQuizCompleted,
-    setSelectedOption,
-    questions,
-    timePerQuestion
-  } = useQuiz();
-
-  const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  const [isLoading, setIsLoading] = useState(true);
+  const { status } = useQuiz();
   
-  // Check if questions are loaded and set loading state
-  useEffect(() => {
-    if (questions && questions.length > 0) {
-      setIsLoading(false);
-    }
-  }, [questions]);
+  if (status !== "active") return null;
   
-  // Timer effect
-  useEffect(() => {
-    if (!quizStarted || quizCompleted || isLoading) return;
-    
-    setTimeLeft(timePerQuestion);
-    
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          handleSkip();
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-    
-    return () => clearInterval(timer);
-  }, [currentQuestionIndex, quizStarted, quizCompleted, isLoading]);
-
-  const handleAnswer = (selectedAnswer: string) => {
-    if (isLoading || !questions || questions.length === 0) return;
-    
-    const currentQuestion = questions[currentQuestionIndex];
-    if (!currentQuestion) return;
-    
-    setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
-    
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-      setScore((prevScore) => prevScore + 1);
-    }
-    
-    // Clear selected option
-    setSelectedOption(null);
-    
-    // Move to next question or complete quiz
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      }, 500);
-    } else {
-      setQuizCompleted(true);
-    }
-  };
-  
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setSelectedOption(null);
-    }
-  };
-  
-  const handleNext = () => {
-    if (!questions || questions.length === 0) return;
-    
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null);
-    } else {
-      setQuizCompleted(true);
-    }
-  };
-  
-  const handleSkip = () => {
-    setAnswers({ ...answers, [currentQuestionIndex]: "skipped" });
-    handleNext();
-  };
-
-  // Calculate timer progress percentage
-  const timerProgress = (timeLeft / timePerQuestion) * 100;
-  
-  // Determine timer color based on time left
-  const getTimerColor = () => {
-    if (timerProgress > 66) return "bg-green-400";
-    if (timerProgress > 33) return "bg-yellow-400";
-    return "bg-red-400";
-  };
-
-  if (!quizStarted || quizCompleted) {
-    return null;
-  }
-
-  if (isLoading || !questions || questions.length === 0) {
-    return (
-      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg">Loading quiz questions...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const currentQuestion = questions[currentQuestionIndex];
-  
-  // Safety check to ensure currentQuestion exists
-  if (!currentQuestion) {
-    return (
-      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg">Error loading question. Please try again.</p>
-          <button 
-            onClick={() => setCurrentQuestionIndex(0)}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Restart Quiz
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <section className="min-h-screen py-24 px-6 flex items-center justify-center relative">
-      <div className="absolute inset-0 wave-pattern"></div>
-      
-      <div className="container mx-auto w-full max-w-4xl">
-        <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden pb-24">
-          {/* Progress indicator */}
-          <div className="flex justify-between mb-6 items-center">
-            <span className="font-semibold text-sm md:text-base">
-              Question {currentQuestionIndex + 1} of {questions.length}
-            </span>
-            <span className="text-sm text-muted-foreground font-medium">
-              {Math.round((currentQuestionIndex / questions.length) * 100)}% Complete
-            </span>
-          </div>
-          
-          {/* Timer progress bar */}
-          <div className="mb-6">
-            <Progress 
-              value={timerProgress} 
-              className={`h-1.5 ${getTimerColor()} bg-gray-100`} 
-            />
-          </div>
-          
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestionIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <QuizCard
-                question={currentQuestion.question}
-                options={currentQuestion.options}
-                correctAnswer={currentQuestion.correctAnswer}
-                explanation={currentQuestion.explanation}
-                onAnswer={handleAnswer}
-              />
-            </motion.div>
-          </AnimatePresence>
-          
-          {/* Navigation buttons */}
-          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-md z-20">
-            <div className="container mx-auto max-w-4xl flex justify-between">
-              <button
-                onClick={handlePrevious}
-                disabled={currentQuestionIndex === 0}
-                className={`px-4 py-2 rounded-md font-medium ${
-                  currentQuestionIndex === 0
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "text-black hover:bg-gray-100"
-                }`}
-              >
-                Previous
-              </button>
-              
-              <button
-                onClick={handleSkip}
-                className="px-4 py-2 text-muted-foreground hover:text-foreground font-medium"
-              >
-                Skip
-              </button>
-              
-              <button
-                onClick={handleNext}
-                className="px-4 py-2 text-cognilense-blue font-medium hover:bg-blue-50 rounded-md"
-              >
-                {currentQuestionIndex === questions.length - 1 ? "Finish" : "Next"}
-              </button>
-            </div>
-          </div>
-        </div>
+    <section className="py-24 px-6 md:px-8 min-h-screen flex items-center relative wave-pattern">
+      <div className="container mx-auto relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <QuizCard />
+        </motion.div>
       </div>
     </section>
   );

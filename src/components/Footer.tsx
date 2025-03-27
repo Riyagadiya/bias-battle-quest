@@ -8,12 +8,11 @@ const Footer = () => {
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 lg:gap-16">
           <div className="space-y-6">
-            <div>
-              <img 
-                src="/lovable-uploads/edf5b2d2-b28c-4ff8-9e6a-458af9b1b8f8.png" 
-                alt="Cognilense Logo" 
-                className="h-10 w-auto"
-              />
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-cognilense-green to-cognilense-blue flex items-center justify-center">
+                <span className="text-white font-domine font-bold text-xl">C</span>
+              </div>
+              <span className="font-domine font-bold text-2xl">Cognilense</span>
             </div>
             
             <p className="text-muted-foreground max-w-md">

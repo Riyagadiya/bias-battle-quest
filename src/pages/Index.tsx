@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import QuizSection from "@/components/QuizSection";
 import ResultsSection from "@/components/ResultsSection";
-import PromoSection from "@/components/PromoSection";
 import Footer from "@/components/Footer";
 import { useQuiz, QuizProvider } from "@/context/QuizContext";
 
@@ -70,9 +69,6 @@ const IndexContent = () => {
           )}
         </AnimatePresence>
       </main>
-      
-      {/* PromoSection - Always visible regardless of quiz status */}
-      <PromoSection />
       
       <Footer />
     </div>
