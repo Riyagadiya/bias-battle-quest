@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -19,6 +18,8 @@ interface QuizContentProps {
   handleNext: () => void;
   handleSkip: () => void;
   showExplanation: boolean;
+  answers: (string | null)[];
+  questions: any[];
 }
 
 const QuizContent = ({
@@ -31,12 +32,13 @@ const QuizContent = ({
   handlePrevious,
   handleNext,
   handleSkip,
-  showExplanation
+  showExplanation,
+  answers,
+  questions
 }: QuizContentProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const progress = (timeLeft / timePerQuestion) * 100;
   
-  // Clear selected option when question changes
   useEffect(() => {
     setSelectedOption(null);
   }, [currentQuestionIndex]);
@@ -47,12 +49,10 @@ const QuizContent = ({
     handleAnswer(value);
   };
 
-  // Helper function to determine if an option is correct
   const isCorrectOption = (option: any) => {
     return option.isCorrect === true;
   };
 
-  // Get the correct option text
   const getCorrectOptionText = () => {
     const correctOption = currentQuestion.options.find((option: any) => option.isCorrect);
     return correctOption ? correctOption.text : "";
@@ -60,10 +60,8 @@ const QuizContent = ({
 
   return (
     <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
-      {/* Left side - Question and answers */}
       <div className="w-full md:w-3/5">
         <Card className="gradient-border overflow-hidden shadow-lg animation-pulse-subtle mb-4">
-          {/* Timer bar */}
           <div className="w-full">
             <div className="flex items-center justify-between px-4 py-2 bg-gray-50">
               <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -74,7 +72,6 @@ const QuizContent = ({
                 Question {currentQuestionIndex + 1} of {questionsLength}
               </span>
             </div>
-            {/* Progressive timer with #f7d465 color */}
             <div className="h-1 w-full bg-gray-100">
               <div 
                 className="h-full transition-all duration-300"
@@ -86,7 +83,6 @@ const QuizContent = ({
             </div>
           </div>
           
-          {/* Question */}
           <div className="p-6 pb-20 bg-white relative min-h-[400px]">
             <AnimatePresence mode="wait">
               <motion.h3
@@ -101,7 +97,6 @@ const QuizContent = ({
               </motion.h3>
             </AnimatePresence>
             
-            {/* Options */}
             <div className="space-y-3 mb-8">
               <RadioGroup value={selectedOption || ""} onValueChange={handleOptionSelect}>
                 {currentQuestion.options.map((option: any, idx: number) => (
@@ -166,7 +161,6 @@ const QuizContent = ({
               </RadioGroup>
             </div>
             
-            {/* Navigation */}
             <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-20">
               <div className="flex justify-between">
                 <Button
@@ -200,34 +194,53 @@ const QuizContent = ({
           </div>
         </Card>
         
-        {/* Question progress indicators */}
         <div className="bg-white rounded-lg p-4 shadow">
           <div className="flex flex-wrap gap-2 justify-center">
-            {Array.from({ length: questionsLength }).map((_, idx) => (
-              <div 
-                key={idx} 
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
-                  idx === currentQuestionIndex
-                    ? "bg-cognilense-blue text-white font-medium"
-                    : idx < currentQuestionIndex
-                    ? "bg-green-100 text-green-700 border border-green-200"
-                    : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                {idx + 1}
-              </div>
-            ))}
+            {Array.from({ length: questionsLength }).map((_, idx) => {
+              const correctAnswer = questions[idx]?.options.find((o: any) => o.isCorrect)?.text;
+              const userAnswer = answers[idx];
+              
+              let bgColor = "bg-gray-100";
+              let textColor = "text-gray-500";
+              let border = "";
+              
+              if (idx === currentQuestionIndex) {
+                bgColor = "bg-cognilense-blue";
+                textColor = "text-white";
+                border = "";
+              } else if (idx < currentQuestionIndex) {
+                if (userAnswer === "skipped") {
+                  bgColor = "bg-gray-200";
+                  textColor = "text-gray-600";
+                  border = "border border-gray-300";
+                } else if (userAnswer === correctAnswer) {
+                  bgColor = "bg-green-100";
+                  textColor = "text-green-700";
+                  border = "border border-green-200";
+                } else {
+                  bgColor = "bg-red-100";
+                  textColor = "text-red-700";
+                  border = "border border-red-200";
+                }
+              }
+              
+              return (
+                <div 
+                  key={idx} 
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${bgColor} ${textColor} ${border}`}
+                >
+                  {idx + 1}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
       
-      {/* Right side - Explanation and info */}
       <div className="w-full md:w-2/5 space-y-4">
-        {/* Cognitive bias illustration */}
         <Card className="bg-white p-6 shadow">
           <h4 className="font-domine text-lg font-medium mb-4">Understanding Cognitive Biases</h4>
           <div className="border border-gray-100 rounded-md p-4 bg-gray-50 mb-4 flex justify-center">
-            {/* Black and white line art illustration */}
             <div className="w-48 h-48 flex items-center justify-center">
               <BiasIllustration biasType={currentQuestion.type} />
             </div>
@@ -238,7 +251,6 @@ const QuizContent = ({
           </p>
         </Card>
         
-        {/* Explanation Card - Shows when an answer is selected */}
         {showExplanation && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

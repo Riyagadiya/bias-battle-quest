@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
@@ -158,6 +157,8 @@ const QuizSection = () => {
             handleNext={handleNext}
             handleSkip={handleSkip}
             showExplanation={showExplanation}
+            answers={answers}
+            questions={questions}
           />
         </motion.div>
       </div>
