@@ -16,12 +16,19 @@ const ResultsSummary = ({
 }: ResultsSummaryProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="flex flex-col items-center mb-10"
+      className="flex flex-col items-center"
     >
-      <div className="relative w-40 h-40 mb-6">
+      <motion.div 
+        className="relative w-40 h-40 mb-6"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ 
+          duration: 0.8,
+          delay: 0.5,
+          type: "spring",
+          stiffness: 100
+        }}
+      >
         <svg className="w-full h-full" viewBox="0 0 100 100">
           <circle 
             cx="50" 
@@ -31,7 +38,7 @@ const ResultsSummary = ({
             stroke="#f1f1f1" 
             strokeWidth="10" 
           />
-          <circle 
+          <motion.circle 
             cx="50" 
             cy="50" 
             r="45" 
@@ -39,7 +46,15 @@ const ResultsSummary = ({
             stroke="url(#gradient)" 
             strokeWidth="10" 
             strokeDasharray="282.7" 
-            strokeDashoffset={282.7 - (282.7 * percentage / 100)}
+            initial={{ strokeDashoffset: 282.7 }}
+            animate={{ 
+              strokeDashoffset: 282.7 - (282.7 * percentage / 100)
+            }}
+            transition={{ 
+              duration: 1.5, 
+              delay: 0.8,
+              ease: "easeOut"
+            }}
             transform="rotate(-90 50 50)" 
           />
           <defs>
@@ -50,17 +65,17 @@ const ResultsSummary = ({
             </linearGradient>
           </defs>
         </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          {/* Removed percentage display */}
+        <motion.div 
+          className="absolute inset-0 flex flex-col items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.5 }}
+        >
           <span className="text-lg font-medium text-muted-foreground">
             {correctAnswers}/{totalQuestions} correct
           </span>
-        </div>
-      </div>
-      
-      <h3 className="text-2xl md:text-3xl font-domine font-medium mb-3">
-        {resultMessage}
-      </h3>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };

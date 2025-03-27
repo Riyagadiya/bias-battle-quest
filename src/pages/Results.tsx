@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
 import Header from "@/components/Header";
 import ResultsSection from "@/components/ResultsSection";
-import PromoSection from "@/components/PromoSection";
 import Footer from "@/components/Footer";
 
 const Results = () => {
@@ -34,7 +33,6 @@ const Results = () => {
         </motion.div>
       </main>
       
-      <PromoSection />
       <Footer />
     </div>
   );
