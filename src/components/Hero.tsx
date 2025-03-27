@@ -28,30 +28,6 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
     };
   }, []);
 
-  // Cognitive bias cards data
-  const biasCards = [
-    {
-      title: "Framing bias",
-      description: "Equivalent information can be more or less attractive depending on how it is presented, influencing our decisions.",
-      image: "/lovable-uploads/127df004-c4c0-4733-a1a1-511e730bbc3b.png"
-    },
-    {
-      title: "Recall bias",
-      description: "Individuals do not accurately remember past events or experiences or leave out details while reporting about them.",
-      image: "/lovable-uploads/76228625-2a1b-462b-b2f4-d3f95a6480d7.png"
-    },
-    {
-      title: "Belief Bias",
-      description: "We are more likely to accept the fact of something if it matches our pre-existing beliefs.",
-      image: "/lovable-uploads/4f5494bd-d6dc-4ce4-a704-c17e765e9e3c.png"
-    },
-    {
-      title: "Groupthink bias",
-      description: "A group of individuals reaches a consensus without critical reasoning or evaluation of the consequences or alternatives, simply doing or agreeing because everyone else is.",
-      image: "/lovable-uploads/5d61ea8b-bd0c-4768-a511-34a2616f81b9.png"
-    }
-  ];
-
   return (
     <section 
       ref={heroRef}
@@ -103,35 +79,45 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             </GradientButton>
           </motion.div>
         </div>
-
-        {/* Cognitive Biases Sneak Peak Section */}
+        
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 60 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 max-w-6xl mx-auto"
+          className="mt-16 md:mt-20 max-w-5xl mx-auto"
         >
-          <h3 className="font-domine text-3xl font-semibold text-center mb-10">
-            Sneak Peak into Cognitive Biases
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {biasCards.map((card, index) => (
-              <motion.div
-                key={`bias-card-${index}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                className="flex flex-col h-full"
-              >
-                <div className="overflow-hidden rounded-lg shadow-lg h-full transition-transform duration-300 hover:scale-[1.02]">
-                  <img 
-                    src={card.image} 
-                    alt={card.title} 
-                    className="w-full h-auto object-cover"
-                  />
+          <div className="relative mx-auto w-full max-w-3xl aspect-[16/9]">
+            <div className="absolute -inset-1 bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue rounded-lg opacity-30 blur-xl"></div>
+            <div className="relative bg-white bg-opacity-80 backdrop-blur rounded-lg shadow-xl overflow-hidden">
+              <div className="aspect-[16/9] flex items-center justify-center">
+                <div className="w-full h-full flex flex-col items-center justify-center p-6 md:p-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl">
+                    {[
+                      { color: "bg-cognilense-green", text: "Confirmation Bias" },
+                      { color: "bg-cognilense-yellow", text: "Dunning-Kruger Effect" },
+                      { color: "bg-cognilense-blue", text: "Anchoring Bias" },
+                      { color: "bg-cognilense-orange", text: "Availability Heuristic" },
+                    ].map((item, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                        className="group flex flex-col items-center text-center"
+                      >
+                        <div 
+                          className={`w-16 h-24 md:w-20 md:h-28 ${item.color} bg-opacity-20 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden transition-transform group-hover:scale-105 duration-300`}
+                        >
+                          <div className="absolute inset-0.5 rounded-md bg-white bg-opacity-60"></div>
+                          <div className={`w-3 h-10 ${item.color} rounded-full absolute top-3 left-3`}></div>
+                        </div>
+                        <span className="font-inter text-xs md:text-sm font-medium">{item.text}</span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
