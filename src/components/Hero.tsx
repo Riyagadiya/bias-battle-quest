@@ -33,7 +33,15 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       ref={heroRef}
       className="min-h-screen flex items-center justify-center py-24 px-6 md:px-8 relative overflow-hidden"
     >
-      <div className="absolute inset-0 wave-pattern"></div>
+      {/* Wave background image */}
+      <div className="absolute inset-0 bg-[#f9f9f9] opacity-60">
+        <div 
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
+          style={{
+            backgroundImage: "url('/lovable-uploads/54bf67b5-2084-4989-bca5-671388e54ae4.png')",
+          }}
+        ></div>
+      </div>
       
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto text-center">
@@ -41,7 +49,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-domine font-bold leading-tight md:leading-tight lg:leading-tight mb-6"
+            className="font-domine font-bold text-5xl md:text-6xl lg:text-[64px] leading-normal tracking-[-3%] mb-6"
           >
             Cognitive Biases:
             <br /> 
@@ -54,7 +62,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-10"
           >
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
@@ -103,7 +111,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
                           <div className="absolute inset-0.5 rounded-md bg-white bg-opacity-60"></div>
                           <div className={`w-3 h-10 ${item.color} rounded-full absolute top-3 left-3`}></div>
                         </div>
-                        <span className="text-xs md:text-sm font-medium">{item.text}</span>
+                        <span className="font-inter text-xs md:text-sm font-medium">{item.text}</span>
                       </motion.div>
                     ))}
                   </div>

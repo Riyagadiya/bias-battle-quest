@@ -28,11 +28,12 @@ const Header = () => {
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cognilense-green to-cognilense-blue flex items-center justify-center">
-              <span className="text-white font-domine font-bold text-lg">C</span>
-            </div>
-            <span className="font-domine font-bold text-xl tracking-tight">Cognilense</span>
+          <a href="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/edf5b2d2-b28c-4ff8-9e6a-458af9b1b8f8.png" 
+              alt="Cognilense Logo" 
+              className="h-[7.76px] w-auto" // Reduced by 3% from h-8 (8px * 0.97 = 7.76px)
+            />
           </a>
 
           {/* Desktop Navigation */}
