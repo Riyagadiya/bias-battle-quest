@@ -209,27 +209,25 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.7 }}
           className="mt-60 mb-16 max-w-6xl mx-auto relative"
         >
-          <div className="absolute right-0 top-0 w-[50%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
+          {/* Increased the width of the background by 30% */}
+          <div className="absolute right-0 top-0 w-[65%] h-full rounded-2xl bg-gradient-to-br from-cognilense-yellow/20 via-cognilense-blue/20 to-cognilense-green/20 z-0"></div>
           
           <div className="flex flex-col md:flex-row items-center md:items-start relative z-10">
-            <div className="w-full md:w-2/5 text-left flex flex-col items-start pr-4 md:mt-8">
+            <div className="w-full md:w-1/3 text-left flex flex-col items-start pr-4 md:mt-8">
               <div className="mb-5">
                 <h2 className="font-worksans font-normal text-xl md:text-2xl">See the world from an</h2>
                 <h2 className="font-domine font-bold text-3xl md:text-[40px] mt-1">experts' lens</h2>
               </div>
-              
-              <button className="flex items-center gap-2 border border-gray-300 rounded-full px-5 py-2 text-sm md:text-base font-worksans hover:bg-gray-50 transition-colors">
-                Meet the Expert <ArrowUpRight size={16} />
-              </button>
               
               <p className="font-worksans text-sm md:text-base text-gray-700 mt-4 max-w-lg">
                 We have been using these and many other methods, lenses and thinking techniques to solve problems and look at situations with a new eye.
               </p>
             </div>
             
-            <div className="w-full md:w-3/5 flex flex-col mt-6 md:mt-0">
+            {/* Increased the width of the image container by 30% */}
+            <div className="w-full md:w-2/3 flex flex-col mt-6 md:mt-0">
               <div className="relative">
-                <div className="relative -left-1/6 md:-left-1/6 w-[90%]">
+                <div className="relative -left-1/6 md:-left-1/6 w-[117%]">
                   <img 
                     src="/lovable-uploads/becd3b5c-147e-42fc-b050-4450b76ca3e1.png" 
                     alt="Brain lens illustration showing cognitive perspective" 
