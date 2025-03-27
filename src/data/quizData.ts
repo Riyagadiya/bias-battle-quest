@@ -1,7 +1,7 @@
 
 import { Question } from "../types/quiz";
 
-// Quiz questions data with scenario-based questions
+// Quiz questions data with scenario-based questions - limited to 10 questions
 export const questionData: Question[] = [
   {
     id: 1,
@@ -65,90 +65,6 @@ export const questionData: Question[] = [
   },
   {
     id: 6,
-    question: "After learning about a stock's rapid growth, James quickly invests, believing he's spotted a pattern that will continue. He ignores warnings about market volatility. What cognitive bias is James exhibiting?",
-    options: [
-      { text: "Clustering Illusion", isCorrect: true },
-      { text: "Gambler's Fallacy", isCorrect: false },
-      { text: "Confirmation Bias", isCorrect: false },
-      { text: "Hindsight Bias", isCorrect: false }
-    ],
-    explanation: "The Clustering Illusion is the tendency to see patterns in random events when none actually exist. James mistakenly believes he's identified a meaningful pattern in stock performance, which is largely random in the short term.",
-    type: "clustering"
-  },
-  {
-    id: 7,
-    question: "Lisa attributes her team's project success to her leadership, but blames external factors when projects fail. What cognitive bias is Lisa demonstrating?",
-    options: [
-      { text: "Self-serving Bias", isCorrect: true },
-      { text: "Confirmation Bias", isCorrect: false },
-      { text: "Dunning-Kruger Effect", isCorrect: false },
-      { text: "Halo Effect", isCorrect: false }
-    ],
-    explanation: "Self-serving bias is the tendency to attribute successes to personal factors (skills, effort) while attributing failures to external factors (bad luck, unfair conditions). This protects self-esteem but can hinder learning from mistakes.",
-    type: "self-serving"
-  },
-  {
-    id: 8,
-    question: "David reads a horoscope that says he'll face challenges this week. When he has a difficult day, he thinks the horoscope was accurate, ignoring the vague prediction and all the good moments. What cognitive bias is this?",
-    options: [
-      { text: "Confirmation Bias", isCorrect: true },
-      { text: "Barnum Effect", isCorrect: false },
-      { text: "Backfire Effect", isCorrect: false },
-      { text: "Recency Bias", isCorrect: false }
-    ],
-    explanation: "Confirmation bias is the tendency to search for, interpret, and recall information in a way that confirms one's preexisting beliefs. David notices and remembers events that confirm the horoscope while ignoring evidence that contradicts it.",
-    type: "confirmation"
-  },
-  {
-    id: 9,
-    question: "After being promoted, John believes he always deserved the position and that his success was inevitable. Looking back, all signs pointed to his promotion. What cognitive bias is John experiencing?",
-    options: [
-      { text: "Hindsight Bias", isCorrect: true },
-      { text: "Optimism Bias", isCorrect: false },
-      { text: "Outcome Bias", isCorrect: false },
-      { text: "Dunning-Kruger Effect", isCorrect: false }
-    ],
-    explanation: "Hindsight bias is the tendency to believe, after an event has occurred, that one would have predicted or expected it beforehand. John now sees his promotion as predictable when it may not have been so obvious at the time.",
-    type: "hindsight"
-  },
-  {
-    id: 10,
-    question: "Maria has an interview for her dream job. She spends hours worrying that she'll say something embarrassing, believing everyone will notice and judge her harshly. What cognitive bias is Maria experiencing?",
-    options: [
-      { text: "Spotlight Effect", isCorrect: true },
-      { text: "Pessimism Bias", isCorrect: false },
-      { text: "Negativity Bias", isCorrect: false },
-      { text: "Impostor Syndrome", isCorrect: false }
-    ],
-    explanation: "The Spotlight Effect is the tendency to overestimate how much others notice about us. Maria believes she's under a spotlight when in reality, others are typically less focused on our flaws and mistakes than we think.",
-    type: "spotlight"
-  },
-  {
-    id: 11,
-    question: "A small startup's first product becomes unexpectedly successful. The founder now believes their next venture will definitely succeed without conducting proper market research. Which bias is affecting their judgment?",
-    options: [
-      { text: "Hindsight Bias", isCorrect: true },
-      { text: "Optimism Bias", isCorrect: false },
-      { text: "Dunning-Kruger Effect", isCorrect: false },
-      { text: "IKEA Effect", isCorrect: false }
-    ],
-    explanation: "Hindsight Bias leads people to see past events as more predictable than they were. The founder now views their first success as inevitable rather than partly due to luck, leading to overconfidence in future ventures.",
-    type: "hindsight"
-  },
-  {
-    id: 12,
-    question: "Despite overwhelming evidence that a new technology would improve efficiency, a business owner refuses to adopt it and becomes more committed to traditional methods. What cognitive bias is influencing this decision?",
-    options: [
-      { text: "Backfire Effect", isCorrect: true },
-      { text: "Status Quo Bias", isCorrect: false },
-      { text: "Loss Aversion", isCorrect: false },
-      { text: "Sunk Cost Fallacy", isCorrect: false }
-    ],
-    explanation: "The Backfire Effect occurs when presented with evidence that contradicts our beliefs, we become more convinced of our original position. The business owner perceives the evidence as a threat to their worldview, strengthening their resistance to change.",
-    type: "backfire"
-  },
-  {
-    id: 13,
     question: "Tom reads his personality test results and is amazed at how accurately it describes him, not realizing the description is intentionally vague and could apply to almost anyone. What bias is Tom experiencing?",
     options: [
       { text: "Barnum Effect", isCorrect: true },
@@ -160,27 +76,51 @@ export const questionData: Question[] = [
     type: "barnum"
   },
   {
-    id: 14,
-    question: "Jennifer continues to sit through a boring three-hour movie because she's already watched the first hour. What cognitive bias is affecting her decision?",
+    id: 7,
+    question: "A small startup's first product becomes unexpectedly successful. The founder now believes their next venture will definitely succeed without conducting proper market research. Which bias is affecting their judgment?",
     options: [
-      { text: "Sunk Cost Fallacy", isCorrect: true },
-      { text: "Commitment Bias", isCorrect: false },
-      { text: "Restraint Bias", isCorrect: false },
-      { text: "Status Quo Bias", isCorrect: false }
+      { text: "Hindsight Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false },
+      { text: "IKEA Effect", isCorrect: false }
     ],
-    explanation: "The Sunk Cost Fallacy leads us to continue an endeavor based on previously invested resources that cannot be recovered. Jennifer continues watching despite not enjoying it because she's already invested time that she can't get back.",
-    type: "sunk-cost"
+    explanation: "Hindsight Bias leads people to see past events as more predictable than they were. The founder now views their first success as inevitable rather than partly due to luck, leading to overconfidence in future ventures.",
+    type: "hindsight"
   },
   {
-    id: 15,
-    question: "Cat owners in a neighborhood strongly support each other's opinions on various topics unrelated to pets, often without critically evaluating the ideas. Which cognitive bias is this an example of?",
+    id: 8,
+    question: "Maria has an interview for her dream job. She spends hours worrying that she'll say something embarrassing, believing everyone will notice and judge her harshly. What cognitive bias is Maria experiencing?",
     options: [
-      { text: "Ingroup Bias", isCorrect: true },
-      { text: "Bandwagon Effect", isCorrect: false },
-      { text: "Authority Bias", isCorrect: false },
-      { text: "Halo Effect", isCorrect: false }
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Pessimism Bias", isCorrect: false },
+      { text: "Negativity Bias", isCorrect: false },
+      { text: "Impostor Syndrome", isCorrect: false }
     ],
-    explanation: "Ingroup Bias is the tendency to favor members of one's own group regardless of merit. The cat owners support each other's viewpoints simply because they belong to the same social group, not because of the quality of the ideas presented.",
-    type: "ingroup"
+    explanation: "The Spotlight Effect is the tendency to overestimate how much others notice about us. Maria believes she's under a spotlight when in reality, others are typically less focused on our flaws and mistakes than we think.",
+    type: "spotlight"
+  },
+  {
+    id: 9,
+    question: "Despite overwhelming evidence that a new technology would improve efficiency, a business owner refuses to adopt it and becomes more committed to traditional methods. What cognitive bias is influencing this decision?",
+    options: [
+      { text: "Backfire Effect", isCorrect: true },
+      { text: "Status Quo Bias", isCorrect: false },
+      { text: "Loss Aversion", isCorrect: false },
+      { text: "Sunk Cost Fallacy", isCorrect: false }
+    ],
+    explanation: "The Backfire Effect occurs when presented with evidence that contradicts our beliefs, we become more convinced of our original position. The business owner perceives the evidence as a threat to their worldview, strengthening their resistance to change.",
+    type: "backfire"
+  },
+  {
+    id: 10,
+    question: "David reads a horoscope that says he'll face challenges this week. When he has a difficult day, he thinks the horoscope was accurate, ignoring the vague prediction and all the good moments. What cognitive bias is this?",
+    options: [
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Barnum Effect", isCorrect: false },
+      { text: "Backfire Effect", isCorrect: false },
+      { text: "Recency Bias", isCorrect: false }
+    ],
+    explanation: "Confirmation bias is the tendency to search for, interpret, and recall information in a way that confirms one's preexisting beliefs. David notices and remembers events that confirm the horoscope while ignoring evidence that contradicts it.",
+    type: "confirmation"
   }
 ];
