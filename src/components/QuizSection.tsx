@@ -21,10 +21,18 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Check if questions are loaded and set loading state
+  useEffect(() => {
+    if (questions && questions.length > 0) {
+      setIsLoading(false);
+    }
+  }, [questions]);
   
   // Timer effect
   useEffect(() => {
-    if (!quizStarted || quizCompleted) return;
+    if (!quizStarted || quizCompleted || isLoading) return;
     
     setTimeLeft(timePerQuestion);
     
@@ -40,10 +48,14 @@ const QuizSection = () => {
     }, 1000);
     
     return () => clearInterval(timer);
-  }, [currentQuestionIndex, quizStarted, quizCompleted]);
+  }, [currentQuestionIndex, quizStarted, quizCompleted, isLoading]);
 
   const handleAnswer = (selectedAnswer: string) => {
+    if (isLoading || !questions || questions.length === 0) return;
+    
     const currentQuestion = questions[currentQuestionIndex];
+    if (!currentQuestion) return;
+    
     setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
     
     if (selectedAnswer === currentQuestion.correctAnswer) {
@@ -71,6 +83,8 @@ const QuizSection = () => {
   };
   
   const handleNext = () => {
+    if (!questions || questions.length === 0) return;
+    
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption(null);
@@ -98,7 +112,34 @@ const QuizSection = () => {
     return null;
   }
 
+  if (isLoading || !questions || questions.length === 0) {
+    return (
+      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Loading quiz questions...</p>
+        </div>
+      </div>
+    );
+  }
+
   const currentQuestion = questions[currentQuestionIndex];
+  
+  // Safety check to ensure currentQuestion exists
+  if (!currentQuestion) {
+    return (
+      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Error loading question. Please try again.</p>
+          <button 
+            onClick={() => setCurrentQuestionIndex(0)}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+          >
+            Restart Quiz
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="min-h-screen py-24 px-6 flex items-center justify-center relative">

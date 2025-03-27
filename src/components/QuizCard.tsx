@@ -77,6 +77,46 @@ const QuizCard = ({
     return "bg-gradient-to-r from-orange-300 to-red-500";
   };
 
+  // Safely render options with a null check
+  const renderOptions = () => {
+    if (!options || !Array.isArray(options) || options.length === 0) {
+      return (
+        <div className="p-4 border border-gray-200 rounded-lg">
+          <p>No options available</p>
+        </div>
+      );
+    }
+
+    return options.map((option, idx) => (
+      <motion.button
+        key={idx}
+        onClick={() => handleOptionSelect(option)}
+        disabled={showFeedback}
+        className={`p-4 md:p-6 border text-left rounded-lg transition-all duration-200 ${
+          selectedOption === option && showFeedback
+            ? option === correctAnswer
+              ? "border-green-500 bg-green-50"
+              : "border-red-500 bg-red-50"
+            : "border-gray-200 hover:border-cognilense-blue hover:shadow-md"
+        } ${
+          showFeedback && option === correctAnswer && selectedOption !== option
+            ? "border-green-500 bg-green-50"
+            : ""
+        }`}
+        whileHover={!showFeedback ? { scale: 1.02 } : {}}
+        whileTap={!showFeedback ? { scale: 0.98 } : {}}
+      >
+        <div className="flex items-start">
+          <span className="font-inter text-base md:text-lg">{option}</span>
+        </div>
+      </motion.button>
+    ));
+  };
+
+  if (!question) {
+    return <div>Loading question...</div>;
+  }
+
   return (
     <div className="w-full">
       {/* Timer bar */}
@@ -94,30 +134,7 @@ const QuizCard = ({
       
       {/* Options */}
       <div className="grid gap-4">
-        {options.map((option, idx) => (
-          <motion.button
-            key={idx}
-            onClick={() => handleOptionSelect(option)}
-            disabled={showFeedback}
-            className={`p-4 md:p-6 border text-left rounded-lg transition-all duration-200 ${
-              selectedOption === option && showFeedback
-                ? option === correctAnswer
-                  ? "border-green-500 bg-green-50"
-                  : "border-red-500 bg-red-50"
-                : "border-gray-200 hover:border-cognilense-blue hover:shadow-md"
-            } ${
-              showFeedback && option === correctAnswer && selectedOption !== option
-                ? "border-green-500 bg-green-50"
-                : ""
-            }`}
-            whileHover={!showFeedback ? { scale: 1.02 } : {}}
-            whileTap={!showFeedback ? { scale: 0.98 } : {}}
-          >
-            <div className="flex items-start">
-              <span className="font-inter text-base md:text-lg">{option}</span>
-            </div>
-          </motion.button>
-        ))}
+        {renderOptions()}
       </div>
       
       {/* Feedback */}
