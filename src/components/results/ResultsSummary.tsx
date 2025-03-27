@@ -19,7 +19,7 @@ const ResultsSummary = ({
       className="flex flex-col items-center"
     >
       <motion.div 
-        className="relative w-40 h-40 mb-6"
+        className="relative w-40 h-40"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ 
