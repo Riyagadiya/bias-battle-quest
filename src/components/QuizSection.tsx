@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
+import { questions } from "../data/questions";
 import QuizCard from "./QuizCard";
 import { motion, AnimatePresence } from "framer-motion";
-import { Progress } from "./ui/progress";
 
 const QuizSection = () => {
   const {
-    currentQuestion: currentQuestionIndex,
+    currentQuestionIndex,
     setCurrentQuestionIndex,
     setScore,
     answers,
@@ -16,39 +16,13 @@ const QuizSection = () => {
     quizCompleted,
     setQuizCompleted,
     setSelectedOption,
-    questions,
-    timePerQuestion
   } = useQuiz();
-
-  const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  
-  // Timer effect
-  useEffect(() => {
-    if (!quizStarted || quizCompleted) return;
-    
-    setTimeLeft(timePerQuestion);
-    
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          handleSkip();
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-    
-    return () => clearInterval(timer);
-  }, [currentQuestionIndex, quizStarted, quizCompleted]);
 
   const handleAnswer = (selectedAnswer: string) => {
     const currentQuestion = questions[currentQuestionIndex];
     setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
     
-    const correctAnswer = currentQuestion.options.find(option => option.isCorrect)?.text || "";
-    
-    if (selectedAnswer === correctAnswer) {
+    if (selectedAnswer === currentQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
     
@@ -86,16 +60,6 @@ const QuizSection = () => {
     handleNext();
   };
 
-  // Calculate timer progress percentage
-  const timerProgress = (timeLeft / timePerQuestion) * 100;
-  
-  // Determine timer color based on time left
-  const getTimerColor = () => {
-    if (timerProgress > 66) return "bg-green-400";
-    if (timerProgress > 33) return "bg-yellow-400";
-    return "bg-red-400";
-  };
-
   if (!quizStarted || quizCompleted) {
     return null;
   }
@@ -107,7 +71,7 @@ const QuizSection = () => {
       <div className="absolute inset-0 wave-pattern"></div>
       
       <div className="container mx-auto w-full max-w-4xl">
-        <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden pb-24">
+        <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden">
           {/* Progress indicator */}
           <div className="flex justify-between mb-6 items-center">
             <span className="font-semibold text-sm md:text-base">
@@ -116,14 +80,6 @@ const QuizSection = () => {
             <span className="text-sm text-muted-foreground font-medium">
               {Math.round((currentQuestionIndex / questions.length) * 100)}% Complete
             </span>
-          </div>
-          
-          {/* Timer progress bar */}
-          <div className="mb-6">
-            <Progress 
-              value={timerProgress} 
-              className={`h-1.5 ${getTimerColor()} bg-gray-100`} 
-            />
           </div>
           
           <AnimatePresence mode="wait">
@@ -136,8 +92,8 @@ const QuizSection = () => {
             >
               <QuizCard
                 question={currentQuestion.question}
-                options={currentQuestion.options.map(option => option.text)}
-                correctAnswer={currentQuestion.options.find(option => option.isCorrect)?.text || ""}
+                options={currentQuestion.options}
+                correctAnswer={currentQuestion.correctAnswer}
                 explanation={currentQuestion.explanation}
                 onAnswer={handleAnswer}
               />

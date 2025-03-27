@@ -32,7 +32,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/edf5b2d2-b28c-4ff8-9e6a-458af9b1b8f8.png" 
               alt="Cognilense Logo" 
-              className="h-8 w-auto" // Restored to normal size (h-8)
+              className="h-[7.76px] w-auto" // Reduced by 3% from h-8 (8px * 0.97 = 7.76px)
             />
           </a>
 

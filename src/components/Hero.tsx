@@ -33,15 +33,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
       ref={heroRef}
       className="min-h-screen flex items-center justify-center py-24 px-6 md:px-8 relative overflow-hidden"
     >
-      {/* Wave background image */}
-      <div className="absolute inset-0 bg-[#f9f9f9] opacity-60">
-        <div 
-          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
-          style={{
-            backgroundImage: "url('/lovable-uploads/e7e51539-77f2-43b9-920c-2c0bf8627640.png')",
-          }}
-        ></div>
-      </div>
+      <div className="absolute inset-0 wave-pattern"></div>
       
       <div className="container mx-auto relative">
         <div className="max-w-4xl mx-auto text-center">
@@ -62,7 +54,7 @@ const Hero = ({ startQuiz }: { startQuiz: () => void }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-[-1%] text-muted-foreground max-w-2xl mx-auto mb-10"
           >
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
