@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from "react";
-import { useQuiz } from "@/context/QuizContext";
-import { motion } from "framer-motion";
-import QuizContent from "./quiz/QuizContent";
-import { Skeleton } from "./ui/skeleton";
+import { useQuiz } from "../context/QuizContext";
+import QuizCard from "./QuizCard";
+import { motion, AnimatePresence } from "framer-motion";
+import { Progress } from "./ui/progress";
 
 const QuizSection = () => {
   const {
-    currentQuestion: currentQuestionIndex,
+    currentQuestionIndex,
     setCurrentQuestionIndex,
     setScore,
     answers,
@@ -21,67 +21,64 @@ const QuizSection = () => {
   } = useQuiz();
 
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
+  // Check if questions are loaded and set loading state
   useEffect(() => {
-    console.log("QuizSection mounted with questions count:", questions?.length);
-  }, []);
-  
-  useEffect(() => {
-    console.log("Questions changed in QuizSection:", questions?.length);
-    setIsLoading(!questions || questions.length === 0);
+    if (questions && questions.length > 0) {
+      setIsLoading(false);
+    }
   }, [questions]);
   
+  // Timer effect
   useEffect(() => {
-    if (!quizStarted || quizCompleted) return;
+    if (!quizStarted || quizCompleted || isLoading) return;
     
     setTimeLeft(timePerQuestion);
     
-    // Only reset timer if not showing explanation
-    if (!showExplanation) {
-      const timer = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(timer);
-            handleSkip();
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-      
-      return () => clearInterval(timer);
-    }
-  }, [currentQuestionIndex, quizStarted, quizCompleted, showExplanation]);
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          handleSkip();
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [currentQuestionIndex, quizStarted, quizCompleted, isLoading]);
 
   const handleAnswer = (selectedAnswer: string) => {
-    if (!questions || questions.length === 0) return;
+    if (isLoading || !questions || questions.length === 0) return;
     
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) return;
     
-    const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = selectedAnswer;
-    setAnswers(newAnswers);
+    setAnswers({ ...answers, [currentQuestionIndex]: selectedAnswer });
     
-    const correctAnswer = currentQuestion.options.find(option => option.isCorrect)?.text || "";
-    
-    if (selectedAnswer === correctAnswer) {
+    if (selectedAnswer === currentQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
     
-    setSelectedOption(selectedAnswer);
-    setShowExplanation(true);
+    // Clear selected option
+    setSelectedOption(null);
     
-    // Don't automatically move to next question, let user read explanation and click next
+    // Move to next question or complete quiz
+    if (currentQuestionIndex < questions.length - 1) {
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      }, 500);
+    } else {
+      setQuizCompleted(true);
+    }
   };
   
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setSelectedOption(answers[currentQuestionIndex - 1] || null);
-      setShowExplanation(false);
+      setSelectedOption(null);
     }
   };
   
@@ -90,36 +87,36 @@ const QuizSection = () => {
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(answers[currentQuestionIndex + 1] || null);
-      setShowExplanation(false);
+      setSelectedOption(null);
     } else {
       setQuizCompleted(true);
     }
   };
   
   const handleSkip = () => {
-    if (!questions || questions.length === 0) return;
-    
-    const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = "skipped";
-    setAnswers(newAnswers);
-    
+    setAnswers({ ...answers, [currentQuestionIndex]: "skipped" });
     handleNext();
   };
 
-  if (isLoading) {
-    console.log("QuizSection showing loading skeleton (questions not ready)");
+  // Calculate timer progress percentage
+  const timerProgress = (timeLeft / timePerQuestion) * 100;
+  
+  // Determine timer color based on time left
+  const getTimerColor = () => {
+    if (timerProgress > 66) return "bg-green-400";
+    if (timerProgress > 33) return "bg-yellow-400";
+    return "bg-red-400";
+  };
+
+  if (!quizStarted || quizCompleted) {
+    return null;
+  }
+
+  if (isLoading || !questions || questions.length === 0) {
     return (
-      <div className="py-12 px-6 text-center">
-        <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
-        <div className="space-y-4 max-w-3xl mx-auto">
-          <Skeleton className="h-24 w-full rounded-lg" />
-          <div className="grid grid-cols-1 gap-3">
-            <Skeleton className="h-16 w-full rounded-lg" />
-            <Skeleton className="h-16 w-full rounded-lg" />
-            <Skeleton className="h-16 w-full rounded-lg" />
-            <Skeleton className="h-16 w-full rounded-lg" />
-          </div>
+      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Loading quiz questions...</p>
         </div>
       </div>
     );
@@ -127,39 +124,96 @@ const QuizSection = () => {
 
   const currentQuestion = questions[currentQuestionIndex];
   
+  // Safety check to ensure currentQuestion exists
   if (!currentQuestion) {
-    console.log("Current question not found for index:", currentQuestionIndex);
-    console.log("Available questions:", questions);
     return (
-      <div className="py-12 px-6 text-center">
-        <h2 className="text-xl font-medium">Question not found. Please try again.</h2>
+      <div className="min-h-screen py-24 px-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Error loading question. Please try again.</p>
+          <button 
+            onClick={() => setCurrentQuestionIndex(0)}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+          >
+            Restart Quiz
+          </button>
+        </div>
       </div>
     );
   }
 
-  console.log("Rendering question:", currentQuestion.question);
-
   return (
-    <section className="py-8 px-4 md:px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <QuizContent
-            currentQuestion={currentQuestion}
-            currentQuestionIndex={currentQuestionIndex}
-            questionsLength={questions.length}
-            timeLeft={timeLeft}
-            timePerQuestion={timePerQuestion}
-            handleAnswer={handleAnswer}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-            handleSkip={handleSkip}
-            showExplanation={showExplanation}
-          />
-        </motion.div>
+    <section className="min-h-screen py-24 px-6 flex items-center justify-center relative">
+      <div className="absolute inset-0 wave-pattern"></div>
+      
+      <div className="container mx-auto w-full max-w-4xl">
+        <div className="bg-white rounded-xl shadow-xl p-5 md:p-8 relative overflow-hidden pb-24">
+          {/* Progress indicator */}
+          <div className="flex justify-between mb-6 items-center">
+            <span className="font-semibold text-sm md:text-base">
+              Question {currentQuestionIndex + 1} of {questions.length}
+            </span>
+            <span className="text-sm text-muted-foreground font-medium">
+              {Math.round((currentQuestionIndex / questions.length) * 100)}% Complete
+            </span>
+          </div>
+          
+          {/* Timer progress bar */}
+          <div className="mb-6">
+            <Progress 
+              value={timerProgress} 
+              className={`h-1.5 ${getTimerColor()} bg-gray-100`} 
+            />
+          </div>
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestionIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <QuizCard
+                question={currentQuestion.question}
+                options={currentQuestion.options}
+                correctAnswer={currentQuestion.correctAnswer}
+                explanation={currentQuestion.explanation}
+                onAnswer={handleAnswer}
+              />
+            </motion.div>
+          </AnimatePresence>
+          
+          {/* Navigation buttons */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-md z-20">
+            <div className="container mx-auto max-w-4xl flex justify-between">
+              <button
+                onClick={handlePrevious}
+                disabled={currentQuestionIndex === 0}
+                className={`px-4 py-2 rounded-md font-medium ${
+                  currentQuestionIndex === 0
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "text-black hover:bg-gray-100"
+                }`}
+              >
+                Previous
+              </button>
+              
+              <button
+                onClick={handleSkip}
+                className="px-4 py-2 text-muted-foreground hover:text-foreground font-medium"
+              >
+                Skip
+              </button>
+              
+              <button
+                onClick={handleNext}
+                className="px-4 py-2 text-cognilense-blue font-medium hover:bg-blue-50 rounded-md"
+              >
+                {currentQuestionIndex === questions.length - 1 ? "Finish" : "Next"}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

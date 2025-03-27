@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -32,7 +32,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/edf5b2d2-b28c-4ff8-9e6a-458af9b1b8f8.png" 
               alt="Cognilense Logo" 
-              className="h-8 w-auto"
+              className="h-[7.76px] w-auto" // Reduced by 3% from h-8 (8px * 0.97 = 7.76px)
             />
           </a>
 
@@ -42,18 +42,9 @@ const Header = () => {
               href="https://monsoonfish.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="font-worksans text-sm font-semibold transition-colors duration-200 hover:text-cognilense-blue flex items-center gap-2 group"
+              className="font-worksans text-sm font-semibold transition-colors duration-200 hover:text-cognilense-blue"
             >
-              <img 
-                src="/lovable-uploads/05790f06-7fa2-42f7-a3dd-a9950910b22b.png" 
-                alt="Monsoonfish Logo" 
-                className="h-5 w-auto" 
-              />
               monsoonfish.com
-              <ArrowUpRight 
-                size={16} 
-                className="text-[#ea384c] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-              />
             </a>
           </nav>
 
@@ -84,19 +75,10 @@ const Header = () => {
               href="https://monsoonfish.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="font-worksans text-sm font-semibold py-2 transition-colors duration-200 hover:text-cognilense-blue flex items-center gap-2 group"
+              className="font-worksans text-sm font-semibold py-2 transition-colors duration-200 hover:text-cognilense-blue"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <img 
-                src="/lovable-uploads/05790f06-7fa2-42f7-a3dd-a9950910b22b.png" 
-                alt="Monsoonfish Logo" 
-                className="h-5 w-auto" 
-              />
               monsoonfish.com
-              <ArrowUpRight 
-                size={16} 
-                className="text-[#ea384c] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-              />
             </a>
           </nav>
         </div>
