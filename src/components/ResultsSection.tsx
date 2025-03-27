@@ -49,7 +49,7 @@ const ResultsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Box 1: Main results box - Left side */}
           <motion.div 
-            className="md:col-span-2 md:row-span-2"
+            className="md:col-span-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -105,12 +105,25 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Box 2: Action box - Top right */}
+          {/* Box 3: Question summary - Top right (moved from bottom right) */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 h-full">
+              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+              <QuestionSummaryList answersArray={answersArray} questions={questions} />
+            </div>
+          </motion.div>
+          
+          {/* Box 2: Action box - Bottom horizontal (spans full width) */}
+          <motion.div
+            className="md:col-span-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
               <div className="px-6 py-8">
@@ -119,19 +132,6 @@ const ResultsSection = () => {
                   <ActionButtons restartQuiz={restartQuiz} />
                 </div>
               </div>
-            </div>
-          </motion.div>
-          
-          {/* Box 3: Question summary - Bottom right */}
-          <motion.div
-            className="md:col-span-1"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 h-full">
-              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
-              <QuestionSummaryList answersArray={answersArray} questions={questions} />
             </div>
           </motion.div>
         </div>
