@@ -6,15 +6,13 @@ interface ResultsSummaryProps {
   correctAnswers: number;
   totalQuestions: number;
   resultMessage: string;
-  resultDescription: string;
 }
 
 const ResultsSummary = ({
   percentage,
   correctAnswers,
   totalQuestions,
-  resultMessage,
-  resultDescription
+  resultMessage
 }: ResultsSummaryProps) => {
   return (
     <motion.div
@@ -53,8 +51,8 @@ const ResultsSummary = ({
           </defs>
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-4xl font-bold">{percentage}%</span>
-          <span className="text-sm text-muted-foreground">
+          {/* Removed percentage display */}
+          <span className="text-lg font-medium text-muted-foreground">
             {correctAnswers}/{totalQuestions} correct
           </span>
         </div>
@@ -63,9 +61,6 @@ const ResultsSummary = ({
       <h3 className="text-2xl md:text-3xl font-domine font-medium mb-3">
         {resultMessage}
       </h3>
-      <p className="text-center text-muted-foreground max-w-md">
-        {resultDescription}
-      </p>
     </motion.div>
   );
 };

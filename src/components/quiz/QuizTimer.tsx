@@ -17,6 +17,7 @@ const QuizTimer = ({ timeLeft, totalTime }: QuizTimerProps) => {
       <Progress 
         value={timerProgress} 
         className="h-1.5 bg-gray-100" 
+        progressColor="bg-gray-700" // Changed from yellow to dark grey
       />
       <span className="text-xs font-medium">{timeLeft}s</span>
     </div>

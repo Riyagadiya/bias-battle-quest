@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
@@ -26,21 +27,19 @@ const ResultsSection = () => {
   const percentage = Math.round((correctAnswers / questions.length) * 100);
   
   let resultMessage = "";
-  let resultDescription = "";
   
   if (percentage >= 80) {
     resultMessage = "You have an analytical mind!";
-    resultDescription = "You're exceptionally good at recognizing cognitive biases and making rational decisions. Your understanding of how the mind works gives you an advantage in critical thinking.";
   } else if (percentage >= 60) {
     resultMessage = "You think clearly!";
-    resultDescription = "You have a good understanding of cognitive biases and how they influence decision-making. With a bit more practice, you'll master the art of rational thinking.";
   } else if (percentage >= 40) {
     resultMessage = "You're on the right track!";
-    resultDescription = "You have a basic understanding of cognitive biases, but there's room for improvement. Learning more about these biases will help you make better decisions.";
   } else {
     resultMessage = "Time to learn more!";
-    resultDescription = "We all fall prey to cognitive biases. The good news is that awareness is the first step toward improvement. Keep learning about these biases to enhance your critical thinking.";
   }
+
+  // Count answered questions (not skipped or null)
+  const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
 
   return (
     <section className="py-24 px-6 md:px-8 min-h-screen flex items-center">
@@ -58,7 +57,7 @@ const ResultsSection = () => {
                   Your Results
                 </h2>
                 <p className="text-muted-foreground">
-                  See how well you understand cognitive biases
+                  You answered {answeredQuestions} out of {questions.length} questions
                 </p>
               </motion.div>
               
@@ -67,7 +66,6 @@ const ResultsSection = () => {
                 correctAnswers={correctAnswers} 
                 totalQuestions={questions.length} 
                 resultMessage={resultMessage} 
-                resultDescription={resultDescription} 
               />
               
               <motion.div
