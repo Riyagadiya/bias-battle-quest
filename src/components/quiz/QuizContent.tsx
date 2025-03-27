@@ -175,7 +175,6 @@ const QuizContent = ({
                 <Button
                   variant="ghost"
                   onClick={handleSkip}
-                  disabled={showExplanation}
                   className="text-muted-foreground hover:text-foreground gap-1"
                 >
                   Skip <SkipForward className="w-4 h-4" />
