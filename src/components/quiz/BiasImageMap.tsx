@@ -30,13 +30,20 @@ export const biasImages: BiasImageMapType = {
   "ingroup_bias": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png",
   "anchoring_bias": "/lovable-uploads/cf457814-92f3-4b54-a372-22117416c0f6.png",
   
-  // Add aliases for specific question types
-  "hindsight": "/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png", // Optimism bias image for hindsight
+  // Add aliases for new bias types
+  "hindsight": "/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png", // Using optimism bias image for hindsight
+  "groupthink": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png", // Using bandwagon for groupthink
   "sunk_cost_fallacy": "/lovable-uploads/cf457814-92f3-4b54-a372-22117416c0f6.png", // Anchoring for sunk cost
-  "groupthink": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png", // Bandwagon for groupthink
-  "pessimism": "/lovable-uploads/b6a24a2d-fb81-4d25-8a72-8a53dd5fa824.png", // Belief for pessimism
   "dunning_kruger": "/lovable-uploads/eb77ac5f-512f-48b2-a4b3-b0aa05b1f644.png", // Spotlight for Dunning-Kruger
   "ikea_effect": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png", // Ingroup for IKEA effect
+  "pessimism": "/lovable-uploads/b6a24a2d-fb81-4d25-8a72-8a53dd5fa824.png", // Belief for pessimism
+  
+  // Simplified versions (without bias/effect suffix)
+  "hindsight_bias": "/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png",
+  "groupthink_bias": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png",
+  "dunning_kruger_effect": "/lovable-uploads/eb77ac5f-512f-48b2-a4b3-b0aa05b1f644.png",
+  "ikea_effect": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png",
+  "pessimism_bias": "/lovable-uploads/b6a24a2d-fb81-4d25-8a72-8a53dd5fa824.png",
   
   // Default image for any bias type not specifically mapped
   "default": "/placeholder.svg"

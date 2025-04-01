@@ -1,6 +1,7 @@
+
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { questionData } from "../data/quizData";
+import { questionData, getRandomQuestions } from "../data/quizData";
 import { QuizContextType, defaultContextValue } from "./QuizContextType";
 import { Question, QuizAnswer, QuestionResponse } from "../types/quiz";
 import { toast } from "sonner";
@@ -15,7 +16,7 @@ export { useQuiz } from "../hooks/useQuizContext";
 export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
   const [questions, setQuestions] = useState<Question[]>(questionData);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswer[]>(Array(questionData.length).fill(null));
+  const [answers, setAnswers] = useState<QuizAnswer[]>(Array(10).fill(null));
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState<"idle" | "active" | "complete">("idle");
   const [percentCorrect, setPercentCorrect] = useState(0);
@@ -38,13 +39,15 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
 
   const startQuiz = useCallback(async () => {
     return new Promise<void>((resolve) => {
-      console.log("Starting quiz with questions:", questionData.length);
-      // Ensure questions are loaded from source data each time
-      setQuestions([...questionData]);
+      // Get a new set of 10 random questions
+      const newQuestions = getRandomQuestions();
+      console.log("Starting quiz with questions:", newQuestions.length);
+      
+      setQuestions(newQuestions);
       setStatus("active");
       setCurrentQuestion(0);
       setScore(0);
-      setAnswers(Array(questionData.length).fill(null));
+      setAnswers(Array(10).fill(null));
       setResponses([]);
       setQuizStarted(true);
       setQuizCompleted(false);
@@ -53,7 +56,7 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
       
       // Give time for state to update
       setTimeout(() => {
-        console.log("Quiz started with questions:", questionData.length);
+        console.log("Quiz started with questions:", newQuestions.length);
         resolve();
       }, 300);
     });
@@ -63,7 +66,7 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
     setStatus("idle");
     setCurrentQuestion(0);
     setScore(0);
-    setAnswers(Array(questions.length).fill(null));
+    setAnswers(Array(10).fill(null));
     setResponses([]);
     setQuizStarted(false);
     setQuizCompleted(false);
