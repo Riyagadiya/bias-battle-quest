@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -60,7 +59,6 @@ const QuizContent = ({
     return correctOption ? correctOption.text : "";
   };
 
-  // For debugging
   console.log("Current question:", currentQuestion);
   console.log("Correct option:", getCorrectOptionText());
   console.log("Selected option:", selectedOption);
@@ -197,7 +195,7 @@ const QuizContent = ({
         <div className="bg-white rounded-lg p-4 shadow">
           <div className="flex flex-wrap gap-2 justify-center">
             {Array.from({ length: questionsLength }).map((_, idx) => {
-              const correctAnswer = questions[idx]?.options.find((o: any) => o.isCorrect)?.text;
+              const correctAnswer = questions[idx]?.options.find((o: any) => o.isCorrect)?.text || "";
               const userAnswer = answers[idx];
               
               let bgColor = "bg-gray-100";
@@ -260,10 +258,6 @@ const QuizContent = ({
                 <p className="text-sm font-medium">
                   <span className="text-gray-700">Correct Answer:</span>{" "}
                   <span className="text-green-600 font-medium">{getCorrectOptionText()}</span>
-                </p>
-                <p className="text-sm font-medium mt-1">
-                  <span className="text-gray-700">Cognitive Bias:</span>{" "}
-                  <span className="italic">{currentQuestion.type}</span>
                 </p>
               </div>
             </Card>

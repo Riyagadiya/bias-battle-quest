@@ -6,6 +6,7 @@ type BiasImageMapType = {
 };
 
 export const biasImages: BiasImageMapType = {
+  // Original mappings
   "spotlight": "/lovable-uploads/37158020-2d17-45d7-a8d3-346d9162ee14.png",
   "bandwagon": "/lovable-uploads/de8c900d-e670-4a07-9d07-51261adbd2eb.png",
   "barnum": "/lovable-uploads/4fe2581d-ca67-4378-bc2b-9cc8e91da0a4.png",
@@ -17,7 +18,7 @@ export const biasImages: BiasImageMapType = {
   "ingroup": "/lovable-uploads/991f73b1-3dae-4f0c-8a32-d87729916c81.png",
   "anchoring": "/lovable-uploads/857336f6-626f-45fa-bb06-20ff0b61d59e.png",
   
-  // New images uploaded by the user
+  // Images with suffix
   "spotlight_effect": "/lovable-uploads/eb77ac5f-512f-48b2-a4b3-b0aa05b1f644.png",
   "bandwagon_effect": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png",
   "barnum_effect": "/lovable-uploads/5b316bb6-66f0-44b4-a04d-f7d26a5442e7.png",
@@ -29,7 +30,15 @@ export const biasImages: BiasImageMapType = {
   "ingroup_bias": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png",
   "anchoring_bias": "/lovable-uploads/cf457814-92f3-4b54-a372-22117416c0f6.png",
   
-  // Add default image for any bias type not specifically mapped
+  // Add aliases for specific question types
+  "hindsight": "/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png", // Optimism bias image for hindsight
+  "sunk_cost_fallacy": "/lovable-uploads/cf457814-92f3-4b54-a372-22117416c0f6.png", // Anchoring for sunk cost
+  "groupthink": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png", // Bandwagon for groupthink
+  "pessimism": "/lovable-uploads/b6a24a2d-fb81-4d25-8a72-8a53dd5fa824.png", // Belief for pessimism
+  "dunning_kruger": "/lovable-uploads/eb77ac5f-512f-48b2-a4b3-b0aa05b1f644.png", // Spotlight for Dunning-Kruger
+  "ikea_effect": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png", // Ingroup for IKEA effect
+  
+  // Default image for any bias type not specifically mapped
   "default": "/placeholder.svg"
 };
 
@@ -40,16 +49,31 @@ interface BiasImageProps {
 
 const BiasImage: React.FC<BiasImageProps> = ({ biasType, className = "" }) => {
   // Normalize the bias type to match our keys
-  const normalizedType = biasType.toLowerCase().replace(/\s+/g, "");
+  const normalizedType = biasType.toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/-/g, "_")
+    .replace(/\./g, "")
+    .replace(/^the_/, ""); // Remove leading "the" if present
   
-  // Check for both formats: with and without "_effect" or "_bias" suffix
-  const imageUrl = 
+  // Check for various formats
+  let imageUrl = 
     biasImages[normalizedType] || 
+    biasImages[normalizedType.replace(/_/g, "")] || // Try without underscores
     biasImages[`${normalizedType}_effect`] || 
-    biasImages[`${normalizedType}_bias`] || 
-    biasImages.default;
+    biasImages[`${normalizedType}_bias`];
+    
+  // If still not found, try more variations
+  if (!imageUrl) {
+    // Extract the core term (first word)
+    const coreTerm = normalizedType.split('_')[0];
+    imageUrl = 
+      biasImages[coreTerm] || 
+      biasImages[`${coreTerm}_effect`] || 
+      biasImages[`${coreTerm}_bias`] ||
+      biasImages.default;
+  }
   
-  // Add console log to help with debugging
+  // Add detailed console log to help with debugging
   console.log(`BiasImage: type=${biasType}, normalized=${normalizedType}, imageUrl=${imageUrl}`);
   
   return (
@@ -58,6 +82,10 @@ const BiasImage: React.FC<BiasImageProps> = ({ biasType, className = "" }) => {
         src={imageUrl} 
         alt={`${biasType} illustration`} 
         className="w-full h-full object-contain"
+        onError={(e) => {
+          console.error(`Failed to load image for ${biasType}`);
+          (e.target as HTMLImageElement).src = biasImages.default;
+        }}
       />
     </div>
   );
