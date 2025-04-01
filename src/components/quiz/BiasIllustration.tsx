@@ -7,6 +7,9 @@ interface BiasIllustrationProps {
 }
 
 const BiasIllustration = ({ biasType }: BiasIllustrationProps) => {
+  // Add a console log to help with debugging
+  console.log(`Rendering illustration for bias type: ${biasType}`);
+  
   return (
     <div className="w-full h-full">
       <BiasImage biasType={biasType} />

@@ -49,6 +49,9 @@ const BiasImage: React.FC<BiasImageProps> = ({ biasType, className = "" }) => {
     biasImages[`${normalizedType}_bias`] || 
     biasImages.default;
   
+  // Add console log to help with debugging
+  console.log(`BiasImage: type=${biasType}, normalized=${normalizedType}, imageUrl=${imageUrl}`);
+  
   return (
     <div className={`w-full h-full flex items-center justify-center ${className}`}>
       <img 
