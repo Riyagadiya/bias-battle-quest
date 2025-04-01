@@ -16,6 +16,19 @@ export const biasImages: BiasImageMapType = {
   "optimism": "/lovable-uploads/b0328122-cba5-45c1-8454-9db58abb8866.png",
   "ingroup": "/lovable-uploads/991f73b1-3dae-4f0c-8a32-d87729916c81.png",
   "anchoring": "/lovable-uploads/857336f6-626f-45fa-bb06-20ff0b61d59e.png",
+  
+  // New images uploaded by the user
+  "spotlight_effect": "/lovable-uploads/eb77ac5f-512f-48b2-a4b3-b0aa05b1f644.png",
+  "bandwagon_effect": "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png",
+  "barnum_effect": "/lovable-uploads/5b316bb6-66f0-44b4-a04d-f7d26a5442e7.png",
+  "belief_bias": "/lovable-uploads/b6a24a2d-fb81-4d25-8a72-8a53dd5fa824.png",
+  "framing_bias": "/lovable-uploads/e5f4acfb-82ed-4140-8cfb-3d5cce315128.png",
+  "backfire_effect": "/lovable-uploads/d7dc9ece-e257-487d-b5ae-d01241fd68df.png",
+  "recall_bias": "/lovable-uploads/bb297a2f-1277-4f94-8ef8-169f5a09267f.png",
+  "optimism_bias": "/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png",
+  "ingroup_bias": "/lovable-uploads/aa71ce42-71c6-4890-820b-d7591cf4c934.png",
+  "anchoring_bias": "/lovable-uploads/cf457814-92f3-4b54-a372-22117416c0f6.png",
+  
   // Add default image for any bias type not specifically mapped
   "default": "/placeholder.svg"
 };
@@ -29,8 +42,12 @@ const BiasImage: React.FC<BiasImageProps> = ({ biasType, className = "" }) => {
   // Normalize the bias type to match our keys
   const normalizedType = biasType.toLowerCase().replace(/\s+/g, "");
   
-  // Get the image URL or default if not found
-  const imageUrl = biasImages[normalizedType] || biasImages.default;
+  // Check for both formats: with and without "_effect" or "_bias" suffix
+  const imageUrl = 
+    biasImages[normalizedType] || 
+    biasImages[`${normalizedType}_effect`] || 
+    biasImages[`${normalizedType}_bias`] || 
+    biasImages.default;
   
   return (
     <div className={`w-full h-full flex items-center justify-center ${className}`}>

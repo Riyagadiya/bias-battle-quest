@@ -7,7 +7,11 @@ interface BiasIllustrationProps {
 }
 
 const BiasIllustration = ({ biasType }: BiasIllustrationProps) => {
-  return <BiasImage biasType={biasType} />;
+  return (
+    <div className="w-full h-full">
+      <BiasImage biasType={biasType} />
+    </div>
+  );
 };
 
 export default BiasIllustration;
