@@ -14,7 +14,7 @@ export const questionData: Question[] = [
       { text: "Sunk Cost Fallacy", isCorrect: false }
     ],
     explanation: "Hindsight Bias refers to the tendency to believe that we 'knew it all along' after an event has occurred. Jake is claiming he knew the outcome despite expressing different views beforehand.",
-    type: "hindsight"
+    type: "optimism"
   },
   // Backfire Effect
   {
@@ -53,7 +53,7 @@ export const questionData: Question[] = [
       { text: "Anchoring Bias", isCorrect: false }
     ],
     explanation: "The Sunk Cost Fallacy is our tendency to continue an endeavor due to previously invested resources (time, money, effort) that cannot be recovered. Anna stays for the entire movie despite not enjoying it because she paid for the ticket.",
-    type: "sunk-cost"
+    type: "anchoring"
   },
   // Ingroup Bias
   {
@@ -92,7 +92,7 @@ export const questionData: Question[] = [
       { text: "Conformity Bias", isCorrect: false }
     ],
     explanation: "Groupthink occurs when a group makes irrational decisions because members conform to consensus rather than expressing dissenting opinions. The team is adopting a risky strategy because no one is willing to challenge the group's direction.",
-    type: "groupthink"
+    type: "bandwagon"
   },
   // Recall Bias
   {
@@ -157,7 +157,7 @@ export const questionData: Question[] = [
       { text: "Negativity Bias", isCorrect: false }
     ],
     explanation: "Pessimism Bias is the tendency to overestimate the likelihood of negative events. Linda is exaggerating the probability of a market crash despite positive economic indicators.",
-    type: "pessimism"
+    type: "belief"
   },
   // Anchoring Bias
   {
@@ -183,7 +183,7 @@ export const questionData: Question[] = [
       { text: "Superiority Bias", isCorrect: false }
     ],
     explanation: "The Dunning-Kruger Effect is a cognitive bias where people with low ability at a task overestimate their ability. The novice investor lacks the knowledge to recognize their own limitations after one lucky success.",
-    type: "dunning-kruger"
+    type: "spotlight"
   },
   // The IKEA Effect
   {
@@ -196,6 +196,6 @@ export const questionData: Question[] = [
       { text: "Ownership Bias", isCorrect: false }
     ],
     explanation: "The IKEA Effect is a cognitive bias where people place a disproportionately high value on products they partially created themselves. Mark values his homemade table more because he invested his own labor into making it.",
-    type: "ikea"
+    type: "ingroup"
   }
 ];

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -6,6 +7,7 @@ import { RadioGroup } from "../ui/radio-group";
 import { Progress } from "../ui/progress";
 import { Card } from "../ui/card";
 import BiasIllustration from "./BiasIllustration";
+import { AspectRatio } from "../ui/aspect-ratio";
 
 interface QuizContentProps {
   currentQuestion: any;
@@ -236,18 +238,11 @@ const QuizContent = ({
         </div>
       </div>
       
-      <div className="w-full md:w-2/5 space-y-4">
+      <div className="w-full md:w-2/5">
         <Card className="bg-white p-6 shadow">
-          <h4 className="font-domine text-lg font-medium mb-4">Understanding Cognitive Biases</h4>
-          <div className="border border-gray-100 rounded-md p-4 bg-gray-50 mb-4 flex justify-center">
-            <div className="w-48 h-48 flex items-center justify-center">
-              <BiasIllustration biasType={currentQuestion.type} />
-            </div>
-          </div>
-          <p className="text-sm text-gray-600 font-worksans">
-            Cognitive biases are systematic patterns of deviation from norm or rationality in judgment. 
-            Each question in this quiz highlights a different bias that affects our thinking.
-          </p>
+          <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
+            <BiasIllustration biasType={currentQuestion.type} />
+          </AspectRatio>
         </Card>
         
         {showExplanation && (
@@ -255,6 +250,7 @@ const QuizContent = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
+            className="mt-4"
           >
             <Card className="bg-white p-6 shadow border border-blue-200">
               <h4 className="font-domine text-lg font-medium mb-3 text-blue-700">
