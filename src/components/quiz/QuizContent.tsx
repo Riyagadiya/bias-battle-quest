@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -50,14 +51,19 @@ const QuizContent = ({
     handleAnswer(value);
   };
 
-  const isCorrectOption = (option: any) => {
-    return option.isCorrect === true;
+  const getCorrectOption = () => {
+    return currentQuestion.options.find((option: any) => option.isCorrect === true);
   };
 
   const getCorrectOptionText = () => {
-    const correctOption = currentQuestion.options.find((option: any) => option.isCorrect);
+    const correctOption = getCorrectOption();
     return correctOption ? correctOption.text : "";
   };
+
+  // For debugging
+  console.log("Current question:", currentQuestion);
+  console.log("Correct option:", getCorrectOptionText());
+  console.log("Selected option:", selectedOption);
 
   return (
     <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
@@ -100,65 +106,59 @@ const QuizContent = ({
             
             <div className="space-y-3 mb-8">
               <RadioGroup value={selectedOption || ""} onValueChange={handleOptionSelect}>
-                {currentQuestion.options.map((option: any, idx: number) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: idx * 0.1 }}
-                  >
-                    <div
-                      className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
-                        selectedOption === option.text && !showExplanation
-                          ? "border-cognilense-blue bg-blue-50"
-                          : showExplanation && selectedOption === option.text && option.isCorrect
-                          ? "border-green-500 bg-green-50"
-                          : showExplanation && selectedOption === option.text && !option.isCorrect
-                          ? "border-red-500 bg-red-50"
-                          : showExplanation && option.isCorrect
-                          ? "border-green-500 bg-green-50"
-                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                      }`}
-                      onClick={() => !showExplanation && handleOptionSelect(option.text)}
+                {currentQuestion.options.map((option: any, idx: number) => {
+                  const isCorrect = option.isCorrect === true;
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: idx * 0.1 }}
                     >
-                      <div className="flex items-center w-full gap-3">
-                        <div className={`h-5 w-5 rounded-full border flex items-center justify-center ${
+                      <div
+                        className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${
                           selectedOption === option.text && !showExplanation
-                            ? "border-cognilense-blue"
-                            : showExplanation && selectedOption === option.text && option.isCorrect
-                            ? "border-green-500"
-                            : showExplanation && selectedOption === option.text && !option.isCorrect
-                            ? "border-red-500"
-                            : showExplanation && option.isCorrect
-                            ? "border-green-500"
-                            : "border-gray-300"
-                        }`}>
-                          {selectedOption === option.text && !showExplanation && (
-                            <div className="h-3 w-3 rounded-full bg-cognilense-blue"></div>
-                          )}
-                          {showExplanation && selectedOption === option.text && option.isCorrect && (
-                            <Check className="h-3 w-3 text-green-500" />
-                          )}
-                          {showExplanation && selectedOption === option.text && !option.isCorrect && (
-                            <X className="h-3 w-3 text-red-500" />
-                          )}
-                          {showExplanation && option.isCorrect && selectedOption !== option.text && (
-                            <Check className="h-3 w-3 text-green-500" />
-                          )}
+                            ? "border-cognilense-blue bg-blue-50"
+                            : showExplanation && isCorrect
+                            ? "border-green-500 bg-green-50"
+                            : showExplanation && selectedOption === option.text && !isCorrect
+                            ? "border-red-500 bg-red-50"
+                            : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                        }`}
+                        onClick={() => !showExplanation && handleOptionSelect(option.text)}
+                      >
+                        <div className="flex items-center w-full gap-3">
+                          <div className={`h-5 w-5 rounded-full border flex items-center justify-center ${
+                            selectedOption === option.text && !showExplanation
+                              ? "border-cognilense-blue"
+                              : showExplanation && isCorrect
+                              ? "border-green-500"
+                              : showExplanation && selectedOption === option.text && !isCorrect
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}>
+                            {selectedOption === option.text && !showExplanation && (
+                              <div className="h-3 w-3 rounded-full bg-cognilense-blue"></div>
+                            )}
+                            {showExplanation && isCorrect && (
+                              <Check className="h-3 w-3 text-green-500" />
+                            )}
+                            {showExplanation && selectedOption === option.text && !isCorrect && (
+                              <X className="h-3 w-3 text-red-500" />
+                            )}
+                          </div>
+                          <span className={`text-base font-worksans ${
+                            showExplanation && isCorrect
+                              ? "text-green-700 font-medium"
+                              : showExplanation && selectedOption === option.text && !isCorrect
+                              ? "text-red-700 font-medium"
+                              : "text-gray-800"
+                          }`}>{option.text}</span>
                         </div>
-                        <span className={`text-base font-worksans ${
-                          showExplanation && selectedOption === option.text && option.isCorrect
-                            ? "text-green-700 font-medium"
-                            : showExplanation && selectedOption === option.text && !option.isCorrect
-                            ? "text-red-700 font-medium"
-                            : showExplanation && option.isCorrect
-                            ? "text-green-700 font-medium"
-                            : "text-gray-800"
-                        }`}>{option.text}</span>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </RadioGroup>
             </div>
             
@@ -258,6 +258,10 @@ const QuizContent = ({
               <div className="p-4 rounded-lg bg-blue-50 border border-blue-100">
                 <p className="text-sm mb-3">{currentQuestion.explanation}</p>
                 <p className="text-sm font-medium">
+                  <span className="text-gray-700">Correct Answer:</span>{" "}
+                  <span className="text-green-600 font-medium">{getCorrectOptionText()}</span>
+                </p>
+                <p className="text-sm font-medium mt-1">
                   <span className="text-gray-700">Cognitive Bias:</span>{" "}
                   <span className="italic">{currentQuestion.type}</span>
                 </p>
