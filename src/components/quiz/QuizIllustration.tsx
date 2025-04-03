@@ -24,7 +24,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "bundling": "/lovable-uploads/e0d82469-47e0-4f13-8778-257b364423d4.png", // Billboard with bundled meal deal
     "confirmation": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png", // Magnifying glass with eye
     
-    // New bias illustrations
+    // Previously added bias illustrations
     "current_mood": "/lovable-uploads/bbe42d52-a0fa-4497-a9b8-ba3bf582bbcd.png", // Angry man with hammer and clock
     "decoy_option": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", // Coffee cups with different prices
     "distinction": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Man confused between two clothing items
@@ -39,6 +39,16 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "pessimism": "/lovable-uploads/7bbb844a-0d85-4d0d-9bb8-0c58bf4b89a2.png", // Glass of water with hand pointing down
     "optimism_bias": "/lovable-uploads/15fe4ff5-b3d3-44a2-adb5-e88a6e7a2e3f.png", // Glass of water with OK hand sign
     
+    // Newly added bias illustrations
+    "prestige": "/lovable-uploads/93262f4c-cc90-4f0c-9755-c75c36e0cdf7.png", // Girl with microphone surrounded by crowd
+    "projection": "/lovable-uploads/d7471cae-1e32-4318-aeb8-9ca97ba16c5e.png", // Brains with one highlighted
+    "recall": "/lovable-uploads/7872244e-18b5-4cdc-90fd-ab27a747a519.png", // Person trekking up a mountain
+    "recency": "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png", // Placards with months of the year
+    "responsive": "/lovable-uploads/fd80c14a-0d65-4ce4-bc87-2fc9b0d1570d.png", // Person speaking into microphone
+    "restraint": "/lovable-uploads/2c5f726a-54d4-4b89-9c75-ec2d9b18356c.png", // Hand reaching for cigarette pack
+    "salience": "/lovable-uploads/80ff0a9d-06d8-47a0-aa74-98042b2e500b.png", // Shark under sea with open mouth
+    "scarcity": "/lovable-uploads/c3e37cc6-0bb1-429b-a4d3-b3b89ed91d93.png", // Hand holding diamond
+    
     // Aliases for different naming variations
     "belief_bias": "/lovable-uploads/6a8d4646-af7c-4942-b055-c7cdf32e544e.png",
     "barnum_effect": "/lovable-uploads/2f646fc4-7b1b-4ab0-a045-a112d84b1684.png",
@@ -47,28 +57,40 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "anchoring_bias": "/lovable-uploads/822c8a94-99af-4d4b-a9cb-6d2eea6bd2eb.png",
     "optimism_bias": "/lovable-uploads/15fe4ff5-b3d3-44a2-adb5-e88a6e7a2e3f.png",
     "pessimism_bias": "/lovable-uploads/7bbb844a-0d85-4d0d-9bb8-0c58bf4b89a2.png",
-    "ingroup_bias": "/lovable-uploads/cc080e1b-a965-49df-bdd9-d4e6c1539e6f.png", // Updated to new ingroup bias image
-    "ikea_effect": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png", // Alias for IKEA Effect
-    "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png", // Alias for Action Bias
-    "backfire_effect": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png", // Alias for Backfire Effect
-    "bundling_effect": "/lovable-uploads/e0d82469-47e0-4f13-8778-257b364423d4.png", // Alias for Bundling Effect
-    "confirmation_bias": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png", // Alias for Confirmation Bias
+    "ingroup_bias": "/lovable-uploads/cc080e1b-a965-49df-bdd9-d4e6c1539e6f.png", 
+    "ikea_effect": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png", 
+    "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png", 
+    "backfire_effect": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png", 
+    "bundling_effect": "/lovable-uploads/e0d82469-47e0-4f13-8778-257b364423d4.png", 
+    "confirmation_bias": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png", 
     
-    // Aliases for the new bias types
-    "current_mood_bias": "/lovable-uploads/bbe42d52-a0fa-4497-a9b8-ba3bf582bbcd.png", // Alias for Current Mood Bias
-    "decoy_option_effect": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", // Alias for Decoy Option Effect
-    "distinction_bias": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Alias for Distinction Bias
-    "diversification_bias": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", // Alias for Diversification Bias
-    "dunning_kruger_effect": "/lovable-uploads/b8162ae5-398d-4431-8916-7a3dd8e28213.png", // Alias for Dunning Kruger Effect
-    "first_impression_bias": "/lovable-uploads/00881fd8-2a91-4838-a6c3-12b9fee47e33.png", // Alias for First Impression Bias
-    "framing_bias": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", // Alias for Framing Bias
-    "framing_effect": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", // Alias for Framing Bias/Effect
-    "gratification_bias": "/lovable-uploads/a516eff3-f6cf-4f0e-bafd-4bcbb53dd017.png", // Alias for Gratification Bias
-    "groupthink_bias": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", // Alias for Groupthink Bias
-    "groupthink_effect": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", // Alias for Groupthink Effect
-    "hindsight_bias": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", // Alias for Hindsight Bias
-    "hindsight_effect": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", // Alias for Hindsight Bias/Effect
-    "omission_bias": "/lovable-uploads/53d527e6-ff18-4f68-83cd-385c4138bf93.png", // Alias for Omission Bias
+    // Aliases for previously added bias types
+    "current_mood_bias": "/lovable-uploads/bbe42d52-a0fa-4497-a9b8-ba3bf582bbcd.png", 
+    "decoy_option_effect": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", 
+    "distinction_bias": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", 
+    "diversification_bias": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", 
+    "dunning_kruger_effect": "/lovable-uploads/b8162ae5-398d-4431-8916-7a3dd8e28213.png", 
+    "first_impression_bias": "/lovable-uploads/00881fd8-2a91-4838-a6c3-12b9fee47e33.png", 
+    "framing_bias": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", 
+    "framing_effect": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", 
+    "gratification_bias": "/lovable-uploads/a516eff3-f6cf-4f0e-bafd-4bcbb53dd017.png", 
+    "groupthink_bias": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", 
+    "groupthink_effect": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", 
+    "hindsight_bias": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", 
+    "hindsight_effect": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", 
+    "omission_bias": "/lovable-uploads/53d527e6-ff18-4f68-83cd-385c4138bf93.png", 
+    
+    // Aliases for newly added bias types
+    "prestige_bias": "/lovable-uploads/93262f4c-cc90-4f0c-9755-c75c36e0cdf7.png",
+    "projection_bias": "/lovable-uploads/d7471cae-1e32-4318-aeb8-9ca97ba16c5e.png",
+    "recall_bias": "/lovable-uploads/7872244e-18b5-4cdc-90fd-ab27a747a519.png",
+    "recency_bias": "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png",
+    "recency_effect": "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png",
+    "responsive_bias": "/lovable-uploads/fd80c14a-0d65-4ce4-bc87-2fc9b0d1570d.png",
+    "restraint_bias": "/lovable-uploads/2c5f726a-54d4-4b89-9c75-ec2d9b18356c.png",
+    "salience_bias": "/lovable-uploads/80ff0a9d-06d8-47a0-aa74-98042b2e500b.png",
+    "scarcity_bias": "/lovable-uploads/c3e37cc6-0bb1-429b-a4d3-b3b89ed91d93.png",
+    "scarcity_effect": "/lovable-uploads/c3e37cc6-0bb1-429b-a4d3-b3b89ed91d93.png",
   };
 
   // Normalize the bias type by removing spaces, making lowercase
