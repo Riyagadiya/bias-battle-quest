@@ -86,7 +86,22 @@ const ResultsSection = () => {
                 </motion.div>
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div className="flex flex-col justify-center">
+                  {/* Flipped illustration on the left side */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="flex justify-center items-center order-2 md:order-1"
+                  >
+                    <img 
+                      src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                      alt="Brain illustration" 
+                      className="max-w-full h-auto max-h-[250px] object-contain transform scale-x-[-1]"
+                    />
+                  </motion.div>
+                  
+                  {/* Results info on the right side */}
+                  <div className="flex flex-col justify-center order-1 md:order-2">
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -104,19 +119,6 @@ const ResultsSection = () => {
                       />
                     </motion.div>
                   </div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="flex justify-center items-center"
-                  >
-                    <img 
-                      src="/public/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                      alt="Brain illustration" 
-                      className="max-w-full h-auto max-h-[250px] object-contain"
-                    />
-                  </motion.div>
                 </div>
               </div>
             </div>
@@ -294,3 +296,4 @@ const BentoSectionShareQuiz = () => {
 };
 
 export default ResultsSection;
+
