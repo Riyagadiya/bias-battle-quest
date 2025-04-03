@@ -138,9 +138,6 @@ const allQuizQuestions: Question[] = [
     type: "barnum"
   },
 
-  // We'll include just 2 questions for each subsequent bias type to keep the file more manageable
-  // Continue with other biases...
-
   // Sunk Cost Fallacy
   {
     id: 11,
@@ -412,7 +409,7 @@ const allQuizQuestions: Question[] = [
       { text: "Ownership Bias", isCorrect: false }
     ]),
     explanation: "The IKEA Effect is a cognitive bias where people place a disproportionately high value on products they partially created themselves. Mark values his homemade table more because he invested his own labor into making it.",
-    type: "ingroup"
+    type: "ikea"
   },
   {
     id: 32,
@@ -424,12 +421,38 @@ const allQuizQuestions: Question[] = [
       { text: "Self-Enhancement Bias", isCorrect: false }
     ]),
     explanation: "The IKEA Effect leads people to value things they created more highly. The chef values their own dish more because they invested effort in creating it, regardless of objective quality.",
-    type: "ingroup"
+    type: "ikea"
+  },
+
+  // Action Bias
+  {
+    id: 33,
+    question: "A soccer goalkeeper always dives during penalty kicks, even though statistically staying in the center is better. What bias is this?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Overconfidence Bias", isCorrect: false },
+      { text: "Illusion of Control", isCorrect: false },
+      { text: "Outcome Bias", isCorrect: false }
+    ]),
+    explanation: "Action Bias is the tendency to favor action over inaction, even when the action isn't necessarily the most effective response. The goalkeeper feels better diving (acting) than staying put (not acting), even when statistics suggest otherwise.",
+    type: "action"
+  },
+  {
+    id: 34,
+    question: "An investor frequently trades stocks despite evidence that a buy-and-hold strategy yields better returns. What bias is at work?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Overtrading Bias", isCorrect: false },
+      { text: "Illusion of Control", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false }
+    ]),
+    explanation: "Action Bias leads people to prefer taking action over doing nothing, even when inaction would be more beneficial. The investor feels better actively trading rather than passively holding investments, despite evidence favoring the latter approach.",
+    type: "action"
   },
 
   // Spotlight Effect
   {
-    id: 33,
+    id: 35,
     question: "Emma feels like everyone is staring at her when she trips, even though most people didn't notice. What bias is influencing her?",
     options: shuffleArray([
       { text: "Spotlight Effect", isCorrect: true },
@@ -441,7 +464,7 @@ const allQuizQuestions: Question[] = [
     type: "spotlight"
   },
   {
-    id: 34,
+    id: 36,
     question: "A teenager refuses to wear an old shirt, assuming everyone will judge them for it. What bias is at play?",
     options: shuffleArray([
       { text: "Spotlight Effect", isCorrect: true },
@@ -452,9 +475,6 @@ const allQuizQuestions: Question[] = [
     explanation: "The Spotlight Effect leads people to believe others pay more attention to their appearance than they actually do. The teenager assumes others will notice and judge their clothing choices more than is realistic.",
     type: "spotlight"
   },
-
-  // Other remaining biases from the list can be added here
-  // ...
 ];
 
 // Function to select 10 random questions for each quiz

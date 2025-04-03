@@ -18,6 +18,8 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "anchoring": "/lovable-uploads/055f660d-de75-4d8b-8a37-8c9be2d761c0.png", // Hand holding price tag
     "optimism": "/lovable-uploads/749be576-777f-4501-aa84-d7e8ede8f564.png", // Driver view from car
     "ingroup": "/lovable-uploads/727c0d20-c594-4e55-ac16-46935e7c9826.png", // New ingroup bias illustration
+    "ikea": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png", // Person assembling furniture (IKEA Effect)
+    "action": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png", // Person driving car (Action Bias)
     
     // Aliases for different naming variations
     "belief_bias": "/lovable-uploads/b333656a-7aa6-4c83-9316-74f607290895.png",
@@ -26,7 +28,9 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "spotlight_effect": "/lovable-uploads/a9bd6058-0119-4a06-bf8e-d6673c0e3330.png",
     "anchoring_bias": "/lovable-uploads/055f660d-de75-4d8b-8a37-8c9be2d761c0.png",
     "optimism_bias": "/lovable-uploads/749be576-777f-4501-aa84-d7e8ede8f564.png",
-    "ingroup_bias": "/lovable-uploads/727c0d20-c594-4e55-ac16-46935e7c9826.png" // Alias for ingroup bias
+    "ingroup_bias": "/lovable-uploads/727c0d20-c594-4e55-ac16-46935e7c9826.png", // Alias for ingroup bias
+    "ikea_effect": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png", // Alias for IKEA Effect
+    "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png" // Alias for Action Bias
   };
 
   // Normalize the bias type by removing spaces, making lowercase
