@@ -17,6 +17,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show }) =
     "spotlight": "/lovable-uploads/a9bd6058-0119-4a06-bf8e-d6673c0e3330.png", // Person covering ears with people talking around them
     "anchoring": "/lovable-uploads/055f660d-de75-4d8b-8a37-8c9be2d761c0.png", // Hand holding price tag
     "optimism": "/lovable-uploads/749be576-777f-4501-aa84-d7e8ede8f564.png", // Driver view from car
+    "ingroup": "/lovable-uploads/727c0d20-c594-4e55-ac16-46935e7c9826.png", // New ingroup bias illustration
     
     // Aliases for different naming variations
     "belief_bias": "/lovable-uploads/b333656a-7aa6-4c83-9316-74f607290895.png",
@@ -24,7 +25,8 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show }) =
     "bandwagon_effect": "/lovable-uploads/b0ab63e2-836d-49a7-8e89-acb042ee5782.png",
     "spotlight_effect": "/lovable-uploads/a9bd6058-0119-4a06-bf8e-d6673c0e3330.png",
     "anchoring_bias": "/lovable-uploads/055f660d-de75-4d8b-8a37-8c9be2d761c0.png",
-    "optimism_bias": "/lovable-uploads/749be576-777f-4501-aa84-d7e8ede8f564.png"
+    "optimism_bias": "/lovable-uploads/749be576-777f-4501-aa84-d7e8ede8f564.png",
+    "ingroup_bias": "/lovable-uploads/727c0d20-c594-4e55-ac16-46935e7c9826.png" // Alias for ingroup bias
   };
 
   // Normalize the bias type by removing spaces, making lowercase
