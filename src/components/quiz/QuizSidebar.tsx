@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Brain } from "lucide-react";
-import BiasIllustration from "./BiasIllustration";
+import QuizIllustration from "./QuizIllustration";
 import QuizProgressTracker from "./QuizProgressTracker";
 
 interface QuizSidebarProps {
@@ -24,7 +24,7 @@ const QuizSidebar = ({
       <div className="bg-white rounded-xl shadow-md p-6">
         <h3 className="text-lg font-medium mb-4">Understanding Cognitive Biases</h3>
         <div className="border border-gray-100 rounded-md p-4 bg-gray-50 mb-4">
-          <BiasIllustration biasType={currentQuestion.type} />
+          <QuizIllustration biasType={currentQuestion.type} show={true} />
         </div>
         <p className="text-sm text-gray-600">
           Cognitive biases are systematic patterns of deviation from norm or rationality in judgment. 
