@@ -7,7 +7,6 @@ import { RadioGroup } from "../ui/radio-group";
 import { Progress } from "../ui/progress";
 import { Card } from "../ui/card";
 import { AspectRatio } from "../ui/aspect-ratio";
-import QuizIllustration from "./QuizIllustration";
 
 interface QuizContentProps {
   currentQuestion: any;
@@ -239,10 +238,7 @@ const QuizContent = ({
       <div className="w-full md:w-2/5">
         <Card className="bg-white p-6 shadow">
           <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
-            <QuizIllustration 
-              biasType={currentQuestion.type} 
-              showIllustration={showExplanation} 
-            />
+            {/* Empty box - illustrations removed as requested */}
           </AspectRatio>
         </Card>
         
