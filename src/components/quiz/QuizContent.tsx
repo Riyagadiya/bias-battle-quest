@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -5,7 +6,6 @@ import { Button } from "../ui/button";
 import { RadioGroup } from "../ui/radio-group";
 import { Progress } from "../ui/progress";
 import { Card } from "../ui/card";
-import BiasIllustration from "./BiasIllustration";
 import { AspectRatio } from "../ui/aspect-ratio";
 
 interface QuizContentProps {
@@ -238,7 +238,7 @@ const QuizContent = ({
       <div className="w-full md:w-2/5">
         <Card className="bg-white p-6 shadow">
           <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
-            <BiasIllustration biasType={currentQuestion.type} />
+            {/* Empty box - illustrations removed as requested */}
           </AspectRatio>
         </Card>
         
