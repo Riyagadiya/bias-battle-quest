@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, SkipForward, Clock, Check, X } from "lucide-react";
@@ -60,7 +59,6 @@ const QuizContent = ({
     return correctOption ? correctOption.text : "";
   };
 
-  // Get the bias type from the current question
   const getCurrentBiasType = () => {
     return currentQuestion?.type || null;
   };
@@ -245,10 +243,8 @@ const QuizContent = ({
       <div className="w-full md:w-2/5">
         <Card className="bg-white p-6 shadow">
           <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
-            {/* Only show the illustration when the explanation is showing */}
             <QuizIllustration 
               biasType={getCurrentBiasType()} 
-              show={showExplanation} 
             />
           </AspectRatio>
         </Card>

@@ -3,11 +3,11 @@ import React from "react";
 
 interface QuizIllustrationProps {
   biasType: string | null;
-  show: boolean;
+  show?: boolean; // Make this optional with a default value
 }
 
-const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show }) => {
-  if (!show || !biasType) return null;
+const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = true }) => {
+  if (!biasType) return null;
 
   // Map of bias types to their corresponding illustration URLs
   const biasIllustrations: Record<string, string> = {
@@ -41,6 +41,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show }) =
     return null;
   }
 
+  // Don't check the "show" parameter anymore - always show if we have a valid biasType and URL
   return (
     <div className="w-full h-full flex items-center justify-center">
       <img 
