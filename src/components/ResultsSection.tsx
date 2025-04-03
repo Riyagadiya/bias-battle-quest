@@ -84,23 +84,39 @@ const ResultsSection = () => {
                   </p>
                 </motion.div>
                 
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="mb-6"
-                >
-                  <h3 className="text-2xl md:text-3xl font-domine font-medium text-center mb-8">
-                    {resultMessage}
-                  </h3>
-                </motion.div>
-                
-                <ResultsSummary 
-                  percentage={percentage} 
-                  correctAnswers={correctAnswers} 
-                  totalQuestions={questions.length} 
-                  resultMessage={resultMessage} 
-                />
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div className="flex flex-col justify-center">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      <h3 className="text-2xl md:text-3xl font-domine font-medium text-center mb-4">
+                        {resultMessage}
+                      </h3>
+                      
+                      <ResultsSummary 
+                        percentage={percentage} 
+                        correctAnswers={correctAnswers} 
+                        totalQuestions={questions.length} 
+                        resultMessage={resultMessage} 
+                      />
+                    </motion.div>
+                  </div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="flex justify-center items-center"
+                  >
+                    <img 
+                      src="/public/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                      alt="Brain illustration" 
+                      className="max-w-full h-auto max-h-[250px] object-contain"
+                    />
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -267,4 +283,3 @@ const BentoSectionShareQuiz = () => {
 };
 
 export default ResultsSection;
-
