@@ -24,6 +24,12 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "bundling": "/lovable-uploads/e0d82469-47e0-4f13-8778-257b364423d4.png", // Billboard with bundled meal deal
     "confirmation": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png", // Magnifying glass with eye
     
+    // New bias illustrations
+    "current_mood": "/lovable-uploads/bbe42d52-a0fa-4497-a9b8-ba3bf582bbcd.png", // Angry man with hammer and clock
+    "decoy_option": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", // Coffee cups with different prices
+    "distinction": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Man confused between two clothing items
+    "diversification": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", // Man juggling with different items
+    
     // Aliases for different naming variations
     "belief_bias": "/lovable-uploads/6a8d4646-af7c-4942-b055-c7cdf32e544e.png",
     "barnum_effect": "/lovable-uploads/2f646fc4-7b1b-4ab0-a045-a112d84b1684.png",
@@ -36,7 +42,13 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png", // Alias for Action Bias
     "backfire_effect": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png", // Alias for Backfire Effect
     "bundling_effect": "/lovable-uploads/e0d82469-47e0-4f13-8778-257b364423d4.png", // Alias for Bundling Effect
-    "confirmation_bias": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png" // Alias for Confirmation Bias
+    "confirmation_bias": "/lovable-uploads/af7e7cc7-ff87-4241-8fe5-77e92a2c6a0c.png", // Alias for Confirmation Bias
+    
+    // Aliases for the new bias types
+    "current_mood_bias": "/lovable-uploads/bbe42d52-a0fa-4497-a9b8-ba3bf582bbcd.png", // Alias for Current Mood Bias
+    "decoy_option_effect": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", // Alias for Decoy Option Effect
+    "distinction_bias": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Alias for Distinction Bias
+    "diversification_bias": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png" // Alias for Diversification Bias
   };
 
   // Normalize the bias type by removing spaces, making lowercase
