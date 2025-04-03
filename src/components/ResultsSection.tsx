@@ -1,11 +1,9 @@
-
 import { motion } from "framer-motion";
 import { PartyPopper } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
-import DiscountSection from "./results/DiscountSection";
-import ActionButtons from "./results/ActionButtons";
 import QuestionSummaryList from "./results/QuestionSummaryList";
+import ResultsActionTabs from "./results/ResultsActionTabs";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
@@ -105,33 +103,26 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Box 3: Question summary - Top right (moved from bottom right) */}
+          {/* Box 2: Tabbed Actions - Right side (moved from bottom) */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 h-full">
-              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
-              <QuestionSummaryList answersArray={answersArray} questions={questions} />
-            </div>
+            <ResultsActionTabs />
           </motion.div>
           
-          {/* Box 2: Action box - Bottom horizontal (spans full width) */}
+          {/* Box 3: Question summary - Bottom full width */}
           <motion.div
             className="md:col-span-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
-              <div className="px-6 py-8">
-                <DiscountSection />
-                <div className="mt-8">
-                  <ActionButtons restartQuiz={restartQuiz} />
-                </div>
-              </div>
+            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8">
+              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+              <QuestionSummaryList answersArray={answersArray} questions={questions} />
             </div>
           </motion.div>
         </div>
