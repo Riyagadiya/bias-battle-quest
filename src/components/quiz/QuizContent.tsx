@@ -7,6 +7,7 @@ import { RadioGroup } from "../ui/radio-group";
 import { Progress } from "../ui/progress";
 import { Card } from "../ui/card";
 import { AspectRatio } from "../ui/aspect-ratio";
+import QuizIllustration from "./QuizIllustration";
 
 interface QuizContentProps {
   currentQuestion: any;
@@ -59,7 +60,13 @@ const QuizContent = ({
     return correctOption ? correctOption.text : "";
   };
 
+  // Get the bias type from the current question
+  const getCurrentBiasType = () => {
+    return currentQuestion?.type || null;
+  };
+
   console.log("Current question:", currentQuestion);
+  console.log("Current bias type:", getCurrentBiasType());
   console.log("Correct option:", getCorrectOptionText());
   console.log("Selected option:", selectedOption);
 
@@ -238,7 +245,11 @@ const QuizContent = ({
       <div className="w-full md:w-2/5">
         <Card className="bg-white p-6 shadow">
           <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
-            {/* Empty box - illustrations removed as requested */}
+            {/* Only show the illustration when the explanation is showing */}
+            <QuizIllustration 
+              biasType={getCurrentBiasType()} 
+              show={showExplanation} 
+            />
           </AspectRatio>
         </Card>
         
