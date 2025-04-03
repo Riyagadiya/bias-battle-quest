@@ -40,6 +40,7 @@ export const biasImages: BiasImageMapType = {
   "diversification_bias": "/lovable-uploads/0aec478e-c226-4341-8c90-c38035d13450.png",
   "distinction_bias": "/lovable-uploads/97945626-3012-41e3-9d56-5b4c3e43540c.png",
   "current_mood_bias": "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png",
+  "mood_bias": "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png",
   "groupthink_bias": "/lovable-uploads/98a8d721-92a7-480c-a370-4331e0044f5e.png",
   "gratification_bias": "/lovable-uploads/8bc9437d-bfc7-4e47-bdab-2793e551eb93.png",
   "hindsight_bias": "/lovable-uploads/c6bf934e-b1a2-422f-a0bb-e55d0049169e.png",
