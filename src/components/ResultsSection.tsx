@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink, Check } from "lucide-react";
+import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink, Check, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -129,36 +129,36 @@ const ResultsSection = () => {
                   </div>
                 </div>
 
-                {/* New Action Buttons row */}
+                {/* New Action Buttons row - Gradient Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
                 >
-                  {/* Restart Quiz Button */}
-                  <Button 
+                  {/* Restart Quiz Button - New gradient style */}
+                  <button 
                     onClick={restartQuiz}
-                    className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-cognilense-green hover:bg-cognilense-green/90 transition-colors rounded-full shadow-md"
+                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
                   >
-                    <RotateCcw size={18} />
-                    <span className="font-medium">Try Again</span>
-                  </Button>
+                    <span>Try Again</span>
+                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                   
-                  {/* Share Quiz Button */}
-                  <Button 
+                  {/* Share Quiz Button - New gradient style */}
+                  <button 
                     onClick={shareQuiz}
-                    className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-cognilense-orange hover:bg-cognilense-orange/90 transition-colors rounded-full shadow-md"
+                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-orange via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
                   >
-                    <Share2 size={18} />
-                    <span className="font-medium">Share Quiz</span>
-                  </Button>
+                    <span>Share Quiz</span>
+                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                 </motion.div>
               </div>
             </div>
           </motion.div>
           
-          {/* Box 2: Bento Box Action Sections - Right side */}
+          {/* Box 2: Improved Bento Box with clearer CTAs - Right side */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
@@ -166,12 +166,61 @@ const ResultsSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-              <div className="flex flex-col divide-y">
-                {/* Discount Code Section */}
-                <BentoSectionDiscountCode />
+              <div className="flex flex-col h-full">
+                {/* Header Section */}
+                <div className="px-6 py-4 border-b border-gray-100">
+                  <h3 className="font-domine text-lg font-semibold">Take Your Learning Further</h3>
+                  <p className="text-sm text-muted-foreground">Use these exclusive resources</p>
+                </div>
                 
-                {/* Get Cards Section */}
-                <BentoSectionGetCards />
+                {/* Discount Code Section - Enhanced */}
+                <div className="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
+                      <Code size={18} className="text-cognilense-orange" />
+                    </div>
+                    <div>
+                      <h4 className="font-domine font-semibold">Exclusive Code</h4>
+                      <p className="text-xs text-muted-foreground">25% off Cognilense cards</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mt-4">
+                    <div className="flex-1 bg-cognilense-background px-4 py-2 rounded border shadow-sm font-medium tracking-wider text-center">
+                      COGNIQUIZ25
+                    </div>
+                    <CopyButton code="COGNIQUIZ25" />
+                  </div>
+                </div>
+                
+                {/* Get Cards Section - Enhanced with clearer CTA */}
+                <div className="p-6 flex-grow flex flex-col hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
+                      <Award size={18} className="text-cognilense-blue" />
+                    </div>
+                    <div>
+                      <h4 className="font-domine font-semibold">Bias Cards Deck</h4>
+                      <p className="text-xs text-muted-foreground">Master all 24 cognitive biases</p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-3 mb-1">
+                    <p className="text-sm">Learn to identify biases in your daily life with our beautifully designed physical cards.</p>
+                  </div>
+                  
+                  <div className="mt-auto pt-4">
+                    <a 
+                      href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
+                      target="_blank"
+                      rel="noopener noreferrer" 
+                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full py-3 px-6 transition-colors font-medium"
+                    >
+                      Explore CogniLense
+                      <ArrowUpRight size={18} />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -194,76 +243,31 @@ const ResultsSection = () => {
   );
 };
 
-// Bento Box Section: Discount Code
-const BentoSectionDiscountCode = () => {
+// Copy Button Component
+const CopyButton = ({ code }: { code: string }) => {
   const [isCopied, setIsCopied] = useState(false);
-  const discountCode = "COGNIQUIZ25";
   
   const copyDiscountCode = () => {
-    navigator.clipboard.writeText(discountCode);
+    navigator.clipboard.writeText(code);
     setIsCopied(true);
     toast.success("Discount code copied to clipboard!");
     setTimeout(() => setIsCopied(false), 2000);
   };
   
   return (
-    <div className="p-6 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
-            <Code size={16} className="text-cognilense-orange" />
-          </div>
-          <h4 className="font-domine font-semibold">Exclusive Code</h4>
-        </div>
-        <Button 
-          onClick={copyDiscountCode}
-          variant="outline"
-          size="icon"
-          className="h-8 w-8 rounded-md"
-          aria-label="Copy discount code"
-        >
-          {isCopied ? (
-            <Check size={18} className="text-green-600" />
-          ) : (
-            <Code size={18} />
-          )}
-        </Button>
-      </div>
-      <div className="flex items-center">
-        <div className="bg-cognilense-background px-3 py-1.5 rounded border shadow-sm font-medium tracking-wider">
-          {discountCode}
-        </div>
-        <span className="ml-2 text-xs text-muted-foreground">25% off cards</span>
-      </div>
-    </div>
-  );
-};
-
-// Bento Box Section: Get Cards
-const BentoSectionGetCards = () => {
-  return (
-    <div className="p-6 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
-            <Award size={16} className="text-cognilense-blue" />
-          </div>
-          <h4 className="font-domine font-semibold">Get Your Cards</h4>
-        </div>
-        <a 
-          href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
-          target="_blank"
-          rel="noopener noreferrer" 
-          className="flex items-center gap-1 text-xs font-medium text-white bg-cognilense-blue py-1.5 px-3 hover:bg-cognilense-blue/90 rounded-full transition-colors h-8"
-        >
-          Buy Now
-          <ExternalLink size={14} className="ml-1" />
-        </a>
-      </div>
-      <p className="text-xs text-muted-foreground">
-        Get our cognitive bias cards deck
-      </p>
-    </div>
+    <Button 
+      onClick={copyDiscountCode}
+      variant="outline"
+      size="icon"
+      className="h-10 w-10 rounded-full"
+      aria-label="Copy discount code"
+    >
+      {isCopied ? (
+        <Check size={18} className="text-green-600" />
+      ) : (
+        <Code size={18} />
+      )}
+    </Button>
   );
 };
 
