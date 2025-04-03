@@ -35,12 +35,12 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     "decoy_option": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", // Coffee cups with different prices
     "distinction": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Man confused between two clothing items
     "diversification": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", // Man juggling with different items
-    "dunning_kruger": "/lovable-uploads/b8162ae5-398d-4431-8916-7a3dd8e28213.png", // Roller coaster ride
+    "dunning_kruger": "/lovable-uploads/20a19460-11e0-4fa2-9897-05d09b46bb68.png", // Roller coaster ride (NEW IMAGE)
     "first_impression": "/lovable-uploads/00881fd8-2a91-4838-a6c3-12b9fee47e33.png", // Two people shaking hands
     "framing": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", // Ice cream cups with different fat percentage labels
     "gratification": "/lovable-uploads/a516eff3-f6cf-4f0e-bafd-4bcbb53dd017.png", // Race car with checkered flags
     "groupthink": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", // Pied piper with mice following
-    "hindsight": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", // Person holding circular frame with scenery
+    "hindsight": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png", // Hand holding circular frame with scenery (NEW IMAGE)
     "omission": "/lovable-uploads/53d527e6-ff18-4f68-83cd-385c4138bf93.png", // Scale with injection and virus
     "pessimism": "/lovable-uploads/7bbb844a-0d85-4d0d-9bb8-0c58bf4b89a2.png", // Glass of water with hand pointing down
     "optimism_bias": "/lovable-uploads/15fe4ff5-b3d3-44a2-adb5-e88a6e7a2e3f.png", // Glass of water with OK hand sign
@@ -82,15 +82,16 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     "decoy_option_effect": "/lovable-uploads/8902f187-fa9a-4efa-825d-03362a6105d4.png", 
     "distinction_bias": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", 
     "diversification_bias": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", 
-    "dunning_kruger_effect": "/lovable-uploads/b8162ae5-398d-4431-8916-7a3dd8e28213.png", 
+    "dunning_kruger_effect": "/lovable-uploads/20a19460-11e0-4fa2-9897-05d09b46bb68.png", // Updated with new image
     "first_impression_bias": "/lovable-uploads/00881fd8-2a91-4838-a6c3-12b9fee47e33.png", 
     "framing_bias": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", 
     "framing_effect": "/lovable-uploads/cb5b56b8-9016-48f2-8c94-4ac7524b249a.png", 
     "gratification_bias": "/lovable-uploads/a516eff3-f6cf-4f0e-bafd-4bcbb53dd017.png", 
     "groupthink_bias": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", 
     "groupthink_effect": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png", 
-    "hindsight_bias": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", 
-    "hindsight_effect": "/lovable-uploads/ef263d28-dec8-40b5-bae3-07c2e6930cee.png", 
+    "hindsight_bias": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png", // Updated with new image
+    "hindsight_effect": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png", // Updated with new image
+    "hindsight_bias_bias": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png", // Added for the specific case in instruction
     "omission_bias": "/lovable-uploads/53d527e6-ff18-4f68-83cd-385c4138bf93.png", 
     
     // Aliases for previously added bias types (newer)
