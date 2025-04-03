@@ -5,11 +5,13 @@ import {
   ExternalLink, 
   RotateCcw, 
   Code, 
-  Share2
+  Share2,
+  Check
 } from "lucide-react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 
 const ResultsActionTabs = () => {
@@ -71,17 +73,19 @@ const ResultsActionTabs = () => {
                   <div className="bg-cognilense-background px-4 py-2 rounded border shadow-sm font-medium tracking-wider">
                     {discountCode}
                   </div>
-                  <button 
+                  <Button 
                     onClick={copyDiscountCode}
-                    className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                    variant="outline"
+                    size="icon"
+                    className="rounded-md"
                     aria-label="Copy discount code"
                   >
                     {isCopied ? (
-                      <Code size={20} className="text-green-600" />
+                      <Check size={20} className="text-green-600" />
                     ) : (
                       <Code size={20} />
                     )}
-                  </button>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -101,12 +105,12 @@ const ResultsActionTabs = () => {
                   </p>
                 </div>
                 
-                <button 
+                <Button 
                   onClick={restartQuiz}
-                  className="mt-4 w-full py-2 px-4 bg-cognilense-green/10 text-cognilense-green border border-cognilense-green/20 rounded-md hover:bg-cognilense-green/20 transition-colors"
+                  className="mt-4 w-full py-2 px-4 bg-cognilense-green text-white hover:bg-cognilense-green/90 rounded-md transition-colors h-auto"
                 >
                   Restart Quiz
-                </button>
+                </Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -129,12 +133,10 @@ const ResultsActionTabs = () => {
                   href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
                   target="_blank"
                   rel="noopener noreferrer" 
-                  className="mt-4 block w-full py-2 px-4 bg-cognilense-blue/10 text-cognilense-blue border border-cognilense-blue/20 rounded-md hover:bg-cognilense-blue/20 transition-colors text-center"
+                  className="mt-4 flex items-center justify-center gap-2 w-full py-2 px-4 bg-cognilense-blue text-white hover:bg-cognilense-blue/90 rounded-md transition-colors"
                 >
-                  <span className="flex items-center justify-center gap-2">
-                    Buy Now 
-                    <ExternalLink size={16} />
-                  </span>
+                  Buy Now 
+                  <ExternalLink size={16} />
                 </a>
               </CardContent>
             </Card>
@@ -154,12 +156,12 @@ const ResultsActionTabs = () => {
                   </p>
                 </div>
                 
-                <button 
+                <Button 
                   onClick={shareQuiz}
-                  className="mt-4 w-full py-2 px-4 bg-cognilense-orange/10 text-cognilense-orange border border-cognilense-orange/20 rounded-md hover:bg-cognilense-orange/20 transition-colors"
+                  className="mt-4 w-full py-2 px-4 bg-cognilense-orange text-white hover:bg-cognilense-orange/90 rounded-md transition-colors h-auto"
                 >
                   Copy Quiz Link
-                </button>
+                </Button>
               </CardContent>
             </Card>
           </TabsContent>

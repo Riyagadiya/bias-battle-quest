@@ -1,8 +1,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink } from "lucide-react";
+import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink, Check } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
@@ -184,17 +185,19 @@ const BentoSectionDiscountCode = () => {
           </div>
           <h4 className="font-domine font-semibold">Exclusive Code</h4>
         </div>
-        <button 
+        <Button 
           onClick={copyDiscountCode}
-          className="p-1.5 rounded-md hover:bg-gray-100 transition-colors"
+          variant="outline"
+          size="icon"
+          className="h-8 w-8 rounded-md"
           aria-label="Copy discount code"
         >
           {isCopied ? (
-            <Code size={18} className="text-green-600" />
+            <Check size={18} className="text-green-600" />
           ) : (
             <Code size={18} />
           )}
-        </button>
+        </Button>
       </div>
       <div className="flex items-center">
         <div className="bg-cognilense-background px-3 py-1.5 rounded border shadow-sm font-medium tracking-wider">
@@ -217,12 +220,12 @@ const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
           </div>
           <h4 className="font-domine font-semibold">Try Again</h4>
         </div>
-        <button 
+        <Button 
           onClick={restartQuiz}
-          className="text-xs font-medium text-cognilense-green py-1.5 px-3 bg-cognilense-green/10 border border-cognilense-green/20 rounded-md hover:bg-cognilense-green/20 transition-colors"
+          className="text-xs font-medium text-white bg-cognilense-green py-1.5 px-3 hover:bg-cognilense-green/90 rounded-md transition-colors h-8"
         >
           Restart Quiz
-        </button>
+        </Button>
       </div>
       <p className="text-xs text-muted-foreground">
         Ready to test your knowledge again?
@@ -246,10 +249,10 @@ const BentoSectionGetCards = () => {
           href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
           target="_blank"
           rel="noopener noreferrer" 
-          className="flex items-center gap-1 text-xs font-medium text-cognilense-blue py-1.5 px-3 bg-cognilense-blue/10 border border-cognilense-blue/20 rounded-md hover:bg-cognilense-blue/20 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium text-white bg-cognilense-blue py-1.5 px-3 hover:bg-cognilense-blue/90 rounded-md transition-colors h-8"
         >
           Buy Now
-          <ExternalLink size={14} />
+          <ExternalLink size={14} className="ml-1" />
         </a>
       </div>
       <p className="text-xs text-muted-foreground">
@@ -276,12 +279,12 @@ const BentoSectionShareQuiz = () => {
           </div>
           <h4 className="font-domine font-semibold">Share the Quiz</h4>
         </div>
-        <button 
+        <Button 
           onClick={shareQuiz}
-          className="text-xs font-medium text-cognilense-orange py-1.5 px-3 bg-cognilense-orange/10 border border-cognilense-orange/20 rounded-md hover:bg-cognilense-orange/20 transition-colors"
+          className="text-xs font-medium text-white bg-cognilense-orange py-1.5 px-3 hover:bg-cognilense-orange/90 rounded-md transition-colors h-8"
         >
           Copy Link
-        </button>
+        </Button>
       </div>
       <p className="text-xs text-muted-foreground">
         Share with friends and colleagues

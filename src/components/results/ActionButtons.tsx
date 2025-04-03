@@ -1,5 +1,6 @@
 
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, RotateCcw } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface ActionButtonsProps {
   restartQuiz: () => void;
@@ -12,55 +13,39 @@ const ActionButtons = ({ restartQuiz }: ActionButtonsProps) => {
         href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="group flex items-center justify-between p-4 rounded-lg border hover:border-cognilense-blue hover:shadow-md transition-all"
+        className="inline-flex items-center justify-between rounded-md py-3 px-6 font-medium text-white bg-cognilense-blue hover:bg-cognilense-blue/90 shadow-md transition-all gap-2"
       >
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 9V7C17 4.2 14.8 2 12 2C9.2 2 7 4.2 7 7V9" stroke="#518FF7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M12 14V17" stroke="#518FF7" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 22H16C20 22 21 21 21 17V14C21 10 20 9 16 9H8C4 9 3 10 3 14V17C3 21 4 22 8 22Z" stroke="#518FF7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 9V7C17 4.2 14.8 2 12 2C9.2 2 7 4.2 7 7V9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M12 14V17" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M8 22H16C20 22 21 21 21 17V14C21 10 20 9 16 9H8C4 9 3 10 3 14V17C3 21 4 22 8 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <div>
-            <h4 className="font-domine font-semibold">Get Your Cards</h4>
-            <p className="text-sm text-muted-foreground">Cognitive bias card deck</p>
+          <div className="text-left">
+            <h4 className="font-domine">Get Your Cards</h4>
+            <p className="text-sm text-white/80">Cognitive bias card deck</p>
           </div>
         </div>
-        <ExternalLink size={18} className="text-cognilense-blue transition-transform group-hover:translate-x-1" />
+        <ExternalLink size={20} className="transition-transform group-hover:translate-x-1" />
       </a>
       
-      <button 
+      <Button 
         onClick={restartQuiz}
-        className="group flex items-center justify-between p-4 rounded-lg border hover:border-cognilense-green hover:shadow-md transition-all"
+        className="inline-flex items-center justify-between rounded-md py-3 px-6 font-medium text-white bg-cognilense-green hover:bg-cognilense-green/90 shadow-md transition-all h-auto gap-2"
       >
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-cognilense-green/10 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.55 21.67C18.84 20.54 22 16.64 22 12C22 6.48 17.56 2 12 2C5.33 2 2 7.56 2 7.56M2 7.56V3M2 7.56H4.01H6.44" stroke="#71BD45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 12C2 17.52 6.48 22 12 22" stroke="#71BD45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 3"/>
-            </svg>
+          <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            <RotateCcw size={20} className="text-white" />
           </div>
-          <div>
-            <h4 className="font-domine font-semibold">Try Again</h4>
-            <p className="text-sm text-muted-foreground">Restart the quiz</p>
+          <div className="text-left">
+            <h4 className="font-domine">Try Again</h4>
+            <p className="text-sm text-white/80">Restart the quiz</p>
           </div>
         </div>
-        <svg 
-          width="18" 
-          height="18" 
-          viewBox="0 0 24 24" 
-          fill="none"
-          stroke="#71BD45"
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-          className="transition-transform group-hover:translate-x-1"
-        >
-          <path d="M18 8L22 12L18 16" />
-          <path d="M2 12H22" />
-        </svg>
-      </button>
+        <ExternalLink size={20} className="transition-transform group-hover:translate-x-1" />
+      </Button>
     </div>
   );
 };
