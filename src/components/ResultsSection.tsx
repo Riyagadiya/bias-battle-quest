@@ -1,9 +1,11 @@
+
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper } from "lucide-react";
+import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink } from "lucide-react";
+import { toast } from "sonner";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
-import ResultsActionTabs from "./results/ResultsActionTabs";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
@@ -103,14 +105,28 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Box 2: Tabbed Actions - Right side (moved from bottom) */}
+          {/* Box 2: Bento Box Action Sections - Right side */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <ResultsActionTabs />
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+              <div className="flex flex-col divide-y">
+                {/* Discount Code Section */}
+                <BentoSectionDiscountCode />
+                
+                {/* Try Again Section */}
+                <BentoSectionTryAgain restartQuiz={restartQuiz} />
+                
+                {/* Get Cards Section */}
+                <BentoSectionGetCards />
+                
+                {/* Share Quiz Section */}
+                <BentoSectionShareQuiz />
+              </div>
+            </div>
           </motion.div>
           
           {/* Box 3: Question summary - Bottom full width */}
@@ -131,4 +147,124 @@ const ResultsSection = () => {
   );
 };
 
+// Bento Box Section: Discount Code
+const BentoSectionDiscountCode = () => {
+  const [isCopied, setIsCopied] = useState(false);
+  const discountCode = "COGNIQUIZ25";
+  
+  const copyDiscountCode = () => {
+    navigator.clipboard.writeText(discountCode);
+    setIsCopied(true);
+    toast.success("Discount code copied to clipboard!");
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+  
+  return (
+    <div className="p-4 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Code size={18} className="text-cognilense-orange" />
+          <h4 className="font-domine font-semibold">Exclusive Code</h4>
+        </div>
+        <button 
+          onClick={copyDiscountCode}
+          className="p-1.5 rounded-md hover:bg-gray-100 transition-colors"
+          aria-label="Copy discount code"
+        >
+          {isCopied ? (
+            <Code size={18} className="text-green-600" />
+          ) : (
+            <Code size={18} />
+          )}
+        </button>
+      </div>
+      <div className="mt-2 flex items-center">
+        <div className="bg-cognilense-background px-3 py-1.5 rounded border text-sm shadow-sm font-medium tracking-wider">
+          {discountCode}
+        </div>
+        <span className="ml-2 text-xs text-muted-foreground">25% off cards</span>
+      </div>
+    </div>
+  );
+};
+
+// Bento Box Section: Try Again
+const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
+  return (
+    <div className="p-4 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <RotateCcw size={18} className="text-cognilense-green" />
+          <h4 className="font-domine font-semibold">Try Again</h4>
+        </div>
+        <button 
+          onClick={restartQuiz}
+          className="text-xs font-medium text-cognilense-green py-1.5 px-3 bg-cognilense-green/10 border border-cognilense-green/20 rounded-md hover:bg-cognilense-green/20 transition-colors"
+        >
+          Restart Quiz
+        </button>
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Ready to test your knowledge again?
+      </p>
+    </div>
+  );
+};
+
+// Bento Box Section: Get Cards
+const BentoSectionGetCards = () => {
+  return (
+    <div className="p-4 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Award size={18} className="text-cognilense-blue" />
+          <h4 className="font-domine font-semibold">Get Your Cards</h4>
+        </div>
+        <a 
+          href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
+          target="_blank"
+          rel="noopener noreferrer" 
+          className="flex items-center gap-1 text-xs font-medium text-cognilense-blue py-1.5 px-3 bg-cognilense-blue/10 border border-cognilense-blue/20 rounded-md hover:bg-cognilense-blue/20 transition-colors"
+        >
+          Buy Now
+          <ExternalLink size={14} />
+        </a>
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Get our cognitive bias cards deck
+      </p>
+    </div>
+  );
+};
+
+// Bento Box Section: Share Quiz
+const BentoSectionShareQuiz = () => {
+  const shareQuiz = () => {
+    const shareUrl = window.location.origin;
+    navigator.clipboard.writeText(shareUrl);
+    toast.success("Quiz URL copied to clipboard!");
+  };
+  
+  return (
+    <div className="p-4 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Share2 size={18} className="text-cognilense-orange" />
+          <h4 className="font-domine font-semibold">Share the Quiz</h4>
+        </div>
+        <button 
+          onClick={shareQuiz}
+          className="text-xs font-medium text-cognilense-orange py-1.5 px-3 bg-cognilense-orange/10 border border-cognilense-orange/20 rounded-md hover:bg-cognilense-orange/20 transition-colors"
+        >
+          Copy Link
+        </button>
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Share with friends and colleagues
+      </p>
+    </div>
+  );
+};
+
 export default ResultsSection;
+
