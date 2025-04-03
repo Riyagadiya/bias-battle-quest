@@ -176,10 +176,12 @@ const BentoSectionDiscountCode = () => {
   };
   
   return (
-    <div className="p-4 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between">
+    <div className="p-6 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Code size={18} className="text-cognilense-orange" />
+          <div className="w-8 h-8 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
+            <Code size={16} className="text-cognilense-orange" />
+          </div>
           <h4 className="font-domine font-semibold">Exclusive Code</h4>
         </div>
         <button 
@@ -194,8 +196,8 @@ const BentoSectionDiscountCode = () => {
           )}
         </button>
       </div>
-      <div className="mt-2 flex items-center">
-        <div className="bg-cognilense-background px-3 py-1.5 rounded border text-sm shadow-sm font-medium tracking-wider">
+      <div className="flex items-center">
+        <div className="bg-cognilense-background px-3 py-1.5 rounded border shadow-sm font-medium tracking-wider">
           {discountCode}
         </div>
         <span className="ml-2 text-xs text-muted-foreground">25% off cards</span>
@@ -207,10 +209,12 @@ const BentoSectionDiscountCode = () => {
 // Bento Box Section: Try Again
 const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
   return (
-    <div className="p-4 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between">
+    <div className="p-6 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <RotateCcw size={18} className="text-cognilense-green" />
+          <div className="w-8 h-8 rounded-full bg-cognilense-green/10 flex items-center justify-center">
+            <RotateCcw size={16} className="text-cognilense-green" />
+          </div>
           <h4 className="font-domine font-semibold">Try Again</h4>
         </div>
         <button 
@@ -220,7 +224,7 @@ const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
           Restart Quiz
         </button>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="text-xs text-muted-foreground">
         Ready to test your knowledge again?
       </p>
     </div>
@@ -230,10 +234,12 @@ const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
 // Bento Box Section: Get Cards
 const BentoSectionGetCards = () => {
   return (
-    <div className="p-4 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between">
+    <div className="p-6 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Award size={18} className="text-cognilense-blue" />
+          <div className="w-8 h-8 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
+            <Award size={16} className="text-cognilense-blue" />
+          </div>
           <h4 className="font-domine font-semibold">Get Your Cards</h4>
         </div>
         <a 
@@ -246,7 +252,7 @@ const BentoSectionGetCards = () => {
           <ExternalLink size={14} />
         </a>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="text-xs text-muted-foreground">
         Get our cognitive bias cards deck
       </p>
     </div>
@@ -262,10 +268,12 @@ const BentoSectionShareQuiz = () => {
   };
   
   return (
-    <div className="p-4 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between">
+    <div className="p-6 hover:bg-gray-50 transition-colors">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Share2 size={18} className="text-cognilense-orange" />
+          <div className="w-8 h-8 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
+            <Share2 size={16} className="text-cognilense-orange" />
+          </div>
           <h4 className="font-domine font-semibold">Share the Quiz</h4>
         </div>
         <button 
@@ -275,7 +283,7 @@ const BentoSectionShareQuiz = () => {
           Copy Link
         </button>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="text-xs text-muted-foreground">
         Share with friends and colleagues
       </p>
     </div>
