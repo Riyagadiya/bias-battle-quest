@@ -52,6 +52,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
           totalQuestions={questionsLength} 
           timeLeft={timeLeft}
           timePerQuestion={timePerQuestion}
+          answers={answers}
         />
         
         <div className="mt-6">
@@ -66,7 +67,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
         
         <div className="mt-8">
           <QuizNavigation
-            currentQuestion={currentQuestionIndex + 1}
+            currentQuestionIndex={currentQuestionIndex}
             totalQuestions={questionsLength}
             onPrevious={handlePrevious}
             onNext={handleNext}
@@ -83,7 +84,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
           <h3 className="font-bold text-lg mb-4 text-center text-cognilense-blue">Quiz Progress</h3>
           <QuizProgressTracker
             questions={questions}
-            currentQuestion={currentQuestionIndex}
+            currentQuestionIndex={currentQuestionIndex}
             answers={answers}
           />
         </div>

@@ -5,13 +5,17 @@ import { Progress } from "../ui/progress";
 interface QuizStatusBarProps {
   currentQuestion: number;
   totalQuestions: number;
-  answers: (string | null)[];
+  timeLeft: number;  // Added timeLeft prop
+  timePerQuestion: number;  // Added timePerQuestion prop
+  answers?: (string | null)[];
 }
 
 const QuizStatusBar = ({ 
   currentQuestion, 
   totalQuestions,
-  answers
+  timeLeft,
+  timePerQuestion,
+  answers = []
 }: QuizStatusBarProps) => {
   const progress = Math.round((currentQuestion / totalQuestions) * 100);
   
