@@ -63,9 +63,18 @@ const QuizContent = ({
     return currentQuestion?.type || null;
   };
 
+  const getIllustrationBias = () => {
+    const correctAnswer = getCorrectOptionText();
+    if (correctAnswer && correctAnswer.includes("Bias")) {
+      return correctAnswer;
+    }
+    return getCurrentBiasType();
+  };
+
   console.log("Current question:", currentQuestion);
   console.log("Current bias type:", getCurrentBiasType());
   console.log("Correct option:", getCorrectOptionText());
+  console.log("Illustration bias:", getIllustrationBias());
   console.log("Selected option:", selectedOption);
 
   return (
@@ -244,7 +253,8 @@ const QuizContent = ({
         <Card className="bg-white p-6 shadow">
           <AspectRatio ratio={1 / 1} className="overflow-hidden rounded-md border">
             <QuizIllustration 
-              biasType={getCurrentBiasType()} 
+              biasType={getCurrentBiasType()}
+              correctOption={getCorrectOptionText()}
             />
           </AspectRatio>
         </Card>

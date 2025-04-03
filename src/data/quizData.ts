@@ -477,10 +477,33 @@ const allQuizQuestions: Question[] = [
   },
 ];
 
-// Function to select 10 random questions for each quiz
+// Keep track of recently used questions to avoid repetition
+let recentlyUsedQuestions: Set<number> = new Set();
+
+// Function to select 10 random questions for each quiz, avoiding repeats when possible
 const selectRandomQuestions = (): Question[] => {
-  const shuffledQuestions = shuffleArray([...allQuizQuestions]);
-  return shuffledQuestions.slice(0, 10); // Take only the first 10 questions
+  // Create a copy of all questions
+  const availableQuestions = [...allQuizQuestions];
+  
+  // Filter out recently used questions if we have enough questions left
+  const preferredQuestions = availableQuestions.filter(
+    q => !recentlyUsedQuestions.has(q.id)
+  );
+  
+  // Determine which question pool to use
+  const questionPool = preferredQuestions.length >= 10 ? preferredQuestions : availableQuestions;
+  
+  // Shuffle the questions
+  const shuffledQuestions = shuffleArray(questionPool);
+  
+  // Take the first 10 questions
+  const selectedQuestions = shuffledQuestions.slice(0, 10);
+  
+  // Update recently used questions
+  recentlyUsedQuestions.clear(); // Clear old tracking
+  selectedQuestions.forEach(q => recentlyUsedQuestions.add(q.id));
+  
+  return selectedQuestions;
 };
 
 // Export a function that will provide 10 random questions

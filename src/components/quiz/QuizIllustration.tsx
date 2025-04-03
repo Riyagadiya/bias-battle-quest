@@ -3,11 +3,17 @@ import React from "react";
 
 interface QuizIllustrationProps {
   biasType: string | null;
-  show?: boolean; // Make this optional with a default value
+  correctOption?: string | null;
+  show?: boolean;
 }
 
-const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = true }) => {
-  if (!biasType) return null;
+const QuizIllustration: React.FC<QuizIllustrationProps> = ({ 
+  biasType, 
+  correctOption,
+  show = true 
+}) => {
+  // If we don't have a bias type or correct option, don't show anything
+  if (!biasType && !correctOption) return null;
 
   // Map of bias types to their corresponding illustration URLs
   const biasIllustrations: Record<string, string> = {
@@ -109,24 +115,29 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({ biasType, show = tr
     "sisyphus_effect": "/lovable-uploads/d50607ce-ac2f-4015-8f76-9d57a6bf0914.png",
   };
 
+  // Determine which bias type to use for the illustration
+  // Priority: use correctOption if provided, otherwise fall back to biasType
+  const biasTypeToUse = correctOption || biasType;
+  
+  if (!biasTypeToUse) return null;
+
   // Normalize the bias type by removing spaces, making lowercase
-  const normalizedBiasType = biasType.toLowerCase().replace(/\s+/g, "_");
+  const normalizedBiasType = biasTypeToUse.toLowerCase().replace(/\s+/g, "_");
   
   // Try to find the illustration for this bias type
   const illustrationUrl = biasIllustrations[normalizedBiasType];
   
   // If no illustration found, return null
   if (!illustrationUrl) {
-    console.log(`No illustration found for bias type: ${biasType} (normalized: ${normalizedBiasType})`);
+    console.log(`No illustration found for bias type: ${biasTypeToUse} (normalized: ${normalizedBiasType})`);
     return null;
   }
 
-  // Don't check the "show" parameter anymore - always show if we have a valid biasType and URL
   return (
     <div className="w-full h-full flex items-center justify-center">
       <img 
         src={illustrationUrl} 
-        alt={`${biasType} illustration`} 
+        alt={`${biasTypeToUse} illustration`} 
         className="w-full h-full object-contain"
       />
     </div>
