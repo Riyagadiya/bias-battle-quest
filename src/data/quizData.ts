@@ -1,3 +1,4 @@
+
 import { Question } from "../types/quiz";
 
 // Helper function to shuffle array (Fisher-Yates algorithm)
@@ -479,8 +480,10 @@ const allQuizQuestions: Question[] = [
 
 // Keep track of recently used questions to avoid repetition
 let recentlyUsedQuestions: Set<number> = new Set();
+// Also track recently used bias types to avoid repetition of the same type
+let recentlyUsedBiasTypes: Set<string> = new Set();
 
-// Function to select 10 random questions for each quiz, avoiding repeats when possible
+// Function to select 10 random questions for each quiz, avoiding repeats and same bias types when possible
 const selectRandomQuestions = (): Question[] => {
   // Create a copy of all questions
   const availableQuestions = [...allQuizQuestions];
@@ -496,12 +499,39 @@ const selectRandomQuestions = (): Question[] => {
   // Shuffle the questions
   const shuffledQuestions = shuffleArray(questionPool);
   
-  // Take the first 10 questions
-  const selectedQuestions = shuffledQuestions.slice(0, 10);
+  // Initialize selected questions array and track bias types used in this selection
+  const selectedQuestions: Question[] = [];
+  const biasTypesInThisQuiz: Set<string> = new Set();
   
-  // Update recently used questions
+  // Go through shuffled questions and select those that don't have duplicate bias types
+  for (const question of shuffledQuestions) {
+    // If we already have 10 questions, stop
+    if (selectedQuestions.length >= 10) break;
+    
+    // If this bias type was recently used and we have other options, skip it
+    if (recentlyUsedBiasTypes.has(question.type) && shuffledQuestions.length > 15) continue;
+    
+    // If this bias type is already in the current quiz and we have other options, skip it
+    if (biasTypesInThisQuiz.has(question.type) && shuffledQuestions.length > 20) continue;
+    
+    // Add the question
+    selectedQuestions.push(question);
+    biasTypesInThisQuiz.add(question.type);
+  }
+  
+  // If we couldn't get 10 questions with the above constraints, just take the first 10 shuffled
+  if (selectedQuestions.length < 10) {
+    selectedQuestions.splice(0, selectedQuestions.length); // Clear array
+    selectedQuestions.push(...shuffledQuestions.slice(0, 10));
+  }
+  
+  // Update recently used questions and bias types
   recentlyUsedQuestions.clear(); // Clear old tracking
-  selectedQuestions.forEach(q => recentlyUsedQuestions.add(q.id));
+  recentlyUsedBiasTypes.clear();
+  selectedQuestions.forEach(q => {
+    recentlyUsedQuestions.add(q.id);
+    recentlyUsedBiasTypes.add(q.type);
+  });
   
   return selectedQuestions;
 };
