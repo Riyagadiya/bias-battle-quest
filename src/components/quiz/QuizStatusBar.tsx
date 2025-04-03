@@ -11,12 +11,12 @@ interface QuizStatusBarProps {
 const QuizStatusBar = ({ 
   currentQuestion, 
   totalQuestions,
-  answers
+  answers = [] // Provide default empty array if answers is undefined
 }: QuizStatusBarProps) => {
   const progress = Math.round((currentQuestion / totalQuestions) * 100);
   
-  // Count completed questions
-  const completed = answers.filter(answer => answer !== null).length;
+  // Count completed questions - safely check if answers exists before filtering
+  const completed = answers && answers.length > 0 ? answers.filter(answer => answer !== null).length : 0;
   const remaining = totalQuestions - completed;
   
   return (
@@ -52,7 +52,7 @@ const QuizStatusBar = ({
             key={idx} 
             className={`h-1.5 flex-1 mx-0.5 rounded-full ${
               idx + 1 < currentQuestion 
-                ? answers[idx] === "skipped"
+                ? answers && answers[idx] === "skipped"
                   ? "bg-gray-300"
                   : "bg-green-500" 
                 : idx + 1 === currentQuestion 
