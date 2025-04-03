@@ -3,7 +3,7 @@ import React from "react";
 
 interface QuizProgressTrackerProps {
   questions: any[];
-  currentQuestionIndex: number;  // Changed from currentQuestion to currentQuestionIndex
+  currentQuestionIndex: number;
   answers: (string | null)[];
 }
 

@@ -9,8 +9,6 @@ interface QuizNavigationProps {
   onPrevious: () => void;
   onNext: () => void;
   onSkip: () => void;
-  isAnswered?: boolean;  // Added isAnswered prop
-  showExplanation?: boolean;  // Added showExplanation prop
 }
 
 const QuizNavigation = ({
@@ -19,8 +17,6 @@ const QuizNavigation = ({
   onPrevious,
   onNext,
   onSkip,
-  isAnswered = false,
-  showExplanation = false
 }: QuizNavigationProps) => {
   return (
     <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
