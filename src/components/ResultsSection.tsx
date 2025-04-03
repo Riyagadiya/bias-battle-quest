@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
+import GradientButton from "./GradientButton";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
@@ -43,6 +44,13 @@ const ResultsSection = () => {
 
   // Count answered questions (not skipped or null)
   const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
+
+  // Share quiz function
+  const shareQuiz = () => {
+    const shareUrl = window.location.origin;
+    navigator.clipboard.writeText(shareUrl);
+    toast.success("Quiz URL copied to clipboard!");
+  };
 
   return (
     <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
@@ -120,6 +128,32 @@ const ResultsSection = () => {
                     </motion.div>
                   </div>
                 </div>
+
+                {/* New Action Buttons row */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"
+                >
+                  {/* Restart Quiz Button */}
+                  <Button 
+                    onClick={restartQuiz}
+                    className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-cognilense-green hover:bg-cognilense-green/90 transition-colors rounded-full shadow-md"
+                  >
+                    <RotateCcw size={18} />
+                    <span className="font-medium">Try Again</span>
+                  </Button>
+                  
+                  {/* Share Quiz Button */}
+                  <Button 
+                    onClick={shareQuiz}
+                    className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-cognilense-orange hover:bg-cognilense-orange/90 transition-colors rounded-full shadow-md"
+                  >
+                    <Share2 size={18} />
+                    <span className="font-medium">Share Quiz</span>
+                  </Button>
+                </motion.div>
               </div>
             </div>
           </motion.div>
@@ -136,14 +170,8 @@ const ResultsSection = () => {
                 {/* Discount Code Section */}
                 <BentoSectionDiscountCode />
                 
-                {/* Try Again Section */}
-                <BentoSectionTryAgain restartQuiz={restartQuiz} />
-                
                 {/* Get Cards Section */}
                 <BentoSectionGetCards />
-                
-                {/* Share Quiz Section */}
-                <BentoSectionShareQuiz />
               </div>
             </div>
           </motion.div>
@@ -211,31 +239,6 @@ const BentoSectionDiscountCode = () => {
   );
 };
 
-// Bento Box Section: Try Again
-const BentoSectionTryAgain = ({ restartQuiz }: { restartQuiz: () => void }) => {
-  return (
-    <div className="p-6 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-cognilense-green/10 flex items-center justify-center">
-            <RotateCcw size={16} className="text-cognilense-green" />
-          </div>
-          <h4 className="font-domine font-semibold">Try Again</h4>
-        </div>
-        <Button 
-          onClick={restartQuiz}
-          className="text-xs font-medium text-white bg-cognilense-green py-1.5 px-3 hover:bg-cognilense-green/90 rounded-md transition-colors h-8"
-        >
-          Restart Quiz
-        </Button>
-      </div>
-      <p className="text-xs text-muted-foreground">
-        Ready to test your knowledge again?
-      </p>
-    </div>
-  );
-};
-
 // Bento Box Section: Get Cards
 const BentoSectionGetCards = () => {
   return (
@@ -251,7 +254,7 @@ const BentoSectionGetCards = () => {
           href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
           target="_blank"
           rel="noopener noreferrer" 
-          className="flex items-center gap-1 text-xs font-medium text-white bg-cognilense-blue py-1.5 px-3 hover:bg-cognilense-blue/90 rounded-md transition-colors h-8"
+          className="flex items-center gap-1 text-xs font-medium text-white bg-cognilense-blue py-1.5 px-3 hover:bg-cognilense-blue/90 rounded-full transition-colors h-8"
         >
           Buy Now
           <ExternalLink size={14} className="ml-1" />
@@ -264,36 +267,4 @@ const BentoSectionGetCards = () => {
   );
 };
 
-// Bento Box Section: Share Quiz
-const BentoSectionShareQuiz = () => {
-  const shareQuiz = () => {
-    const shareUrl = window.location.origin;
-    navigator.clipboard.writeText(shareUrl);
-    toast.success("Quiz URL copied to clipboard!");
-  };
-  
-  return (
-    <div className="p-6 hover:bg-gray-50 transition-colors">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
-            <Share2 size={16} className="text-cognilense-orange" />
-          </div>
-          <h4 className="font-domine font-semibold">Share the Quiz</h4>
-        </div>
-        <Button 
-          onClick={shareQuiz}
-          className="text-xs font-medium text-white bg-cognilense-orange py-1.5 px-3 hover:bg-cognilense-orange/90 rounded-md transition-colors h-8"
-        >
-          Copy Link
-        </Button>
-      </div>
-      <p className="text-xs text-muted-foreground">
-        Share with friends and colleagues
-      </p>
-    </div>
-  );
-};
-
 export default ResultsSection;
-
