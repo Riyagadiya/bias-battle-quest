@@ -71,31 +71,10 @@ const ResultsSection = () => {
                   transition={{ duration: 0.5 }}
                   className="mb-8"
                 >
-                  <div className="flex items-start gap-4">                    
-                    {/* Title area */}
-                    <div className="flex-grow">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h2 className="text-2xl md:text-3xl font-domine font-bold">
-                          Your Thinking Report
-                        </h2>
-                        <motion.div
-                          initial={{ scale: 0, rotate: -45 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          transition={{ 
-                            type: "spring", 
-                            stiffness: 260, 
-                            damping: 20, 
-                            delay: 0.7 
-                          }}
-                        >
-                          <PartyPopper className="text-cognilense-orange" size={28} />
-                        </motion.div>
-                      </div>
-                      <p className="text-muted-foreground">
-                        You answered {answeredQuestions} out of {questions.length} questions
-                      </p>
-                    </div>
-                  </div>
+                  {/* Replaced "You answered X out of Y questions" with "Your Thinking Report" as subtitle */}
+                  <p className="text-muted-foreground font-inter">
+                    Your Thinking Report
+                  </p>
                 </motion.div>
                 
                 {/* Results Summary in the center with animation */}
@@ -114,7 +93,7 @@ const ResultsSection = () => {
                     showCorrectCount={false}
                   />
                   
-                  {/* Result Message below the ring */}
+                  {/* Result Message and subtitle below the ring */}
                   <div className="text-center mt-4">
                     <h3 className="text-2xl md:text-3xl font-domine font-medium">
                       {resultMessage}
