@@ -55,6 +55,19 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     "decoy_option": "/lovable-uploads/aeb1b41e-b023-4b8d-8674-802f6315792f.png", // Coffee cups with different prices
     "diversification": "/lovable-uploads/2c8a3bb2-33af-4cf3-b18b-2a9de13e5ee6.png", // Man juggling with different items
     "omission": "/lovable-uploads/53d527e6-ff18-4f68-83cd-385c4138bf93.png", // Scale with injection and virus
+    
+    // Add additional mappings for common variations
+    "backfire_effect": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png",
+    "hindsight_bias": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png",
+    "barnum_effect": "/lovable-uploads/2f646fc4-7b1b-4ab0-a045-a112d84b1684.png",
+    "sunk_cost_fallacy": "/lovable-uploads/d18fb039-8893-4f9b-aabd-a58996d164ee.png",
+    "ingroup_bias": "/lovable-uploads/cc080e1b-a965-49df-bdd9-d4e6c1539e6f.png",
+    "belief_bias": "/lovable-uploads/6a8d4646-af7c-4942-b055-c7cdf32e544e.png",
+    "groupthink_bias": "/lovable-uploads/00881fd8-2a91-4838-a6c3-12b9fee47e33.png",
+    "dunning_kruger_effect": "/lovable-uploads/20a19460-11e0-4fa2-9897-05d09b46bb68.png",
+    "ikea_effect": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png",
+    "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png",
+    "spotlight_effect": "/lovable-uploads/4e3bcf09-b2bb-46ed-9de2-427e90c3219f.png"
   };
 
   // Determine which bias type to use for the illustration
@@ -67,9 +80,19 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
   const normalizedBiasType = biasTypeToUse.toLowerCase().replace(/\s+/g, "_");
   
   // Try to find the illustration for this bias type
-  const illustrationUrl = biasIllustrations[normalizedBiasType];
+  let illustrationUrl = biasIllustrations[normalizedBiasType];
   
-  // If no illustration found, return null
+  // If no direct match, try without "_effect", "_bias", or "_fallacy" suffixes
+  if (!illustrationUrl) {
+    const baseType = normalizedBiasType
+      .replace(/_effect$/, '')
+      .replace(/_bias$/, '')
+      .replace(/_fallacy$/, '');
+    
+    illustrationUrl = biasIllustrations[baseType];
+  }
+  
+  // If still no illustration found, log and return null
   if (!illustrationUrl) {
     console.log(`No illustration found for bias type: ${biasTypeToUse} (normalized: ${normalizedBiasType})`);
     return null;
