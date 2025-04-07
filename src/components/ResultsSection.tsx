@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -136,8 +136,7 @@ const ResultsSection = () => {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
               <div className="flex flex-col h-full relative z-10">
                 <div className="px-6 py-4 border-b border-gray-100">
-                  <h3 className="font-domine text-lg font-semibold">Take Your Learning Further</h3>
-                  <p className="text-sm text-muted-foreground">Use these exclusive resources</p>
+                  <h3 className="font-domine text-lg font-semibold">Grab your cards now!</h3>
                 </div>
                 
                 <div className="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
@@ -146,8 +145,8 @@ const ResultsSection = () => {
                       <Code size={18} className="text-cognilense-orange" />
                     </div>
                     <div>
-                      <h4 className="font-domine font-semibold">Exclusive Code</h4>
-                      <p className="text-xs text-muted-foreground">25% off Cognilense cards</p>
+                      <h4 className="font-domine font-semibold">Apply exclusive code</h4>
+                      <p className="text-xs text-muted-foreground">25% off on Cognilense cards</p>
                     </div>
                   </div>
                   
@@ -165,13 +164,13 @@ const ResultsSection = () => {
                       <Award size={18} className="text-cognilense-blue" />
                     </div>
                     <div>
-                      <h4 className="font-domine font-semibold">Bias Cards Deck</h4>
-                      <p className="text-xs text-muted-foreground">Master all 24 cognitive biases</p>
+                      <h4 className="font-domine font-semibold">Discover the full potential of CogniLense!</h4>
+                      <p className="text-xs text-muted-foreground">Concepts, Ideas & Perspectives</p>
                     </div>
                   </div>
                   
                   <div className="mt-3 mb-1">
-                    <p className="text-sm">Learn to identify biases in your daily life with our beautifully designed physical cards.</p>
+                    <p className="text-sm">that open up your mind to look at problems and situations in products, business and life in general.</p>
                   </div>
                   
                   <div className="mt-auto pt-4">
@@ -181,7 +180,7 @@ const ResultsSection = () => {
                       rel="noopener noreferrer" 
                       className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full py-3 px-6 transition-colors font-medium"
                     >
-                      Explore CogniLense
+                      Buy Card decks
                     </a>
                   </div>
                 </div>
@@ -229,7 +228,7 @@ const CopyButton = ({ code }: { code: string }) => {
       {isCopied ? (
         <Check size={18} className="text-green-600" />
       ) : (
-        <Code size={18} />
+        <Copy size={18} />
       )}
     </Button>
   );
