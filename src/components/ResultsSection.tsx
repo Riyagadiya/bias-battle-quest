@@ -86,6 +86,27 @@ const ResultsSection = () => {
                   alt="" 
                   className="absolute top-6 left-44 w-20 h-20 object-contain opacity-70"
                 />
+                {/* New illustrations */}
+                <img 
+                  src="/lovable-uploads/fb67e4bc-4291-401c-b868-3a15ca1a264c.png" 
+                  alt="" 
+                  className="absolute top-32 left-4 w-16 h-16 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/887500cd-9161-4cb4-99cf-262104bee34a.png" 
+                  alt="" 
+                  className="absolute top-28 left-24 w-20 h-20 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/63b59efe-fd2a-4dfa-8e63-fb37fb39805f.png" 
+                  alt="" 
+                  className="absolute top-44 left-8 w-18 h-18 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/32cc9a16-8da5-4346-aa40-dba6d48f5d1e.png" 
+                  alt="" 
+                  className="absolute top-36 left-40 w-24 h-24 object-contain opacity-70"
+                />
               </div>
               
               <div className="px-6 py-8 md:p-10 relative z-10">
