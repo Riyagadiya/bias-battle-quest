@@ -28,7 +28,7 @@ const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "relative rounded-md font-worksans font-normal",
+        "relative rounded-full font-worksans font-normal",
         "text-foreground py-3 px-6",
         "transition-all duration-300 ease-in-out",
         "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
