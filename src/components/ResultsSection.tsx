@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag, Brain, PixelatedHand } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -64,6 +64,30 @@ const ResultsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
+              {/* Background illustrations */}
+              <div className="absolute inset-0 overflow-hidden opacity-70 pointer-events-none">
+                <img 
+                  src="/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png" 
+                  alt="" 
+                  className="absolute top-4 left-4 w-16 h-16 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/76228625-2a1b-462b-b2f4-d3f95a6480d7.png" 
+                  alt="" 
+                  className="absolute top-4 right-24 w-16 h-16 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/801d197d-3019-42ba-a471-f07ef46c0c2d.png" 
+                  alt="" 
+                  className="absolute bottom-16 left-8 w-16 h-16 object-contain opacity-70"
+                />
+                <img 
+                  src="/lovable-uploads/6f884518-1bd8-4368-a464-3cf1a2a5d031.png" 
+                  alt="" 
+                  className="absolute bottom-8 right-12 w-16 h-16 object-contain opacity-70"
+                />
+              </div>
+
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
                 <motion.div
@@ -72,6 +96,11 @@ const ResultsSection = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="flex flex-col items-center mb-6"
                 >
+                  {/* Brain icon */}
+                  <div className="absolute left-1/4 transform -translate-x-10 translate-y-12 rotate-[-25deg] opacity-50 pointer-events-none z-0">
+                    <Brain size={60} className="text-cognilense-blue" />
+                  </div>
+
                   {/* Score Ring */}
                   <ResultsSummary 
                     percentage={percentage} 
@@ -80,6 +109,11 @@ const ResultsSection = () => {
                     resultMessage={resultMessage}
                     showCorrectCount={false}
                   />
+                  
+                  {/* Pixelated Hand icon */}
+                  <div className="absolute right-1/4 transform translate-x-10 translate-y-12 opacity-50 pointer-events-none z-0">
+                    <PixelatedHand size={60} className="text-cognilense-green" />
+                  </div>
                   
                   {/* Result Message and subtitle below the ring */}
                   <div className="text-center mt-4">
@@ -117,10 +151,15 @@ const ResultsSection = () => {
                     <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
                   </GradientButton>
                   
-                  <GradientButton onClick={shareQuiz} className="group" icon={false}>
-                    <span>Share Quiz</span>
-                    <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </GradientButton>
+                  <button
+                    onClick={shareQuiz}
+                    className="group flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-gray-200 bg-white/80 text-gray-600 hover:bg-gray-50 transition-all duration-300 relative"
+                  >
+                    <span className="bg-gradient-to-r from-cognilense-green/80 via-cognilense-blue/80 to-cognilense-orange/80 bg-clip-text text-transparent font-medium">
+                      Share Quiz
+                    </span>
+                    <Share2 size={18} className="text-gray-500 transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                 </motion.div>
               </div>
             </div>
