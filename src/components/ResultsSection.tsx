@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -178,9 +178,10 @@ const ResultsSection = () => {
                       href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
                       target="_blank"
                       rel="noopener noreferrer" 
-                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full py-3 px-6 transition-colors font-medium"
+                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-md hover:scale-105 transition-all duration-300 rounded-full py-3 px-6 font-medium"
                     >
                       Buy Card decks
+                      <ShoppingBag size={18} />
                     </a>
                   </div>
                 </div>
