@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag, Brain, Hand } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -63,30 +64,65 @@ const ResultsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Background illustrations */}
-              <div className="absolute inset-0 overflow-hidden opacity-70 pointer-events-none">
+              {/* Background illustrations - spread across the entire box */}
+              <div className="absolute inset-0 overflow-hidden z-0">
+                {/* Top left */}
                 <img 
-                  src="/lovable-uploads/09b2d90c-d4a5-46a8-a4f2-9c66f699686d.png" 
+                  src="/lovable-uploads/59a39ef3-701b-4bd5-9ff0-7d868565674d.png" 
                   alt="" 
                   className="absolute top-4 left-4 w-16 h-16 object-contain opacity-70"
                 />
+                
+                {/* Top right */}
                 <img 
-                  src="/lovable-uploads/76228625-2a1b-462b-b2f4-d3f95a6480d7.png" 
+                  src="/lovable-uploads/6821b333-9f52-4ff2-9784-a3b1af1542ed.png" 
                   alt="" 
-                  className="absolute top-4 right-24 w-16 h-16 object-contain opacity-70"
+                  className="absolute top-6 right-24 w-20 h-20 object-contain opacity-70"
                 />
+                
+                {/* Middle left */}
                 <img 
-                  src="/lovable-uploads/801d197d-3019-42ba-a471-f07ef46c0c2d.png" 
+                  src="/lovable-uploads/fb67e4bc-4291-401c-b868-3a15ca1a264c.png" 
                   alt="" 
-                  className="absolute bottom-16 left-8 w-16 h-16 object-contain opacity-70"
+                  className="absolute top-[40%] left-12 w-18 h-18 object-contain opacity-70"
                 />
+                
+                {/* Middle right */}
                 <img 
-                  src="/lovable-uploads/6f884518-1bd8-4368-a464-3cf1a2a5d031.png" 
+                  src="/lovable-uploads/887500cd-9161-4cb4-99cf-262104bee34a.png" 
                   alt="" 
-                  className="absolute bottom-8 right-12 w-16 h-16 object-contain opacity-70"
+                  className="absolute top-[35%] right-16 w-16 h-16 object-contain opacity-70"
+                />
+                
+                {/* Bottom left */}
+                <img 
+                  src="/lovable-uploads/d2e883d6-d3a5-4a63-927f-a31eabc15c98.png" 
+                  alt="" 
+                  className="absolute bottom-20 left-8 w-24 h-24 object-contain opacity-70"
+                />
+                
+                {/* Bottom right */}
+                <img 
+                  src="/lovable-uploads/3e3a5e88-8ee9-4f13-a278-f925fbc5786f.png" 
+                  alt="" 
+                  className="absolute bottom-16 right-8 w-18 h-18 object-contain opacity-70"
+                />
+                
+                {/* Middle center */}
+                <img 
+                  src="/lovable-uploads/63b59efe-fd2a-4dfa-8e63-fb37fb39805f.png" 
+                  alt="" 
+                  className="absolute top-[50%] left-[40%] w-20 h-20 object-contain opacity-70"
+                />
+                
+                {/* Bottom center */}
+                <img 
+                  src="/lovable-uploads/32cc9a16-8da5-4346-aa40-dba6d48f5d1e.png" 
+                  alt="" 
+                  className="absolute bottom-6 left-[30%] w-24 h-24 object-contain opacity-70"
                 />
               </div>
-
+              
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
                 <motion.div
@@ -95,11 +131,6 @@ const ResultsSection = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="flex flex-col items-center mb-6"
                 >
-                  {/* Brain icon */}
-                  <div className="absolute left-1/4 transform -translate-x-10 translate-y-12 rotate-[-25deg] opacity-50 pointer-events-none z-0">
-                    <Brain size={60} className="text-cognilense-blue" />
-                  </div>
-
                   {/* Score Ring */}
                   <ResultsSummary 
                     percentage={percentage} 
@@ -108,11 +139,6 @@ const ResultsSection = () => {
                     resultMessage={resultMessage}
                     showCorrectCount={false}
                   />
-                  
-                  {/* Hand icon (replacing PixelatedHand) */}
-                  <div className="absolute right-1/4 transform translate-x-10 translate-y-12 opacity-50 pointer-events-none z-0">
-                    <Hand size={60} className="text-cognilense-green" />
-                  </div>
                   
                   {/* Result Message and subtitle below the ring */}
                   <div className="text-center mt-4">
@@ -150,15 +176,10 @@ const ResultsSection = () => {
                     <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
                   </GradientButton>
                   
-                  <button
-                    onClick={shareQuiz}
-                    className="group flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-gray-200 bg-white/80 text-gray-600 hover:bg-gray-50 transition-all duration-300 relative"
-                  >
-                    <span className="bg-gradient-to-r from-cognilense-green/80 via-cognilense-blue/80 to-cognilense-orange/80 bg-clip-text text-transparent font-medium">
-                      Share Quiz
-                    </span>
-                    <Share2 size={18} className="text-gray-500 transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                  <GradientButton onClick={shareQuiz} className="group" icon={false}>
+                    <span>Share Quiz</span>
+                    <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </GradientButton>
                 </motion.div>
               </div>
             </div>
@@ -203,11 +224,11 @@ const ResultsSection = () => {
                     </div>
                     <div>
                       <h4 className="font-domine font-semibold">Discover the full potential of CogniLense!</h4>
-                      <p className="text-xs text-muted-foreground">Concepts, Ideas & Perspectives</p>
                     </div>
                   </div>
                   
                   <div className="mt-3 mb-1">
+                    <p className="text-sm font-medium mb-1">Concepts, Ideas & Perspectives</p>
                     <p className="text-sm">that open up your mind to look at problems and situations in products, business and life in general.</p>
                   </div>
                   
@@ -216,10 +237,10 @@ const ResultsSection = () => {
                       href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
                       target="_blank"
                       rel="noopener noreferrer" 
-                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-md hover:scale-105 transition-all duration-300 rounded-full py-3 px-6 font-medium"
+                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-lg hover:scale-[1.02] rounded-full py-3 px-6 transition-all font-medium"
                     >
                       Buy Card decks
-                      <ShoppingBag size={18} />
+                      <ArrowUpRight size={16} />
                     </a>
                   </div>
                 </div>
