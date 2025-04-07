@@ -75,31 +75,15 @@
     animation: shine 4s linear infinite;
   }
 
-  /* Gradient border button */
-  .gradient-border-button {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .gradient-border-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 9999px; /* full rounded */
-    padding: 2px;
-    background: linear-gradient(90deg, #71BD45, #F7D465, #518FF7, #E59B72);
-    background-size: 200% auto;
-    z-index: -1;
-    animation: shine 4s linear infinite;
+  /* Gradient border button mask */
+  .mask-gradient-border {
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
   }
   
+  /* Shadow glow effect for buttons */
   .shadow-glow {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), 
                 0 0 5px rgba(113, 189, 69, 0.2), 
@@ -226,3 +210,4 @@
     }
   }
 }
+

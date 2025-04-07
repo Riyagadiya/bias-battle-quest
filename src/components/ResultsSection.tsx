@@ -1,9 +1,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink, Check, ArrowUpRight } from "lucide-react";
+import { PartyPopper, RotateCcw, Share2, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
@@ -129,30 +128,32 @@ const ResultsSection = () => {
                   </div>
                 </div>
 
-                {/* New Action Buttons row - Gradient Buttons */}
+                {/* Updated Action Buttons row - Gradient Border Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
                 >
-                  {/* Restart Quiz Button - New gradient style */}
-                  <button 
-                    onClick={restartQuiz}
-                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
-                  >
-                    <span>Try Again</span>
-                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
-                  
-                  {/* Share Quiz Button - New gradient style */}
-                  <button 
+                  {/* Share Quiz Button - New gradient border style */}
+                  <GradientButton 
                     onClick={shareQuiz}
-                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-orange via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
+                    className="group"
+                    icon={false}
                   >
                     <span>Share Quiz</span>
                     <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                  </GradientButton>
+                  
+                  {/* Restart Quiz Button - New gradient border style */}
+                  <GradientButton 
+                    onClick={restartQuiz}
+                    className="group"
+                    icon={false}
+                  >
+                    <span>Try Again</span>
+                    <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-[-15deg]" />
+                  </GradientButton>
                 </motion.div>
               </div>
             </div>
@@ -177,7 +178,11 @@ const ResultsSection = () => {
                 <div className="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-10 h-10 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
-                      <Code size={18} className="text-cognilense-orange" />
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 9V7C17 4.2 14.8 2 12 2C9.2 2 7 4.2 7 7V9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 14V17" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M8 22H16C20 22 21 21 21 17V14C21 10 20 9 16 9H8C4 9 3 10 3 14V17C3 21 4 22 8 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </div>
                     <div>
                       <h4 className="font-domine font-semibold">Exclusive Code</h4>
@@ -197,7 +202,10 @@ const ResultsSection = () => {
                 <div className="p-6 flex-grow flex flex-col hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-10 h-10 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
-                      <Award size={18} className="text-cognilense-blue" />
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.7 18.98H7.3C5.8 18.98 4.6 17.88 4.6 16.48V8.51001C4.6 7.11001 5.8 6.01001 7.3 6.01001H16.7C18.2 6.01001 19.4 7.11001 19.4 8.51001V16.48C19.4 17.88 18.2 18.98 16.7 18.98Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M16 6V10.43C16 11.09 15.56 11.31 15.05 10.94L12.71 9.34C12.43 9.15 12.01 9.15 11.73 9.34L9.39001 10.94C8.88001 11.31 8.44 11.09 8.44 10.43V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </div>
                     <div>
                       <h4 className="font-domine font-semibold">Bias Cards Deck</h4>
@@ -214,10 +222,15 @@ const ResultsSection = () => {
                       href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
                       target="_blank"
                       rel="noopener noreferrer" 
-                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full py-3 px-6 transition-colors font-medium"
+                      className="w-full block"
                     >
-                      Explore CogniLense
-                      <ArrowUpRight size={18} />
+                      <GradientButton 
+                        className="w-full group"
+                        icon={false}
+                      >
+                        <span>Explore CogniLense</span>
+                        <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                      </GradientButton>
                     </a>
                   </div>
                 </div>
@@ -255,19 +268,24 @@ const CopyButton = ({ code }: { code: string }) => {
   };
   
   return (
-    <Button 
+    <button 
       onClick={copyDiscountCode}
-      variant="outline"
-      size="icon"
-      className="h-10 w-10 rounded-full"
+      className="h-10 w-10 rounded-full border border-input bg-background flex items-center justify-center hover:bg-accent hover:text-accent-foreground"
       aria-label="Copy discount code"
     >
       {isCopied ? (
-        <Check size={18} className="text-green-600" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-green-600">
+          <path d="M16 8L8 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M8 8L16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       ) : (
-        <Code size={18} />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 9V7C17 4.2 14.8 2 12 2C9.2 2 7 4.2 7 7V9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 14V17" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M8 22H16C20 22 21 21 21 17V14C21 10 20 9 16 9H8C4 9 3 10 3 14V17C3 21 4 22 8 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       )}
-    </Button>
+    </button>
   );
 };
 

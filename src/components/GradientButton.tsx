@@ -28,32 +28,23 @@ const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "relative rounded-full font-worksans font-normal",
-        "text-foreground py-3 px-6",
+        "relative rounded-full font-worksans py-3 px-6",
+        "flex items-center justify-center gap-2",
+        "bg-cognilense-background text-foreground",
         "transition-all duration-300 ease-in-out",
+        "before:content-[''] before:absolute before:inset-0",
+        "before:rounded-full before:p-[2px]",
+        "before:bg-gradient-to-r before:from-cognilense-green before:via-cognilense-yellow before:to-cognilense-blue",
+        "before:bg-size-200 before:animate-shine before:opacity-100",
+        "before:z-[-1]",
+        "before:mask-gradient-border",
+        "hover:scale-[1.02] hover:shadow-glow hover:font-medium",
         "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
-        variant === "primary" && [
-          "gradient-border-button",
-          "bg-cognilense-background",
-          "hover:shadow-glow hover:scale-[1.02] hover:font-medium",
-        ],
-        variant === "secondary" && [
-          "border border-gray-200",
-          "hover:border-cognilense-blue hover:shadow-md hover:scale-[1.02]",
-        ],
         disabled && "opacity-70 pointer-events-none",
         className
       )}
     >
-      <span className="flex items-center justify-center gap-2">
-        {children}
-        {icon && variant === "primary" && (
-          <ArrowUpRight 
-            size={18} 
-            className="inline-block transition-transform duration-300 group-hover:translate-x-1"
-          />
-        )}
-      </span>
+      {children}
     </button>
   );
 };
