@@ -64,25 +64,6 @@ const ResultsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Background floating elements */}
-              <div className="absolute inset-0 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-40 h-40 object-contain opacity-10 top-5 left-10 transform -rotate-12"
-                />
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-32 h-32 object-contain opacity-5 bottom-10 right-20 transform rotate-45"
-                />
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-28 h-28 object-contain opacity-5 top-1/2 right-5 transform -rotate-20"
-                />
-              </div>
-              
               <div className="px-6 py-8 md:p-10 relative z-10">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -90,21 +71,7 @@ const ResultsSection = () => {
                   transition={{ duration: 0.5 }}
                   className="mb-8"
                 >
-                  <div className="flex items-start gap-4">
-                    {/* Illustration placed to the left of the title */}
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
-                      className="flex-shrink-0"
-                    >
-                      <img 
-                        src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                        alt="Brain illustration" 
-                        className="w-28 h-auto object-contain transform scale-x-[-1]"
-                      />
-                    </motion.div>
-                    
+                  <div className="flex items-start gap-4">                    
                     {/* Title area */}
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-2">
@@ -187,20 +154,6 @@ const ResultsSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Background floating elements */}
-              <div className="absolute inset-0 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-24 h-24 object-contain opacity-5 top-10 right-5 transform rotate-12"
-                />
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-20 h-20 object-contain opacity-5 bottom-10 left-5 transform -rotate-15"
-                />
-              </div>
-              
               <div className="flex flex-col h-full relative z-10">
                 <div className="px-6 py-4 border-b border-gray-100">
                   <h3 className="font-domine text-lg font-semibold">Take Your Learning Further</h3>
@@ -263,20 +216,6 @@ const ResultsSection = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 relative">
-              {/* Background floating elements */}
-              <div className="absolute inset-0 overflow-hidden rounded-xl">
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-32 h-32 object-contain opacity-5 top-10 left-10 transform rotate-12"
-                />
-                <img 
-                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                  alt="Brain illustration background" 
-                  className="absolute w-28 h-28 object-contain opacity-5 bottom-10 right-40 transform -rotate-15"
-                />
-              </div>
-              
               <div className="relative z-10">
                 <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
                 <QuestionSummaryList answersArray={answersArray} questions={questions} />
