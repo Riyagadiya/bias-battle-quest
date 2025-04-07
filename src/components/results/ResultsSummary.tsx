@@ -6,13 +6,15 @@ interface ResultsSummaryProps {
   correctAnswers: number;
   totalQuestions: number;
   resultMessage: string;
+  showCorrectCount?: boolean;
 }
 
 const ResultsSummary = ({
   percentage,
   correctAnswers,
   totalQuestions,
-  resultMessage
+  resultMessage,
+  showCorrectCount = true
 }: ResultsSummaryProps) => {
   return (
     <motion.div
@@ -74,9 +76,11 @@ const ResultsSummary = ({
           <span className="text-3xl font-bold text-gray-800">
             {percentage}%
           </span>
-          <span className="text-sm font-medium text-muted-foreground">
-            {correctAnswers}/{totalQuestions} correct
-          </span>
+          {showCorrectCount && (
+            <span className="text-sm font-medium text-muted-foreground">
+              {correctAnswers}/{totalQuestions} correct
+            </span>
+          )}
         </motion.div>
       </motion.div>
     </motion.div>

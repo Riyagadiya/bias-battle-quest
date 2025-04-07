@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -28,15 +29,20 @@ const ResultsSection = () => {
   const percentage = Math.round((correctAnswers / questions.length) * 100);
   
   let resultMessage = "";
+  let resultSubtitle = "";
   
   if (correctAnswers === 0) {
     resultMessage = "Lost in Bias!";
+    resultSubtitle = "Every expert starts somewhere. You can beat it—one bias at a time.";
   } else if (correctAnswers >= 1 && correctAnswers <= 2) {
     resultMessage = "Cognitive Fog Ahead!";
+    resultSubtitle = "You're beginning to notice the patterns. Keep going—clarity is closer than you think!";
   } else if (correctAnswers >= 3 && correctAnswers <= 5) {
     resultMessage = "Getting Wiser!";
+    resultSubtitle = "You're on the path to sharper thinking. Stay mindful, stay curious!";
   } else if (correctAnswers >= 6 && correctAnswers <= 10) {
     resultMessage = "Sharp & Unbiased!";
+    resultSubtitle = "Impressive awareness! Your clear thinking is a skill—keep sharpening it.";
   }
 
   const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
@@ -57,8 +63,27 @@ const ResultsSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-              <div className="px-6 py-8 md:p-10">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
+              {/* Background floating elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-40 h-40 object-contain opacity-10 top-5 left-10 transform -rotate-12"
+                />
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-32 h-32 object-contain opacity-5 bottom-10 right-20 transform rotate-45"
+                />
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-28 h-28 object-contain opacity-5 top-1/2 right-5 transform -rotate-20"
+                />
+              </div>
+              
+              <div className="px-6 py-8 md:p-10 relative z-10">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -83,8 +108,8 @@ const ResultsSection = () => {
                     {/* Title area */}
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-2">
-                        <h2 className="text-3xl md:text-4xl font-domine font-bold">
-                          Your Results
+                        <h2 className="text-2xl md:text-3xl font-domine font-bold">
+                          Your Thinking Report
                         </h2>
                         <motion.div
                           initial={{ scale: 0, rotate: -45 }}
@@ -118,13 +143,19 @@ const ResultsSection = () => {
                     percentage={percentage} 
                     correctAnswers={correctAnswers} 
                     totalQuestions={questions.length} 
-                    resultMessage={resultMessage} 
+                    resultMessage={resultMessage}
+                    showCorrectCount={false}
                   />
                   
                   {/* Result Message below the ring */}
-                  <h3 className="text-2xl md:text-3xl font-domine font-medium text-center mt-4">
-                    {resultMessage}
-                  </h3>
+                  <div className="text-center mt-4">
+                    <h3 className="text-2xl md:text-3xl font-domine font-medium">
+                      {resultMessage}
+                    </h3>
+                    <p className="text-muted-foreground mt-2 max-w-lg mx-auto">
+                      {resultSubtitle}
+                    </p>
+                  </div>
                 </motion.div>
 
                 {/* Action Buttons centered below the result message */}
@@ -155,8 +186,22 @@ const ResultsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-              <div className="flex flex-col h-full">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
+              {/* Background floating elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-24 h-24 object-contain opacity-5 top-10 right-5 transform rotate-12"
+                />
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-20 h-20 object-contain opacity-5 bottom-10 left-5 transform -rotate-15"
+                />
+              </div>
+              
+              <div className="flex flex-col h-full relative z-10">
                 <div className="px-6 py-4 border-b border-gray-100">
                   <h3 className="font-domine text-lg font-semibold">Take Your Learning Further</h3>
                   <p className="text-sm text-muted-foreground">Use these exclusive resources</p>
@@ -217,9 +262,25 @@ const ResultsSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8">
-              <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
-              <QuestionSummaryList answersArray={answersArray} questions={questions} />
+            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 relative">
+              {/* Background floating elements */}
+              <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-32 h-32 object-contain opacity-5 top-10 left-10 transform rotate-12"
+                />
+                <img 
+                  src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                  alt="Brain illustration background" 
+                  className="absolute w-28 h-28 object-contain opacity-5 bottom-10 right-40 transform -rotate-15"
+                />
+              </div>
+              
+              <div className="relative z-10">
+                <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+                <QuestionSummaryList answersArray={answersArray} questions={questions} />
+              </div>
             </div>
           </motion.div>
         </div>
