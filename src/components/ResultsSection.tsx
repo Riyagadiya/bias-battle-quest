@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, Code, RotateCcw, Award, Share2, ExternalLink, Check, ArrowUpRight } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -129,30 +129,24 @@ const ResultsSection = () => {
                   </div>
                 </div>
 
-                {/* New Action Buttons row - Gradient Buttons */}
+                {/* Updated Action Buttons row with GradientButton component */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
                 >
-                  {/* Restart Quiz Button - New gradient style */}
-                  <button 
-                    onClick={restartQuiz}
-                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
-                  >
+                  {/* Try Again Button - With RotateCcw icon */}
+                  <GradientButton onClick={restartQuiz} className="group">
                     <span>Try Again</span>
-                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                    <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
+                  </GradientButton>
                   
-                  {/* Share Quiz Button - New gradient style */}
-                  <button 
-                    onClick={shareQuiz}
-                    className="relative rounded-full py-3 px-6 bg-gradient-to-r from-cognilense-orange via-cognilense-yellow to-cognilense-blue text-foreground font-medium transition-all duration-300 hover:shadow-md group flex items-center justify-center gap-2"
-                  >
+                  {/* Share Quiz Button - With Share2 icon */}
+                  <GradientButton onClick={shareQuiz} className="group">
                     <span>Share Quiz</span>
-                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                    <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </GradientButton>
                 </motion.div>
               </div>
             </div>
