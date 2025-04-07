@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag, Brain, PixelatedHand } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag, Brain, Hand } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -110,9 +109,9 @@ const ResultsSection = () => {
                     showCorrectCount={false}
                   />
                   
-                  {/* Pixelated Hand icon */}
+                  {/* Hand icon (replacing PixelatedHand) */}
                   <div className="absolute right-1/4 transform translate-x-10 translate-y-12 opacity-50 pointer-events-none z-0">
-                    <PixelatedHand size={60} className="text-cognilense-green" />
+                    <Hand size={60} className="text-cognilense-green" />
                   </div>
                   
                   {/* Result Message and subtitle below the ring */}
