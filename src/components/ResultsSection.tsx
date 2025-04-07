@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
@@ -64,64 +63,7 @@ const ResultsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Background illustrations - spread across the entire box */}
-              <div className="absolute inset-0 overflow-hidden z-0">
-                {/* Top left */}
-                <img 
-                  src="/lovable-uploads/59a39ef3-701b-4bd5-9ff0-7d868565674d.png" 
-                  alt="" 
-                  className="absolute top-4 left-4 w-16 h-16 object-contain opacity-70"
-                />
-                
-                {/* Top right */}
-                <img 
-                  src="/lovable-uploads/6821b333-9f52-4ff2-9784-a3b1af1542ed.png" 
-                  alt="" 
-                  className="absolute top-6 right-24 w-20 h-20 object-contain opacity-70"
-                />
-                
-                {/* Middle left */}
-                <img 
-                  src="/lovable-uploads/fb67e4bc-4291-401c-b868-3a15ca1a264c.png" 
-                  alt="" 
-                  className="absolute top-[40%] left-12 w-18 h-18 object-contain opacity-70"
-                />
-                
-                {/* Middle right */}
-                <img 
-                  src="/lovable-uploads/887500cd-9161-4cb4-99cf-262104bee34a.png" 
-                  alt="" 
-                  className="absolute top-[35%] right-16 w-16 h-16 object-contain opacity-70"
-                />
-                
-                {/* Bottom left */}
-                <img 
-                  src="/lovable-uploads/d2e883d6-d3a5-4a63-927f-a31eabc15c98.png" 
-                  alt="" 
-                  className="absolute bottom-20 left-8 w-24 h-24 object-contain opacity-70"
-                />
-                
-                {/* Bottom right */}
-                <img 
-                  src="/lovable-uploads/3e3a5e88-8ee9-4f13-a278-f925fbc5786f.png" 
-                  alt="" 
-                  className="absolute bottom-16 right-8 w-18 h-18 object-contain opacity-70"
-                />
-                
-                {/* Middle center */}
-                <img 
-                  src="/lovable-uploads/63b59efe-fd2a-4dfa-8e63-fb37fb39805f.png" 
-                  alt="" 
-                  className="absolute top-[50%] left-[40%] w-20 h-20 object-contain opacity-70"
-                />
-                
-                {/* Bottom center */}
-                <img 
-                  src="/lovable-uploads/32cc9a16-8da5-4346-aa40-dba6d48f5d1e.png" 
-                  alt="" 
-                  className="absolute bottom-6 left-[30%] w-24 h-24 object-contain opacity-70"
-                />
-              </div>
+              {/* Removed all background illustration divs */}
               
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
