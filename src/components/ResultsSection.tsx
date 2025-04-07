@@ -87,22 +87,21 @@ const ResultsSection = () => {
                   </p>
                 </motion.div>
                 
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative">
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="flex justify-center items-center order-2 md:order-1 relative"
+                    className="flex justify-center items-center order-2 md:order-1"
                   >
                     <img 
                       src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
                       alt="Brain illustration" 
-                      className="max-w-full h-auto max-h-[375px] object-contain transform scale-x-[-1] scale-[1.5]"
-                      style={{ position: 'absolute', bottom: '-20px', left: '-20px' }}
+                      className="max-w-full h-auto max-h-[250px] object-contain transform scale-x-[-1]"
                     />
                   </motion.div>
                   
-                  <div className="flex flex-col justify-center order-1 md:order-2 z-10">
+                  <div className="flex flex-col justify-center order-1 md:order-2">
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -130,10 +129,12 @@ const ResultsSection = () => {
                 >
                   <GradientButton onClick={restartQuiz} className="group" icon={false}>
                     <span>Try Again</span>
+                    <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
                   </GradientButton>
                   
                   <GradientButton onClick={shareQuiz} className="group" icon={false}>
                     <span>Share Quiz</span>
+                    <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </GradientButton>
                 </motion.div>
               </div>
