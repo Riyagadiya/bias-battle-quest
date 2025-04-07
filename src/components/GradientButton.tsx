@@ -34,7 +34,7 @@ const GradientButton = ({
         "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
         variant === "primary" && [
           "gradient-border-rectangle",
-          "bg-cognilense-background",
+          "bg-white", // Changed from bg-cognilense-background to white
           "hover:shadow-glow hover:scale-[1.02] hover:font-medium",
         ],
         variant === "secondary" && [

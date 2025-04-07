@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -14,7 +13,6 @@ const ResultsSection = () => {
   
   if (status !== "active") return null;
   
-  // Process the answers array for easier handling
   const answersArray = questions.map((question, index) => {
     const answer = answers[index];
     const isCorrect = answer === question.options.find(option => option.isCorrect)?.text;
@@ -31,7 +29,6 @@ const ResultsSection = () => {
   
   let resultMessage = "";
   
-  // Updated result messages based on the new ranges
   if (correctAnswers === 0) {
     resultMessage = "Lost in Bias!";
   } else if (correctAnswers >= 1 && correctAnswers <= 2) {
@@ -42,10 +39,8 @@ const ResultsSection = () => {
     resultMessage = "Sharp & Unbiased!";
   }
 
-  // Count answered questions (not skipped or null)
   const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
 
-  // Share quiz function
   const shareQuiz = () => {
     const shareUrl = window.location.origin;
     navigator.clipboard.writeText(shareUrl);
@@ -56,7 +51,6 @@ const ResultsSection = () => {
     <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* Box 1: Main results box - Left side */}
           <motion.div 
             className="md:col-span-2"
             initial={{ opacity: 0, y: 20 }}
@@ -94,7 +88,6 @@ const ResultsSection = () => {
                 </motion.div>
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  {/* Flipped illustration on the left side */}
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -108,7 +101,6 @@ const ResultsSection = () => {
                     />
                   </motion.div>
                   
-                  {/* Results info on the right side */}
                   <div className="flex flex-col justify-center order-1 md:order-2">
                     <motion.div
                       initial={{ opacity: 0 }}
@@ -129,21 +121,18 @@ const ResultsSection = () => {
                   </div>
                 </div>
 
-                {/* Updated Action Buttons row with GradientButton component */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
                 >
-                  {/* Try Again Button - With RotateCcw icon */}
-                  <GradientButton onClick={restartQuiz} className="group">
+                  <GradientButton onClick={restartQuiz} className="group" icon={false}>
                     <span>Try Again</span>
                     <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
                   </GradientButton>
                   
-                  {/* Share Quiz Button - With Share2 icon */}
-                  <GradientButton onClick={shareQuiz} className="group">
+                  <GradientButton onClick={shareQuiz} className="group" icon={false}>
                     <span>Share Quiz</span>
                     <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </GradientButton>
@@ -152,7 +141,6 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Box 2: Improved Bento Box with clearer CTAs - Right side */}
           <motion.div
             className="md:col-span-1"
             initial={{ opacity: 0, x: 20 }}
@@ -161,13 +149,11 @@ const ResultsSection = () => {
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
               <div className="flex flex-col h-full">
-                {/* Header Section */}
                 <div className="px-6 py-4 border-b border-gray-100">
                   <h3 className="font-domine text-lg font-semibold">Take Your Learning Further</h3>
                   <p className="text-sm text-muted-foreground">Use these exclusive resources</p>
                 </div>
                 
-                {/* Discount Code Section - Enhanced */}
                 <div className="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-10 h-10 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
@@ -187,7 +173,6 @@ const ResultsSection = () => {
                   </div>
                 </div>
                 
-                {/* Get Cards Section - Enhanced with clearer CTA */}
                 <div className="p-6 flex-grow flex flex-col hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-10 h-10 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
@@ -211,7 +196,6 @@ const ResultsSection = () => {
                       className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full py-3 px-6 transition-colors font-medium"
                     >
                       Explore CogniLense
-                      <ArrowUpRight size={18} />
                     </a>
                   </div>
                 </div>
@@ -219,7 +203,6 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Box 3: Question summary - Bottom full width */}
           <motion.div
             className="md:col-span-3"
             initial={{ opacity: 0, y: 20 }}
@@ -237,7 +220,6 @@ const ResultsSection = () => {
   );
 };
 
-// Copy Button Component
 const CopyButton = ({ code }: { code: string }) => {
   const [isCopied, setIsCopied] = useState(false);
   
