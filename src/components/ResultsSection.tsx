@@ -8,6 +8,7 @@ import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
 import GradientButton from "./GradientButton";
+import { Separator } from "@/components/ui/separator";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
@@ -26,6 +27,7 @@ const ResultsSection = () => {
   });
   
   const correctAnswers = answersArray.filter(a => a.isCorrect).length;
+  const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
   const percentage = Math.round((correctAnswers / questions.length) * 100);
   
   let resultMessage = "";
@@ -45,8 +47,6 @@ const ResultsSection = () => {
     resultSubtitle = "Impressive awareness! Your clear thinking is a skill—keep sharpening it.";
   }
 
-  const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
-
   const shareQuiz = () => {
     const shareUrl = window.location.origin;
     navigator.clipboard.writeText(shareUrl);
@@ -65,18 +65,6 @@ const ResultsSection = () => {
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
               <div className="px-6 py-8 md:p-10 relative z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="mb-8"
-                >
-                  {/* Replaced "You answered X out of Y questions" with "Your Thinking Report" as subtitle */}
-                  <p className="text-muted-foreground font-inter">
-                    Your Thinking Report
-                  </p>
-                </motion.div>
-                
                 {/* Results Summary in the center with animation */}
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -101,6 +89,19 @@ const ResultsSection = () => {
                     <p className="text-muted-foreground mt-2 max-w-lg mx-auto">
                       {resultSubtitle}
                     </p>
+                  </div>
+                  
+                  {/* Stats with subtle divider */}
+                  <div className="flex items-center justify-center mt-6 p-4 border-t border-gray-100 w-full max-w-md">
+                    <div className="flex-1 text-center">
+                      <p className="text-xl font-bold">{answeredQuestions}/{questions.length}</p>
+                      <p className="text-xs text-muted-foreground">Answered questions</p>
+                    </div>
+                    <Separator orientation="vertical" className="mx-4 h-10 bg-gray-200" />
+                    <div className="flex-1 text-center">
+                      <p className="text-xl font-bold">{correctAnswers}/{questions.length}</p>
+                      <p className="text-xs text-muted-foreground">Correct answers</p>
+                    </div>
                   </div>
                 </motion.div>
 
