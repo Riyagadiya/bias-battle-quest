@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
+import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
@@ -64,30 +64,6 @@ const ResultsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Background illustrations */}
-              <div className="absolute inset-0 overflow-hidden z-0">
-                <img 
-                  src="/lovable-uploads/59a39ef3-701b-4bd5-9ff0-7d868565674d.png" 
-                  alt="" 
-                  className="absolute top-4 left-4 w-16 h-16 object-contain opacity-70"
-                />
-                <img 
-                  src="/lovable-uploads/6821b333-9f52-4ff2-9784-a3b1af1542ed.png" 
-                  alt="" 
-                  className="absolute top-8 left-20 w-20 h-20 object-contain opacity-70"
-                />
-                <img 
-                  src="/lovable-uploads/d2e883d6-d3a5-4a63-927f-a31eabc15c98.png" 
-                  alt="" 
-                  className="absolute top-20 left-8 w-16 h-16 object-contain opacity-70"
-                />
-                <img 
-                  src="/lovable-uploads/3e3a5e88-8ee9-4f13-a278-f925fbc5786f.png" 
-                  alt="" 
-                  className="absolute top-6 left-44 w-20 h-20 object-contain opacity-70"
-                />
-              </div>
-              
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
                 <motion.div
@@ -202,10 +178,10 @@ const ResultsSection = () => {
                       href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
                       target="_blank"
                       rel="noopener noreferrer" 
-                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-lg hover:scale-[1.02] rounded-full py-3 px-6 transition-all font-medium"
+                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-md hover:scale-105 transition-all duration-300 rounded-full py-3 px-6 font-medium"
                     >
                       Buy Card decks
-                      <ArrowUpRight size={16} />
+                      <ShoppingBag size={18} />
                     </a>
                   </div>
                 </div>
