@@ -63,64 +63,71 @@ const ResultsSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-center mb-8"
+                  className="mb-8"
                 >
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <h2 className="text-3xl md:text-4xl font-domine font-bold">
-                      Your Results
-                    </h2>
+                  <div className="flex items-start gap-4">
+                    {/* Illustration placed to the left of the title */}
                     <motion.div
-                      initial={{ scale: 0, rotate: -45 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 260, 
-                        damping: 20, 
-                        delay: 0.7 
-                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                      className="flex-shrink-0"
                     >
-                      <PartyPopper className="text-cognilense-orange" size={28} />
-                    </motion.div>
-                  </div>
-                  <p className="text-muted-foreground">
-                    You answered {answeredQuestions} out of {questions.length} questions
-                  </p>
-                </motion.div>
-                
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="flex justify-center items-center order-2 md:order-1"
-                  >
-                    <img 
-                      src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
-                      alt="Brain illustration" 
-                      className="max-w-full h-auto max-h-[250px] object-contain transform scale-x-[-1]"
-                    />
-                  </motion.div>
-                  
-                  <div className="flex flex-col justify-center order-1 md:order-2">
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                      <h3 className="text-2xl md:text-3xl font-domine font-medium text-center mb-4">
-                        {resultMessage}
-                      </h3>
-                      
-                      <ResultsSummary 
-                        percentage={percentage} 
-                        correctAnswers={correctAnswers} 
-                        totalQuestions={questions.length} 
-                        resultMessage={resultMessage} 
+                      <img 
+                        src="/lovable-uploads/d3ef2faf-d5d2-43fe-a441-14f53de146ae.png" 
+                        alt="Brain illustration" 
+                        className="w-28 h-auto object-contain transform scale-x-[-1]"
                       />
                     </motion.div>
+                    
+                    {/* Title area */}
+                    <div className="flex-grow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h2 className="text-3xl md:text-4xl font-domine font-bold">
+                          Your Results
+                        </h2>
+                        <motion.div
+                          initial={{ scale: 0, rotate: -45 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ 
+                            type: "spring", 
+                            stiffness: 260, 
+                            damping: 20, 
+                            delay: 0.7 
+                          }}
+                        >
+                          <PartyPopper className="text-cognilense-orange" size={28} />
+                        </motion.div>
+                      </div>
+                      <p className="text-muted-foreground">
+                        You answered {answeredQuestions} out of {questions.length} questions
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
+                
+                {/* Results Summary in the center with animation */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="flex flex-col items-center mb-6"
+                >
+                  {/* Score Ring */}
+                  <ResultsSummary 
+                    percentage={percentage} 
+                    correctAnswers={correctAnswers} 
+                    totalQuestions={questions.length} 
+                    resultMessage={resultMessage} 
+                  />
+                  
+                  {/* Result Message below the ring */}
+                  <h3 className="text-2xl md:text-3xl font-domine font-medium text-center mt-4">
+                    {resultMessage}
+                  </h3>
+                </motion.div>
 
+                {/* Action Buttons centered below the result message */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -140,6 +147,7 @@ const ResultsSection = () => {
               </div>
             </div>
           </motion.div>
+          
           
           <motion.div
             className="md:col-span-1"
