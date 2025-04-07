@@ -150,7 +150,7 @@ const allQuizQuestions: Question[] = [
       { text: "Escalation of Commitment", isCorrect: false }
     ]),
     explanation: "The Sunk Cost Fallacy is our tendency to continue an endeavor due to previously invested resources that cannot be recovered. Mark keeps investing in a failing business because of his previous investments.",
-    type: "anchoring"
+    type: "sunk_cost"
   },
   {
     id: 12,
@@ -162,7 +162,7 @@ const allQuizQuestions: Question[] = [
       { text: "Loss Aversion", isCorrect: false }
     ]),
     explanation: "The Sunk Cost Fallacy is our tendency to continue an endeavor due to previously invested resources that cannot be recovered. Anna stays for the entire movie despite not enjoying it because she paid for the ticket.",
-    type: "anchoring"
+    type: "sunk_cost"
   },
 
   // Ingroup Bias
@@ -190,7 +190,7 @@ const allQuizQuestions: Question[] = [
     explanation: "Ingroup Bias leads people to attribute positive traits to members of their own group. The sports fan believes people from their city are more honest simply because they belong to the same group.",
     type: "ingroup"
   },
-
+  
   // Belief Bias
   {
     id: 15,
@@ -228,7 +228,7 @@ const allQuizQuestions: Question[] = [
       { text: "Conformity Bias", isCorrect: false }
     ]),
     explanation: "Groupthink occurs when a group makes irrational decisions because members conform to consensus rather than expressing dissenting opinions. The team is adopting a risky strategy because no one is willing to challenge the group's direction.",
-    type: "bandwagon"
+    type: "groupthink"
   },
   {
     id: 18,
@@ -240,7 +240,7 @@ const allQuizQuestions: Question[] = [
       { text: "Authority Bias", isCorrect: false }
     ]),
     explanation: "Groupthink Bias occurs when group members prioritize consensus over critical evaluation. The jury is making a hasty decision because no one wants to challenge the developing consensus.",
-    type: "bandwagon"
+    type: "groupthink"
   },
 
   // Recall Bias
@@ -384,7 +384,7 @@ const allQuizQuestions: Question[] = [
       { text: "Superiority Bias", isCorrect: false }
     ]),
     explanation: "The Dunning-Kruger Effect is a cognitive bias where people with low ability at a task overestimate their ability. The novice investor lacks the knowledge to recognize their own limitations after one lucky success.",
-    type: "spotlight"
+    type: "dunning_kruger"
   },
   {
     id: 30,
@@ -396,7 +396,7 @@ const allQuizQuestions: Question[] = [
       { text: "Authority Bias", isCorrect: false }
     ]),
     explanation: "The Dunning-Kruger Effect causes people with limited knowledge to overestimate their expertise. The student lacks sufficient knowledge to recognize the depth of the subject and their own limitations.",
-    type: "spotlight"
+    type: "dunning_kruger"
   },
 
   // IKEA Effect
