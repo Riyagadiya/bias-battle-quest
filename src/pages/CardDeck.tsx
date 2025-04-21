@@ -1,4 +1,7 @@
+
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CardItem from "@/components/CardDeck/CardItem";
@@ -35,6 +38,12 @@ const cardDecks = [
 ];
 
 const CardDeck = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -48,9 +57,19 @@ const CardDeck = () => {
           className="container mx-auto"
         >
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-domine font-semibold text-center mb-4">
-              Explore Our Card Decks
-            </h1>
+            <div className="flex items-center gap-4 mb-4">
+              <button 
+                onClick={handleGoBack}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Go back"
+              >
+                <ArrowLeft size={24} className="text-gray-600" />
+              </button>
+              <h1 className="text-3xl md:text-4xl font-domine font-semibold">
+                Explore Our Card Decks
+              </h1>
+            </div>
+            
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
               Discover our collection of carefully curated card decks designed to enhance your understanding of design thinking and decision-making.
             </p>
