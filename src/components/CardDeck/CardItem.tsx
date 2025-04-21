@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Share, Plus, Minus, ShoppingCart } from "lucide-react";
+import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CardItemProps {
@@ -18,14 +18,14 @@ const CardItem = ({
   backgroundColor,
   hoverColor
 }: CardItemProps) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
   };
 
   const decreaseQuantity = () => {
-    setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+    setQuantity(prev => (prev > 0 ? prev - 1 : 0));
   };
 
   return (
@@ -45,11 +45,10 @@ const CardItem = ({
       <button 
         className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10 transition-colors"
         onClick={() => {
-          // Share functionality can be implemented here
           console.log('Share clicked');
         }}
       >
-        <Share size={20} />
+        <Share2 size={20} />
       </button>
 
       <div className="mb-6 flex justify-center">
@@ -67,17 +66,18 @@ const CardItem = ({
       </p>
       
       <div className="flex flex-col gap-4 mt-auto">
-        <div className="flex items-center justify-between border rounded-lg p-2">
+        <div className="flex items-center justify-between border rounded-full p-2">
           <button
             onClick={decreaseQuantity}
-            className="p-1 hover:bg-black/5 rounded"
+            className="p-1 hover:bg-black/5 rounded-full"
+            disabled={quantity === 0}
           >
             <Minus size={20} />
           </button>
           <span className="font-medium">{quantity}</span>
           <button
             onClick={increaseQuantity}
-            className="p-1 hover:bg-black/5 rounded"
+            className="p-1 hover:bg-black/5 rounded-full"
           >
             <Plus size={20} />
           </button>
@@ -85,14 +85,14 @@ const CardItem = ({
 
         <div className="flex flex-col gap-2">
           <Button 
-            className="w-full bg-white text-black border border-black/20 hover:bg-black/5"
+            className="w-full rounded-full bg-white text-black border border-black/20 hover:bg-black/5"
             onClick={() => console.log('Add to cart')}
           >
             <ShoppingCart className="mr-2" size={20} />
             Add to Cart
           </Button>
           <Button 
-            className="w-full"
+            className="w-full rounded-full"
             onClick={() => console.log('Buy now')}
           >
             Buy Now
