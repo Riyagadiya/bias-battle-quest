@@ -176,9 +176,7 @@ const ResultsSection = () => {
                   
                   <div className="mt-auto pt-4">
                     <a 
-                      href="https://www.amazon.in/dp/8197752834?ref=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&ref_=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&social_share=cm_sw_r_ffobk_cso_wa_apan_dp_SYFEQFSMP8D62S65AANR_1&bestFormat=true"
-                      target="_blank"
-                      rel="noopener noreferrer" 
+                      href="/card-decks"
                       className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-lg hover:scale-[1.02] rounded-full py-3 px-6 transition-all font-medium"
                     >
                       Buy Card decks
