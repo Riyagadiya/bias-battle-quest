@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,7 +7,6 @@ const cardDecks = [
   {
     title: "Cognitive Biases",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-    exploreText: "Explore cognitive biases as mental shortcuts",
     imageUrl: "/lovable-uploads/693a4e69-d361-4cf9-a802-e0546b2cdbb1.png",
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D"
@@ -16,7 +14,6 @@ const cardDecks = [
   {
     title: "Research Methods",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-    exploreText: "Discover the design process & user centered solutions",
     imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985"
@@ -24,7 +21,6 @@ const cardDecks = [
   {
     title: "Thinking Hat",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-    exploreText: "Explore what hat you are wearing today",
     imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B"
@@ -32,7 +28,6 @@ const cardDecks = [
   {
     title: "UX Laws",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-    exploreText: "Uncover UX laws as guiding principles for design",
     imageUrl: "/lovable-uploads/fd73ccda-1243-4492-85ac-6ff020116ede.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6"
