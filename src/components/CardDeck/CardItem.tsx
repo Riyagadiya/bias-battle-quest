@@ -6,11 +6,32 @@ interface CardItemProps {
   description: string;
   exploreText: string;
   imageUrl: string;
+  backgroundColor: string;
+  hoverColor: string;
 }
 
-const CardItem = ({ title, description, exploreText, imageUrl }: CardItemProps) => {
+const CardItem = ({ 
+  title, 
+  description, 
+  exploreText, 
+  imageUrl,
+  backgroundColor,
+  hoverColor
+}: CardItemProps) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col h-full">
+    <div 
+      className="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 flex flex-col h-full"
+      style={{ 
+        backgroundColor,
+        ['--hover-color' as string]: hoverColor 
+      }}
+      onMouseEnter={e => {
+        (e.target as HTMLElement).style.backgroundColor = hoverColor;
+      }}
+      onMouseLeave={e => {
+        (e.target as HTMLElement).style.backgroundColor = backgroundColor;
+      }}
+    >
       <div className="mb-6 flex justify-center">
         <img 
           src={imageUrl} 
@@ -25,7 +46,7 @@ const CardItem = ({ title, description, exploreText, imageUrl }: CardItemProps) 
         {description}
       </p>
       
-      <div className="flex items-center text-cognilense-blue font-medium group">
+      <div className="flex items-center text-black font-medium group">
         <span>{exploreText}</span>
         <ArrowUpRight 
           size={18} 
