@@ -12,6 +12,7 @@ import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
 import CardDeck from "./pages/CardDeck";
 import ProductDetail from "./pages/ProductDetail";
+import ShoppingCart from "./pages/ShoppingCart";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/results" element={<Results />} />
               <Route path="/card-decks" element={<CardDeck />} />
               <Route path="/product/:title" element={<ProductDetail />} />
+              <Route path="/cart" element={<ShoppingCart />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </QuizProvider>
