@@ -1,11 +1,7 @@
 
-import { useState } from "react";
-import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
 
 interface CardItemProps {
   title: string;
@@ -32,40 +28,7 @@ const CardItem = ({
   discount,
   shipping
 }: CardItemProps) => {
-  const [quantity, setQuantity] = useState(1);
-  const { toast } = useToast();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
-
-  const basePrice = 900;
-
-  const increaseQuantity = () => {
-    setQuantity(prev => prev + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart({
-      title,
-      quantity,
-      price: basePrice
-    });
-    toast({
-      title: "Added to cart",
-      description: `${quantity} x ${title} added to cart - Total: ₹${basePrice * quantity}`,
-    });
-  };
-
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setQuantity(1);
-  };
 
   const handleCardClick = () => {
     console.log('Navigating to product detail:', title);
@@ -97,71 +60,36 @@ const CardItem = ({
         <Share2 size={20} />
       </button>
 
-      <div className="mb-8 flex justify-center">
+      <div className="mb-8 flex justify-center flex-grow">
         <img 
           src={imageUrl} 
           alt={title} 
-          className="w-48 h-48 object-contain transform transition-transform hover:scale-105"
+          className="w-72 h-72 object-contain transform transition-transform hover:scale-105"
         />
       </div>
       
-      <h3 className="text-2xl font-domine font-semibold mb-3">{title}</h3>
-      
-      <p className="text-muted-foreground mb-6 text-lg">
-        {description}
-      </p>
+      <div className="mt-auto">
+        <h3 className="text-xl font-domine font-semibold mb-2">{title}</h3>
+        
+        <p className="text-muted-foreground mb-4 text-sm">
+          {description}
+        </p>
 
-      <div className="space-y-4 mb-8">
-        <p className="font-medium text-lg">{cardCount}</p>
-        <div className="flex items-center gap-3">
-          <span className="text-2xl font-semibold">₹{basePrice * quantity}</span>
-          <Badge variant="secondary" className="bg-green-100 text-green-800">
-            {discount}
-          </Badge>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="font-medium text-sm mb-1">{cardCount}</p>
+            <p className="text-sm text-muted-foreground">{shipping}</p>
+          </div>
+          <div className="text-right">
+            <div className="flex items-center gap-2 justify-end mb-1">
+              <span className="text-xl font-semibold">₹900</span>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                {discount}
+              </Badge>
+            </div>
+            <p className="text-xs text-muted-foreground line-through">MRP: ₹1200</p>
+          </div>
         </div>
-        <p className="text-sm text-muted-foreground line-through">MRP: ₹{1200 * quantity}</p>
-        <p className="text-sm text-muted-foreground">{shipping}</p>
-      </div>
-
-      <div className="mt-auto space-y-4">
-        <div className="flex items-center justify-between border rounded-full p-2">
-          <button
-            onClick={quantity === 1 ? handleDelete : (e) => {
-              e.stopPropagation();
-              decreaseQuantity();
-            }}
-            className="p-1 hover:bg-black/5 rounded-full"
-            disabled={quantity === 1}
-          >
-            {quantity === 1 ? (
-              <img 
-                src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
-                alt="Delete" 
-                className="w-5 h-5" 
-              />
-            ) : (
-              <Minus size={20} />
-            )}
-          </button>
-          <span className="font-medium">{quantity}</span>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              increaseQuantity();
-            }}
-            className="p-1 hover:bg-black/5 rounded-full"
-          >
-            <Plus size={20} />
-          </button>
-        </div>
-
-        <Button 
-          className="w-full rounded-full bg-white text-black border border-black/20 hover:bg-black/5"
-          onClick={handleAddToCart}
-        >
-          <ShoppingCart className="mr-2" size={20} />
-          Add to Cart
-        </Button>
       </div>
     </div>
   );
