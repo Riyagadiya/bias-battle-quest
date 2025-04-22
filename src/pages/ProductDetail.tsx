@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -160,7 +161,7 @@ const ProductDetail = () => {
       
       <button
         onClick={handleBackClick}
-        className="fixed left-8 top-24 z-50 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm hover:bg-black/5 transition-colors border"
+        className="fixed left-6 top-24 z-50 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm hover:bg-black/5 transition-colors border"
       >
         <ArrowLeft size={20} />
       </button>
