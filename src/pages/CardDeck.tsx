@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -43,7 +44,7 @@ const cardDecks = [
   {
     title: "UX Laws",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-    imageUrl: "/lovable-uploads/fd73ccda-1243-4492-85ac-6ff020116ede.png",
+    imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png", // Updated image URL
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
