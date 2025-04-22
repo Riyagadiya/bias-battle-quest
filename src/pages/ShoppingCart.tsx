@@ -7,12 +7,18 @@ import { useCart } from "@/context/CartContext";
 import { Save, Trash2, Plus, Minus } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { toast } from "sonner";
 
 const ShoppingCart = () => {
-  const { items } = useCart();
+  const { items, removeFromCart } = useCart();
 
   const calculateOriginalPrice = (price: number) => {
     return Math.round(price / 0.75); // 25% discount means current price is 75% of original
+  };
+  
+  const handleRemoveFromCart = (title: string) => {
+    removeFromCart(title);
+    toast.success("Item removed from cart");
   };
 
   return (
@@ -66,7 +72,12 @@ const ShoppingCart = () => {
                           </div>
                           
                           {/* Action Buttons */}
-                          <Button variant="ghost" size="sm" className="text-red-600">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-red-600"
+                            onClick={() => handleRemoveFromCart(item.title)}
+                          >
                             <Trash2 className="mr-2 h-4 w-4" />
                             Delete
                           </Button>

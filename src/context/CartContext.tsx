@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface CartItem {
   id: string;
@@ -17,8 +17,20 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+// Try to load cart from localStorage
+const loadCart = (): CartItem[] => {
+  if (typeof window === 'undefined') return [];
+  const savedCart = localStorage.getItem('cart');
+  return savedCart ? JSON.parse(savedCart) : [];
+};
+
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(loadCart);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(items));
+  }, [items]);
 
   const addToCart = (item: Omit<CartItem, 'id'>) => {
     setItems(currentItems => {
