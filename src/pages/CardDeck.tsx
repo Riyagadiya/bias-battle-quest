@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -77,7 +78,7 @@ const CardDeck = () => {
               Discover our collection of carefully curated card decks designed to enhance your understanding of design thinking and decision-making.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {cardDecks.map((deck, index) => (
                 <motion.div
                   key={deck.title}
