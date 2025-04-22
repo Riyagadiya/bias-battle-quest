@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -7,7 +6,7 @@ import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ShoppingCart, Plus, Minus } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
@@ -100,6 +99,10 @@ const ProductDetail = () => {
   
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
   
+  const handleBackClick = () => {
+    navigate('/card-decks');
+  };
+
   if (!product) {
     return (
       <div className="flex flex-col min-h-screen">
@@ -155,6 +158,13 @@ const ProductDetail = () => {
       <Header />
       <CartIcon />
       
+      <button
+        onClick={handleBackClick}
+        className="fixed left-8 top-24 z-50 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm hover:bg-black/5 transition-colors border"
+      >
+        <ArrowLeft size={20} />
+      </button>
+
       <main className="flex-grow py-12 px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
