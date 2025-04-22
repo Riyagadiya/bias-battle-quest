@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Share2, Plus, Minus, Delete, ShoppingCart } from "lucide-react";
+import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -52,6 +52,10 @@ const CardItem = ({
     console.log('Added to cart:', { title, quantity, total: basePrice * quantity });
   };
 
+  const handleDelete = () => {
+    setQuantity(1);
+  };
+
   return (
     <div 
       className="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 flex flex-col h-full relative"
@@ -79,7 +83,7 @@ const CardItem = ({
         <img 
           src={imageUrl} 
           alt={title} 
-          className="w-36 h-36 object-contain" // Increased from w-32 h-32 (roughly 15% larger)
+          className="w-36 h-36 object-contain"
         />
       </div>
       
@@ -104,13 +108,13 @@ const CardItem = ({
       <div className="mt-auto space-y-4">
         <div className="flex items-center justify-between border rounded-full p-2">
           <button
-            onClick={decreaseQuantity}
+            onClick={quantity === 1 ? handleDelete : decreaseQuantity}
             className="p-1 hover:bg-black/5 rounded-full"
             disabled={quantity === 1}
           >
             {quantity === 1 ? (
               <img 
-                src="/lovable-uploads/b20e8367-6421-4f9a-bdfb-8ce13eb38ff6.png" 
+                src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
                 alt="Delete" 
                 className="w-5 h-5" 
               />
