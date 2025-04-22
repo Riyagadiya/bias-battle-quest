@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -243,7 +242,15 @@ const ProductDetail = () => {
                           className="p-1 hover:bg-black/5 rounded-full"
                           disabled={quantity === 1}
                         >
-                          <Minus size={20} />
+                          {quantity === 1 ? (
+                            <img 
+                              src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
+                              alt="Delete" 
+                              className="w-5 h-5" 
+                            />
+                          ) : (
+                            <Minus size={20} />
+                          )}
                         </button>
                         <span className="font-medium">{quantity}</span>
                         <button
