@@ -4,13 +4,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
-import { Save, Trash2, Plus, Minus } from "lucide-react";
+import { Save, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
   const { items, removeFromCart } = useCart();
+  const navigate = useNavigate();
 
   const calculateOriginalPrice = (price: number) => {
     return Math.round(price / 0.75); // 25% discount means current price is 75% of original
@@ -21,12 +23,25 @@ const ShoppingCart = () => {
     toast.success("Item removed from cart");
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       
       <main className="flex-grow container mx-auto py-24 px-4">
-        <h1 className="text-3xl font-semibold mb-6">Shopping Cart</h1>
+        <div className="flex items-center gap-4 mb-6">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={handleGoBack}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-3xl font-semibold">Shopping Cart</h1>
+        </div>
         
         <Tabs defaultValue="items" className="w-full">
           <TabsList className="mb-6">
