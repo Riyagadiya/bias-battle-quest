@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QuizProvider } from "./context/QuizContext";
+import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import Results from "./pages/Results";
@@ -20,16 +21,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <QuizProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/card-decks" element={<CardDeck />} />
-            <Route path="/product/:title" element={<ProductDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </QuizProvider>
+        <CartProvider>
+          <QuizProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/results" element={<Results />} />
+              <Route path="/card-decks" element={<CardDeck />} />
+              <Route path="/product/:title" element={<ProductDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </QuizProvider>
+        </CartProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

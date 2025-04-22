@@ -1,8 +1,8 @@
-
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CardItem from "@/components/CardDeck/CardItem";
+import CartIcon from "@/components/CartIcon";
 
 const cardDecks = [
   {
@@ -44,7 +44,7 @@ const cardDecks = [
   {
     title: "UX Laws",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-    imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png", // Updated image URL
+    imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
@@ -59,6 +59,7 @@ const CardDeck = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <CartIcon />
       
       <main className="flex-grow py-24 px-6">
         <motion.div

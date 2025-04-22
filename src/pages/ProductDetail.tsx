@@ -1,26 +1,20 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
+import { useCart } from "@/hooks/use-cart";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
 
-// Product data
 const cardDecks = [
   {
     title: "Cognitive Biases Card Deck",
@@ -102,6 +96,7 @@ const ProductDetail = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
   
@@ -136,6 +131,11 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
+    addToCart({
+      title: product.title,
+      quantity,
+      price: basePrice
+    });
     toast({
       title: "Added to cart",
       description: `${quantity} x ${product.title} added to cart - Total: ₹${basePrice * quantity}`,
@@ -153,6 +153,7 @@ const ProductDetail = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <CartIcon />
       
       <main className="flex-grow py-12 px-6">
         <motion.div
@@ -162,12 +163,9 @@ const ProductDetail = () => {
           className="container mx-auto"
         >
           <div className="max-w-6xl mx-auto">
-            {/* Product Detail Box */}
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Product Images with Carousel */}
                 <div className="space-y-4">
-                  {/* Main Image */}
                   <div 
                     className="rounded-xl p-8 flex items-center justify-center"
                     style={{ backgroundColor: product.backgroundColor }}
@@ -179,7 +177,6 @@ const ProductDetail = () => {
                     />
                   </div>
                   
-                  {/* Thumbnail Carousel */}
                   <div className="flex justify-center gap-4">
                     {product.images.map((image, index) => (
                       <div 
@@ -198,7 +195,6 @@ const ProductDetail = () => {
                   </div>
                 </div>
 
-                {/* Product Info */}
                 <div className="space-y-4">
                   <h1 className="text-2xl md:text-3xl font-domine font-semibold">
                     {product.title}
@@ -229,7 +225,6 @@ const ProductDetail = () => {
                   <Separator className="my-4" />
 
                   <div className="space-y-4">
-                    {/* Quantity Controls */}
                     <div className="flex items-center justify-start gap-4">
                       <div className="flex items-center justify-between border rounded-full p-2 w-32">
                         <button
@@ -249,7 +244,6 @@ const ProductDetail = () => {
                       </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Button 
                         className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 flex-1"
@@ -271,7 +265,6 @@ const ProductDetail = () => {
 
                   <Separator className="my-4" />
 
-                  {/* Feature Icons */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <FeatureIcon type="replacement" text="7 Days Replacement" />
                     <FeatureIcon type="secure" text="Secure Transaction" />
@@ -281,7 +274,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Recommended Products */}
             <RecommendedProducts 
               products={cardDecks}
               currentProductTitle={product.title}
