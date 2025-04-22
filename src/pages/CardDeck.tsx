@@ -5,11 +5,16 @@ import CardItem from "@/components/CardDeck/CardItem";
 
 const cardDecks = [
   {
-    title: "Cognitive Biases",
+    title: "Cognitive Biases Card Deck",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-    imageUrl: "/lovable-uploads/693a4e69-d361-4cf9-a802-e0546b2cdbb1.png",
+    imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
     backgroundColor: "#FDDE81",
-    hoverColor: "#FCD14D"
+    hoverColor: "#FCD14D",
+    cardCount: "38 Cards",
+    price: "�� 900",
+    mrp: "₹ 1200",
+    discount: "25% off",
+    shipping: "Ships only in India"
   },
   {
     title: "Research Methods",
