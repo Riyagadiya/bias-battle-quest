@@ -10,27 +10,39 @@ interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
+  savedItems: CartItem[];
   addToCart: (item: Omit<CartItem, 'id'>) => void;
   removeFromCart: (title: string) => void;
+  updateQuantity: (title: string, quantity: number) => void;
+  saveForLater: (item: CartItem) => void;
+  removeSavedItem: (title: string) => void;
+  moveToCart: (item: CartItem) => void;
   getCartCount: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Try to load cart from localStorage
-const loadCart = (): CartItem[] => {
-  if (typeof window === 'undefined') return [];
+const loadCart = (): { items: CartItem[], savedItems: CartItem[] } => {
+  if (typeof window === 'undefined') return { items: [], savedItems: [] };
   const savedCart = localStorage.getItem('cart');
-  return savedCart ? JSON.parse(savedCart) : [];
+  const savedForLater = localStorage.getItem('savedItems');
+  return {
+    items: savedCart ? JSON.parse(savedCart) : [],
+    savedItems: savedForLater ? JSON.parse(savedForLater) : []
+  };
 };
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>(loadCart);
+  const [items, setItems] = useState<CartItem[]>(loadCart().items);
+  const [savedItems, setSavedItems] = useState<CartItem[]>(loadCart().savedItems);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
+
+  useEffect(() => {
+    localStorage.setItem('savedItems', JSON.stringify(savedItems));
+  }, [savedItems]);
 
   const addToCart = (item: Omit<CartItem, 'id'>) => {
     setItems(currentItems => {
@@ -50,12 +62,44 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setItems(currentItems => currentItems.filter(item => item.title !== title));
   };
 
+  const updateQuantity = (title: string, quantity: number) => {
+    setItems(currentItems =>
+      currentItems.map(item =>
+        item.title === title ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const saveForLater = (item: CartItem) => {
+    setSavedItems(current => [...current, item]);
+    removeFromCart(item.title);
+  };
+
+  const removeSavedItem = (title: string) => {
+    setSavedItems(current => current.filter(item => item.title !== title));
+  };
+
+  const moveToCart = (item: CartItem) => {
+    addToCart(item);
+    removeSavedItem(item.title);
+  };
+
   const getCartCount = () => {
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, getCartCount }}>
+    <CartContext.Provider value={{ 
+      items, 
+      savedItems, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity, 
+      saveForLater, 
+      removeSavedItem, 
+      moveToCart, 
+      getCartCount 
+    }}>
       {children}
     </CartContext.Provider>
   );
