@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
+import { Share2, Plus, Minus, Delete, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -80,7 +80,7 @@ const CardItem = ({
         <img 
           src={imageUrl} 
           alt={title} 
-          className="w-32 h-32 object-contain"
+          className="w-36 h-36 object-contain" // Increased from w-32 h-32 (roughly 15% larger)
         />
       </div>
       
@@ -109,7 +109,7 @@ const CardItem = ({
             className="p-1 hover:bg-black/5 rounded-full"
             disabled={quantity === 1}
           >
-            <Minus size={20} />
+            {quantity === 1 ? <Delete size={20} /> : <Minus size={20} />}
           </button>
           <span className="font-medium">{quantity}</span>
           <button
