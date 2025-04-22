@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -77,7 +76,7 @@ const ShoppingCart = () => {
                 {items.map((item, index) => (
                   <div key={item.id}>
                     <div className="flex items-start gap-6 py-4">
-                      <div className="w-32 h-32 bg-muted rounded-lg shrink-0"></div>
+                      <div className="w-40 h-40 bg-muted rounded-lg shrink-0"></div>
                       
                       <div className="flex-grow">
                         <h3 className="text-lg font-medium">{item.title}</h3>
@@ -159,7 +158,7 @@ const ShoppingCart = () => {
                   savedItems.map((item, index) => (
                     <div key={item.id}>
                       <div className="flex items-start gap-6 py-4">
-                        <div className="w-32 h-32 bg-muted rounded-lg shrink-0"></div>
+                        <div className="w-40 h-40 bg-muted rounded-lg shrink-0"></div>
                         
                         <div className="flex-grow">
                           <h3 className="text-lg font-medium">{item.title}</h3>
