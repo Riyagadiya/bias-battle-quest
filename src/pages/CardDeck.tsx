@@ -1,8 +1,9 @@
+
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CardItem from "@/components/CardDeck/CardItem";
 import CartIcon from "@/components/CartIcon";
+import CardItem from "@/components/CardDeck/CardItem";
 
 const cardDecks = [
   {
@@ -14,7 +15,7 @@ const cardDecks = [
     cardCount: "38 Cards",
     price: "₹900",
     mrp: "₹1200",
-    discount: "25% off",
+    discount: "10% off",
     shipping: "Ships only in India"
   },
   {
@@ -26,7 +27,7 @@ const cardDecks = [
     cardCount: "42 Cards",
     price: "₹900",
     mrp: "₹1200",
-    discount: "25% off",
+    discount: "10% off",
     shipping: "Ships only in India"
   },
   {
@@ -38,7 +39,7 @@ const cardDecks = [
     cardCount: "36 Cards",
     price: "₹900",
     mrp: "₹1200",
-    discount: "25% off",
+    discount: "10% off",
     shipping: "Ships only in India"
   },
   {
@@ -50,7 +51,7 @@ const cardDecks = [
     cardCount: "40 Cards",
     price: "₹900",
     mrp: "₹1200",
-    discount: "25% off",
+    discount: "10% off",
     shipping: "Ships only in India"
   }
 ];
