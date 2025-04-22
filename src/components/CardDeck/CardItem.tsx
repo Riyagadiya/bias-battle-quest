@@ -3,6 +3,7 @@ import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface CardItemProps {
   title: string;
@@ -31,8 +32,9 @@ const CardItem = ({
 }: CardItemProps) => {
   const [quantity, setQuantity] = useState(1);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const basePrice = 900; // Base price without discount
+  const basePrice = 900;
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
@@ -56,9 +58,19 @@ const CardItem = ({
     setQuantity(1);
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (
+      (e.target as HTMLElement).tagName === 'BUTTON' ||
+      (e.target as HTMLElement).closest('button')
+    ) {
+      return;
+    }
+    navigate(`/product/${encodeURIComponent(title)}`);
+  };
+
   return (
     <div 
-      className="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 flex flex-col h-full relative"
+      className="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 flex flex-col h-full relative cursor-pointer"
       style={{ 
         backgroundColor,
         ['--hover-color' as string]: hoverColor 
@@ -69,6 +81,7 @@ const CardItem = ({
       onMouseLeave={e => {
         (e.target as HTMLElement).style.backgroundColor = backgroundColor;
       }}
+      onClick={handleCardClick}
     >
       <button 
         className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10 transition-colors"
