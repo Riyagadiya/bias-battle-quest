@@ -1,10 +1,10 @@
+
 import { useState } from "react";
 import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
 
 interface CardItemProps {
   title: string;
@@ -34,7 +34,6 @@ const CardItem = ({
   const [quantity, setQuantity] = useState(1);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
 
   const basePrice = 900;
 
@@ -49,12 +48,7 @@ const CardItem = ({
   };
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart({
-      title,
-      quantity,
-      price: basePrice
-    });
+    e.stopPropagation(); // Prevent navigation when clicking the button
     toast({
       title: "Added to cart",
       description: `${quantity} x ${title} added to cart - Total: ₹${basePrice * quantity}`,
@@ -63,7 +57,7 @@ const CardItem = ({
   };
 
   const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent navigation when clicking the button
     setQuantity(1);
   };
 
@@ -90,7 +84,7 @@ const CardItem = ({
       <button 
         className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10 transition-colors"
         onClick={(e) => {
-          e.stopPropagation();
+          e.stopPropagation(); // Prevent navigation when clicking the share button
           console.log('Share clicked');
         }}
       >

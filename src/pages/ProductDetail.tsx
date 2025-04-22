@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -18,8 +19,8 @@ import {
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
-import { useCart } from "@/context/CartContext";
 
+// Product data
 const cardDecks = [
   {
     title: "Cognitive Biases Card Deck",
@@ -101,7 +102,6 @@ const ProductDetail = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
   
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
   
@@ -136,11 +136,6 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart({
-      title: product.title,
-      quantity,
-      price: basePrice
-    });
     toast({
       title: "Added to cart",
       description: `${quantity} x ${product.title} added to cart - Total: ₹${basePrice * quantity}`,
