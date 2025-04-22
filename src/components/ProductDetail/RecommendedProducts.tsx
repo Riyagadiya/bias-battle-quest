@@ -33,7 +33,10 @@ const RecommendedProducts = ({ products, currentProductTitle }: RecommendedProdu
           <Card 
             key={product.title}
             className="cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => navigate(`/product/${encodeURIComponent(product.title)}`)}
+            onClick={() => {
+              console.log(`Navigating to product: ${product.title}`);
+              navigate(`/product/${encodeURIComponent(product.title)}`);
+            }}
           >
             <CardContent className="p-4">
               <div 

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Share2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,8 @@ const CardItem = ({
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent navigation when clicking the button
     toast({
       title: "Added to cart",
       description: `${quantity} x ${title} added to cart - Total: ₹${basePrice * quantity}`,
@@ -54,17 +56,13 @@ const CardItem = ({
     console.log('Added to cart:', { title, quantity, total: basePrice * quantity });
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent navigation when clicking the button
     setQuantity(1);
   };
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    if (
-      (e.target as HTMLElement).tagName === 'BUTTON' ||
-      (e.target as HTMLElement).closest('button')
-    ) {
-      return;
-    }
+  const handleCardClick = () => {
+    console.log('Navigating to product detail:', title);
     navigate(`/product/${encodeURIComponent(title)}`);
   };
 
@@ -85,7 +83,8 @@ const CardItem = ({
     >
       <button 
         className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10 transition-colors"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent navigation when clicking the share button
           console.log('Share clicked');
         }}
       >
@@ -121,7 +120,10 @@ const CardItem = ({
       <div className="mt-auto space-y-4">
         <div className="flex items-center justify-between border rounded-full p-2">
           <button
-            onClick={quantity === 1 ? handleDelete : decreaseQuantity}
+            onClick={quantity === 1 ? (e) => handleDelete(e) : (e) => {
+              e.stopPropagation();
+              decreaseQuantity();
+            }}
             className="p-1 hover:bg-black/5 rounded-full"
             disabled={quantity === 1}
           >
@@ -137,7 +139,10 @@ const CardItem = ({
           </button>
           <span className="font-medium">{quantity}</span>
           <button
-            onClick={increaseQuantity}
+            onClick={(e) => {
+              e.stopPropagation();
+              increaseQuantity();
+            }}
             className="p-1 hover:bg-black/5 rounded-full"
           >
             <Plus size={20} />
