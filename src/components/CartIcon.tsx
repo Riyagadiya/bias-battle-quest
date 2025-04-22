@@ -7,7 +7,7 @@ const CartIcon = () => {
   const count = getCartCount();
 
   return (
-    <div className="fixed right-24 top-16 z-50">
+    <div className="fixed right-6 top-16 z-50">
       <div className="relative inline-block">
         <div className="p-2 border rounded-lg bg-white/90 backdrop-blur-sm shadow-sm hover:bg-black/5 transition-colors">
           <ShoppingCart size={20} />
