@@ -11,8 +11,8 @@ const cardDecks = [
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
-    price: "�� 900",
-    mrp: "₹ 1200",
+    price: "₹900",
+    mrp: "₹1200",
     discount: "25% off",
     shipping: "Ships only in India"
   },
@@ -21,21 +21,36 @@ const cardDecks = [
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
     imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
     backgroundColor: "#D4E3A6",
-    hoverColor: "#C4D985"
+    hoverColor: "#C4D985",
+    cardCount: "42 Cards",
+    price: "₹900",
+    mrp: "₹1200",
+    discount: "25% off",
+    shipping: "Ships only in India"
   },
   {
     title: "Thinking Hat",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
     imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
     backgroundColor: "#F8C1A6",
-    hoverColor: "#F3986B"
+    hoverColor: "#F3986B",
+    cardCount: "36 Cards",
+    price: "₹900",
+    mrp: "₹1200",
+    discount: "25% off",
+    shipping: "Ships only in India"
   },
   {
     title: "UX Laws",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
     imageUrl: "/lovable-uploads/fd73ccda-1243-4492-85ac-6ff020116ede.png",
     backgroundColor: "#BEE5FA",
-    hoverColor: "#92D4F6"
+    hoverColor: "#92D4F6",
+    cardCount: "40 Cards",
+    price: "₹900",
+    mrp: "₹1200",
+    discount: "25% off",
+    shipping: "Ships only in India"
   }
 ];
 
