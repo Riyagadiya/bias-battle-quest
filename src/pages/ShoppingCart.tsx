@@ -112,30 +112,29 @@ const ShoppingCart = () => {
                           Premium Quality Card Deck
                         </p>
                         <div className="flex items-center gap-4 mt-4">
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="h-9 w-9 rounded-lg border-2 border-muted"
-                              onClick={() =>
-                                handleUpdateQuantity(item.title, item.quantity - 1)
-                              }
+                          <div className="flex items-center justify-between border rounded-full p-2 w-32 bg-white">
+                            <button
+                              onClick={() => handleUpdateQuantity(item.title, item.quantity - 1)}
+                              className="p-1 hover:bg-black/5 rounded-full disabled:opacity-60"
+                              disabled={item.quantity === 1}
                             >
-                              <Minus className="h-5 w-5" />
-                            </Button>
-                            <span className="w-12 text-center text-base font-medium">
-                              {item.quantity}
-                            </span>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="h-9 w-9 rounded-lg border-2 border-muted"
-                              onClick={() =>
-                                handleUpdateQuantity(item.title, item.quantity + 1)
-                              }
+                              {item.quantity === 1 ? (
+                                <img 
+                                  src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
+                                  alt="Delete" 
+                                  className="w-5 h-5"
+                                />
+                              ) : (
+                                <Minus size={20} />
+                              )}
+                            </button>
+                            <span className="font-medium">{item.quantity}</span>
+                            <button
+                              onClick={() => handleUpdateQuantity(item.title, item.quantity + 1)}
+                              className="p-1 hover:bg-black/5 rounded-full"
                             >
-                              <Plus className="h-5 w-5" />
-                            </Button>
+                              <Plus size={20} />
+                            </button>
                           </div>
 
                           <Button
