@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Package, Mail, Phone, User, MapPin } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 import type { Database } from '@/integrations/supabase/types';
 
@@ -131,58 +132,97 @@ const OrderSuccess = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow container mx-auto py-12 px-4">
-        <Card className="max-w-3xl mx-auto">
+        <Card className="max-w-4xl mx-auto">
           <CardContent className="p-8">
             <div className="text-center mb-8">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Order Placed Successfully!</h1>
-              <p className="text-gray-600">Order #{orderNumber}</p>
-              <p className="text-gray-600 mt-2">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Thank You for Your Order!</h1>
+              <p className="text-gray-600 mb-1">Order #{orderNumber}</p>
+              <p className="text-gray-600">
                 Payment Status: <span className={orderDetails.payment_status === 'completed' ? 'text-green-600 font-medium' : 'text-yellow-600 font-medium'}>
                   {orderDetails.payment_status === 'completed' ? 'Completed' : 'Processing'}
                 </span>
               </p>
             </div>
 
-            <div className="space-y-6">
-              <div className="border-b pb-4">
-                <h2 className="text-xl font-semibold mb-4">Order Details</h2>
-                <div className="grid grid-cols-2 gap-4">
-                  <p className="text-gray-600">Name:</p>
-                  <p className="font-medium">{orderDetails.full_name}</p>
-                  <p className="text-gray-600">Email:</p>
-                  <p className="font-medium">{orderDetails.email}</p>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Customer Information */}
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <User className="text-primary" />
+                    Customer Details
+                  </h2>
+                  <div className="space-y-2">
+                    <p className="flex items-center gap-2">
+                      <span className="text-gray-600">Name:</span>
+                      <span className="font-medium">{orderDetails.full_name}</span>
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-gray-500" />
+                      <span className="text-gray-600">Email:</span>
+                      <span className="font-medium">{orderDetails.email}</span>
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-gray-500" />
+                      <span className="text-gray-600">Phone:</span>
+                      <span className="font-medium">{orderDetails.mobile}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <MapPin className="text-primary" />
+                    Shipping Address
+                  </h2>
+                  <div className="space-y-1">
+                    <p className="font-medium">{orderDetails.full_name}</p>
+                    <p className="text-gray-600">{orderDetails.address}</p>
+                    <p className="text-gray-600">{orderDetails.city}, {orderDetails.state} {orderDetails.pincode}</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="border-b pb-4">
-                <h2 className="text-xl font-semibold mb-4">Items</h2>
-                <div className="space-y-4">
+              {/* Order Summary */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Package className="text-primary" />
+                  Order Summary
+                </h2>
+                
+                <div className="space-y-4 mb-6">
                   {Array.isArray(orderDetails.items) && (orderDetails.items as CartItem[]).map((item, index) => (
-                    <div key={index} className="flex justify-between">
-                      <span>{item.title} × {item.quantity}</span>
-                      <span>₹{item.price * item.quantity}</span>
+                    <div key={index} className="flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">{item.title}</p>
+                        <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                      </div>
+                      <p className="font-medium">₹{(item.price * item.quantity).toLocaleString()}</p>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span>₹{orderDetails.subtotal}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Original Total</span>
-                  <span className="line-through text-gray-400">₹{orderDetails.original_total}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Discount</span>
-                  <span className="text-green-600">-₹{orderDetails.discount_amount}</span>
-                </div>
-                <div className="flex justify-between text-lg font-bold">
-                  <span>Total Paid</span>
-                  <span>₹{orderDetails.final_price}</span>
+                <Separator className="my-4" />
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span>₹{orderDetails.subtotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Original Price</span>
+                    <span className="line-through">₹{orderDetails.original_total.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-green-600">
+                    <span>Discount</span>
+                    <span>-₹{orderDetails.discount_amount.toLocaleString()}</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between text-lg font-bold">
+                    <span>Total Paid</span>
+                    <span>₹{orderDetails.final_price.toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             </div>
