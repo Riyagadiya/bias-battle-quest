@@ -68,10 +68,11 @@ serve(async (req) => {
     // Create Razorpay order
     let order;
     try {
+      const orderReceipt = `order_${Date.now()}`;
       order = await razorpay.orders.create({
         amount: Math.round(amount * 100), // Convert to smallest currency unit (paise)
         currency: 'INR',
-        receipt: `order_${Date.now()}`,
+        receipt: orderReceipt,
         payment_capture: 1, // Auto capture payment
       });
       
@@ -80,31 +81,15 @@ serve(async (req) => {
       if (!order || !order.id) {
         throw new Error("Invalid order response from Razorpay");
       }
-    } catch (razorpayError) {
-      console.error("Razorpay order creation failed:", razorpayError);
-      return new Response(
-        JSON.stringify({ 
-          error: "Failed to create Razorpay order",
-          details: razorpayError.message || "Unknown Razorpay error",
-          stack: razorpayError.stack
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 500,
-        },
-      );
-    }
-
-    console.log("Razorpay order created successfully:", order);
-
-    // Create order record in database
-    try {
+      
+      // Create order record in database
       const { data: orderRecord, error } = await supabase
         .from('orders')
         .insert([{
           ...orderData,
-          order_number: order.receipt,
-          payment_id: order.id,
+          order_number: orderReceipt,
+          payment_id: order.id, // Store Razorpay order ID here
+          payment_status: 'pending' // Explicitly set initial status
         }])
         .select()
         .single();
@@ -128,12 +113,13 @@ serve(async (req) => {
           status: 200,
         },
       );
-    } catch (dbError) {
-      console.error("Database operation failed:", dbError);
+    } catch (razorpayError) {
+      console.error("Razorpay order creation failed:", razorpayError);
       return new Response(
         JSON.stringify({ 
-          error: "Failed to create order record in database",
-          details: dbError.message || "Unknown database error"
+          error: "Failed to create Razorpay order",
+          details: razorpayError.message || "Unknown Razorpay error",
+          stack: razorpayError.stack
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -19,7 +18,6 @@ declare global {
   }
 }
 
-// Separate the logic for loading the Razorpay script
 const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
     if (window.Razorpay) {
@@ -70,10 +68,13 @@ const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
+  const [orderCreated, setOrderCreated] = useState<{
+    orderId: string;
+    orderNumber: string;
+  } | null>(null);
   const navigate = useNavigate();
-  const { items } = useCart();
+  const { items, clearCart } = useCart();
 
-  // Load Razorpay script on component mount
   useEffect(() => {
     loadRazorpayScript()
       .then((loaded) => {
@@ -143,6 +144,23 @@ const Checkout = () => {
     return true;
   };
 
+  const notifyPaymentFailure = async (orderId: string) => {
+    try {
+      const response = await supabase.functions.invoke('verify-payment', {
+        body: {
+          status: 'failed',
+          razorpay_order_id: orderId
+        }
+      });
+      
+      if (response.error) {
+        console.error("Failed to notify payment failure:", response.error);
+      }
+    } catch (error) {
+      console.error("Error notifying payment failure:", error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -155,7 +173,6 @@ const Checkout = () => {
       
       console.log("Creating Razorpay order with amount:", finalPrice);
 
-      // Step 1: Create order on server
       const orderResponse = await supabase.functions.invoke('create-razorpay-order', {
         body: {
           amount: finalPrice,
@@ -188,16 +205,18 @@ const Checkout = () => {
       
       console.log("Order created successfully:", { orderId, orderNumber });
       
+      setOrderCreated({ orderId, orderNumber });
+      
       if (!orderId) {
         throw new Error("Invalid order response - missing orderId");
       }
 
-      // Get Razorpay key from server response or use a fallback
-      const razorpayKey = apiKey || "rzp_test_I1rWYxGYZmbfMw";
+      if (!apiKey) {
+        throw new Error("Missing API key in server response");
+      }
       
-      // Step 2: Initialize Razorpay Checkout
       const razorpayOptions = {
-        key: razorpayKey,
+        key: apiKey,
         amount: finalPrice * 100,
         currency: "INR",
         name: "Cogni Lense",
@@ -216,10 +235,16 @@ const Checkout = () => {
 
             if (verifyResponse.error) {
               console.error("Payment verification error:", verifyResponse.error);
-              throw new Error(verifyResponse.error.message || "Verification failed");
+              toast({
+                title: "Payment verification failed",
+                description: "Please contact support if you've been charged",
+                variant: "destructive",
+              });
+              return;
             }
 
             console.log("Payment verification successful, redirecting to success page");
+            clearCart();
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
             console.error('Payment verification failed:', error);
@@ -254,12 +279,16 @@ const Checkout = () => {
 
       console.log("Initializing Razorpay with options:", razorpayOptions);
       
-      // Create and open Razorpay checkout
       const razorpay = new window.Razorpay(razorpayOptions);
       
       razorpay.on('payment.failed', function (response: any) {
         console.error('Payment failed:', response.error);
         setSubmitting(false);
+        
+        if (orderCreated?.orderId) {
+          notifyPaymentFailure(orderCreated.orderId);
+        }
+        
         toast({
           title: "Payment failed",
           description: response.error.description || "Please try again",
@@ -273,6 +302,11 @@ const Checkout = () => {
     } catch (error) {
       console.error('Payment initialization failed:', error);
       setSubmitting(false);
+      
+      if (orderCreated?.orderId) {
+        notifyPaymentFailure(orderCreated.orderId);
+      }
+      
       toast({
         title: "Payment initialization failed",
         description: error instanceof Error ? error.message : "Please try again later",
@@ -295,7 +329,6 @@ const Checkout = () => {
   const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
-  // Render form and summary
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
@@ -316,7 +349,6 @@ const Checkout = () => {
                 <h1 className="text-3xl font-bold text-left mb-6 tracking-tight font-domine">Shipping Details</h1>
               </div>
               <form onSubmit={handleSubmit} autoComplete="off" className="p-10 pt-0 space-y-5">
-                {/* Form fields */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
                     <Label htmlFor="fullName">
@@ -472,7 +504,6 @@ const Checkout = () => {
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold mb-6 text-left font-domine tracking-tight">Order Summary</h2>
-              {/* Order summary content */}
               {items.length === 0 ? (
                 <div className="text-center text-muted-foreground py-6">Your cart is empty</div>
               ) : (

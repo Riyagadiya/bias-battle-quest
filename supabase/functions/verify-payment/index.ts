@@ -37,8 +37,58 @@ serve(async (req) => {
       );
     }
     
-    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = requestData;
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature, status } = requestData;
     
+    // Handle payment failure reports from client
+    if (status === 'failed') {
+      console.log("Handling failed payment for order:", razorpay_order_id);
+      
+      try {
+        // Update order status to failed
+        const { error } = await supabase
+          .from('orders')
+          .update({ payment_status: 'failed' })
+          .eq('payment_id', razorpay_order_id);
+
+        if (error) {
+          console.error("Database error updating failed payment:", error);
+          return new Response(
+            JSON.stringify({ 
+              error: "Failed to update order status",
+              details: error.message 
+            }),
+            { 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+              status: 500,
+            },
+          );
+        }
+
+        console.log("Order status updated to failed");
+
+        return new Response(
+          JSON.stringify({ success: true, status: 'failed' }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 200,
+          },
+        );
+      } catch (dbError) {
+        console.error("Database operation failed for failed payment:", dbError);
+        return new Response(
+          JSON.stringify({ 
+            error: "Failed to update order status",
+            details: dbError.message || "Unknown database error"
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 500,
+          },
+        );
+      }
+    }
+    
+    // Handle successful payment verification
     if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
       console.error("Missing required verification parameters:", requestData);
       return new Response(
@@ -84,10 +134,13 @@ serve(async (req) => {
       console.log("Signature verification successful");
       
       try {
-        // Update order status in database
+        // Update order status in database with payment ID
         const { error } = await supabase
           .from('orders')
-          .update({ payment_status: 'completed' })
+          .update({ 
+            payment_status: 'completed',
+            payment_id: razorpay_payment_id // Store the actual payment ID, not the order ID
+          })
           .eq('payment_id', razorpay_order_id);
 
         if (error) {
@@ -104,10 +157,10 @@ serve(async (req) => {
           );
         }
 
-        console.log("Order status updated to completed");
+        console.log("Order status updated to completed with payment ID:", razorpay_payment_id);
 
         return new Response(
-          JSON.stringify({ success: true }),
+          JSON.stringify({ success: true, status: 'completed' }),
           { 
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
             status: 200,
@@ -128,10 +181,26 @@ serve(async (req) => {
       }
     } else {
       console.error("Signature verification failed");
+      
+      try {
+        // Update order status to failed if signature verification fails
+        const { error } = await supabase
+          .from('orders')
+          .update({ payment_status: 'failed' })
+          .eq('payment_id', razorpay_order_id);
+
+        if (error) {
+          console.error("Database error updating failed verification:", error);
+        }
+      } catch (dbError) {
+        console.error("Database error when marking verification failure:", dbError);
+      }
+      
       return new Response(
         JSON.stringify({ 
           error: 'Payment verification failed',
-          details: 'Invalid signature'
+          details: 'Invalid signature',
+          status: 'failed'
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
