@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -162,7 +163,7 @@ const ProductDetail = () => {
         variant="outline"
         size="icon"
         onClick={handleBackClick}
-        className="fixed left-6 top-24 z-50 rounded-lg"
+        className="fixed left-6 top-20 z-50 rounded-lg"  // Adjusted top positioning to align with CartIcon
       >
         <ArrowLeft className="h-5 w-5" />
       </Button>
@@ -308,3 +309,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+
