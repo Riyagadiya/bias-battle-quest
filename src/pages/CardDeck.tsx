@@ -1,12 +1,11 @@
-
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartIcon from "@/components/CartIcon";
 import CardItem from "@/components/CardDeck/CardItem";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const cardDecks = [
   {
@@ -60,26 +59,10 @@ const cardDecks = [
 ];
 
 const CardDeck = () => {
-  const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <CartIcon />
-      
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleBackClick}
-        className="fixed left-6 top-16 z-50 rounded-lg bg-white shadow-md border border-black/10"
-        type="button"
-      >
-        <ArrowLeft className="h-5 w-5" />
-      </Button>
       
       <main className="flex-grow py-24 px-6">
         <motion.div
