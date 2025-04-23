@@ -9,6 +9,7 @@ import { toast } from "@/hooks/use-toast";
 import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
+import { useCart } from "@/context/CartContext";
 
 const initialState = {
   fullName: "",
@@ -23,17 +24,17 @@ const initialState = {
   pincode: "",
 };
 
-const MOCK_ORDER = {
-  image: "/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png",
-  title: "Cognitive Biases Card Deck",
-  price: 2997,
-  quantity: 3,
+const DISCOUNT_PERCENT = 25;
+
+const calculateOriginalPrice = (price: number) => {
+  return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
 };
 
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { items } = useCart();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -76,10 +77,20 @@ const Checkout = () => {
     navigate(-1);
   };
 
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalOriginal = items.reduce(
+    (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
+    0
+  );
+  const discountAmount = totalOriginal - subtotal;
+  const totalSaved = discountAmount;
+  const finalPrice = subtotal;
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
-      <main className="flex-grow w-full relative py-16 md:py-24 lg:py-32">
+      <main className="flex-grow w-full relative py-16 md:py-24 lg:py-28">
         <Button
           variant="outline"
           size="icon"
@@ -250,33 +261,63 @@ const Checkout = () => {
           </Card>
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-6 text-left tracking-tight font-domine">Order Summary</h2>
-              <div className="flex items-center gap-4 mb-5">
-                <img
-                  src={MOCK_ORDER.image}
-                  alt={MOCK_ORDER.title}
-                  className="w-20 h-20 rounded object-cover border border-gray-200"
-                />
-                <div>
-                  <div className="font-medium text-lg">{MOCK_ORDER.title}</div>
-                  <div className="font-semibold text-[#222] mt-2">₹{MOCK_ORDER.price}</div>
-                  <span className="text-gray-400 text-xs block">Quantity: {MOCK_ORDER.quantity}</span>
-                </div>
-              </div>
-              <div className="border-t border-gray-200 my-5" />
-              <div className="flex justify-between py-1 text-base">
-                <span className="text-gray-800">Subtotal</span>
-                <span className="font-medium">₹{MOCK_ORDER.price}</span>
-              </div>
-              <div className="flex justify-between py-1 text-base">
-                <span className="text-gray-800">Shipping</span>
-                <span className="font-medium text-green-500">Free</span>
-              </div>
-              <div className="border-t border-gray-200 my-4" />
-              <div className="flex justify-between text-xl font-bold mt-2">
-                <span>Total</span>
-                <span>₹{MOCK_ORDER.price}</span>
-              </div>
+              <h2 className="text-2xl font-bold mb-6 text-left font-domine tracking-tight">Order Summary</h2>
+              {items.length === 0 ? (
+                <div className="text-center text-muted-foreground py-6">Your cart is empty</div>
+              ) : (
+                <>
+                  {items.map((item, idx) => (
+                    <div className="flex items-center gap-4 mb-6" key={item.id}>
+                      <div>
+                        <img
+                          src={"/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png"}
+                          alt={item.title}
+                          className="w-20 h-20 rounded object-cover border border-gray-200"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-base font-domine truncate">{item.title}</div>
+                        <div className="font-worksans text-sm text-gray-700 mt-1">
+                          Quantity: <span className="font-semibold">{item.quantity}</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="font-bold text-lg font-worksans text-black">₹{item.price * item.quantity}</span>
+                          <span className="line-through text-gray-400 font-worksans text-base">
+                            ₹{calculateOriginalPrice(item.price) * item.quantity}
+                          </span>
+                          <span className="text-green-600 text-xs font-medium ml-0.5">
+                            {DISCOUNT_PERCENT}% off
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="border-t border-gray-200 my-1 mb-4" />
+                  <div className="flex justify-between py-1 text-base font-worksans">
+                    <span className="text-gray-800">Number of Items</span>
+                    <span className="font-medium">{totalItems}</span>
+                  </div>
+                  <div className="flex justify-between py-1 text-base font-worksans">
+                    <span className="text-gray-800">Total Original MRP</span>
+                    <span className="line-through text-gray-400">₹{totalOriginal}</span>
+                  </div>
+                  <div className="flex justify-between py-1 text-base font-worksans">
+                    <span className="text-gray-800">Discount Applied</span>
+                    <span className="text-green-600 font-semibold">
+                      -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-1 text-base font-worksans">
+                    <span className="text-gray-800">Total Saved</span>
+                    <span className="text-green-800 font-semibold">₹{totalSaved}</span>
+                  </div>
+                  <div className="border-t border-gray-200 my-4" />
+                  <div className="flex justify-between items-center text-xl font-bold font-worksans mt-2">
+                    <span className="text-black">Total Amount</span>
+                    <span className="text-primary text-2xl font-bold">₹{finalPrice}</span>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
