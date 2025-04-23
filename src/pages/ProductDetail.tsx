@@ -162,7 +162,7 @@ const ProductDetail = () => {
         variant="outline"
         size="icon"
         onClick={handleBackClick}
-        className="fixed right-20 top-16 z-50 rounded-lg"
+        className="fixed left-6 top-16 z-50 rounded-lg"
       >
         <ArrowLeft className="h-5 w-5" />
       </Button>
