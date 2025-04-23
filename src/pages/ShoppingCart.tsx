@@ -4,12 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
-import { Save, Trash2, Plus, Minus, ArrowLeft, ReceiptIndianRupee } from "lucide-react";
+import { ReceiptIndianRupee, ArrowLeft, Save, Trash2, Plus, Minus } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import GradientButton from "@/components/GradientButton";
 
 const ShoppingCart = () => {
   const {
@@ -38,7 +39,7 @@ const ShoppingCart = () => {
   );
   const discountAmount = totalOriginal - subtotal;
   const discountPercent = totalOriginal > 0 ? Math.round((discountAmount / totalOriginal) * 100) : 0;
-  const totalSaved = discountAmount; // same as discountAmount for pure price-off
+  const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
   const handleRemoveFromCart = (title: string) => {
@@ -69,6 +70,11 @@ const ShoppingCart = () => {
 
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  const handleProceedToBuy = () => {
+    toast("Proceeding to buy (demo only)");
+    // Add navigation to checkout here, if implemented.
   };
 
   return (
@@ -157,9 +163,11 @@ const ShoppingCart = () => {
                       </div>
                       <div className="text-right min-w-[150px]">
                         <div className="flex flex-col items-end gap-1">
-                          <p className="font-medium text-lg">₹{item.price}</p>
+                          <p className="font-medium text-lg">
+                            ₹{item.price * item.quantity}
+                          </p>
                           <p className="text-sm text-muted-foreground line-through">
-                            ₹{calculateOriginalPrice(item.price)}
+                            ₹{calculateOriginalPrice(item.price) * item.quantity}
                           </p>
                           <p className="text-green-600 text-sm font-medium">
                             {DISCOUNT_PERCENT}% off
@@ -178,38 +186,57 @@ const ShoppingCart = () => {
                 )}
               </CardContent>
             </Card>
-            {/* ORDER SUMMARY CARD */}
-            <div className="mt-8 w-full flex justify-end">
-              <div className="w-full sm:w-[400px] flex flex-col border-2 border-muted rounded-lg shadow-lg bg-white p-6 gap-4 transition-all">
-                <div className="flex items-center gap-2 mb-2">
-                  <ReceiptIndianRupee className="text-primary" size={24} />
-                  <h2 className="text-xl font-semibold">Order Summary</h2>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Number of Items</span>
-                  <span className="font-medium">{totalItems}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Total Original MRP</span>
-                  <span className="line-through text-slate-400">₹{totalOriginal}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Discount Applied</span>
-                  <span className="text-green-600 font-semibold">
-                    -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Total Saved</span>
-                  <span className="text-green-800 font-semibold">₹{totalSaved}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center text-lg font-bold">
-                  <span className="text-black">Final Price</span>
-                  <span className="text-primary text-2xl font-bold">
-                    ₹{finalPrice}
-                  </span>
-                </div>
+
+            {/* ORDER SUMMARY ELONGATED CARD & PROCEED BUTTON */}
+            <div className="mt-8 w-full flex flex-col items-center">
+              <Card className="w-full max-w-3xl mx-auto rounded-lg border-2 border-muted shadow-md bg-white">
+                <CardContent className="flex flex-col md:flex-row md:items-center gap-8 py-6 px-6">
+                  <div className="flex items-center gap-2 mb-6 md:mb-0 md:mr-6">
+                    <ReceiptIndianRupee className="text-primary" size={28} />
+                    <h2 className="text-xl font-semibold">Order Summary</h2>
+                  </div>
+                  <div className="flex-1 flex flex-col gap-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Number of Items</span>
+                      <span className="font-medium">{totalItems}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Total Original MRP</span>
+                      <span className="line-through text-slate-400">
+                        ₹{totalOriginal}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Discount Applied</span>
+                      <span className="text-green-600 font-semibold">
+                        -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Total Saved</span>
+                      <span className="text-green-800 font-semibold">
+                        ₹{totalSaved}
+                      </span>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span className="text-black">Final Price</span>
+                      <span className="text-primary text-2xl font-bold">
+                        ₹{finalPrice}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <div className="w-full max-w-3xl mx-auto my-6 flex">
+                <GradientButton
+                  className="w-full h-14 text-lg font-semibold rounded-full tracking-wide"
+                  onClick={handleProceedToBuy}
+                  type="button"
+                  // identity: className is similarity for take the challenge; align with GradientButton use elsewhere
+                >
+                  Proceed to Buy
+                </GradientButton>
               </div>
             </div>
           </TabsContent>
@@ -249,9 +276,11 @@ const ShoppingCart = () => {
                         </div>
                         <div className="text-right min-w-[150px]">
                           <div className="flex flex-col items-end gap-1">
-                            <p className="font-medium text-lg">₹{item.price}</p>
+                            <p className="font-medium text-lg">
+                              ₹{item.price * item.quantity}
+                            </p>
                             <p className="text-sm text-muted-foreground line-through">
-                              ₹{calculateOriginalPrice(item.price)}
+                              ₹{calculateOriginalPrice(item.price) * item.quantity}
                             </p>
                             <p className="text-green-600 text-sm font-medium">
                               {DISCOUNT_PERCENT}% off
