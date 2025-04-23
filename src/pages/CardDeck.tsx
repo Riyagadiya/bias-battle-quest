@@ -74,7 +74,7 @@ const CardDeck = () => {
         >
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-domine font-semibold text-center mb-4">
-              Explore Our Card Decks
+              Ready, Set, Grab a Deck
             </h1>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
               Ready, Set, Grab a Deck
