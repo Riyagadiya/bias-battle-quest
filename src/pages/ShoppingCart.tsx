@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -25,12 +24,11 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
 
   const DISCOUNT_PERCENT = 25;
-  // Calculate the original price of a single item by undoing the 25% discount
+
   const calculateOriginalPrice = (price: number) => {
     return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
   };
 
-  // --- ORDER SUMMARY LOGIC ---
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalOriginal = items.reduce(
@@ -74,7 +72,6 @@ const ShoppingCart = () => {
 
   const handleProceedToBuy = () => {
     toast("Proceeding to buy (demo only)");
-    // Add navigation to checkout here, if implemented.
   };
 
   return (
@@ -187,15 +184,15 @@ const ShoppingCart = () => {
               </CardContent>
             </Card>
 
-            {/* ORDER SUMMARY ELONGATED CARD & PROCEED BUTTON */}
             <div className="mt-8 w-full flex flex-col items-center">
               <Card className="w-full max-w-3xl mx-auto rounded-lg border-2 border-muted shadow-md bg-white">
-                <CardContent className="flex flex-col md:flex-row md:items-center gap-8 py-6 px-6">
-                  <div className="flex items-center gap-2 mb-6 md:mb-0 md:mr-6">
+                <CardContent className="py-6 px-6">
+                  <div className="flex items-center gap-2 mb-4">
                     <ReceiptIndianRupee className="text-primary" size={28} />
                     <h2 className="text-xl font-semibold">Order Summary</h2>
                   </div>
-                  <div className="flex-1 flex flex-col gap-3">
+                  <Separator className="mb-4" />
+                  <div className="flex flex-col gap-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Number of Items</span>
                       <span className="font-medium">{totalItems}</span>
@@ -218,7 +215,7 @@ const ShoppingCart = () => {
                         ₹{totalSaved}
                       </span>
                     </div>
-                    <Separator />
+                    <Separator className="my-2" />
                     <div className="flex justify-between items-center text-lg font-bold">
                       <span className="text-black">Final Price</span>
                       <span className="text-primary text-2xl font-bold">
@@ -233,7 +230,6 @@ const ShoppingCart = () => {
                   className="w-full h-14 text-lg font-semibold rounded-full tracking-wide"
                   onClick={handleProceedToBuy}
                   type="button"
-                  // identity: className is similarity for take the challenge; align with GradientButton use elsewhere
                 >
                   Proceed to Buy
                 </GradientButton>
