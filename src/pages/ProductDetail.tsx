@@ -158,12 +158,14 @@ const ProductDetail = () => {
       <Header />
       <CartIcon />
       
-      <button
+      <Button
+        variant="outline"
+        size="icon"
         onClick={handleBackClick}
-        className="fixed left-6 top-24 z-50 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm hover:bg-black/5 transition-colors border"
+        className="fixed left-6 top-24 z-50 rounded-lg"
       >
-        <ArrowLeft size={20} />
-      </button>
+        <ArrowLeft className="h-5 w-5" />
+      </Button>
 
       <main className="flex-grow py-12 px-6">
         <motion.div
