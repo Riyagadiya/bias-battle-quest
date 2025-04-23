@@ -73,7 +73,7 @@ const Checkout = () => {
     orderNumber: string;
   } | null>(null);
   const navigate = useNavigate();
-  const { items, clearCart } = useCart();
+  const { items, clear } = useCart();
 
   useEffect(() => {
     loadRazorpayScript()
@@ -244,7 +244,7 @@ const Checkout = () => {
             }
 
             console.log("Payment verification successful, redirecting to success page");
-            clearCart();
+            clear();
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
             console.error('Payment verification failed:', error);

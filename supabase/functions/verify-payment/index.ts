@@ -119,27 +119,28 @@ serve(async (req) => {
       );
     }
     
-    const hmac = createHmac("sha256", secret);
-    hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
-    const generated_signature = hmac.digest("hex");
-    
-    console.log("Signature verification:", {
-      provided: razorpay_signature,
-      generated: generated_signature,
-      match: generated_signature === razorpay_signature
-    });
-
-    // Verify signature
-    if (generated_signature === razorpay_signature) {
-      console.log("Signature verification successful");
+    try {
+      // Verification logic
+      const hmac = createHmac("sha256", secret);
+      hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
+      const generated_signature = hmac.digest("hex");
       
-      try {
+      console.log("Signature verification:", {
+        provided: razorpay_signature,
+        generated: generated_signature,
+        match: generated_signature === razorpay_signature
+      });
+
+      // Verify signature
+      if (generated_signature === razorpay_signature) {
+        console.log("Signature verification successful");
+        
         // Update order status in database with payment ID
         const { error } = await supabase
           .from('orders')
           .update({ 
             payment_status: 'completed',
-            payment_id: razorpay_payment_id // Store the actual payment ID, not the order ID
+            payment_id: razorpay_payment_id // Store the actual payment ID
           })
           .eq('payment_id', razorpay_order_id);
 
@@ -166,45 +167,37 @@ serve(async (req) => {
             status: 200,
           },
         );
-      } catch (dbError) {
-        console.error("Database operation failed:", dbError);
-        return new Response(
-          JSON.stringify({ 
-            error: "Failed to update order status",
-            details: dbError.message || "Unknown database error"
-          }),
-          { 
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-            status: 500,
-          },
-        );
-      }
-    } else {
-      console.error("Signature verification failed");
-      
-      try {
+      } else {
+        console.error("Signature verification failed");
+        
         // Update order status to failed if signature verification fails
-        const { error } = await supabase
+        await supabase
           .from('orders')
           .update({ payment_status: 'failed' })
           .eq('payment_id', razorpay_order_id);
-
-        if (error) {
-          console.error("Database error updating failed verification:", error);
-        }
-      } catch (dbError) {
-        console.error("Database error when marking verification failure:", dbError);
+        
+        return new Response(
+          JSON.stringify({ 
+            error: 'Payment verification failed',
+            details: 'Invalid signature',
+            status: 'failed'
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 400,
+          },
+        );
       }
-      
+    } catch (verificationError) {
+      console.error("Verification process error:", verificationError);
       return new Response(
         JSON.stringify({ 
-          error: 'Payment verification failed',
-          details: 'Invalid signature',
-          status: 'failed'
+          error: "Verification process failed",
+          details: verificationError.message || "Unknown verification error",
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 400,
+          status: 500,
         },
       );
     }
@@ -214,7 +207,6 @@ serve(async (req) => {
       JSON.stringify({ 
         error: "Server error",
         details: error.message || "Unknown server error",
-        stack: error.stack
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
