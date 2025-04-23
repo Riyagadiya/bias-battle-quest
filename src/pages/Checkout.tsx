@@ -79,7 +79,7 @@ const Checkout = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
-      <main className="flex-grow w-full relative">
+      <main className="flex-grow w-full relative py-24 md:py-32 lg:py-40">
         <Button
           variant="outline"
           size="icon"
