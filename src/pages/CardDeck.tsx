@@ -74,7 +74,7 @@ const CardDeck = () => {
               Explore Our Card Decks
             </h1>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Discover our collection of carefully curated card decks designed to enhance your understanding of design thinking and decision-making.
+              Ready, Set, Grab a Deck
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
