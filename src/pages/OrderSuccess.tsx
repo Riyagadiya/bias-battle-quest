@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,22 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CheckCircle } from 'lucide-react';
+import type { Database } from '@/integrations/supabase/types';
 
-interface OrderDetails {
-  id: string;
-  order_number: string;
-  full_name: string;
-  email: string;
-  items: any[];
-  subtotal: number;
-  original_total: number;
-  discount_amount: number;
-  final_price: number;
-  payment_status: string;
-}
+type Order = Database['public']['Tables']['orders']['Row'];
 
 const OrderSuccess = () => {
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  const [orderDetails, setOrderDetails] = useState<Order | null>(null);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderNumber = searchParams.get('order');
