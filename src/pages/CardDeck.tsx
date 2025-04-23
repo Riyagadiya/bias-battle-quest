@@ -63,7 +63,7 @@ const CardDeck = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/results");
+    navigate(-1);
   };
 
   return (
