@@ -146,11 +146,7 @@ const ProductDetail = () => {
   };
 
   const handleBuyNow = () => {
-    toast({
-      title: "Proceeding to checkout",
-      description: `Buying ${quantity} x ${product.title} - Total: ₹${basePrice * quantity}`,
-    });
-    // In a real app, this would navigate to checkout
+    navigate("/checkout");
   };
 
   return (
