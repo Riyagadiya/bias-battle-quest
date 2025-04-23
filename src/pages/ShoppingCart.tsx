@@ -71,7 +71,7 @@ const ShoppingCart = () => {
   };
 
   const handleProceedToBuy = () => {
-    toast("Proceeding to buy (demo only)");
+    navigate("/checkout");
   };
 
   return (

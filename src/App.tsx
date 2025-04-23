@@ -31,6 +31,7 @@ const App = () => (
               <Route path="/card-decks" element={<CardDeck />} />
               <Route path="/product/:title" element={<ProductDetail />} />
               <Route path="/cart" element={<ShoppingCart />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </QuizProvider>
