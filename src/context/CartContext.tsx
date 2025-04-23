@@ -18,6 +18,7 @@ interface CartContextType {
   removeSavedItem: (title: string) => void;
   moveToCart: (item: CartItem) => void;
   getCartCount: () => number;
+  clear: () => void; // Added the clear method to the interface
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -88,6 +89,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  // Add the clear method implementation
+  const clear = () => {
+    setItems([]);
+    localStorage.removeItem('cart');
+  };
+
   return (
     <CartContext.Provider value={{ 
       items, 
@@ -98,7 +105,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       saveForLater, 
       removeSavedItem, 
       moveToCart, 
-      getCartCount 
+      getCartCount,
+      clear // Add the clear method to the context value
     }}>
       {children}
     </CartContext.Provider>
