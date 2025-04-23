@@ -1,15 +1,24 @@
 
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import PromoSection from "@/components/PromoSection";
 import Footer from "@/components/Footer";
-import { useQuiz } from "@/hooks/useQuizContext";
-import { useEffect } from "react";
+import { useQuiz, QuizProvider } from "@/context/QuizContext";
 
-// Main component that uses the quiz context
+// Main component wrapper
 const Index = () => {
+  return (
+    <QuizProvider>
+      <IndexContent />
+    </QuizProvider>
+  );
+};
+
+// Content component that uses the quiz context
+const IndexContent = () => {
   const { status, startQuiz } = useQuiz();
   const navigate = useNavigate();
   
