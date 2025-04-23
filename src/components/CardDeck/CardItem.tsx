@@ -1,7 +1,7 @@
 
-import { Share2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 interface CardItemProps {
   title: string;
@@ -50,16 +50,6 @@ const CardItem = ({
       }}
       onClick={handleCardClick}
     >
-      <button 
-        className="absolute top-6 right-6 p-2 rounded-full hover:bg-black/10 transition-colors z-10"
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log('Share clicked');
-        }}
-      >
-        <Share2 size={20} />
-      </button>
-
       <div className="mb-8 flex justify-center flex-grow">
         <img 
           src={imageUrl} 
