@@ -14,6 +14,7 @@ import CardDeck from "./pages/CardDeck";
 import ProductDetail from "./pages/ProductDetail";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
+import ThankYou from "./pages/ThankYou";
 import { useState } from "react";
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
                 <Route path="/product/:title" element={<ProductDetail />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/thank-you/:orderId" element={<ThankYou />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </TooltipProvider>
