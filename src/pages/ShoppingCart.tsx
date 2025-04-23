@@ -1,21 +1,45 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
-import { Save, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
+import { Save, Trash2, Plus, Minus, ArrowLeft, ReceiptIndianRupee } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const ShoppingCart = () => {
-  const { items, removeFromCart, updateQuantity, saveForLater, savedItems, removeSavedItem, moveToCart } = useCart();
+  const {
+    items,
+    removeFromCart,
+    updateQuantity,
+    saveForLater,
+    savedItems,
+    removeSavedItem,
+    moveToCart,
+  } = useCart();
   const navigate = useNavigate();
 
+  const DISCOUNT_PERCENT = 25;
+  // Calculate the original price of a single item by undoing the 25% discount
   const calculateOriginalPrice = (price: number) => {
-    return Math.round(price / 0.75); // 25% discount means current price is 75% of original
+    return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
   };
+
+  // --- ORDER SUMMARY LOGIC ---
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalOriginal = items.reduce(
+    (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
+    0
+  );
+  const discountAmount = totalOriginal - subtotal;
+  const discountPercent = totalOriginal > 0 ? Math.round((discountAmount / totalOriginal) * 100) : 0;
+  const totalSaved = discountAmount; // same as discountAmount for pure price-off
+  const finalPrice = subtotal;
 
   const handleRemoveFromCart = (title: string) => {
     removeFromCart(title);
@@ -50,12 +74,12 @@ const ShoppingCart = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      
+
       <main className="flex-grow container mx-auto py-24 px-4">
         <div className="flex items-center gap-4 mb-6">
-          <Button 
-            variant="outline" 
-            size="icon" 
+          <Button
+            variant="outline"
+            size="icon"
             onClick={handleGoBack}
             className="rounded-lg"
           >
@@ -63,61 +87,67 @@ const ShoppingCart = () => {
           </Button>
           <h1 className="text-3xl font-semibold">Shopping Cart</h1>
         </div>
-        
+
         <Tabs defaultValue="items" className="w-full">
           <TabsList className="mb-6">
             <TabsTrigger value="items">Items ({items.length})</TabsTrigger>
-            <TabsTrigger value="saved">Saved for Later ({savedItems?.length || 0})</TabsTrigger>
+            <TabsTrigger value="saved">
+              Saved for Later ({savedItems?.length || 0})
+            </TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="items">
             <Card>
               <CardContent className="pt-6">
                 {items.map((item, index) => (
                   <div key={item.id}>
                     <div className="flex items-start gap-6 py-4">
-                      <div className="w-40 h-40 bg-muted rounded-lg shrink-0"></div>
-                      
+                      <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
                       <div className="flex-grow">
                         <h3 className="text-lg font-medium">{item.title}</h3>
                         <p className="text-sm text-muted-foreground mt-1">
                           Premium Quality Card Deck
                         </p>
-                        
                         <div className="flex items-center gap-4 mt-4">
                           <div className="flex items-center gap-2">
                             <Button
                               variant="outline"
                               size="icon"
-                              className="h-8 w-8 rounded-lg"
-                              onClick={() => handleUpdateQuantity(item.title, item.quantity - 1)}
+                              className="h-9 w-9 rounded-lg border-2 border-muted"
+                              onClick={() =>
+                                handleUpdateQuantity(item.title, item.quantity - 1)
+                              }
                             >
-                              <Minus className="h-4 w-4" />
+                              <Minus className="h-5 w-5" />
                             </Button>
-                            <span className="w-12 text-center">{item.quantity}</span>
+                            <span className="w-12 text-center text-base font-medium">
+                              {item.quantity}
+                            </span>
                             <Button
                               variant="outline"
                               size="icon"
-                              className="h-8 w-8 rounded-lg"
-                              onClick={() => handleUpdateQuantity(item.title, item.quantity + 1)}
+                              className="h-9 w-9 rounded-lg border-2 border-muted"
+                              onClick={() =>
+                                handleUpdateQuantity(item.title, item.quantity + 1)
+                              }
                             >
-                              <Plus className="h-4 w-4" />
+                              <Plus className="h-5 w-5" />
                             </Button>
                           </div>
-                          
-                          <Button 
-                            variant="outline" 
+
+                          <Button
+                            variant="outline"
                             size="sm"
-                            className="text-red-600 rounded-lg"
+                            className="text-red-600 rounded-lg border-2 border-muted"
                             onClick={() => handleRemoveFromCart(item.title)}
                           >
                             <Trash2 className="mr-2 h-4 w-4" />
                             Delete
                           </Button>
-                          <Button 
-                            variant="outline" 
+                          <Button
+                            variant="outline"
                             size="sm"
-                            className="rounded-lg"
+                            className="rounded-lg border-2 border-muted"
                             onClick={() => handleSaveForLater(item)}
                           >
                             <Save className="mr-2 h-4 w-4" />
@@ -125,7 +155,6 @@ const ShoppingCart = () => {
                           </Button>
                         </div>
                       </div>
-                      
                       <div className="text-right min-w-[150px]">
                         <div className="flex flex-col items-end gap-1">
                           <p className="font-medium text-lg">₹{item.price}</p>
@@ -133,7 +162,7 @@ const ShoppingCart = () => {
                             ₹{calculateOriginalPrice(item.price)}
                           </p>
                           <p className="text-green-600 text-sm font-medium">
-                            25% off
+                            {DISCOUNT_PERCENT}% off
                           </p>
                         </div>
                       </div>
@@ -141,7 +170,7 @@ const ShoppingCart = () => {
                     {index < items.length - 1 && <Separator className="my-4" />}
                   </div>
                 ))}
-                
+
                 {items.length === 0 && (
                   <p className="text-center text-muted-foreground py-8">
                     Your cart is empty
@@ -149,8 +178,42 @@ const ShoppingCart = () => {
                 )}
               </CardContent>
             </Card>
+            {/* ORDER SUMMARY CARD */}
+            <div className="mt-8 w-full flex justify-end">
+              <div className="w-full sm:w-[400px] flex flex-col border-2 border-muted rounded-lg shadow-lg bg-white p-6 gap-4 transition-all">
+                <div className="flex items-center gap-2 mb-2">
+                  <ReceiptIndianRupee className="text-primary" size={24} />
+                  <h2 className="text-xl font-semibold">Order Summary</h2>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Number of Items</span>
+                  <span className="font-medium">{totalItems}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Total Original MRP</span>
+                  <span className="line-through text-slate-400">₹{totalOriginal}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Discount Applied</span>
+                  <span className="text-green-600 font-semibold">
+                    -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Total Saved</span>
+                  <span className="text-green-800 font-semibold">₹{totalSaved}</span>
+                </div>
+                <Separator />
+                <div className="flex justify-between items-center text-lg font-bold">
+                  <span className="text-black">Final Price</span>
+                  <span className="text-primary text-2xl font-bold">
+                    ₹{finalPrice}
+                  </span>
+                </div>
+              </div>
+            </div>
           </TabsContent>
-          
+
           <TabsContent value="saved">
             <Card>
               <CardContent className="pt-6">
@@ -158,27 +221,25 @@ const ShoppingCart = () => {
                   savedItems.map((item, index) => (
                     <div key={item.id}>
                       <div className="flex items-start gap-6 py-4">
-                        <div className="w-40 h-40 bg-muted rounded-lg shrink-0"></div>
-                        
+                        <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
                         <div className="flex-grow">
                           <h3 className="text-lg font-medium">{item.title}</h3>
                           <p className="text-sm text-muted-foreground mt-1">
                             Premium Quality Card Deck
                           </p>
-                          
                           <div className="flex items-center gap-4 mt-4">
-                            <Button 
+                            <Button
                               variant="outline"
                               size="sm"
-                              className="rounded-lg"
+                              className="rounded-lg border-2 border-muted"
                               onClick={() => handleMoveToCart(item)}
                             >
                               Move to Cart
                             </Button>
-                            <Button 
-                              variant="outline" 
+                            <Button
+                              variant="outline"
                               size="sm"
-                              className="text-red-600 rounded-lg"
+                              className="text-red-600 rounded-lg border-2 border-muted"
                               onClick={() => handleRemoveSavedItem(item.title)}
                             >
                               <Trash2 className="mr-2 h-4 w-4" />
@@ -186,7 +247,6 @@ const ShoppingCart = () => {
                             </Button>
                           </div>
                         </div>
-                        
                         <div className="text-right min-w-[150px]">
                           <div className="flex flex-col items-end gap-1">
                             <p className="font-medium text-lg">₹{item.price}</p>
@@ -194,7 +254,7 @@ const ShoppingCart = () => {
                               ₹{calculateOriginalPrice(item.price)}
                             </p>
                             <p className="text-green-600 text-sm font-medium">
-                              25% off
+                              {DISCOUNT_PERCENT}% off
                             </p>
                           </div>
                         </div>
@@ -212,7 +272,7 @@ const ShoppingCart = () => {
           </TabsContent>
         </Tabs>
       </main>
-      
+
       <Footer />
     </div>
   );
