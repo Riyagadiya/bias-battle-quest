@@ -1,7 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.43.1";
-import * as crypto from "https://deno.land/std@0.177.0/crypto/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,31 +12,37 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// Helper function to create HMAC
-function createHmac(key: string, message: string): string {
+// Helper function to create HMAC signature for Razorpay verification
+async function createHmac(key: string, message: string): Promise<string> {
   const encoder = new TextEncoder();
   const keyData = encoder.encode(key);
   const messageData = encoder.encode(message);
   
-  const hmacKey = crypto.subtle.importKey(
-    "raw",
-    keyData,
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"]
-  );
-  
-  return hmacKey.then(key => {
-    return crypto.subtle.sign(
+  try {
+    // Import the key
+    const cryptoKey = await crypto.subtle.importKey(
+      "raw",
+      keyData,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+    
+    // Sign the message
+    const signature = await crypto.subtle.sign(
       "HMAC",
-      key,
+      cryptoKey,
       messageData
     );
-  }).then(signature => {
+    
+    // Convert to hex string
     return Array.from(new Uint8Array(signature))
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
-  });
+  } catch (error) {
+    console.error("HMAC creation error:", error);
+    throw new Error(`Failed to create HMAC: ${error.message}`);
+  }
 }
 
 serve(async (req) => {
@@ -153,6 +158,7 @@ serve(async (req) => {
     try {
       // Generate the expected signature
       const payload = razorpay_order_id + "|" + razorpay_payment_id;
+      console.log("Generating signature with payload:", payload);
       const generated_signature = await createHmac(secret, payload);
       
       console.log("Signature verification:", {
