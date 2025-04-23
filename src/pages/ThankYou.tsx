@@ -10,7 +10,8 @@ const ThankYou = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const order = location.state?.order;
-  // fallback (no state)
+
+  // Fallback if no state is passed (no order details)
   if (!order) {
     return (
       <div className="flex flex-col min-h-screen">
@@ -27,6 +28,7 @@ const ThankYou = () => {
       </div>
     );
   }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />

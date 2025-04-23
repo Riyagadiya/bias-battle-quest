@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +11,13 @@ import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
 import { useCart } from "@/context/CartContext";
+
+// Define Razorpay type to fix TypeScript errors
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const initialState = {
   fullName: "",
@@ -110,10 +118,18 @@ const Checkout = () => {
         throw new Error("Could not create payment order");
       }
 
-      const keyResp = await fetch("https://nmmeipvqmshlxfynrnrr.supabase.co/functions/v1/get-razorpay-key");
+      // Fetch the Razorpay key from our secure edge function
+      const keyResp = await fetch("https://nmmeipvqmshlxfynrnrr.supabase.co/functions/v1/get-razorpay-key", {
+        headers: {
+          "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbWVpcHZxbXNobHhmeW5ybnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyMjcyOTEsImV4cCI6MjA2MDgwMzI5MX0.JxB2phn6aYpiBJlwbyaifhKV7d9xVRlU3o565DA1SEw",
+        },
+      });
       const keyData = await keyResp.json();
       const razorpayKey = keyData.key;
-      if (!razorpayKey) throw new Error("Razorpay Key not set in project");
+      
+      if (!razorpayKey) {
+        throw new Error("Razorpay Key not set in project");
+      }
 
       const options = {
         key: razorpayKey,
