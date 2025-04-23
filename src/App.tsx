@@ -22,6 +22,7 @@ const App = () => (
     <BrowserRouter>
       <CartProvider>
         <QuizProvider>
+          {/* Move TooltipProvider inside BrowserRouter */}
           <TooltipProvider>
             <Toaster />
             <Sonner />
