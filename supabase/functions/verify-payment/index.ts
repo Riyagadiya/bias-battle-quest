@@ -1,7 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createHmac } from "https://deno.land/std@0.177.0/crypto/mod.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.43.1";
+import * as crypto from "https://deno.land/std@0.177.0/crypto/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,19 +13,50 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+// Helper function to create HMAC
+function createHmac(key: string, message: string): string {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(key);
+  const messageData = encoder.encode(message);
+  
+  const hmacKey = crypto.subtle.importKey(
+    "raw",
+    keyData,
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  
+  return hmacKey.then(key => {
+    return crypto.subtle.sign(
+      "HMAC",
+      key,
+      messageData
+    );
+  }).then(signature => {
+    return Array.from(new Uint8Array(signature))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  });
+}
+
 serve(async (req) => {
+  console.log("Verify payment function called");
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
+    console.log("Handling CORS preflight request");
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    console.log("Received payment verification request");
+    console.log("Processing payment verification request");
     
     // Parse request body
     let requestData;
     try {
       requestData = await req.json();
+      console.log("Request data:", JSON.stringify(requestData));
     } catch (parseError) {
       console.error("Failed to parse request body:", parseError);
       return new Response(
@@ -106,7 +137,7 @@ serve(async (req) => {
       razorpay_signature 
     });
     
-    // Create signature
+    // Get signature verification key
     const secret = Deno.env.get('RAZORPAY_KEY_SECRET') || '';
     if (!secret) {
       console.error("Missing Razorpay key secret");
@@ -120,10 +151,9 @@ serve(async (req) => {
     }
     
     try {
-      // Verification logic
-      const hmac = createHmac("sha256", secret);
-      hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
-      const generated_signature = hmac.digest("hex");
+      // Generate the expected signature
+      const payload = razorpay_order_id + "|" + razorpay_payment_id;
+      const generated_signature = await createHmac(secret, payload);
       
       console.log("Signature verification:", {
         provided: razorpay_signature,

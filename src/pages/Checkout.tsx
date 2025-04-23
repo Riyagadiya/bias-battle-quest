@@ -146,6 +146,7 @@ const Checkout = () => {
 
   const notifyPaymentFailure = async (orderId: string) => {
     try {
+      console.log("Notifying backend of payment failure for order:", orderId);
       const response = await supabase.functions.invoke('verify-payment', {
         body: {
           status: 'failed',
@@ -155,6 +156,8 @@ const Checkout = () => {
       
       if (response.error) {
         console.error("Failed to notify payment failure:", response.error);
+      } else {
+        console.log("Payment failure notification sent successfully:", response.data);
       }
     } catch (error) {
       console.error("Error notifying payment failure:", error);
@@ -242,9 +245,13 @@ const Checkout = () => {
               });
               return;
             }
-
-            console.log("Payment verification successful, redirecting to success page");
+            
+            console.log("Payment verification successful:", verifyResponse.data);
+            
+            // Clear the cart after successful payment verification
             clear();
+            
+            console.log("Cart cleared, redirecting to success page");
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
             console.error('Payment verification failed:', error);
