@@ -27,8 +27,6 @@ const App = () => {
         <CartProvider>
           <QuizProvider>
             <TooltipProvider>
-              <Toaster />
-              <Sonner />
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/quiz" element={<Quiz />} />
@@ -40,6 +38,8 @@ const App = () => {
                 <Route path="/thank-you/:orderId" element={<ThankYou />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <Toaster />
+              <Sonner />
             </TooltipProvider>
           </QuizProvider>
         </CartProvider>
