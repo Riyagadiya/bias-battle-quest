@@ -45,7 +45,6 @@ const Checkout = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple validation for required fields
     if (
       !form.fullName ||
       !form.email ||
@@ -82,7 +81,6 @@ const Checkout = () => {
       <Header />
       <main className="flex-grow w-full">
         <div className="container mx-auto py-12 flex flex-col lg:flex-row gap-8 justify-center">
-          {/* LEFT: SHIPPING DETAILS */}
           <Card className="flex-1 max-w-2xl mx-auto shadow-lg border border-[#eee] bg-white">
             <CardContent className="p-10">
               <div className="flex items-center gap-3 mb-8">
@@ -98,7 +96,6 @@ const Checkout = () => {
                 <h1 className="text-3xl font-semibold text-left mb-0">Shipping Details</h1>
               </div>
               <form onSubmit={handleSubmit} autoComplete="off" className="space-y-5">
-                {/* Row: Full Name + Email Address */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
                     <Label htmlFor="fullName">
@@ -128,7 +125,6 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-                {/* Mobile */}
                 <div>
                   <Label htmlFor="mobile">
                     Mobile Number <span className="text-red-500">*</span>
@@ -144,7 +140,6 @@ const Checkout = () => {
                     required
                   />
                 </div>
-                {/* Address Line 1 */}
                 <div>
                   <Label htmlFor="address1">
                     Address Line 1 <span className="text-red-500">*</span>
@@ -158,7 +153,6 @@ const Checkout = () => {
                     required
                   />
                 </div>
-                {/* Address Line 2 */}
                 <div>
                   <Label htmlFor="address2">Address Line 2</Label>
                   <Input
@@ -169,7 +163,6 @@ const Checkout = () => {
                     placeholder="Street, Area"
                   />
                 </div>
-                {/* Landmark + Village/Town */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
                     <Label htmlFor="landmark">Landmark</Label>
@@ -192,7 +185,6 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-                {/* City + State + Pincode */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
                     <Label htmlFor="city">
@@ -249,14 +241,13 @@ const Checkout = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Proceed to Buy
+                      Place Order
                     </>
                   )}
                 </GradientButton>
               </form>
             </CardContent>
           </Card>
-          {/* RIGHT: ORDER SUMMARY TAB */}
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
               <h2 className="text-2xl font-semibold mb-6 text-left">Order Summary</h2>
