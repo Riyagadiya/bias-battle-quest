@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +11,9 @@ import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
 import { useCart } from "@/context/CartContext";
+
+// Razorpay test key (DO NOT USE IN PRODUCTION! Use your actual key for production)
+const RAZORPAY_TEST_KEY = "rzp_test_1DP5mmOlF5G5ag";
 
 const initialState = {
   fullName: "",
@@ -30,6 +34,23 @@ const calculateOriginalPrice = (price: number) => {
   return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
 };
 
+// Dynamically load Razorpay checkout script
+function loadRazorpayScript(src: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const existing = document.querySelector("#razorpayjs");
+    if (existing) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "razorpayjs";
+    script.src = src;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
@@ -43,6 +64,71 @@ const Checkout = () => {
       [name]: value,
     }));
   };
+
+  // Returns total price (after discount)
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // order summary
+  const orderSummary = {
+    ...form,
+    items,
+    subtotal,
+  };
+
+  // Launch Razorpay Checkout
+  async function handlePayment() {
+    setSubmitting(true);
+    // Load Razorpay's script
+    const loaded = await loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
+    if (!loaded) {
+      toast({
+        title: "Payment Error",
+        description: "Razorpay SDK failed to load. Please check your internet connection.",
+        variant: "destructive",
+      });
+      setSubmitting(false);
+      return;
+    }
+
+    // Build order description string
+    const itemDesc = items.map((i) => `${i.title} (x${i.quantity})`).join(", ");
+
+    const options = {
+      key: RAZORPAY_TEST_KEY,
+      amount: subtotal * 100, // Razorpay expects paise
+      currency: "INR",
+      name: "Cognilense - Demo Purchase",
+      description: `Order: ${itemDesc}`,
+      prefill: {
+        name: form.fullName,
+        email: form.email,
+        contact: form.mobile,
+      },
+      notes: {
+        address: `${form.address1 || ""} ${form.address2 || ""} ${form.city}, ${form.state} - ${form.pincode}`,
+      },
+      theme: {
+        color: "#6366f1",
+      },
+      handler: function (response: any) {
+        // On payment success, redirect and pass the details in state
+        setSubmitting(false);
+        toast({
+          title: "Payment Success",
+          description: "Order placed successfully. Redirecting...",
+        });
+        navigate("/order-success", { state: { ...orderSummary, razorpay: response } });
+      },
+      modal: {
+        ondismiss: function () {
+          setSubmitting(false);
+        },
+      },
+    };
+    // @ts-ignore
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,15 +148,15 @@ const Checkout = () => {
       });
       return;
     }
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    if (items.length === 0) {
       toast({
-        title: "Order Placed (Demo)",
-        description: "Your address has been submitted! (Demo only)",
+        title: "Cart is empty",
+        description: "Please add items to cart!",
+        variant: "destructive",
       });
-      setForm(initialState);
-    }, 1200);
+      return;
+    }
+    handlePayment();
   };
 
   const handleBackClick = () => {
@@ -78,7 +164,6 @@ const Checkout = () => {
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalOriginal = items.reduce(
     (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
     0
@@ -247,7 +332,7 @@ const Checkout = () => {
                   {submitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Placing Order...
+                      Processing...
                     </>
                   ) : (
                     <>
