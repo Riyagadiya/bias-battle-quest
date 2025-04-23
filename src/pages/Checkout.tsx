@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,27 +19,30 @@ declare global {
   }
 }
 
-const loadRazorpay = () => {
+// Separate the logic for loading the Razorpay script
+const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
     if (window.Razorpay) {
-      resolve(window.Razorpay);
+      console.log("Razorpay already loaded");
+      resolve(true);
       return;
     }
 
+    console.log("Loading Razorpay script");
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
+    
     script.onload = () => {
-      resolve(window.Razorpay);
+      console.log("Razorpay script loaded successfully");
+      resolve(true);
     };
+    
     script.onerror = () => {
       console.error("Failed to load Razorpay script");
-      toast({
-        title: "Payment system unavailable",
-        description: "Please try again later",
-        variant: "destructive",
-      });
+      resolve(false);
     };
+    
     document.body.appendChild(script);
   });
 };
@@ -65,8 +69,32 @@ const calculateOriginalPrice = (price: number) => {
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
+  const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
   const navigate = useNavigate();
   const { items } = useCart();
+
+  // Load Razorpay script on component mount
+  useEffect(() => {
+    loadRazorpayScript()
+      .then((loaded) => {
+        setIsRazorpayLoaded(loaded);
+        if (!loaded) {
+          toast({
+            title: "Payment system unavailable",
+            description: "Failed to load payment system. Please refresh the page or try again later.",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error loading Razorpay:", error);
+        toast({
+          title: "Payment system error",
+          description: "Failed to initialize payment system. Please try again later.",
+          variant: "destructive",
+        });
+      });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -76,8 +104,7 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const validateForm = () => {
     if (
       !form.fullName ||
       !form.email ||
@@ -92,26 +119,43 @@ const Checkout = () => {
         description: "Please fill all required fields",
         variant: "destructive",
       });
+      return false;
+    }
+
+    if (items.length === 0) {
+      toast({
+        title: "Empty cart",
+        description: "Your cart is empty. Please add items before checkout.",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    if (!isRazorpayLoaded) {
+      toast({
+        title: "Payment system not ready",
+        description: "Please wait for the payment system to load or refresh the page.",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
       return;
     }
 
     try {
       setSubmitting(true);
-
-      if (items.length === 0) {
-        toast({
-          title: "Empty cart",
-          description: "Your cart is empty. Please add items before checkout.",
-          variant: "destructive",
-        });
-        setSubmitting(false);
-        return;
-      }
-
-      await loadRazorpay();
       
-      console.log("Creating order with amount:", finalPrice);
+      console.log("Creating Razorpay order with amount:", finalPrice);
 
+      // Step 1: Create order on server
       const orderResponse = await supabase.functions.invoke('create-razorpay-order', {
         body: {
           amount: finalPrice,
@@ -133,25 +177,27 @@ const Checkout = () => {
       });
 
       if (orderResponse.error) {
-        console.error("Order creation error:", orderResponse.error);
-        throw new Error(orderResponse.error.message || "Failed to create order");
+        throw new Error(`Order creation failed: ${orderResponse.error.message || "Unknown error"}`);
       }
 
       if (!orderResponse.data) {
-        console.error("No data returned from order creation");
-        throw new Error("Failed to create order - no data returned");
+        throw new Error("No data returned from order creation");
       }
 
-      const { orderId, orderNumber } = orderResponse.data;
+      const { orderId, orderNumber, apiKey } = orderResponse.data;
+      
       console.log("Order created successfully:", { orderId, orderNumber });
       
       if (!orderId) {
-        console.error("Missing orderId in response:", orderResponse.data);
         throw new Error("Invalid order response - missing orderId");
       }
+
+      // Get Razorpay key from server response or use a fallback
+      const razorpayKey = apiKey || "rzp_test_I1rWYxGYZmbfMw";
       
+      // Step 2: Initialize Razorpay Checkout
       const razorpayOptions = {
-        key: "rzp_test_I1rWYxGYZmbfMw",
+        key: razorpayKey,
         amount: finalPrice * 100,
         currency: "INR",
         name: "Cogni Lense",
@@ -170,13 +216,14 @@ const Checkout = () => {
 
             if (verifyResponse.error) {
               console.error("Payment verification error:", verifyResponse.error);
-              throw new Error(verifyResponse.error.message);
+              throw new Error(verifyResponse.error.message || "Verification failed");
             }
 
             console.log("Payment verification successful, redirecting to success page");
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
             console.error('Payment verification failed:', error);
+            setSubmitting(false);
             toast({
               title: "Payment verification failed",
               description: "Please contact support if you've been charged",
@@ -206,27 +253,31 @@ const Checkout = () => {
       };
 
       console.log("Initializing Razorpay with options:", razorpayOptions);
+      
+      // Create and open Razorpay checkout
       const razorpay = new window.Razorpay(razorpayOptions);
+      
       razorpay.on('payment.failed', function (response: any) {
         console.error('Payment failed:', response.error);
+        setSubmitting(false);
         toast({
           title: "Payment failed",
           description: response.error.description || "Please try again",
           variant: "destructive",
         });
-        setSubmitting(false);
       });
       
       console.log("Opening Razorpay payment form");
       razorpay.open();
+      
     } catch (error) {
       console.error('Payment initialization failed:', error);
+      setSubmitting(false);
       toast({
         title: "Payment initialization failed",
         description: error instanceof Error ? error.message : "Please try again later",
         variant: "destructive",
       });
-      setSubmitting(false);
     }
   };
 
@@ -244,6 +295,7 @@ const Checkout = () => {
   const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
+  // Render form and summary
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
@@ -264,6 +316,7 @@ const Checkout = () => {
                 <h1 className="text-3xl font-bold text-left mb-6 tracking-tight font-domine">Shipping Details</h1>
               </div>
               <form onSubmit={handleSubmit} autoComplete="off" className="p-10 pt-0 space-y-5">
+                {/* Form fields */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
                     <Label htmlFor="fullName">
@@ -399,12 +452,12 @@ const Checkout = () => {
                 <GradientButton
                   type="submit"
                   className="w-full mt-8 h-14 text-lg font-semibold rounded-full tracking-wide shadow-lg gradient-border-rectangle"
-                  disabled={submitting}
+                  disabled={submitting || !isRazorpayLoaded}
                 >
                   {submitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Placing Order...
+                      Processing...
                     </>
                   ) : (
                     <>
@@ -419,6 +472,7 @@ const Checkout = () => {
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold mb-6 text-left font-domine tracking-tight">Order Summary</h2>
+              {/* Order summary content */}
               {items.length === 0 ? (
                 <div className="text-center text-muted-foreground py-6">Your cart is empty</div>
               ) : (

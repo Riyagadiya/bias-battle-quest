@@ -72,13 +72,21 @@ serve(async (req) => {
         amount: Math.round(amount * 100), // Convert to smallest currency unit (paise)
         currency: 'INR',
         receipt: `order_${Date.now()}`,
+        payment_capture: 1, // Auto capture payment
       });
+      
+      console.log("Razorpay order created:", JSON.stringify(order));
+      
+      if (!order || !order.id) {
+        throw new Error("Invalid order response from Razorpay");
+      }
     } catch (razorpayError) {
       console.error("Razorpay order creation failed:", razorpayError);
       return new Response(
         JSON.stringify({ 
           error: "Failed to create Razorpay order",
-          details: razorpayError.message || "Unknown Razorpay error"
+          details: razorpayError.message || "Unknown Razorpay error",
+          stack: razorpayError.stack
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -87,7 +95,7 @@ serve(async (req) => {
       );
     }
 
-    console.log("Razorpay order created:", order);
+    console.log("Razorpay order created successfully:", order);
 
     // Create order record in database
     try {
@@ -112,6 +120,7 @@ serve(async (req) => {
         JSON.stringify({ 
           orderId: order.id,
           orderNumber: order.receipt,
+          apiKey: razorpayKeyId,
           ...orderRecord 
         }),
         { 
@@ -137,7 +146,8 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         error: "Server error",
-        details: error.message || "Unknown server error"
+        details: error.message || "Unknown server error",
+        stack: error.stack
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

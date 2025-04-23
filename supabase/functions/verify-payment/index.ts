@@ -40,7 +40,7 @@ serve(async (req) => {
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = requestData;
     
     if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
-      console.error("Missing required verification parameters");
+      console.error("Missing required verification parameters:", requestData);
       return new Response(
         JSON.stringify({ error: "Missing required verification parameters" }),
         { 
@@ -50,7 +50,11 @@ serve(async (req) => {
       );
     }
     
-    console.log("Verifying payment:", { razorpay_payment_id, razorpay_order_id });
+    console.log("Verifying payment:", { 
+      razorpay_payment_id, 
+      razorpay_order_id, 
+      razorpay_signature 
+    });
     
     // Create signature
     const secret = Deno.env.get('RAZORPAY_KEY_SECRET') || '';
@@ -68,6 +72,12 @@ serve(async (req) => {
     const hmac = createHmac("sha256", secret);
     hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
     const generated_signature = hmac.digest("hex");
+    
+    console.log("Signature verification:", {
+      provided: razorpay_signature,
+      generated: generated_signature,
+      match: generated_signature === razorpay_signature
+    });
 
     // Verify signature
     if (generated_signature === razorpay_signature) {
@@ -134,7 +144,8 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         error: "Server error",
-        details: error.message || "Unknown server error"
+        details: error.message || "Unknown server error",
+        stack: error.stack
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
