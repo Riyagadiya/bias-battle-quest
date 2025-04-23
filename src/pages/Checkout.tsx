@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, CreditCard } from "lucide-react";
+import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import GradientButton from "@/components/GradientButton";
 
 const initialState = {
   fullName: "",
@@ -32,6 +33,7 @@ const MOCK_ORDER = {
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,6 +73,10 @@ const Checkout = () => {
     }, 1200);
   };
 
+  const handleBackClick = () => {
+    navigate("/cart");
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
@@ -79,8 +85,18 @@ const Checkout = () => {
           {/* LEFT: SHIPPING DETAILS */}
           <Card className="flex-1 max-w-2xl mx-auto shadow-lg border border-[#eee] bg-white">
             <CardContent className="p-10">
-              <h1 className="text-3xl font-semibold text-center mb-6">Shipping information</h1>
-              <h2 className="text-xl font-medium text-center mb-8 tracking-wide text-gray-700">Shipping Details</h2>
+              <div className="flex items-center gap-3 mb-8">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleBackClick}
+                  className="rounded-lg"
+                  type="button"
+                >
+                  <ArrowLeft className="h-5 w-5" />
+                </Button>
+                <h1 className="text-3xl font-semibold text-left mb-0">Shipping Details</h1>
+              </div>
               <form onSubmit={handleSubmit} autoComplete="off" className="space-y-5">
                 {/* Row: Full Name + Email Address */}
                 <div className="flex flex-col md:flex-row gap-4">
@@ -112,7 +128,6 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-
                 {/* Mobile */}
                 <div>
                   <Label htmlFor="mobile">
@@ -129,7 +144,6 @@ const Checkout = () => {
                     required
                   />
                 </div>
-
                 {/* Address Line 1 */}
                 <div>
                   <Label htmlFor="address1">
@@ -144,7 +158,6 @@ const Checkout = () => {
                     required
                   />
                 </div>
-
                 {/* Address Line 2 */}
                 <div>
                   <Label htmlFor="address2">Address Line 2</Label>
@@ -156,7 +169,6 @@ const Checkout = () => {
                     placeholder="Street, Area"
                   />
                 </div>
-
                 {/* Landmark + Village/Town */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
@@ -180,7 +192,6 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-
                 {/* City + State + Pincode */}
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full">
@@ -225,10 +236,9 @@ const Checkout = () => {
                     />
                   </div>
                 </div>
-
-                <Button
+                <GradientButton
                   type="submit"
-                  className="w-full mt-6 rounded-full text-lg font-semibold bg-[#8B5CF6] hover:bg-[#7E69AB] transition-colors"
+                  className="w-full mt-8 h-14 text-lg font-semibold rounded-full tracking-wide"
                   disabled={submitting}
                 >
                   {submitting ? (
@@ -239,17 +249,17 @@ const Checkout = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Place Order
+                      Proceed to Buy
                     </>
                   )}
-                </Button>
+                </GradientButton>
               </form>
             </CardContent>
           </Card>
           {/* RIGHT: ORDER SUMMARY TAB */}
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-center">Order Summary</h2>
+              <h2 className="text-2xl font-semibold mb-6 text-left">Order Summary</h2>
               <div className="flex items-center gap-4 mb-5">
                 <img
                   src={MOCK_ORDER.image}
