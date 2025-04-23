@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import GradientButton from "@/components/GradientButton";
 
 const ShoppingCart = () => {
   const {
@@ -37,8 +38,7 @@ const ShoppingCart = () => {
     0
   );
   const discountAmount = totalOriginal - subtotal;
-  const discountPercent = totalOriginal > 0 ? Math.round((discountAmount / totalOriginal) * 100) : 0;
-  const totalSaved = discountAmount; // same as discountAmount for pure price-off
+  const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
   const handleRemoveFromCart = (title: string) => {
@@ -69,6 +69,10 @@ const ShoppingCart = () => {
 
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  const handleProceedToBuy = () => {
+    toast.success("Proceeding to buy functionality coming soon");
   };
 
   return (
@@ -102,9 +106,9 @@ const ShoppingCart = () => {
                 {items.map((item, index) => (
                   <div key={item.id}>
                     <div className="flex items-start gap-6 py-4">
-                      <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
+                      <div className="w-56 h-56 bg-muted rounded-lg shrink-0"></div>
                       <div className="flex-grow">
-                        <h3 className="text-lg font-medium">{item.title}</h3>
+                        <h3 className="text-lg font-semibold">{item.title}</h3>
                         <p className="text-sm text-muted-foreground mt-1">
                           Premium Quality Card Deck
                         </p>
@@ -157,7 +161,7 @@ const ShoppingCart = () => {
                       </div>
                       <div className="text-right min-w-[150px]">
                         <div className="flex flex-col items-end gap-1">
-                          <p className="font-medium text-lg">₹{item.price}</p>
+                          <p className="font-semibold text-lg">₹{item.price}</p>
                           <p className="text-sm text-muted-foreground line-through">
                             ₹{calculateOriginalPrice(item.price)}
                           </p>
@@ -178,38 +182,60 @@ const ShoppingCart = () => {
                 )}
               </CardContent>
             </Card>
-            {/* ORDER SUMMARY CARD */}
-            <div className="mt-8 w-full flex justify-end">
-              <div className="w-full sm:w-[400px] flex flex-col border-2 border-muted rounded-lg shadow-lg bg-white p-6 gap-4 transition-all">
-                <div className="flex items-center gap-2 mb-2">
-                  <ReceiptIndianRupee className="text-primary" size={24} />
-                  <h2 className="text-xl font-semibold">Order Summary</h2>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Number of Items</span>
-                  <span className="font-medium">{totalItems}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Total Original MRP</span>
-                  <span className="line-through text-slate-400">₹{totalOriginal}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Discount Applied</span>
-                  <span className="text-green-600 font-semibold">
-                    -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Total Saved</span>
-                  <span className="text-green-800 font-semibold">₹{totalSaved}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center text-lg font-bold">
-                  <span className="text-black">Final Price</span>
-                  <span className="text-primary text-2xl font-bold">
-                    ₹{finalPrice}
-                  </span>
-                </div>
+
+            {/* HORIZONTAL ORDER SUMMARY BOX */}
+            <div className="mt-8">
+              <div className="w-full flex flex-col gap-5">
+                {items.length > 0 && (
+                  <div className="w-full bg-white border-2 border-muted rounded-lg shadow-sm flex flex-row items-center px-7 py-6 gap-8">
+                    <div className="flex items-center gap-2 mr-4">
+                      <ReceiptIndianRupee className="text-primary" size={28} />
+                      <h2 className="text-xl sm:text-2xl font-bold">
+                        Order Summary
+                      </h2>
+                    </div>
+                    <Separator orientation="vertical" className="mx-4 h-14 hidden sm:block" />
+                    <div className="flex flex-wrap gap-x-8 gap-y-2 flex-grow text-sm sm:text-base">
+                      <span>
+                        <span className="font-medium text-muted-foreground">Items: </span>
+                        <span className="font-bold">{totalItems}</span>
+                      </span>
+                      <span>
+                        <span className="font-medium text-muted-foreground">Total MRP: </span>
+                        <span className="font-semibold line-through text-slate-400">₹{totalOriginal}</span>
+                      </span>
+                      <span>
+                        <span className="font-medium text-muted-foreground">Discount: </span>
+                        <span className="text-green-700 font-semibold">
+                          {DISCOUNT_PERCENT}% / -₹{totalOriginal - subtotal}
+                        </span>
+                      </span>
+                      <span>
+                        <span className="font-medium text-muted-foreground">Saved: </span>
+                        <span className="text-green-700 font-semibold">
+                          ₹{totalSaved}
+                        </span>
+                      </span>
+                      <span>
+                        <span className="font-medium text-black">Final Price: </span>
+                        <span className="text-primary font-bold text-xl sm:text-2xl ml-2">
+                          ₹{finalPrice}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {/* Proceed to Buy Button */}
+                {items.length > 0 && (
+                  <div className="w-full flex justify-end">
+                    <GradientButton
+                      className="w-full sm:w-fit py-4 px-10 text-base font-semibold"
+                      onClick={handleProceedToBuy}
+                    >
+                      Proceed to Buy
+                    </GradientButton>
+                  </div>
+                )}
               </div>
             </div>
           </TabsContent>
@@ -221,9 +247,9 @@ const ShoppingCart = () => {
                   savedItems.map((item, index) => (
                     <div key={item.id}>
                       <div className="flex items-start gap-6 py-4">
-                        <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
+                        <div className="w-56 h-56 bg-muted rounded-lg shrink-0"></div>
                         <div className="flex-grow">
-                          <h3 className="text-lg font-medium">{item.title}</h3>
+                          <h3 className="text-lg font-semibold">{item.title}</h3>
                           <p className="text-sm text-muted-foreground mt-1">
                             Premium Quality Card Deck
                           </p>
@@ -249,7 +275,7 @@ const ShoppingCart = () => {
                         </div>
                         <div className="text-right min-w-[150px]">
                           <div className="flex flex-col items-end gap-1">
-                            <p className="font-medium text-lg">₹{item.price}</p>
+                            <p className="font-semibold text-lg">₹{item.price}</p>
                             <p className="text-sm text-muted-foreground line-through">
                               ₹{calculateOriginalPrice(item.price)}
                             </p>
