@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -73,16 +72,14 @@ const Checkout = () => {
     }, 1200);
   };
 
-  // Back button goes to /cart
   const handleBackClick = () => {
-    navigate("/cart");
+    navigate(-1);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
       <Header />
       <main className="flex-grow w-full relative">
-        {/* BACK BUTTON, positioned to match Shopping Cart style */}
         <Button
           variant="outline"
           size="icon"
@@ -92,12 +89,9 @@ const Checkout = () => {
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        {/* Main Content */}
         <div className="container mx-auto py-12 flex flex-col lg:flex-row gap-8 justify-center">
-          {/* LEFT: SHIPPING DETAILS */}
           <Card className="flex-1 max-w-2xl mx-auto shadow-lg border border-[#eee] bg-white">
             <CardContent className="p-0">
-              {/* Title, left-aligned */}
               <div className="px-10 pt-10 pb-0">
                 <h1 className="text-3xl font-bold text-left mb-6 tracking-tight font-domine">Shipping Details</h1>
               </div>
@@ -238,7 +232,6 @@ const Checkout = () => {
                   type="submit"
                   className="w-full mt-8 h-14 text-lg font-semibold rounded-full tracking-wide shadow-lg gradient-border-rectangle"
                   disabled={submitting}
-                  // Use icon presence following "Take the Challenge" identity
                 >
                   {submitting ? (
                     <>
@@ -255,10 +248,8 @@ const Checkout = () => {
               </form>
             </CardContent>
           </Card>
-          {/* RIGHT: ORDER SUMMARY */}
           <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
             <CardContent className="p-8">
-              {/* Order Summary heading, left-aligned, strong brand style */}
               <h2 className="text-2xl font-bold mb-6 text-left tracking-tight font-domine">Order Summary</h2>
               <div className="flex items-center gap-4 mb-5">
                 <img
@@ -296,5 +287,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-
-// This file is getting long! Please consider asking for a refactor for better maintainability.
