@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +9,12 @@ import { CheckCircle } from 'lucide-react';
 import type { Database } from '@/integrations/supabase/types';
 
 type Order = Database['public']['Tables']['orders']['Row'];
+type CartItem = {
+  id: string;
+  title: string;
+  quantity: number;
+  price: number;
+}
 
 const OrderSuccess = () => {
   const [orderDetails, setOrderDetails] = useState<Order | null>(null);
@@ -64,7 +71,7 @@ const OrderSuccess = () => {
                 <div className="border-b pb-4">
                   <h2 className="text-xl font-semibold mb-4">Items</h2>
                   <div className="space-y-4">
-                    {orderDetails.items.map((item, index) => (
+                    {Array.isArray(orderDetails.items) && (orderDetails.items as CartItem[]).map((item, index) => (
                       <div key={index} className="flex justify-between">
                         <span>{item.title} × {item.quantity}</span>
                         <span>₹{item.price * item.quantity}</span>

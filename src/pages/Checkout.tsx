@@ -22,8 +22,8 @@ const loadRazorpay = () => {
   return new Promise((resolve) => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onload = resolve;
     document.body.appendChild(script);
+    script.onload = resolve;
   });
 };
 
@@ -91,7 +91,7 @@ const Checkout = () => {
             full_name: form.fullName,
             email: form.email,
             mobile: form.mobile,
-            address: `${form.address1} ${form.address2}`,
+            address: `${form.address1} ${form.address2 || ''}`.trim(),
             city: form.city,
             state: form.state,
             pincode: form.pincode,
@@ -104,12 +104,14 @@ const Checkout = () => {
         }
       });
 
-      if (orderResponse.error) throw new Error(orderResponse.error.message);
+      if (!orderResponse.data) {
+        throw new Error(orderResponse.error?.message || "Failed to create order");
+      }
 
       const { orderId, orderNumber } = orderResponse.data;
-
+      
       const razorpay = new window.Razorpay({
-        key: "YOUR_RAZORPAY_KEY_ID",
+        key: "rzp_test_I1rWYxGYZmbfMw",
         amount: finalPrice * 100,
         currency: "INR",
         name: "Cogni Lense",
@@ -125,7 +127,9 @@ const Checkout = () => {
               }
             });
 
-            if (verifyResponse.error) throw new Error(verifyResponse.error.message);
+            if (verifyResponse.error) {
+              throw new Error(verifyResponse.error.message);
+            }
 
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
@@ -152,7 +156,7 @@ const Checkout = () => {
       console.error('Payment initialization failed:', error);
       toast({
         title: "Payment initialization failed",
-        description: "Please try again later",
+        description: error instanceof Error ? error.message : "Please try again later",
         variant: "destructive",
       });
     } finally {
