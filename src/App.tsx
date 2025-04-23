@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,7 +14,6 @@ import CardDeck from "./pages/CardDeck";
 import ProductDetail from "./pages/ProductDetail";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
-import OrderSuccess from "./pages/OrderSuccess";
 import { useState } from "react";
 
 const App = () => {
@@ -36,7 +36,6 @@ const App = () => {
                 <Route path="/product/:title" element={<ProductDetail />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/checkout" element={<Checkout />} />
-                <Route path="/order-success" element={<OrderSuccess />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </TooltipProvider>
