@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,10 +13,10 @@ import CardDeck from "./pages/CardDeck";
 import ProductDetail from "./pages/ProductDetail";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
+import ThankYou from "./pages/ThankYou";
 import { useState } from "react";
 
 const App = () => {
-  // Initialize QueryClient in the component to ensure React context is available
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -36,6 +35,7 @@ const App = () => {
                 <Route path="/product/:title" element={<ProductDetail />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/thankyou" element={<ThankYou />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </TooltipProvider>

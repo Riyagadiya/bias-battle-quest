@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,7 +44,16 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!window.Razorpay) {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
       !form.fullName ||
@@ -63,14 +72,113 @@ const Checkout = () => {
       return;
     }
     setSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      let product_name = items.length === 1
+        ? items[0].title
+        : `${items[0].title} and ${items.length - 1} more items`;
+      let quantity = items.reduce((sum, item) => sum + item.quantity, 0);
+      let amount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      const resp = await fetch("https://nmmeipvqmshlxfynrnrr.supabase.co/functions/v1/create-razorpay-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbWVpcHZxbXNobHhmeW5ybnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyMjcyOTEsImV4cCI6MjA2MDgwMzI5MX0.JxB2phn6aYpiBJlwbyaifhKV7d9xVRlU3o565DA1SEw",
+        },
+        body: JSON.stringify({
+          orderData: {
+            product_name,
+            amount,
+            quantity,
+            currency: "INR",
+            customer_name: form.fullName,
+            customer_email: form.email,
+            customer_mobile: form.mobile,
+            address_line1: form.address1,
+            address_line2: form.address2 || null,
+            landmark: form.landmark || null,
+            village: form.village || null,
+            city: form.city,
+            state: form.state,
+            pincode: form.pincode,
+          }
+        })
+      });
+      const data = await resp.json();
+      if (!data.success || !data.razorpay_order_id) {
+        throw new Error("Could not create payment order");
+      }
+
+      const keyResp = await fetch("https://nmmeipvqmshlxfynrnrr.supabase.co/functions/v1/get-razorpay-key");
+      const keyData = await keyResp.json();
+      const razorpayKey = keyData.key;
+      if (!razorpayKey) throw new Error("Razorpay Key not set in project");
+
+      const options = {
+        key: razorpayKey,
+        amount: data.amount, // in paise (180000 = 1800.00 INR)
+        currency: data.currency,
+        name: "Your Store",
+        description: product_name,
+        order_id: data.razorpay_order_id,
+        handler: async function (response: any) {
+          try {
+            const updateResp = await fetch("https://nmmeipvqmshlxfynrnrr.supabase.co/rest/v1/orders?order_id=eq." + encodeURIComponent(data.orderDetails.order_id), {
+              method: "PATCH",
+              headers: {
+                "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbWVpcHZxbXNobHhmeW5ybnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyMjcyOTEsImV4cCI6MjA2MDgwMzI5MX0.JxB2phn6aYpiBJlwbyaifhKV7d9xVRlU3o565DA1SEw",
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbWVpcHZxbXNobHhmeW5ybnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyMjcyOTEsImV4cCI6MjA2MDgwMzI5MX0.JxB2phn6aYpiBJlwbyaifhKV7d9xVRlU3o565DA1SEw",
+                "Content-Type": "application/json",
+                "Prefer": "return=representation"
+              },
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                status: "paid"
+              }),
+            });
+            const orderRecords = await updateResp.json();
+            setSubmitting(false);
+            navigate("/thankyou", {
+              state: { order: { ...data.orderDetails, ...form, ...orderRecords[0], status: "paid" } }
+            });
+            setForm(initialState);
+          } catch (err) {
+            setSubmitting(false);
+            toast({
+              title: "Order error",
+              description: "Payment succeeded, but could not save your order! Please contact support.",
+              variant: "destructive",
+            });
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            setSubmitting(false);
+          }
+        },
+        prefill: {
+          name: form.fullName,
+          email: form.email,
+          contact: form.mobile,
+        },
+        theme: {
+          color: "#22223f",
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
       setSubmitting(false);
       toast({
-        title: "Order Placed (Demo)",
-        description: "Your address has been submitted! (Demo only)",
+        title: "Payment Error",
+        description: (err as any).message || "There was a problem placing your order.",
+        variant: "destructive"
       });
-      setForm(initialState);
-    }, 1200);
+    }
   };
 
   const handleBackClick = () => {
