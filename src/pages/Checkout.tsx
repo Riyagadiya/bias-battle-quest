@@ -10,6 +10,22 @@ import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
 import { useCart } from "@/context/CartContext";
+import { supabase } from "@/integrations/supabase/client";
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
+const loadRazorpay = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = resolve;
+    document.body.appendChild(script);
+  });
+};
 
 const initialState = {
   fullName: "",
@@ -44,7 +60,7 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
       !form.fullName ||
@@ -62,15 +78,86 @@ const Checkout = () => {
       });
       return;
     }
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      toast({
-        title: "Order Placed (Demo)",
-        description: "Your address has been submitted! (Demo only)",
+
+    try {
+      setSubmitting(true);
+
+      await loadRazorpay();
+
+      const orderResponse = await supabase.functions.invoke('create-razorpay-order', {
+        body: {
+          amount: finalPrice,
+          orderData: {
+            full_name: form.fullName,
+            email: form.email,
+            mobile: form.mobile,
+            address: `${form.address1} ${form.address2}`,
+            city: form.city,
+            state: form.state,
+            pincode: form.pincode,
+            items: items,
+            subtotal,
+            original_total: totalOriginal,
+            discount_amount: discountAmount,
+            final_price: finalPrice
+          }
+        }
       });
-      setForm(initialState);
-    }, 1200);
+
+      if (orderResponse.error) throw new Error(orderResponse.error.message);
+
+      const { orderId, orderNumber } = orderResponse.data;
+
+      const razorpay = new window.Razorpay({
+        key: "YOUR_RAZORPAY_KEY_ID",
+        amount: finalPrice * 100,
+        currency: "INR",
+        name: "Cogni Lense",
+        description: "Purchase",
+        order_id: orderId,
+        handler: async function (response: any) {
+          try {
+            const verifyResponse = await supabase.functions.invoke('verify-payment', {
+              body: {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature
+              }
+            });
+
+            if (verifyResponse.error) throw new Error(verifyResponse.error.message);
+
+            navigate(`/order-success?order=${orderNumber}`);
+          } catch (error) {
+            console.error('Payment verification failed:', error);
+            toast({
+              title: "Payment verification failed",
+              description: "Please contact support if you've been charged",
+              variant: "destructive",
+            });
+          }
+        },
+        prefill: {
+          name: form.fullName,
+          email: form.email,
+          contact: form.mobile,
+        },
+        theme: {
+          color: "#6366f1",
+        },
+      });
+
+      razorpay.open();
+    } catch (error) {
+      console.error('Payment initialization failed:', error);
+      toast({
+        title: "Payment initialization failed",
+        description: "Please try again later",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleBackClick = () => {
