@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-
 interface CardItemProps {
   title: string;
   description: string;
@@ -15,10 +13,9 @@ interface CardItemProps {
   discount: string;
   shipping: string;
 }
-
-const CardItem = ({ 
-  title, 
-  description, 
+const CardItem = ({
+  title,
+  description,
   imageUrl,
   backgroundColor,
   hoverColor,
@@ -29,33 +26,20 @@ const CardItem = ({
   shipping
 }: CardItemProps) => {
   const navigate = useNavigate();
-
   const handleCardClick = () => {
     console.log('Navigating to product detail:', title);
     navigate(`/product/${encodeURIComponent(title)}`);
   };
-
-  return (
-    <div 
-      className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden"
-      style={{ 
-        backgroundColor,
-        ['--hover-color' as string]: hoverColor 
-      }}
-      onMouseEnter={e => {
-        (e.target as HTMLElement).style.backgroundColor = hoverColor;
-      }}
-      onMouseLeave={e => {
-        (e.target as HTMLElement).style.backgroundColor = backgroundColor;
-      }}
-      onClick={handleCardClick}
-    >
+  return <div style={{
+    backgroundColor,
+    ['--hover-color' as string]: hoverColor
+  }} onMouseEnter={e => {
+    (e.target as HTMLElement).style.backgroundColor = hoverColor;
+  }} onMouseLeave={e => {
+    (e.target as HTMLElement).style.backgroundColor = backgroundColor;
+  }} onClick={handleCardClick} className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]">
       <div className="mb-8 flex justify-center flex-grow">
-        <img 
-          src={imageUrl} 
-          alt={title} 
-          className="w-72 h-72 object-contain transform transition-transform hover:scale-105"
-        />
+        <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" />
       </div>
       
       <div className="mt-auto">
@@ -81,8 +65,6 @@ const CardItem = ({
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CardItem;
