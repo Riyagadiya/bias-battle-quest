@@ -20,10 +20,26 @@ declare global {
 
 const loadRazorpay = () => {
   return new Promise((resolve) => {
+    if (window.Razorpay) {
+      resolve(window.Razorpay);
+      return;
+    }
+
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {
+      resolve(window.Razorpay);
+    };
+    script.onerror = () => {
+      console.error("Failed to load Razorpay script");
+      toast({
+        title: "Payment system unavailable",
+        description: "Please try again later",
+        variant: "destructive",
+      });
+    };
     document.body.appendChild(script);
-    script.onload = resolve;
   });
 };
 
@@ -82,7 +98,19 @@ const Checkout = () => {
     try {
       setSubmitting(true);
 
+      if (items.length === 0) {
+        toast({
+          title: "Empty cart",
+          description: "Your cart is empty. Please add items before checkout.",
+          variant: "destructive",
+        });
+        setSubmitting(false);
+        return;
+      }
+
       await loadRazorpay();
+      
+      console.log("Creating order with amount:", finalPrice);
 
       const orderResponse = await supabase.functions.invoke('create-razorpay-order', {
         body: {
@@ -104,13 +132,25 @@ const Checkout = () => {
         }
       });
 
+      if (orderResponse.error) {
+        console.error("Order creation error:", orderResponse.error);
+        throw new Error(orderResponse.error.message || "Failed to create order");
+      }
+
       if (!orderResponse.data) {
-        throw new Error(orderResponse.error?.message || "Failed to create order");
+        console.error("No data returned from order creation");
+        throw new Error("Failed to create order - no data returned");
       }
 
       const { orderId, orderNumber } = orderResponse.data;
+      console.log("Order created successfully:", { orderId, orderNumber });
       
-      const razorpay = new window.Razorpay({
+      if (!orderId) {
+        console.error("Missing orderId in response:", orderResponse.data);
+        throw new Error("Invalid order response - missing orderId");
+      }
+      
+      const razorpayOptions = {
         key: "rzp_test_I1rWYxGYZmbfMw",
         amount: finalPrice * 100,
         currency: "INR",
@@ -119,6 +159,7 @@ const Checkout = () => {
         order_id: orderId,
         handler: async function (response: any) {
           try {
+            console.log("Payment successful, verifying payment:", response);
             const verifyResponse = await supabase.functions.invoke('verify-payment', {
               body: {
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -128,9 +169,11 @@ const Checkout = () => {
             });
 
             if (verifyResponse.error) {
+              console.error("Payment verification error:", verifyResponse.error);
               throw new Error(verifyResponse.error.message);
             }
 
+            console.log("Payment verification successful, redirecting to success page");
             navigate(`/order-success?order=${orderNumber}`);
           } catch (error) {
             console.error('Payment verification failed:', error);
@@ -149,8 +192,32 @@ const Checkout = () => {
         theme: {
           color: "#6366f1",
         },
-      });
+        modal: {
+          ondismiss: function() {
+            console.log("Payment modal dismissed");
+            setSubmitting(false);
+            toast({
+              title: "Payment cancelled",
+              description: "You can try again when you're ready",
+              variant: "default",
+            });
+          }
+        }
+      };
 
+      console.log("Initializing Razorpay with options:", razorpayOptions);
+      const razorpay = new window.Razorpay(razorpayOptions);
+      razorpay.on('payment.failed', function (response: any) {
+        console.error('Payment failed:', response.error);
+        toast({
+          title: "Payment failed",
+          description: response.error.description || "Please try again",
+          variant: "destructive",
+        });
+        setSubmitting(false);
+      });
+      
+      console.log("Opening Razorpay payment form");
       razorpay.open();
     } catch (error) {
       console.error('Payment initialization failed:', error);
@@ -159,7 +226,6 @@ const Checkout = () => {
         description: error instanceof Error ? error.message : "Please try again later",
         variant: "destructive",
       });
-    } finally {
       setSubmitting(false);
     }
   };
