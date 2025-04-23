@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const initialState = {
   address1: "",
@@ -169,10 +170,16 @@ const Checkout = () => {
                 <Button
                   type="submit"
                   className="w-full mt-4 rounded-full text-lg font-semibold"
-                  loading={submitting ? "true" : undefined}
                   disabled={submitting}
                 >
-                  {submitting ? "Placing Order..." : "Place Order"}
+                  {submitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Placing Order...
+                    </>
+                  ) : (
+                    "Place Order"
+                  )}
                 </Button>
               </form>
             </CardContent>
@@ -185,4 +192,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-

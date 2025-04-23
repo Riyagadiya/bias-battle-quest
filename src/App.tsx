@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import CardDeck from "./pages/CardDeck";
 import ProductDetail from "./pages/ProductDetail";
 import ShoppingCart from "./pages/ShoppingCart";
+import Checkout from "./pages/Checkout";
 
 const queryClient = new QueryClient();
 
