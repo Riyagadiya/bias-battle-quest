@@ -129,7 +129,7 @@ const Hero = () => {
               className="text-base md:text-lg px-8 py-4"
               icon={true}
             >
-              Buy the Card Decks
+              Buy Card decks
               <ShoppingBag className="ml-2" size={18} />
             </GradientButton>
           </motion.div>
