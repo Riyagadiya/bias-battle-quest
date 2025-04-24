@@ -1,4 +1,3 @@
-
 import { Question } from "../types/quiz";
 
 // Helper function to shuffle array (Fisher-Yates algorithm)
@@ -10,6 +9,47 @@ const shuffleArray = <T>(array: T[]): T[] => {
   }
   return newArray;
 };
+
+// Array of cognitive bias types
+export const cognitiveBiasTypes = [
+  "Hindsight Bias", 
+  "Backfire Effect", 
+  "Barnum Effect", 
+  "Sunk Cost Fallacy", 
+  "Ingroup Bias", 
+  "Belief Bias", 
+  "Groupthink Bias", 
+  "Recall Bias", 
+  "Framing Bias", 
+  "Bandwagon Effect", 
+  "Optimism Bias", 
+  "Pessimism Bias", 
+  "Diversification Bias", 
+  "Salience Bias", 
+  "Projection Bias", 
+  "Distinction Bias", 
+  "Action Bias", 
+  "Bundling Bias", 
+  "Omission Bias", 
+  "First Impression Bias", 
+  "Response Bias", 
+  "Survivorship Bias", 
+  "Restraint Bias", 
+  "Recency Bias", 
+  "Social Desirability Bias", 
+  "Prestige Bias", 
+  "Current Mood Bias", 
+  "Anchoring Bias", 
+  "Spotlight Effect", 
+  "Confirmation Bias", 
+  "Decoy Option Effect", 
+  "Dunning Kruger Bias", 
+  "The IKEA Effect", 
+  "Sisyphus Effect", 
+  "The Cheating Bias", 
+  "Gratification Bias", 
+  "Scarcity Bias"
+];
 
 // Create the full question set
 const allQuizQuestions: Question[] = [
