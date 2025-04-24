@@ -43,6 +43,10 @@ const Hero = () => {
     }
   };
 
+  const handleBuyCardDecks = () => {
+    navigate("/card-decks");
+  };
+
   const biasCards = [
     {
       title: "Framing bias",
@@ -109,7 +113,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.9 }}
             transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-            className="flex justify-center gap-4 mt-16"
+            className="flex flex-col items-center gap-4 mt-16"
           >
             <GradientButton 
               onClick={handleStartQuiz} 
@@ -117,6 +121,15 @@ const Hero = () => {
               icon={true}
             >
               Take the challenge
+            </GradientButton>
+            
+            <GradientButton 
+              onClick={handleBuyCardDecks}
+              variant="secondary"
+              className="text-base md:text-lg px-8 py-4"
+              icon={true}
+            >
+              Buy the Card Decks
             </GradientButton>
           </motion.div>
           
