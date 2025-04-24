@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Brain, Target, Zap, Info } from "lucide-react";
+import { Brain, Target, Zap, ShoppingBag } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
 import { toast } from "sonner";
 import GradientButton from "./GradientButton";
@@ -130,6 +130,7 @@ const Hero = () => {
               icon={true}
             >
               Buy the Card Decks
+              <ShoppingBag className="ml-2" size={18} />
             </GradientButton>
           </motion.div>
           
