@@ -23,7 +23,7 @@ const QuizSidebar = ({
     <div className="w-full md:w-2/5 lg:w-1/3 space-y-6 sticky top-24">
       <div className="bg-white rounded-xl shadow-md p-6">
         <h3 className="text-lg font-medium mb-4">Understanding Cognitive Biases</h3>
-        <div className="border border-gray-100 rounded-md p-4 bg-gray-50 mb-4">
+        <div className="border border-gray-100 rounded-md p-4 bg-gray-50 mb-4 min-h-[200px] flex items-center justify-center">
           <QuizIllustration biasType={currentQuestion.type} show={true} />
         </div>
         <p className="text-sm text-gray-600">
