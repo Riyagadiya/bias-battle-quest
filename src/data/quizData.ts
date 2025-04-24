@@ -100,6 +100,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "Hindsight Bias is demonstrated when someone claims they knew the outcome of an event after it happens, despite initially doubting it. Mark's claim about the movie is an example of this bias.",
     type: "hindsight"
+  },
+  {
+    id: 5,
+    question: "Sarah reads an article that contradicts her beliefs about climate change, but instead of reconsidering, she doubles down on her stance. What bias is at play?",
+    options: shuffleArray([
+      { text: "Backfire Effect", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "The Backfire Effect occurs when someone strengthens their original beliefs after being presented with contradicting evidence. Sarah exemplifies this by becoming even more convinced of her views despite the contradictory article.",
+    type: "backfire"
+  },
+  {
+    id: 6,
+    question: "John is shown evidence that a politician he supports was dishonest, but he defends them even more strongly. What bias is influencing him?",
+    options: shuffleArray([
+      { text: "Backfire Effect", isCorrect: true },
+      { text: "Ingroup Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false }
+    ]),
+    explanation: "The Backfire Effect leads people to hold onto their beliefs more strongly after being confronted with evidence that challenges them. John is displaying this by defending the politician despite the dishonest evidence.",
+    type: "backfire"
+  },
+  {
+    id: 7,
+    question: "Despite clear data showing the Earth is round, Greg becomes even more convinced in his flat-Earth belief after debating online. What bias is this?",
+    options: shuffleArray([
+      { text: "Backfire Effect", isCorrect: true },
+      { text: "Dunning Kruger Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "The Backfire Effect occurs when new evidence strengthens rather than weakens a person's beliefs. Greg's belief in flat-Earth becomes stronger even after being presented with contradictory evidence.",
+    type: "backfire"
+  },
+  {
+    id: 8,
+    question: "A study disproves a medical myth Emily believes in, but instead of accepting the findings, she trusts the myth more. What bias is affecting her?",
+    options: shuffleArray([
+      { text: "Backfire Effect", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false }
+    ]),
+    explanation: "The Backfire Effect causes individuals to reject disconfirming evidence and cling to their original beliefs even more. Emily is exhibiting this bias by trusting the disproven medical myth.",
+    type: "backfire"
   }
 ];
 
