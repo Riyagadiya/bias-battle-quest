@@ -122,7 +122,7 @@ const allQuizQuestions: Question[] = [
       { text: "Prestige Bias", isCorrect: false },
       { text: "Social Desirability Bias", isCorrect: false }
     ]),
-    explanation: "The Backfire Effect leads people to hold onto their beliefs more strongly after being confronted with evidence that challenges them. John is displaying this by defending the politician despite the dishonest evidence.",
+    explanation: "The Backfire Effect leads people to hold onto their beliefs more strongly after being confronted with evidence that challenges them. John is displaying this bias by defending the politician despite the dishonest evidence.",
     type: "backfire"
   },
   {
@@ -196,6 +196,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The Barnum Effect is used when a broad, vague statement is made to appear personally tailored. The marketing survey relies on this bias by crafting general descriptions that feel personal to most people.",
     type: "barnum"
+  },
+  {
+    id: 13,
+    question: "Mark continues investing in a failing business because he has already spent so much money on it. What bias is influencing his decision?",
+    options: shuffleArray([
+      { text: "Sunk Cost Fallacy", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Action Bias", isCorrect: false }
+    ]),
+    explanation: "The Sunk Cost Fallacy occurs when someone continues an endeavor because they've already invested time or money, even though it's no longer viable. Mark is influenced by this bias in his decision to keep investing in the failing business.",
+    type: "sunk"
+  },
+  {
+    id: 14,
+    question: "Despite a terrible movie, Anna refuses to leave the theater because she already paid for the ticket. What bias is at play?",
+    options: shuffleArray([
+      { text: "Sunk Cost Fallacy", isCorrect: true },
+      { text: "Restraint Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "The Sunk Cost Fallacy leads people to continue an activity because of past investments, even if it no longer makes sense. Anna is refusing to leave the movie because she doesn't want to \"waste\" the ticket cost.",
+    type: "sunk"
+  },
+  {
+    id: 15,
+    question: "Tom keeps playing a mobile game he dislikes because he spent money on in-app purchases. What bias is affecting him?",
+    options: shuffleArray([
+      { text: "Sunk Cost Fallacy", isCorrect: true },
+      { text: "Gratification Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false }
+    ]),
+    explanation: "Tom is demonstrating the Sunk Cost Fallacy by continuing to play a game he dislikes, driven by the money he has already spent, even though it no longer brings him enjoyment.",
+    type: "sunk"
+  },
+  {
+    id: 16,
+    question: "A company refuses to abandon a failing project because of the millions already spent on it. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Sunk Cost Fallacy", isCorrect: true },
+      { text: "Groupthink Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false }
+    ]),
+    explanation: "The Sunk Cost Fallacy leads people or organizations to continue investing in a project because of previous investments. The company's decision to stick with the failing project is influenced by this bias.",
+    type: "sunk"
   }
 ];
 
