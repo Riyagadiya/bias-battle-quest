@@ -148,6 +148,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The Backfire Effect causes individuals to reject disconfirming evidence and cling to their original beliefs even more. Emily is exhibiting this bias by trusting the disproven medical myth.",
     type: "backfire"
+  },
+  {
+    id: 9,
+    question: "Lisa reads her horoscope and is amazed at how accurately it describes her personality, despite it being vague. What bias is affecting her?",
+    options: shuffleArray([
+      { text: "Barnum Effect", isCorrect: true },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "The Barnum Effect refers to the tendency for people to believe vague, general statements about themselves are highly accurate. Lisa's reaction to the horoscope is an example of this bias.",
+    type: "barnum"
+  },
+  {
+    id: 10,
+    question: "A fortune teller gives vague statements that feel highly personal to Tim. What bias is at work?",
+    options: shuffleArray([
+      { text: "Barnum Effect", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "The Barnum Effect causes people to perceive vague, general statements as personally meaningful. Tim's belief in the fortune teller's vague predictions is influenced by this bias.",
+    type: "barnum"
+  },
+  {
+    id: 11,
+    question: "Alex takes an online personality test and is surprised that the generic results fit him perfectly. What bias is influencing his judgment?",
+    options: shuffleArray([
+      { text: "Barnum Effect", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Recency Bias", isCorrect: false },
+      { text: "Spotlight Effect", isCorrect: false }
+    ]),
+    explanation: "The Barnum Effect makes people feel that general, ambiguous personality descriptions are specifically about them. Alex's surprise at the test results is an example of this bias at work.",
+    type: "barnum"
+  },
+  {
+    id: 12,
+    question: "A marketing survey describes customer preferences in a way that feels extremely personal but actually applies to most people. What bias is being used?",
+    options: shuffleArray([
+      { text: "Barnum Effect", isCorrect: true },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false }
+    ]),
+    explanation: "The Barnum Effect is used when a broad, vague statement is made to appear personally tailored. The marketing survey relies on this bias by crafting general descriptions that feel personal to most people.",
+    type: "barnum"
   }
 ];
 
