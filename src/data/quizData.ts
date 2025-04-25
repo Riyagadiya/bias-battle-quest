@@ -1202,6 +1202,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The student is assuming that the professor is better due to their prestigious background, which is a clear case of prestige bias.",
     type: "prestige"
+  },
+  {
+    id: 105,
+    question: "After a stressful day at work, Mark thinks he's always bad at handling tough situations. What bias is influencing his perception?",
+    options: shuffleArray([
+      { text: "Current Mood Bias", isCorrect: true },
+      { text: "Restraint Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Empathy Gap", isCorrect: false }
+    ]),
+    explanation: "Mark's current negative mood is affecting his view of his overall abilities, demonstrating current mood bias, where one's mood influences their evaluation of situations or self.",
+    type: "current_mood"
+  },
+  {
+    id: 106,
+    question: "Sarah, feeling joyful after a great morning, assumes her day will continue to go well. What bias is at play?",
+    options: shuffleArray([
+      { text: "Current Mood Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Availability Bias", isCorrect: false },
+      { text: "Positivity Effect", isCorrect: false }
+    ]),
+    explanation: "Sarah's positive mood is affecting her expectations for the rest of the day, which is an example of current mood bias, where mood impacts judgments and decisions.",
+    type: "current_mood"
+  },
+  {
+    id: 107,
+    question: "Jenny, feeling depressed, views all her interactions negatively, even though they are neutral or positive. What bias is influencing her judgment?",
+    options: shuffleArray([
+      { text: "Current Mood Bias", isCorrect: true },
+      { text: "Negativity Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Selective Perception", isCorrect: false }
+    ]),
+    explanation: "Jenny's mood is coloring her perception of her interactions, demonstrating current mood bias, where mood affects how events are interpreted.",
+    type: "current_mood"
+  },
+  {
+    id: 108,
+    question: "A customer, having just had a pleasant shopping experience, believes every item in the store is of high quality. What bias is affecting their perception?",
+    options: shuffleArray([
+      { text: "Current Mood Bias", isCorrect: true },
+      { text: "Halo Effect", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Overconfidence Effect", isCorrect: false }
+    ]),
+    explanation: "The customer's positive mood from the pleasant experience is causing them to overrate the quality of everything in the store, showing the influence of current mood bias.",
+    type: "current_mood"
   }
 ];
 
