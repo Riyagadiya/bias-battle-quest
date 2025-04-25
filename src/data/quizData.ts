@@ -866,6 +866,102 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Omission Bias because the manager avoids making a decision (firing) to prevent possible negative outcomes, even though inaction might result in continued poor performance.",
     type: "omission"
+  },
+  {
+    id: 77,
+    question: "During an interview, Sarah immediately assumes her candidate is unqualified because of their casual attire, even though they have a strong resume. What bias is at play?",
+    options: shuffleArray([
+      { text: "First Impression Bias", isCorrect: true },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false }
+    ]),
+    explanation: "Sarah is exhibiting First Impression Bias, where her initial perception based on the candidate's attire influences her judgment, overriding objective qualifications.",
+    type: "first_impression"
+  },
+  {
+    id: 78,
+    question: "David meets a new coworker and immediately thinks they are unfriendly because of their serious demeanor, despite no evidence to support this. What bias is at work?",
+    options: shuffleArray([
+      { text: "First Impression Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "David is showing First Impression Bias, where his first perception of the coworker's demeanor influences his opinion of them, without considering future interactions or evidence.",
+    type: "first_impression"
+  },
+  {
+    id: 79,
+    question: "At a party, Maria assumes someone is boring because they don't engage in lively conversations, even though they could have interesting ideas. What bias is influencing her?",
+    options: shuffleArray([
+      { text: "First Impression Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "This is First Impression Bias, where Maria's first interaction leads her to form a judgment about the person's character, ignoring the possibility of deeper qualities.",
+    type: "first_impression"
+  },
+  {
+    id: 80,
+    question: "A hiring manager dismisses a candidate after an initial handshake felt awkward, despite their qualifications being excellent. What bias is affecting the decision?",
+    options: shuffleArray([
+      { text: "First Impression Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Groupthink Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false }
+    ]),
+    explanation: "The manager is influenced by First Impression Bias, where an initial, minor detail (awkward handshake) shapes the overall judgment, overshadowing the candidate's qualifications.",
+    type: "first_impression"
+  },
+  {
+    id: 81,
+    question: "In a survey, a respondent marks \"strongly agree\" with every question, regardless of the topic, to please the researcher. What bias is at work?",
+    options: shuffleArray([
+      { text: "Response Bias", isCorrect: true },
+      { text: "Social Desirability Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "The respondent is showing Response Bias, where their answers are influenced by the desire to please the researcher, rather than providing genuine answers.",
+    type: "response"
+  },
+  {
+    id: 82,
+    question: "A person exaggerates their voting tendencies in a survey because they want to appear more politically active. What bias is influencing their response?",
+    options: shuffleArray([
+      { text: "Response Bias", isCorrect: true },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "This is Response Bias, where the person's answers are influenced by a desire to appear more favorable or socially acceptable, rather than providing truthful responses.",
+    type: "response"
+  },
+  {
+    id: 83,
+    question: "In a customer satisfaction survey, users only respond positively because they fear the consequences of giving negative feedback. What bias is at play?",
+    options: shuffleArray([
+      { text: "Response Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "The customers are exhibiting Response Bias, where their answers are affected by fear of repercussions, causing them to answer in a way they think is socially desirable.",
+    type: "response"
+  },
+  {
+    id: 84,
+    question: "A person answers a health survey in a way that they believe will make them appear healthier, even though they don't follow the habits they claim. What bias is affecting their answers?",
+    options: shuffleArray([
+      { text: "Response Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "This is Response Bias, where the person is giving responses that portray them in a more positive light, rather than providing truthful answers.",
+    type: "response"
   }
 ];
 
