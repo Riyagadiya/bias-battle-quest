@@ -677,4 +677,13 @@ const allQuizQuestions: Question[] = [
   }
 ];
 
+// Export the current set of questions as questionData for backward compatibility
+export const questionData = allQuizQuestions;
+
+// Function to get random questions for the quiz
+export const getRandomQuestions = (count: number = 10): Question[] => {
+  // Shuffle the questions and return the requested number
+  return shuffleArray(allQuizQuestions).slice(0, count);
+};
+
 export { allQuizQuestions, shuffleArray, cognitiveBiasTypes };

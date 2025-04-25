@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionData, getRandomQuestions } from "../data/quizData";
@@ -40,7 +39,7 @@ export const QuizProvider = ({ children }: { children: React.ReactNode }) => {
   const startQuiz = useCallback(async () => {
     return new Promise<void>((resolve) => {
       // Get a new set of 10 random questions
-      const newQuestions = getRandomQuestions();
+      const newQuestions = getRandomQuestions(10);
       console.log("Starting quiz with questions:", newQuestions.length);
       
       setQuestions(newQuestions);
