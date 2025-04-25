@@ -388,6 +388,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "Groupthink Bias is at play. The party members are suppressing dissent to preserve group cohesion, ignoring potential flaws in the policy.",
     type: "groupthink"
+  },
+  {
+    id: 29,
+    question: "A person recalls only the times they were complimented for their work and forgets all the instances they received constructive criticism. What bias is influencing their memory?",
+    options: shuffleArray([
+      { text: "Recall Bias", isCorrect: true },
+      { text: "Hindsight Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false }
+    ]),
+    explanation: "This is Recall Bias. The person is more likely to remember positive experiences while ignoring or forgetting negative ones.",
+    type: "recall"
+  },
+  {
+    id: 30,
+    question: "After a heated argument, Mike only remembers the hurtful things his friend said, forgetting the positive things they had previously discussed. What bias is affecting his perception?",
+    options: shuffleArray([
+      { text: "Recall Bias", isCorrect: true },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This is Recall Bias. Mike's memory is skewed toward remembering the negative aspects of the conversation and overlooking the positive ones.",
+    type: "recall"
+  },
+  {
+    id: 31,
+    question: "A doctor only remembers the successful outcomes of a certain treatment and overlooks cases where the treatment failed. What bias is influencing their recall?",
+    options: shuffleArray([
+      { text: "Recall Bias", isCorrect: true },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Optimism Bias", isCorrect: false }
+    ]),
+    explanation: "Recall Bias is affecting the doctor. They are remembering the positive cases more vividly and ignoring the unsuccessful ones.",
+    type: "recall"
+  },
+  {
+    id: 32,
+    question: "Sarah is convinced she always picks the best restaurants because she only remembers the great dining experiences, forgetting the times she had bad meals. What bias is at play?",
+    options: shuffleArray([
+      { text: "Recall Bias", isCorrect: true },
+      { text: "Survivorship Bias", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false },
+      { text: "Decoy Option Effect", isCorrect: false }
+    ]),
+    explanation: "This is Recall Bias. Sarah's memory is distorted by her tendency to focus on the positive experiences and ignore the negative ones.",
+    type: "recall"
   }
 ];
 
