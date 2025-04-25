@@ -244,6 +244,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The Sunk Cost Fallacy leads people or organizations to continue investing in a project because of previous investments. The company's decision to stick with the failing project is influenced by this bias.",
     type: "sunk"
+  },
+  {
+    id: 17,
+    question: "During a work project, Susan favors ideas from her team members even when the suggestions from another department are better. What bias is she displaying?",
+    options: shuffleArray([
+      { text: "Ingroup Bias", isCorrect: true },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false },
+      { text: "Spotlight Effect", isCorrect: false }
+    ]),
+    explanation: "This is Ingroup Bias. Susan is favoring ideas from her own team, believing they are superior simply because they belong to the same group.",
+    type: "ingroup"
+  },
+  {
+    id: 18,
+    question: "A college student believes their university is the best and dismisses all other institutions, even when they have no personal experience with them. What bias is at play?",
+    options: shuffleArray([
+      { text: "Ingroup Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "This is Ingroup Bias. The student is assuming that their university is better, simply because they are part of that group.",
+    type: "ingroup"
+  },
+  {
+    id: 19,
+    question: "Tom, a lifelong New Yorker, assumes that everyone from New York is more capable than people from other states. What bias is influencing his belief?",
+    options: shuffleArray([
+      { text: "Ingroup Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Restraint Bias", isCorrect: false }
+    ]),
+    explanation: "Ingroup Bias is at work here. Tom has a preference for people from his group (New York) over others.",
+    type: "ingroup"
+  },
+  {
+    id: 20,
+    question: "A manager praises a candidate from their previous company during interviews, even though other applicants have better qualifications. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Ingroup Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false }
+    ]),
+    explanation: "This is an example of Ingroup Bias. The manager shows favoritism towards someone from their own past work group, regardless of merit.",
+    type: "ingroup"
   }
 ];
 
