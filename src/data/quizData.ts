@@ -292,6 +292,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is an example of Ingroup Bias. The manager shows favoritism towards someone from their own past work group, regardless of merit.",
     type: "ingroup"
+  },
+  {
+    id: 21,
+    question: "Sarah dismisses a scientific study proving climate change, simply because it contradicts her pre-existing beliefs about the environment. What bias is at play?",
+    options: shuffleArray([
+      { text: "Belief Bias", isCorrect: true },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "The Cheating Bias", isCorrect: false }
+    ]),
+    explanation: "This is Belief Bias. Sarah is rejecting logical evidence because it challenges her existing beliefs about climate change.",
+    type: "belief"
+  },
+  {
+    id: 22,
+    question: "Kevin believes a conspiracy theory is true because it supports his political views, even though the evidence against it is strong. What bias is influencing him?",
+    options: shuffleArray([
+      { text: "Belief Bias", isCorrect: true },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Decoy Option Effect", isCorrect: false }
+    ]),
+    explanation: "This is Belief Bias. Kevin is accepting the theory because it aligns with his beliefs, despite lacking rational evidence.",
+    type: "belief"
+  },
+  {
+    id: 23,
+    question: "A jury member believes the defendant is guilty because they have a criminal history, even though the current case has no solid evidence. What bias is influencing their judgment?",
+    options: shuffleArray([
+      { text: "Belief Bias", isCorrect: true },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Survivorship Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false }
+    ]),
+    explanation: "This is Belief Bias. The jury member is letting their pre-existing belief about the defendant's character influence their judgment, disregarding the actual evidence.",
+    type: "belief"
+  },
+  {
+    id: 24,
+    question: "Lily insists that a new health supplement must be effective because it was recommended by a popular influencer, even though the scientific backing is minimal. What bias is at play?",
+    options: shuffleArray([
+      { text: "Belief Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Bandwagon Effect", isCorrect: false }
+    ]),
+    explanation: "Belief Bias is at work here. Lily is more likely to believe the influencer's recommendation because it aligns with her belief in quick health fixes, ignoring the lack of credible evidence.",
+    type: "belief"
   }
 ];
 
