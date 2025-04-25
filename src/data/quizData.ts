@@ -1010,6 +1010,102 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The researcher is demonstrating Survivorship Bias, as they are excluding the non-survivors, which leads to a skewed perspective of the experience.",
     type: "survivorship"
+  },
+  {
+    id: 89,
+    question: "A person believes they are in better control of their eating habits than they actually are, simply because they restrict themselves from eating junk food during the week. What bias is at play?",
+    options: shuffleArray([
+      { text: "Restraint Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "This is Restraint Bias, where the person overestimates their ability to control their behavior (eating) because they restrict themselves in certain situations, but might still indulge when given the opportunity.",
+    type: "restraint"
+  },
+  {
+    id: 90,
+    question: "After sticking to a strict budget for a month, Emily believes she has excellent financial control, even though she has not faced challenging spending situations. What bias is influencing her?",
+    options: shuffleArray([
+      { text: "Restraint Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "Emily is displaying Restraint Bias, where she overestimates her ability to control her spending due to a period of self-imposed restraint, ignoring how she might act in less controlled situations.",
+    type: "restraint"
+  },
+  {
+    id: 91,
+    question: "Mark feels confident he can quit smoking after going a few days without a cigarette, even though he hasn't yet encountered strong triggers. What bias is at play?",
+    options: shuffleArray([
+      { text: "Restraint Bias", isCorrect: true },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "This is Restraint Bias, where Mark is overestimating his self-control in quitting smoking due to his initial success, not accounting for future challenges.",
+    type: "restraint"
+  },
+  {
+    id: 92,
+    question: "A driver who follows the speed limit for a week believes they are always a safe driver, even though they rarely drive in challenging conditions. What bias is influencing their self-assessment?",
+    options: shuffleArray([
+      { text: "Restraint Bias", isCorrect: true },
+      { text: "Survivorship Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false }
+    ]),
+    explanation: "This is Restraint Bias, where the driver assumes their self-control (driving safely) extends to all situations, even though they haven't been tested under more challenging conditions.",
+    type: "restraint"
+  },
+  {
+    id: 93,
+    question: "A judge gives a harsher sentence because they just reviewed a particularly brutal case before this one. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Recency Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Omission Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "Recency bias refers to the tendency to give disproportionate weight to recent events or experiences. In this case, the judge's harsher decision is influenced by the recent brutal case they reviewed, overshadowing the facts of the current case.",
+    type: "recency"
+  },
+  {
+    id: 94,
+    question: "A student assumes the last few questions on a test reflect the entire difficulty level. What bias is at play?",
+    options: shuffleArray([
+      { text: "Recency Bias", isCorrect: true },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "The Cheating Bias", isCorrect: false }
+    ]),
+    explanation: "The student is giving undue weight to the most recent questions, assuming they reflect the overall difficulty of the test, which is an example of recency bias.",
+    type: "recency"
+  },
+  {
+    id: 95,
+    question: "An investor makes decisions based on the latest news rather than long-term trends. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Recency Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "The investor is allowing recent news to cloud their judgment, prioritizing it over a broader, more balanced perspective. This is a classic case of recency bias.",
+    type: "recency"
+  },
+  {
+    id: 96,
+    question: "A coach selects a player for a game based on their most recent performance, ignoring long-term consistency. What bias is at work?",
+    options: shuffleArray([
+      { text: "Recency Bias", isCorrect: true },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Survivorship Bias", isCorrect: false }
+    ]),
+    explanation: "The coach is focusing on the most recent performance of the player, disregarding their previous consistent performances. This demonstrates recency bias, where recent events overshadow the bigger picture.",
+    type: "recency"
   }
 ];
 
