@@ -580,6 +580,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Optimism Bias. The athlete is overly confident in their abilities and expects a good outcome despite insufficient preparation, which is a typical example of optimism bias.",
     type: "optimism"
+  },
+  {
+    id: 45,
+    question: "Despite strong economic indicators, Linda believes that the stock market will crash soon and refuses to invest. What bias is influencing her decision?",
+    options: shuffleArray([
+      { text: "Pessimism Bias", isCorrect: true },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "This is Pessimism Bias. Linda is overly focused on negative outcomes and underestimates the positive trends, which leads her to avoid making investments.",
+    type: "pessimism"
+  },
+  {
+    id: 46,
+    question: "A person avoids flying because they believe a plane crash is more likely, even though flying is statistically safer than driving. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "Pessimism Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "This is Pessimism Bias. The person is overestimating the likelihood of a negative event (a crash) and is more focused on it than on the actual low probability of such an event.",
+    type: "pessimism"
+  },
+  {
+    id: 47,
+    question: "After a single bad experience at a restaurant, Mike assumes all their food must be terrible. What bias is at play?",
+    options: shuffleArray([
+      { text: "Pessimism Bias", isCorrect: true },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "This is Pessimism Bias. Mike is allowing one negative experience to cloud his judgment and assumes all future experiences will be similarly bad.",
+    type: "pessimism"
+  },
+  {
+    id: 48,
+    question: "A student assumes they will fail an exam, even though they studied hard and know the material. What bias is influencing their confidence?",
+    options: shuffleArray([
+      { text: "Pessimism Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false }
+    ]),
+    explanation: "This is Pessimism Bias. The student is focusing on the potential for failure and is underestimating their chances of success, despite being well-prepared.",
+    type: "pessimism"
   }
 ];
 
