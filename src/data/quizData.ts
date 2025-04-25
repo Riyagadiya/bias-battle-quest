@@ -840,7 +840,7 @@ const allQuizQuestions: Question[] = [
       { text: "Projection Bias", isCorrect: false },
       { text: "Distinction Bias", isCorrect: false }
     ]),
-    explanation: "This is Omission Bias because the parent is avoiding action (vaccination) due to the perceived harm from potential side effects, even though the inaction (not vaccinating) might result in greater harm.",
+    explanation: "This is Omission Bias because the parent is avoiding action (vaccination) due to the perceived harm from potential side effects, even though inaction might result in greater harm.",
     type: "omission"
   },
   {
@@ -962,6 +962,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Response Bias, where the person is giving responses that portray them in a more positive light, rather than providing truthful answers.",
     type: "response"
+  },
+  {
+    id: 85,
+    question: "A student looks at successful startup stories and assumes they can also succeed in business, ignoring the many failed startups. What bias is at play?",
+    options: shuffleArray([
+      { text: "Survivorship Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "The student is showing Survivorship Bias, focusing only on the successful businesses and ignoring the many that failed, leading to an unrealistic assessment of the likelihood of success.",
+    type: "survivorship"
+  },
+  {
+    id: 86,
+    question: "A researcher only studies companies that survived the pandemic, disregarding those that went bankrupt. What bias is influencing the research?",
+    options: shuffleArray([
+      { text: "Survivorship Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This is Survivorship Bias, where the researcher focuses only on surviving companies, creating a distorted picture by ignoring the failures that are just as relevant.",
+    type: "survivorship"
+  },
+  {
+    id: 87,
+    question: "After reading only success stories of investors, Greg assumes investing in the stock market is always profitable, forgetting about those who lost money. What bias is influencing his thinking?",
+    options: shuffleArray([
+      { text: "Survivorship Bias", isCorrect: true },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "Greg is experiencing Survivorship Bias, where he is only looking at the winners and neglecting to consider the losses and failures that are part of the reality.",
+    type: "survivorship"
+  },
+  {
+    id: 88,
+    question: "During a study on military veterans, the researcher only interviews those who returned from combat and ignores the veterans who did not return. What bias is at work?",
+    options: shuffleArray([
+      { text: "Survivorship Bias", isCorrect: true },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Omission Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "The researcher is demonstrating Survivorship Bias, as they are excluding the non-survivors, which leads to a skewed perspective of the experience.",
+    type: "survivorship"
   }
 ];
 
