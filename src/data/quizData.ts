@@ -11,7 +11,7 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 // Array of cognitive bias types
-export const cognitiveBiasTypes = [
+const cognitiveBiasTypes = [
   "Hindsight Bias", 
   "Backfire Effect", 
   "Barnum Effect", 
@@ -51,7 +51,7 @@ export const cognitiveBiasTypes = [
   "Scarcity Bias"
 ];
 
-// Create the full question set
+// Array of cognitive bias types
 const allQuizQuestions: Question[] = [
   {
     id: 1,
@@ -436,6 +436,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Recall Bias. Sarah's memory is distorted by her tendency to focus on the positive experiences and ignore the negative ones.",
     type: "recall"
+  },
+  {
+    id: 33,
+    question: "A politician presents a health care bill as \"providing affordable coverage for all\" rather than \"raising taxes to fund health care.\" What bias is at play?",
+    options: shuffleArray([
+      { text: "Framing Bias", isCorrect: true },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "This is Framing Bias, where the way information is presented affects how it is perceived. The politician is framing the bill in a way that emphasizes the positive outcome rather than the cost, influencing how people view it.",
+    type: "framing"
+  },
+  {
+    id: 34,
+    question: "A company advertises a product as \"95% effective\" rather than \"5% ineffective.\" What bias is influencing the consumer's perception?",
+    options: shuffleArray([
+      { text: "Framing Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Decoy Option Effect", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false }
+    ]),
+    explanation: "This is Framing Bias. The positive framing of \"95% effective\" makes the product appear more appealing, while the negative framing of \"5% ineffective\" would have made it seem less favorable, even though both phrases convey the same information.",
+    type: "framing"
+  },
+  {
+    id: 35,
+    question: "A doctor says a surgery has a \"90% survival rate\" instead of \"10% mortality rate.\" What bias is influencing the patient's decision?",
+    options: shuffleArray([
+      { text: "Framing Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Belief Bias", isCorrect: false }
+    ]),
+    explanation: "This is Framing Bias. The survival rate framing sounds more positive and reassuring, even though both statements describe the same risk, leading the patient to feel more comfortable about the surgery.",
+    type: "framing"
+  },
+  {
+    id: 36,
+    question: "A real estate agent describes a house as \"charming and well-loved\" instead of \"small and outdated.\" What bias is at work?",
+    options: shuffleArray([
+      { text: "Framing Bias", isCorrect: true },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "This is Framing Bias. The real estate agent is framing the house in a more positive light, emphasizing the charm rather than the negative aspects, which can influence how potential buyers view the property.",
+    type: "framing"
   }
 ];
 
