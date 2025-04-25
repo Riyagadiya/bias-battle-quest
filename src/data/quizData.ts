@@ -628,6 +628,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Pessimism Bias. The student is focusing on the potential for failure and is underestimating their chances of success, despite being well-prepared.",
     type: "pessimism"
+  },
+  {
+    id: 49,
+    question: "At a buffet, Mike fills his plate with a variety of dishes, even though he knows he prefers just a few. What bias is influencing his decision?",
+    options: shuffleArray([
+      { text: "Diversification Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "This is Diversification Bias. Mike is attempting to spread out his choices in the belief that variety will enhance his experience, even though he actually prefers fewer options.",
+    type: "diversification"
+  },
+  {
+    id: 50,
+    question: "A shopper buys a mixed pack of snacks, even though they only like one flavor. What bias is at play?",
+    options: shuffleArray([
+      { text: "Diversification Bias", isCorrect: true },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "This is Diversification Bias. The shopper feels compelled to diversify their choices, even when a more focused selection would better suit their tastes.",
+    type: "diversification"
+  },
+  {
+    id: 51,
+    question: "A traveler books a different hotel for each night of their trip, believing that variety will improve their experience. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Diversification Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This is Diversification Bias. The traveler believes that more variety will lead to a better overall experience, even though they may not fully enjoy the different options.",
+    type: "diversification"
+  },
+  {
+    id: 52,
+    question: "An investor spreads their money across many assets, even when some have no real benefit. What bias is at work?",
+    options: shuffleArray([
+      { text: "Diversification Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "This is Diversification Bias. The investor feels the need to diversify their investments, even when doing so doesn't necessarily improve their overall portfolio.",
+    type: "diversification"
   }
 ];
 
