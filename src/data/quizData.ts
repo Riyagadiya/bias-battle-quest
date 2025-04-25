@@ -674,6 +674,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "Projection Bias occurs when someone assumes others share their personal preferences. The party planner is projecting their own musical tastes onto the guests without considering individual differences.",
     type: "projection"
+  },
+  {
+    id: 61,
+    question: "While shopping, Maria compares two phones side by side and fixates on minor differences. What bias is influencing her?",
+    options: shuffleArray([
+      { text: "Distinction Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "Distinction Bias occurs when someone focuses on small differences between options while comparing them side by side, overemphasizing these differences while ignoring their overall similarities.",
+    type: "distinction"
+  },
+  {
+    id: 62,
+    question: "A tourist picks a slightly larger hotel room, even though they wouldn't notice the difference in real life. What bias is at play?",
+    options: shuffleArray([
+      { text: "Distinction Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "This is Distinction Bias. The tourist fixates on the perceived difference in room size, even though the actual difference wouldn't have a significant impact on their experience.",
+    type: "distinction"
+  },
+  {
+    id: 63,
+    question: "A job applicant chooses a slightly higher-paying offer, even though they would be happier at the lower-paying job. What bias is affecting their decision?",
+    options: shuffleArray([
+      { text: "Distinction Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "This demonstrates Distinction Bias. The applicant focuses on the higher salary, ignoring the fact that their overall happiness and satisfaction would be greater in the lower-paying job.",
+    type: "distinction"
+  },
+  {
+    id: 64,
+    question: "A consumer agonizes over tiny differences between two products, ignoring their overall similarity. What bias is at work?",
+    options: shuffleArray([
+      { text: "Distinction Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false }
+    ]),
+    explanation: "This is Distinction Bias. The consumer fixates on insignificant differences, making a decision based on those rather than considering the overall similarity and value of both products.",
+    type: "distinction"
   }
 ];
 
