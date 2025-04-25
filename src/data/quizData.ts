@@ -484,6 +484,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Framing Bias. The real estate agent is framing the house in a more positive light, emphasizing the charm rather than the negative aspects, which can influence how potential buyers view the property.",
     type: "framing"
+  },
+  {
+    id: 37,
+    question: "John starts buying stock in a popular tech company just because everyone else is doing it, despite not understanding the market. What bias is influencing him?",
+    options: shuffleArray([
+      { text: "Bandwagon Effect", isCorrect: true },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "This is the Bandwagon Effect. John is making his investment decision based on the actions of others rather than independent research or analysis, a classic example of following the crowd.",
+    type: "bandwagon"
+  },
+  {
+    id: 38,
+    question: "A person begins wearing a trendy fashion item, even though they initially thought it was ridiculous, simply because everyone else is wearing it. What bias is at play?",
+    options: shuffleArray([
+      { text: "Bandwagon Effect", isCorrect: true },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Salience Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "This is the Bandwagon Effect. The person's change in behavior is influenced by the popularity of the fashion trend rather than their original opinion.",
+    type: "bandwagon"
+  },
+  {
+    id: 39,
+    question: "Voters support a candidate simply because they see others in their social circle doing the same, even though they haven't fully researched the candidate. What bias is affecting their choice?",
+    options: shuffleArray([
+      { text: "Bandwagon Effect", isCorrect: true },
+      { text: "Social Desirability Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Belief Bias", isCorrect: false }
+    ]),
+    explanation: "This is the Bandwagon Effect. The voter is influenced by the collective behavior of others, which leads them to follow the majority view without independent assessment.",
+    type: "bandwagon"
+  },
+  {
+    id: 40,
+    question: "A person starts using a new smartphone brand because it's becoming more popular, despite being loyal to a different brand for years. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Bandwagon Effect", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This is the Bandwagon Effect. The person is adopting a popular trend, influenced by the increasing popularity of the brand, rather than staying loyal to their previous choice.",
+    type: "bandwagon"
   }
 ];
 
