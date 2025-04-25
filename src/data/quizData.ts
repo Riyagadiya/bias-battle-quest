@@ -1106,6 +1106,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The coach is focusing on the most recent performance of the player, disregarding their previous consistent performances. This demonstrates recency bias, where recent events overshadow the bigger picture.",
     type: "recency"
+  },
+  {
+    id: 97,
+    question: "During a job interview, Carla claims she volunteers every weekend, even though she rarely does. What bias is affecting her response?",
+    options: shuffleArray([
+      { text: "Social Desirability Bias", isCorrect: true },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "Social desirability bias occurs when people present themselves in a manner that will be viewed favorably by others. Carla's exaggeration of her volunteer work reflects this bias.",
+    type: "social_desirability"
+  },
+  {
+    id: 98,
+    question: "A survey respondent exaggerates how often they recycle to appear environmentally conscious. What bias is at play?",
+    options: shuffleArray([
+      { text: "Social Desirability Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Omission Bias", isCorrect: false }
+    ]),
+    explanation: "The respondent is giving an answer that aligns with socially accepted norms (recycling) to make themselves appear more environmentally conscious, a clear case of social desirability bias.",
+    type: "social_desirability"
+  },
+  {
+    id: 99,
+    question: "A person inflates their exercise routine when discussing fitness with friends. What bias is influencing their statement?",
+    options: shuffleArray([
+      { text: "Social Desirability Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "The person wants to be seen in a positive light, so they exaggerate their fitness habits, demonstrating social desirability bias.",
+    type: "social_desirability"
+  },
+  {
+    id: 100,
+    question: "A student lies about how much time they study to impress their teacher. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "Social Desirability Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "The student's desire to be perceived as hardworking is a manifestation of social desirability bias, where people distort their behavior to conform to social expectations.",
+    type: "social_desirability"
   }
 ];
 
