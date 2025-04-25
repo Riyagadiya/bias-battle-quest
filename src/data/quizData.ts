@@ -676,6 +676,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Diversification Bias. The investor feels the need to diversify their investments, even when doing so doesn't necessarily improve their overall portfolio.",
     type: "diversification"
+  },
+  {
+    id: 53,
+    question: "After hearing about a shark attack on the news, Alex refuses to swim in the ocean. What bias is at play?",
+    options: shuffleArray([
+      { text: "Salience Bias", isCorrect: true },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Optimism Bias", isCorrect: false }
+    ]),
+    explanation: "Salience Bias. Alex's fear is exaggerated because the shark attack is prominent in the media, even though the actual risk is minimal. This bias makes rare, dramatic events more memorable and salient in our minds.",
+    type: "salience"
+  },
+  {
+    id: 54,
+    question: "A person buys lottery tickets because they focus on jackpot winners, not the millions who lose. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Salience Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false }
+    ]),
+    explanation: "Salience Bias. The excitement and media coverage of lottery winners stand out more, leading them to overestimate their chances of winning while ignoring the overwhelming number of losers.",
+    type: "salience"
+  },
+  {
+    id: 55,
+    question: "After a plane crash is widely reported, a traveler suddenly fears flying. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "Salience Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false }
+    ]),
+    explanation: "Salience Bias. The vividness of the plane crash in the media causes the risk of flying to feel much more prominent than it actually is, skewing the traveler's perception of flying's danger.",
+    type: "salience"
+  },
+  {
+    id: 56,
+    question: "A politician focuses on a single dramatic crime case rather than overall crime statistics. What bias is at play?",
+    options: shuffleArray([
+      { text: "Salience Bias", isCorrect: true },
+      { text: "Groupthink Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "Salience Bias. The politician is emphasizing a single high-profile crime, which captures attention and creates a perception that crime is more widespread than it may be in reality.",
+    type: "salience"
   }
 ];
 
