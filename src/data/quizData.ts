@@ -770,6 +770,102 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This shows Action Bias where the patient feels the need to take some action (demanding antibiotics) even though inaction would be more appropriate for a viral infection.",
     type: "action"
+  },
+  {
+    id: 69,
+    question: "A consumer buys a bundle of products at a discount, even though they only wanted one item. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Bundling Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "The consumer is drawn to the perceived value of the bundle, making them purchase extra items they don't need just to get a deal.",
+    type: "bundling"
+  },
+  {
+    id: 70,
+    question: "A person buys a subscription to a streaming service because it comes with several other services, even though they only wanted access to one. What bias is at play?",
+    options: shuffleArray([
+      { text: "Bundling Bias", isCorrect: true },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "The allure of getting more services bundled together makes the person overlook their actual needs, leading to a purchase they wouldn't have made if the services were sold separately.",
+    type: "bundling"
+  },
+  {
+    id: 71,
+    question: "A shopper picks up a deal where they get 3 items for the price of 2, even though they don't actually need the third item. What bias is affecting their decision?",
+    options: shuffleArray([
+      { text: "Bundling Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "The shopper perceives the bundle as a good deal and is influenced to buy more than necessary because of the added perceived value.",
+    type: "bundling"
+  },
+  {
+    id: 72,
+    question: "A person buys a fast-food meal combo even though they don't want the fries or drink, simply because it's cheaper than ordering individually. What bias is at work?",
+    options: shuffleArray([
+      { text: "Bundling Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "The person is influenced by the bundle's perceived value, making them purchase extra items they don't need just because it seems like a better deal.",
+    type: "bundling"
+  },
+  {
+    id: 73,
+    question: "A doctor avoids recommending a risky but potentially life-saving surgery, fearing the side effects might harm the patient. What bias is at play?",
+    options: shuffleArray([
+      { text: "Omission Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Restraint Bias", isCorrect: false }
+    ]),
+    explanation: "The doctor is showing Omission Bias, which is the tendency to prefer inaction over action because the negative consequences of taking action are more salient. The doctor is avoiding recommending the surgery because of the fear of potential side effects rather than the benefits.",
+    type: "omission"
+  },
+  {
+    id: 74,
+    question: "A parent decides not to vaccinate their child due to concerns over the side effects, even though the disease could be far worse. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Omission Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This is Omission Bias because the parent is avoiding action (vaccination) due to the perceived harm from potential side effects, even though the inaction (not vaccinating) might result in greater harm.",
+    type: "omission"
+  },
+  {
+    id: 75,
+    question: "A judge hesitates to rule against a popular political figure, thinking it might negatively impact their career. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Omission Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false },
+      { text: "Groupthink Bias", isCorrect: false }
+    ]),
+    explanation: "The judge is exhibiting Omission Bias by not taking action (ruling against the figure) out of concern for the possible repercussions of doing so, favoring inaction to avoid perceived consequences.",
+    type: "omission"
+  },
+  {
+    id: 76,
+    question: "A manager refuses to make a decision about firing an employee, afraid of the backlash, even though the employee is underperforming. What bias is affecting the decision?",
+    options: shuffleArray([
+      { text: "Omission Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "This is Omission Bias because the manager avoids making a decision (firing) to prevent possible negative outcomes, even though inaction might result in continued poor performance.",
+    type: "omission"
   }
 ];
 
