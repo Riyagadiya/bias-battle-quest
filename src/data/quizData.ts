@@ -622,4 +622,59 @@ const allQuizQuestions: Question[] = [
     question: "A student assumes they will fail an exam, even though they studied hard and know the material. What bias is influencing their confidence?",
     options: shuffleArray([
       { text: "Pessimism Bias", isCorrect: true },
-      { text: "Current Mood Bias
+      { text: "Current Mood Bias", isCorrect: false }
+    ]),
+    explanation: "This is Pessimism Bias. The student is overly focused on the possibility of failure and underestimates their own abilities, leading to low confidence.",
+    type: "pessimism"
+  },
+  {
+    id: 57,
+    question: "Jane assumes that everyone loves her favorite TV show as much as she does. What bias is she exhibiting?",
+    options: shuffleArray([
+      { text: "Projection Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "Projection Bias occurs when someone assumes others have the same feelings, preferences, or thoughts as they do. Jane is projecting her own enjoyment of the TV show onto others, believing they will share her enthusiasm.",
+    type: "projection"
+  },
+  {
+    id: 58,
+    question: "A manager believes all employees are motivated by the same rewards they are. What bias is at work?",
+    options: shuffleArray([
+      { text: "Projection Bias", isCorrect: true },
+      { text: "Ingroup Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "Social Desirability Bias", isCorrect: false }
+    ]),
+    explanation: "Projection Bias leads people to assume others think and feel the same way they do. The manager is projecting their own motivational triggers onto their employees, failing to recognize individual differences.",
+    type: "projection"
+  },
+  {
+    id: 59,
+    question: "A parent assumes their child enjoys the same hobbies they did as a kid. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Projection Bias", isCorrect: true },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false },
+      { text: "Optimism Bias", isCorrect: false }
+    ]),
+    explanation: "Projection Bias causes people to project their own experiences and preferences onto others. The parent is assuming their child will have the same interests they had in childhood.",
+    type: "projection"
+  },
+  {
+    id: 60,
+    question: "A person planning a party assumes everyone will enjoy the same type of music they like. What bias is at play?",
+    options: shuffleArray([
+      { text: "Projection Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Bandwagon Effect", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "Projection Bias occurs when someone assumes others share their personal preferences. The party planner is projecting their own musical tastes onto the guests without considering individual differences.",
+    type: "projection"
+  }
+];
+
+export { allQuizQuestions, shuffleArray, cognitiveBiasTypes };
