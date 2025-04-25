@@ -532,6 +532,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is the Bandwagon Effect. The person is adopting a popular trend, influenced by the increasing popularity of the brand, rather than staying loyal to their previous choice.",
     type: "bandwagon"
+  },
+  {
+    id: 41,
+    question: "Tom refuses to buy car insurance because he believes he is highly unlikely to get into an accident. What bias is influencing his decision?",
+    options: shuffleArray([
+      { text: "Optimism Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "This is Optimism Bias. Tom is overly optimistic about his own safety, underestimating the likelihood of an accident occurring, which leads him to forgo insurance.",
+    type: "optimism"
+  },
+  {
+    id: 42,
+    question: "A gambler keeps betting despite a losing streak, thinking they are \"due for a win\" in the next round. What bias is at play?",
+    options: shuffleArray([
+      { text: "Optimism Bias", isCorrect: true },
+      { text: "Recall Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false }
+    ]),
+    explanation: "This is Optimism Bias. The gambler is overly hopeful about the future outcome, believing that the odds are somehow in their favor, even though the likelihood of winning remains the same.",
+    type: "optimism"
+  },
+  {
+    id: 43,
+    question: "A startup founder is overly confident that their new business will succeed, even though statistics show most startups fail. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Optimism Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Groupthink Bias", isCorrect: false }
+    ]),
+    explanation: "This is Optimism Bias. The founder is underestimating the risks and overestimating the chances of success, which is common in optimistic entrepreneurs.",
+    type: "optimism"
+  },
+  {
+    id: 44,
+    question: "An athlete believes they will perform well in a tournament despite not having trained enough. What bias is at work?",
+    options: shuffleArray([
+      { text: "Optimism Bias", isCorrect: true },
+      { text: "Distinction Bias", isCorrect: false },
+      { text: "Survivorship Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "This is Optimism Bias. The athlete is overly confident in their abilities and expects a good outcome despite insufficient preparation, which is a typical example of optimism bias.",
+    type: "optimism"
   }
 ];
 
