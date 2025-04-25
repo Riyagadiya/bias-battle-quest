@@ -1154,6 +1154,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "The student's desire to be perceived as hardworking is a manifestation of social desirability bias, where people distort their behavior to conform to social expectations.",
     type: "social_desirability"
+  },
+  {
+    id: 101,
+    question: "A person assumes a luxury-brand phone is better simply because of its high price and branding. What bias is at play?",
+    options: shuffleArray([
+      { text: "Prestige Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "Prestige bias occurs when people assign higher value or quality to an item simply because it is associated with a prestigious brand or status. In this case, the person is assuming the luxury phone is better because of its brand.",
+    type: "prestige"
+  },
+  {
+    id: 102,
+    question: "A company hires a consultant from a prestigious university over a more experienced candidate from a lesser-known school. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Prestige Bias", isCorrect: true },
+      { text: "Social Desirability Bias", isCorrect: false },
+      { text: "Groupthink Bias", isCorrect: false },
+      { text: "First Impression Bias", isCorrect: false }
+    ]),
+    explanation: "The company is favoring the consultant from a prestigious university, likely assuming they are more qualified, which demonstrates prestige bias.",
+    type: "prestige"
+  },
+  {
+    id: 103,
+    question: "A shopper chooses a designer bag over a generic one, assuming the designer bag is of higher quality. What bias is at work?",
+    options: shuffleArray([
+      { text: "Prestige Bias", isCorrect: true },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false }
+    ]),
+    explanation: "The shopper is influenced by the brand and price, believing the designer bag is better simply because it carries prestige, which is an example of prestige bias.",
+    type: "prestige"
+  },
+  {
+    id: 104,
+    question: "A student feels that a professor from a well-known university is more competent, despite no substantial evidence of their teaching skills. What bias is affecting their judgment?",
+    options: shuffleArray([
+      { text: "Prestige Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false }
+    ]),
+    explanation: "The student is assuming that the professor is better due to their prestigious background, which is a clear case of prestige bias.",
+    type: "prestige"
   }
 ];
 
