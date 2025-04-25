@@ -722,6 +722,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "This is Distinction Bias. The consumer fixates on insignificant differences, making a decision based on those rather than considering the overall similarity and value of both products.",
     type: "distinction"
+  },
+  {
+    id: 65,
+    question: "A soccer coach substitutes a player during a losing match just to \"do something,\" even though the strategy was fine. What bias is driving his behavior?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Framing Bias", isCorrect: false },
+      { text: "Recall Bias", isCorrect: false }
+    ]),
+    explanation: "Action Bias leads people to take action even when doing nothing would be more appropriate. The coach makes a substitution just to feel like they're responding to the situation, even though the current strategy is working.",
+    type: "action"
+  },
+  {
+    id: 66,
+    question: "A driver honks repeatedly in traffic, believing it will make cars move faster. What bias is influencing their action?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Response Bias", isCorrect: false },
+      { text: "Projection Bias", isCorrect: false }
+    ]),
+    explanation: "This demonstrates Action Bias where the driver feels compelled to do something (honking) even though it won't improve the situation. The need to take action overrides logical thinking.",
+    type: "action"
+  },
+  {
+    id: 67,
+    question: "A business leader launches unnecessary new initiatives to appear proactive. What bias is at work?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Prestige Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Groupthink Bias", isCorrect: false }
+    ]),
+    explanation: "Action Bias is evident when the leader initiates new projects just to appear active, even when such actions aren't necessary or beneficial for the organization.",
+    type: "action"
+  },
+  {
+    id: 68,
+    question: "A patient demands antibiotics for a viral infection, assuming any treatment is better than none. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Action Bias", isCorrect: true },
+      { text: "Belief Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "This shows Action Bias where the patient feels the need to take some action (demanding antibiotics) even though inaction would be more appropriate for a viral infection.",
+    type: "action"
   }
 ];
 
