@@ -207,7 +207,7 @@ const allQuizQuestions: Question[] = [
       { text: "Action Bias", isCorrect: false }
     ]),
     explanation: "The Sunk Cost Fallacy occurs when someone continues an endeavor because they've already invested time or money, even though it's no longer viable. Mark is influenced by this bias in his decision to keep investing in the failing business.",
-    type: "sunk"
+    type: "sunk_cost"
   },
   {
     id: 14,
@@ -219,7 +219,7 @@ const allQuizQuestions: Question[] = [
       { text: "Projection Bias", isCorrect: false }
     ]),
     explanation: "The Sunk Cost Fallacy leads people to continue an activity because of past investments, even if it no longer makes sense. Anna is refusing to leave the movie because she doesn't want to \"waste\" the ticket cost.",
-    type: "sunk"
+    type: "sunk_cost"
   },
   {
     id: 15,
@@ -231,7 +231,7 @@ const allQuizQuestions: Question[] = [
       { text: "Bundling Bias", isCorrect: false }
     ]),
     explanation: "Tom is demonstrating the Sunk Cost Fallacy by continuing to play a game he dislikes, driven by the money he has already spent, even though it no longer brings him enjoyment.",
-    type: "sunk"
+    type: "sunk_cost"
   },
   {
     id: 16,
@@ -243,7 +243,7 @@ const allQuizQuestions: Question[] = [
       { text: "Prestige Bias", isCorrect: false }
     ]),
     explanation: "The Sunk Cost Fallacy leads people or organizations to continue investing in a project because of previous investments. The company's decision to stick with the failing project is influenced by this bias.",
-    type: "sunk"
+    type: "sunk_cost"
   },
   {
     id: 17,
