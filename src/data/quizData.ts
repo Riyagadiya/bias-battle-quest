@@ -36,6 +36,7 @@ export const cognitiveBiasTypes = [
   "Contrast Bias",
   "Price Bias",
   "Value Attribution Bias",
+  "Spotlight Effect",
 ];
 
 // Function to shuffle array (Fisher-Yates shuffle)
@@ -513,6 +514,54 @@ export const questionData: Question[] = [
     ]),
     explanation: "The more expensive $200 item is acting as an anchor, making the $50 item seem more reasonable, which is a classic case of anchoring bias.",
     type: "anchoring"
+  },
+  {
+    id: 113,
+    question: "Emma feels like everyone is staring at her when she trips in the cafeteria, even though most people didn't notice. What bias is influencing her?",
+    options: shuffleArray([
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Social Comparison Bias", isCorrect: false },
+      { text: "Self-Serving Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false }
+    ]),
+    explanation: "Spotlight Effect refers to the tendency to overestimate how much others notice our actions or appearance. Emma believes she's the center of attention, though others are likely focused on their own activities.",
+    type: "spotlight"
+  },
+  {
+    id: 114,
+    question: "A teenager refuses to wear an old shirt, assuming everyone will judge them for it. What bias is at play?",
+    options: shuffleArray([
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Bandwagon Effect", isCorrect: false },
+      { text: "Conformity Bias", isCorrect: false },
+      { text: "Halo Effect", isCorrect: false }
+    ]),
+    explanation: "Spotlight Effect causes individuals to think others are paying more attention to them than they actually are. The teenager overestimates others' interest in their attire.",
+    type: "spotlight"
+  },
+  {
+    id: 115,
+    question: "A speaker believes the audience notices every small mistake in their presentation, even though most people don't. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Imposter Syndrome", isCorrect: false },
+      { text: "Performance Bias", isCorrect: false },
+      { text: "Authority Bias", isCorrect: false }
+    ]),
+    explanation: "Spotlight Effect leads the speaker to assume that minor errors are highly noticeable, when in reality, the audience may not even register them.",
+    type: "spotlight"
+  },
+  {
+    id: 116,
+    question: "A new employee thinks everyone is watching their every move at work, even though they aren't. What bias is at work?",
+    options: shuffleArray([
+      { text: "Spotlight Effect", isCorrect: true },
+      { text: "Negativity Bias", isCorrect: false },
+      { text: "Observer Bias", isCorrect: false },
+      { text: "Performance Anxiety", isCorrect: false }
+    ]),
+    explanation: "Spotlight Effect makes the employee feel overly scrutinized, overestimating colleagues' attention to their actions.",
+    type: "spotlight"
   }
 ];
 
