@@ -340,6 +340,54 @@ const allQuizQuestions: Question[] = [
     ]),
     explanation: "Belief Bias is at work here. Lily is more likely to believe the influencer's recommendation because it aligns with her belief in quick health fixes, ignoring the lack of credible evidence.",
     type: "belief"
+  },
+  {
+    id: 25,
+    question: "In a corporate meeting, everyone agrees to launch a new product without fully considering the risks, because no one wants to disagree with the CEO. What bias is at play?",
+    options: shuffleArray([
+      { text: "Groupthink Bias", isCorrect: true },
+      { text: "Projection Bias", isCorrect: false },
+      { text: "Current Mood Bias", isCorrect: false },
+      { text: "Prestige Bias", isCorrect: false }
+    ]),
+    explanation: "This is Groupthink Bias. The team agrees without dissent to avoid conflict and maintain harmony, disregarding potential risks.",
+    type: "groupthink"
+  },
+  {
+    id: 26,
+    question: "A team of designers decides on a project idea unanimously, even though a few members have concerns, because they don't want to be the ones to challenge the group. What bias is influencing their decision?",
+    options: shuffleArray([
+      { text: "Groupthink Bias", isCorrect: true },
+      { text: "Omission Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Bias", isCorrect: false }
+    ]),
+    explanation: "Groupthink Bias is influencing them. The members avoid voicing their concerns to maintain group unity, despite their reservations.",
+    type: "groupthink"
+  },
+  {
+    id: 27,
+    question: "A board of directors rushes to approve a controversial policy without discussing opposing viewpoints, simply to maintain unity. What bias is at work?",
+    options: shuffleArray([
+      { text: "Groupthink Bias", isCorrect: true },
+      { text: "Action Bias", isCorrect: false },
+      { text: "Restraint Bias", isCorrect: false },
+      { text: "Bundling Bias", isCorrect: false }
+    ]),
+    explanation: "This is Groupthink Bias. The board is prioritizing consensus over careful deliberation of all perspectives.",
+    type: "groupthink"
+  },
+  {
+    id: 28,
+    question: "A political party unanimously supports a policy, even though internal reports suggest it may not be effective, because no one wants to appear disloyal. What bias is influencing them?",
+    options: shuffleArray([
+      { text: "Groupthink Bias", isCorrect: true },
+      { text: "Social Desirability Bias", isCorrect: false },
+      { text: "The IKEA Effect", isCorrect: false },
+      { text: "Distinction Bias", isCorrect: false }
+    ]),
+    explanation: "Groupthink Bias is at play. The party members are suppressing dissent to preserve group cohesion, ignoring potential flaws in the policy.",
+    type: "groupthink"
   }
 ];
 
