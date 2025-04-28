@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -67,12 +66,12 @@ const CardItem = ({
           </div>
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end mb-1">
-              <span className="text-xl font-semibold">₹{price}</span>
+              <span className="text-xl font-semibold">{price}</span>
               <Badge variant="secondary" className="bg-green-100 text-green-800">
                 {discount}
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground line-through">MRP: ₹{mrp}</p>
+            <p className="text-xs text-muted-foreground line-through">MRP: {mrp}</p>
           </div>
         </div>
       </div>
