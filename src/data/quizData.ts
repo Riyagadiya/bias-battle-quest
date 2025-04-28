@@ -613,4 +613,14 @@ export const questionData: Question[] = [
   },
   {
     id: 121,
-    question: "A coffee shop offers a small for $2, medium for $4, and large for $4.50, making the large seem like a better deal.
+    question: "A coffee shop offers a small for $2, medium for $4, and large for $4.50, making the large seem like a better deal. What bias is at play?",
+    options: shuffleArray([
+      { text: "Decoy Effect", isCorrect: true },
+      { text: "Price Bias", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false },
+      { text: "Contrast Effect", isCorrect: false }
+    ]),
+    explanation: "Decoy Effect occurs when a third option (the medium size) makes another option (the large) seem more appealing by comparison.",
+    type: "decoy"
+  }
+];
