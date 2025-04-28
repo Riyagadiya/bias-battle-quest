@@ -27,18 +27,7 @@ export const cognitiveBiasTypes = [
   "Dunning-Kruger Effect",
   "Imposter Syndrome",
   "Reactance",
-  "Scarcity Heuristic",
-  "Decoy Effect",
-  "Social Comparison Bias",
-  "Contrast Effect",
-  "Relative Bias",
-  "Confirmation Bias",
-  "Contrast Bias",
-  "Price Bias",
-  "Value Attribution Bias",
-  "Spotlight Effect",
-  "Sisyphus Effect",
-  "The Cheating Bias",
+  "Scarcity Bias",
   "Gratification Bias",
 ];
 
@@ -629,7 +618,7 @@ export const questionData: Question[] = [
       { text: "Value Attribution Bias", isCorrect: false },
       { text: "Contrast Effect", isCorrect: false }
     ]),
-    explanation: "Decoy Effect occurs when a third option (the medium size) makes another option (the large) seem more appealing by comparison.",
+    explanation: "Decoy Effect is a cognitive bias that occurs when the addition of an asymmetrically dominated option (the 'decoy') changes preferences between two original options. The decoy is inferior to one option but superior to the other, making the former seem more attractive.",
     type: "decoy"
   },
   {
@@ -823,5 +812,53 @@ export const questionData: Question[] = [
     ]),
     explanation: "The behavior reflects Gratification Bias—prioritizing short-term pleasures that delay or harm long-term plans.",
     type: "gratification"
+  },
+  {
+    id: 138,
+    question: "When a product says 'Only 2 left in stock!', Rohan rushes to buy it, even though he doesn't really need it. What bias is influencing him?",
+    options: shuffleArray([
+      { text: "Scarcity Bias", isCorrect: true },
+      { text: "Loss Aversion", isCorrect: false },
+      { text: "Reactance", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false }
+    ]),
+    explanation: "Scarcity Bias leads people to assign more value to items perceived as limited. Rohan acts impulsively due to fear of missing out.",
+    type: "scarcity"
+  },
+  {
+    id: 139,
+    question: "Despite not liking the flavor, Nina orders a limited-edition coffee because it won't be available next week. What bias is at play?",
+    options: shuffleArray([
+      { text: "Scarcity Bias", isCorrect: true },
+      { text: "Imposter Syndrome", isCorrect: false },
+      { text: "Gratification Bias", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "Nina values the coffee more due to its perceived scarcity, a core aspect of Scarcity Bias.",
+    type: "scarcity"
+  },
+  {
+    id: 140,
+    question: "A brand increases prices and limits stock to appear exclusive. Consumers suddenly view the product as high value. What bias are they responding to?",
+    options: shuffleArray([
+      { text: "Scarcity Bias", isCorrect: true },
+      { text: "The Cheating Bias", isCorrect: false },
+      { text: "Price Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false }
+    ]),
+    explanation: "Scarcity Bias makes people overvalue items that appear rare or exclusive, regardless of actual quality.",
+    type: "scarcity"
+  },
+  {
+    id: 141,
+    question: "During an online sale, Ravi buys multiple items just because they had a countdown timer and 'low stock' warning. What bias drove his behavior?",
+    options: shuffleArray([
+      { text: "Scarcity Bias", isCorrect: true },
+      { text: "Sisyphus Effect", isCorrect: false },
+      { text: "Spotlight Effect", isCorrect: false },
+      { text: "Social Comparison Bias", isCorrect: false }
+    ]),
+    explanation: "Ravi's decision is influenced by the illusion of urgency and limited availability—a common marketing tactic exploiting Scarcity Bias.",
+    type: "scarcity"
   }
 ];
