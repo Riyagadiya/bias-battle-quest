@@ -99,8 +99,8 @@ const ProductDetail = () => {
         <Footer />
       </div>;
   }
-  const basePrice = 699; // Base price without discount
-  const originalPrice = Math.round(basePrice * 1.25); // 25% higher
+  const basePrice = parseInt(product.price); // Base price after discount
+  const originalPrice = parseInt(product.mrp); // Original price before discount
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);

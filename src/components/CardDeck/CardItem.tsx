@@ -63,16 +63,16 @@ const CardItem = ({
         <div className="flex items-center justify-between">
           <div>
             <p className="font-medium text-sm mb-1">{cardCount}</p>
-            <p className="text-sm text-muted-foreground">Free Shipping</p>
+            <p className="text-sm text-muted-foreground">{shipping}</p>
           </div>
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end mb-1">
-              <span className="text-xl font-semibold">₹699</span>
+              <span className="text-xl font-semibold">₹{price}</span>
               <Badge variant="secondary" className="bg-green-100 text-green-800">
-                30% off
+                {discount}
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground line-through">MRP: ₹999</p>
+            <p className="text-xs text-muted-foreground line-through">MRP: ₹{mrp}</p>
           </div>
         </div>
       </div>
