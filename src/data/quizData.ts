@@ -38,6 +38,7 @@ export const cognitiveBiasTypes = [
   "Value Attribution Bias",
   "Spotlight Effect",
   "Sisyphus Effect",
+  "The Cheating Bias",
 ];
 
 // Function to shuffle array (Fisher-Yates shuffle)
@@ -725,5 +726,53 @@ export const questionData: Question[] = [
     ]),
     explanation: "Repeatedly doing work that gets undone or changed, without a sense of closure, leads to the Sisyphus Effect.",
     type: "sisyphus"
+  },
+  {
+    id: 130,
+    question: "Priya suspects her coworker is slacking off remotely and assumes they're cheating the system, even though there's no real evidence. What bias is she showing?",
+    options: shuffleArray([
+      { text: "The Cheating Bias", isCorrect: true },
+      { text: "Fundamental Attribution Error", isCorrect: false },
+      { text: "Spotlight Effect", isCorrect: false },
+      { text: "Actor-Observer Bias", isCorrect: false }
+    ]),
+    explanation: "The Cheating Bias refers to the assumption that others are taking advantage or behaving unethically without sufficient proof. Priya jumps to conclusions based on suspicion.",
+    type: "cheating"
+  },
+  {
+    id: 131,
+    question: "Alex believes his friend got a scholarship by manipulating the system rather than merit. What bias might Alex be influenced by?",
+    options: shuffleArray([
+      { text: "The Cheating Bias", isCorrect: true },
+      { text: "Self-Serving Bias", isCorrect: false },
+      { text: "Social Comparison Bias", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false }
+    ]),
+    explanation: "The Cheating Bias causes individuals to assume others succeed through unfair means, especially when outcomes seem undeserved.",
+    type: "cheating"
+  },
+  {
+    id: 132,
+    question: "In a team project, Sam believes only he is putting in effort and suspects others of contributing less intentionally. What bias is shaping Sam's thinking?",
+    options: shuffleArray([
+      { text: "The Cheating Bias", isCorrect: true },
+      { text: "In-Group Bias", isCorrect: false },
+      { text: "Blind Spot Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false }
+    ]),
+    explanation: "Sam assumes others are slacking or 'cheating,' a key aspect of the Cheating Bias, even if their work isn't always visible.",
+    type: "cheating"
+  },
+  {
+    id: 133,
+    question: "An employee questions a colleague's promotion, thinking they must have used office politics, despite HR's transparent process. What bias is this?",
+    options: shuffleArray([
+      { text: "The Cheating Bias", isCorrect: true },
+      { text: "Authority Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false },
+      { text: "Halo Effect", isCorrect: false }
+    ]),
+    explanation: "The bias involves assuming deceitful behavior in others' success, especially when it feels unfair to the observer.",
+    type: "cheating"
   }
 ];
