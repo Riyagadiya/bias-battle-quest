@@ -610,6 +610,54 @@ export const questionData: Question[] = [
     ]),
     explanation: "Confirmation Bias leads Emma to dismiss credible research that challenges her preconceived notions.",
     type: "confirmation"
+  },
+  {
+    id: 121,
+    question: "A coffee shop offers a small for $2, medium for $4, and large for $4.50, making the large seem like a better deal. What bias is being used?",
+    options: shuffleArray([
+      { text: "Decoy Effect", isCorrect: true },
+      { text: "Price Bias", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false },
+      { text: "Contrast Effect", isCorrect: false }
+    ]),
+    explanation: "Decoy Option Effect occurs when a third, less attractive option (medium) makes another option (large) more appealing, influencing customer choice.",
+    type: "decoy"
+  },
+  {
+    id: 122,
+    question: "A software company offers a free plan, a $10 plan, and a $15 plan, making the $10 plan seem most reasonable. What bias is influencing the decision?",
+    options: shuffleArray([
+      { text: "Decoy Effect", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Scarcity Heuristic", isCorrect: false },
+      { text: "Social Comparison Bias", isCorrect: false }
+    ]),
+    explanation: "Decoy Option Effect uses the $15 plan as a decoy to make the $10 plan appear more attractive by comparison.",
+    type: "decoy"
+  },
+  {
+    id: 123,
+    question: "A gym offers a basic membership for $30, a premium for $50, and an ultra-premium for $90, making $50 seem ideal. What bias is at play?",
+    options: shuffleArray([
+      { text: "Decoy Effect", isCorrect: true },
+      { text: "Loss Aversion", isCorrect: false },
+      { text: "Relative Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false }
+    ]),
+    explanation: "Decoy Option Effect introduces the $90 option to make the $50 membership appear as a balanced choice between price and features.",
+    type: "decoy"
+  },
+  {
+    id: 124,
+    question: "A restaurant menu lists an overly expensive dish so that mid-range options appear more reasonable. What bias is affecting customer choices?",
+    options: shuffleArray([
+      { text: "Decoy Effect", isCorrect: true },
+      { text: "Framing Effect", isCorrect: false },
+      { text: "Price Bias", isCorrect: false },
+      { text: "Contrast Bias", isCorrect: false }
+    ]),
+    explanation: "Decoy Option Effect uses the high-priced item as a decoy to steer customers toward mid-priced dishes, making them seem more economical.",
+    type: "decoy"
   }
 ];
 
