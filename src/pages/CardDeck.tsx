@@ -6,6 +6,7 @@ import CartIcon from "@/components/CartIcon";
 import CardItem from "@/components/CardDeck/CardItem";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
   description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
@@ -13,10 +14,10 @@ const cardDecks = [{
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India"
+  price: "₹999",
+  mrp: "₹1427",
+  discount: "30% off",
+  shipping: "Free Shipping"
 }, {
   title: "Research Method Card Deck",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
@@ -24,10 +25,10 @@ const cardDecks = [{
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India"
+  price: "₹999",
+  mrp: "₹1427",
+  discount: "30% off",
+  shipping: "Free Shipping"
 }, {
   title: "Thinking Hat Card Deck",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
@@ -35,10 +36,10 @@ const cardDecks = [{
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India"
+  price: "₹999",
+  mrp: "₹1427",
+  discount: "30% off",
+  shipping: "Free Shipping"
 }, {
   title: "UX Laws Card Deck",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
@@ -46,11 +47,12 @@ const cardDecks = [{
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India"
+  price: "₹999",
+  mrp: "₹1427",
+  discount: "30% off",
+  shipping: "Free Shipping"
 }];
+
 const CardDeck = () => {
   return <div className="flex flex-col min-h-screen">
       <Header />
@@ -93,4 +95,5 @@ const CardDeck = () => {
       <Footer />
     </div>;
 };
+
 export default CardDeck;
