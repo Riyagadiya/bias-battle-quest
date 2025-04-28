@@ -628,5 +628,53 @@ export const questionData: Question[] = [
     ]),
     explanation: "Decoy Effect occurs when a third option (the medium size) makes another option (the large) seem more appealing by comparison.",
     type: "decoy"
+  },
+  {
+    id: 122,
+    question: "Mark values his homemade table more than a store-bought one, even though the latter is better made. What bias is at play?",
+    options: shuffleArray([
+      { text: "IKEA Effect", isCorrect: true },
+      { text: "Self-Serving Bias", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false }
+    ]),
+    explanation: "The IKEA Effect refers to the tendency to overvalue products we have assembled ourselves, leading Mark to prefer his own creation.",
+    type: "ikea"
+  },
+  {
+    id: 123,
+    question: "A chef prefers a dish they cooked themselves over a restaurant's version, despite it tasting the same. What bias is influencing their preference?",
+    options: shuffleArray([
+      { text: "IKEA Effect", isCorrect: true },
+      { text: "Optimism Bias", isCorrect: false },
+      { text: "Curse of Knowledge", isCorrect: false },
+      { text: "Confirmation Bias", isCorrect: false }
+    ]),
+    explanation: "The IKEA Effect causes the chef to favor their own dish due to the effort invested in preparing it.",
+    type: "ikea"
+  },
+  {
+    id: 124,
+    question: "A child prefers their own school project, believing it is better than professionally made ones. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "IKEA Effect", isCorrect: true },
+      { text: "Dunning-Kruger Effect", isCorrect: false },
+      { text: "Halo Effect", isCorrect: false },
+      { text: "Blind Spot Bias", isCorrect: false }
+    ]),
+    explanation: "The IKEA Effect leads the child to overvalue their project because of the personal effort involved in creating it.",
+    type: "ikea"
+  },
+  {
+    id: 125,
+    question: "A tech user insists their custom-built computer is superior, even if a prebuilt option has better specs. What bias is at work?",
+    options: shuffleArray([
+      { text: "IKEA Effect", isCorrect: true },
+      { text: "Authority Bias", isCorrect: false },
+      { text: "Contrast Effect", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "The IKEA Effect causes the user to overestimate the value of their custom-built computer due to the personal effort invested in assembling it.",
+    type: "ikea"
   }
 ];
