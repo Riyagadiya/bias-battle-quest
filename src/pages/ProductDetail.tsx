@@ -13,6 +13,7 @@ import { useCart } from "@/context/CartContext";
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
+
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
   description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
@@ -20,10 +21,10 @@ const cardDecks = [{
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India",
+  price: "699",
+  mrp: "999",
+  discount: "30% off",
+  shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png", "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png", "/lovable-uploads/127df004-c4c0-4733-a1a1-511e730bbc3b.png"]
 }, {
@@ -33,10 +34,10 @@ const cardDecks = [{
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India",
+  price: "699",
+  mrp: "999",
+  discount: "30% off",
+  shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png", "/lovable-uploads/059b502b-7f97-4a43-9c41-3788ac3a0a9d.png", "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png"]
 }, {
@@ -46,10 +47,10 @@ const cardDecks = [{
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India",
+  price: "699",
+  mrp: "999",
+  discount: "30% off",
+  shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png", "/lovable-uploads/89d61a08-dc89-46ce-8b4d-6f27cbeea0db.png", "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png"]
 }, {
@@ -59,13 +60,14 @@ const cardDecks = [{
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: "₹900",
-  mrp: "₹1200",
-  discount: "25% off",
-  shipping: "Ships only in India",
+  price: "699",
+  mrp: "999",
+  discount: "30% off",
+  shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png", "/lovable-uploads/2c1a6075-7e9b-44d3-806d-10cfa2a28a3a.png", "/lovable-uploads/887500cd-9161-4cb4-99cf-262104bee34a.png"]
 }];
+
 const ProductDetail = () => {
   const {
     title
@@ -97,7 +99,7 @@ const ProductDetail = () => {
         <Footer />
       </div>;
   }
-  const basePrice = 900; // Base price without discount
+  const basePrice = 699; // Base price without discount
   const originalPrice = Math.round(basePrice * 1.25); // 25% higher
 
   const increaseQuantity = () => {

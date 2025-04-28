@@ -23,7 +23,7 @@ const ShoppingCart = () => {
   } = useCart();
   const navigate = useNavigate();
 
-  const DISCOUNT_PERCENT = 25;
+  const DISCOUNT_PERCENT = 30;
 
   const calculateOriginalPrice = (price: number) => {
     return Math.round(price / (1 - DISCOUNT_PERCENT / 100));

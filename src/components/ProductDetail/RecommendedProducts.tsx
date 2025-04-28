@@ -54,10 +54,10 @@ const RecommendedProducts = ({ products, currentProductTitle }: RecommendedProdu
               <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{product.description}</p>
               
               <div className="flex items-center gap-2">
-                <span className="font-semibold">₹{product.price}</span>
-                <span className="text-sm text-muted-foreground line-through">₹{product.mrp}</span>
+                <span className="font-semibold">₹699</span>
+                <span className="text-sm text-muted-foreground line-through">₹999</span>
                 <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                  {product.discount}
+                  30% off
                 </Badge>
               </div>
             </CardContent>
