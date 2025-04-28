@@ -37,6 +37,7 @@ export const cognitiveBiasTypes = [
   "Price Bias",
   "Value Attribution Bias",
   "Spotlight Effect",
+  "Sisyphus Effect",
 ];
 
 // Function to shuffle array (Fisher-Yates shuffle)
@@ -676,5 +677,53 @@ export const questionData: Question[] = [
     ]),
     explanation: "The IKEA Effect causes the user to overestimate the value of their custom-built computer due to the personal effort invested in assembling it.",
     type: "ikea"
+  },
+  {
+    id: 126,
+    question: "Raj works on a task, but every time he finishes it, his manager asks him to redo it with slight changes. Raj feels demotivated and stuck in a loop. What bias is at play?",
+    options: shuffleArray([
+      { text: "Sisyphus Effect", isCorrect: true },
+      { text: "Reactance", isCorrect: false },
+      { text: "Sunk Cost Fallacy", isCorrect: false },
+      { text: "Decoy Effect", isCorrect: false }
+    ]),
+    explanation: "The Sisyphus Effect refers to the demoralizing feeling of performing repetitive tasks with no visible progress or reward. Raj feels like his efforts are endless and unproductive, like Sisyphus pushing a boulder uphill only for it to roll back down.",
+    type: "sisyphus"
+  },
+  {
+    id: 127,
+    question: "Tara is assigned to clean the shared drive every week, but her coworkers keep messing it up daily, making her feel like her work never ends. What bias is being reflected?",
+    options: shuffleArray([
+      { text: "Sisyphus Effect", isCorrect: true },
+      { text: "Blind Spot Bias", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false },
+      { text: "Social Comparison Bias", isCorrect: false }
+    ]),
+    explanation: "This reflects the Sisyphus Effect, where tasks are constantly undone or rendered futile by others, leading to low motivation and burnout.",
+    type: "sisyphus"
+  },
+  {
+    id: 128,
+    question: "Despite cleaning her inbox daily, Jenna finds it flooded every morning with auto-generated reports. What cognitive bias might Jenna be experiencing?",
+    options: shuffleArray([
+      { text: "Sisyphus Effect", isCorrect: true },
+      { text: "Negativity Bias", isCorrect: false },
+      { text: "Availability Heuristic", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false }
+    ]),
+    explanation: "Jenna's work feels meaningless and never-ending, with no sense of accomplishment. This futility reflects the Sisyphus Effect.",
+    type: "sisyphus"
+  },
+  {
+    id: 129,
+    question: "A game developer keeps reworking the same level design based on contradictory client feedback, feeling like nothing is ever 'good enough.' What bias is evident here?",
+    options: shuffleArray([
+      { text: "Sisyphus Effect", isCorrect: true },
+      { text: "Imposter Syndrome", isCorrect: false },
+      { text: "Curse of Knowledge", isCorrect: false },
+      { text: "Actor-Observer Bias", isCorrect: false }
+    ]),
+    explanation: "Repeatedly doing work that gets undone or changed, without a sense of closure, leads to the Sisyphus Effect.",
+    type: "sisyphus"
   }
 ];
