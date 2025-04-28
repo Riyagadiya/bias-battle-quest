@@ -39,6 +39,7 @@ export const cognitiveBiasTypes = [
   "Spotlight Effect",
   "Sisyphus Effect",
   "The Cheating Bias",
+  "Gratification Bias",
 ];
 
 // Function to shuffle array (Fisher-Yates shuffle)
@@ -774,5 +775,53 @@ export const questionData: Question[] = [
     ]),
     explanation: "The bias involves assuming deceitful behavior in others' success, especially when it feels unfair to the observer.",
     type: "cheating"
+  },
+  {
+    id: 134,
+    question: "Riya keeps checking for likes on her latest design post instead of focusing on a long-term client project. What bias is influencing her?",
+    options: shuffleArray([
+      { text: "Gratification Bias", isCorrect: true },
+      { text: "Spotlight Effect", isCorrect: false },
+      { text: "Status Quo Bias", isCorrect: false },
+      { text: "Social Comparison Bias", isCorrect: false }
+    ]),
+    explanation: "Gratification Bias is the tendency to seek immediate rewards or feedback, even at the cost of long-term benefits. Riya prioritizes quick validation over delayed outcomes.",
+    type: "gratification"
+  },
+  {
+    id: 135,
+    question: "Instead of preparing for an upcoming pitch, Jason watches short YouTube videos because they offer instant enjoyment. What bias is in action?",
+    options: shuffleArray([
+      { text: "Gratification Bias", isCorrect: true },
+      { text: "Imposter Syndrome", isCorrect: false },
+      { text: "Reactance", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false }
+    ]),
+    explanation: "Jason is choosing instant pleasure over a more meaningful but delayed reward, a classic trait of Gratification Bias.",
+    type: "gratification"
+  },
+  {
+    id: 136,
+    question: "A student chooses to scroll through Instagram after every 5 minutes of studying, finding it hard to stay focused. What bias is evident here?",
+    options: shuffleArray([
+      { text: "Gratification Bias", isCorrect: true },
+      { text: "Sisyphus Effect", isCorrect: false },
+      { text: "The Cheating Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false }
+    ]),
+    explanation: "Seeking immediate small rewards disrupts focus and long-term progress. This is a clear sign of Gratification Bias.",
+    type: "gratification"
+  },
+  {
+    id: 137,
+    question: "Despite knowing her long-term goals, Ananya buys new clothes every week to feel a short burst of happiness. What bias is she displaying?",
+    options: shuffleArray([
+      { text: "Gratification Bias", isCorrect: true },
+      { text: "Loss Aversion", isCorrect: false },
+      { text: "Framing Effect", isCorrect: false },
+      { text: "Anchoring Bias", isCorrect: false }
+    ]),
+    explanation: "The behavior reflects Gratification Bias—prioritizing short-term pleasures that delay or harm long-term plans.",
+    type: "gratification"
   }
 ];
