@@ -28,7 +28,7 @@ const cardDecks = [{
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png", "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png", "/lovable-uploads/127df004-c4c0-4733-a1a1-511e730bbc3b.png"]
 }, {
-  title: "Research Methods",
+  title: "Research Method Card Deck",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
   imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
   backgroundColor: "#D4E3A6",
@@ -41,7 +41,7 @@ const cardDecks = [{
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png", "/lovable-uploads/059b502b-7f97-4a43-9c41-3788ac3a0a9d.png", "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png"]
 }, {
-  title: "Thinking Hat",
+  title: "Thinking Hat Card Deck",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
   imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
   backgroundColor: "#F8C1A6",
@@ -54,7 +54,7 @@ const cardDecks = [{
   dimensions: "12.3 x 7.9 x 2 cm",
   images: ["/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png", "/lovable-uploads/89d61a08-dc89-46ce-8b4d-6f27cbeea0db.png", "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png"]
 }, {
-  title: "UX Laws",
+  title: "UX Laws Card Deck",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
   imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
   backgroundColor: "#BEE5FA",
@@ -233,4 +233,5 @@ const ProductDetail = () => {
       <Footer />
     </div>;
 };
+
 export default ProductDetail;
