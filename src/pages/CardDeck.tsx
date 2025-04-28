@@ -14,8 +14,8 @@ const cardDecks = [{
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: "₹999",
-  mrp: "₹1427",
+  price: "₹699",
+  mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping"
 }, {
@@ -25,8 +25,8 @@ const cardDecks = [{
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: "₹999",
-  mrp: "₹1427",
+  price: "₹699",
+  mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping"
 }, {
@@ -36,8 +36,8 @@ const cardDecks = [{
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: "₹999",
-  mrp: "₹1427",
+  price: "₹699",
+  mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping"
 }, {
@@ -47,8 +47,8 @@ const cardDecks = [{
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: "₹999",
-  mrp: "₹1427",
+  price: "₹699",
+  mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping"
 }];
