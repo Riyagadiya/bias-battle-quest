@@ -562,6 +562,54 @@ export const questionData: Question[] = [
     ]),
     explanation: "Spotlight Effect makes the employee feel overly scrutinized, overestimating colleagues' attention to their actions.",
     type: "spotlight"
+  },
+  {
+    id: 117,
+    question: "After reading an article that supports his belief, John dismisses other articles that contradict it. What bias is influencing him?",
+    options: shuffleArray([
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Anchoring Bias", isCorrect: false },
+      { text: "Spotlight Effect", isCorrect: false },
+      { text: "Availability Heuristic", isCorrect: false }
+    ]),
+    explanation: "Confirmation Bias involves favoring information that confirms existing beliefs while disregarding contradictory evidence. John selectively acknowledges supportive articles.",
+    type: "confirmation"
+  },
+  {
+    id: 118,
+    question: "Lisa believes a particular diet is effective and only reads success stories, ignoring studies that question its benefits. What bias is she exhibiting?",
+    options: shuffleArray([
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Self-Serving Bias", isCorrect: false },
+      { text: "Bandwagon Effect", isCorrect: false },
+      { text: "Authority Bias", isCorrect: false }
+    ]),
+    explanation: "Confirmation Bias leads Lisa to seek out information that aligns with her belief, neglecting opposing viewpoints.",
+    type: "confirmation"
+  },
+  {
+    id: 119,
+    question: "A manager assumes a business strategy is good just because it aligns with their past experiences. What bias is affecting them?",
+    options: shuffleArray([
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Status Quo Bias", isCorrect: false },
+      { text: "Hindsight Bias", isCorrect: false },
+      { text: "Curse of Knowledge", isCorrect: false }
+    ]),
+    explanation: "Confirmation Bias causes the manager to favor strategies that fit their previous successes, potentially overlooking better alternatives.",
+    type: "confirmation"
+  },
+  {
+    id: 120,
+    question: "Emma rejects a well-supported study simply because its findings conflict with her existing beliefs. What bias is at play?",
+    options: shuffleArray([
+      { text: "Confirmation Bias", isCorrect: true },
+      { text: "Reactance", isCorrect: false },
+      { text: "Value Attribution Bias", isCorrect: false },
+      { text: "Dunning-Kruger Effect", isCorrect: false }
+    ]),
+    explanation: "Confirmation Bias leads Emma to dismiss credible research that challenges her preconceived notions.",
+    type: "confirmation"
   }
 ];
 
