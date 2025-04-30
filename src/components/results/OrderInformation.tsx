@@ -12,7 +12,6 @@ const OrderInformation = () => {
           </div>
           <div>
             <h5 className="font-medium text-sm">Free Delivery</h5>
-            <p className="text-xs text-muted-foreground">Get free standard shipping on all orders</p>
           </div>
         </div>
         
@@ -22,7 +21,6 @@ const OrderInformation = () => {
           </div>
           <div>
             <h5 className="font-medium text-sm">No Returns</h5>
-            <p className="text-xs text-muted-foreground">All sales are final, no returns or replacements</p>
           </div>
         </div>
         
@@ -42,7 +40,6 @@ const OrderInformation = () => {
           </div>
           <div>
             <h5 className="font-medium text-sm">Quality Guarantee</h5>
-            <p className="text-xs text-muted-foreground">Premium materials and craftsmanship</p>
           </div>
         </div>
       </div>
