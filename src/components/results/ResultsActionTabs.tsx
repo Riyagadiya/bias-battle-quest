@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
@@ -157,7 +156,7 @@ const ResultsActionTabs = () => {
               className="text-sm flex items-center text-cognilense-blue hover:underline" 
               onClick={handleViewCart}
             >
-              View cart <ShoppingCart size={16} className="ml-1" />
+              Proceed to Buy <ShoppingCart size={16} className="ml-1" />
             </button>
           </div>
           
