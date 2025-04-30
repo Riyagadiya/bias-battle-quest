@@ -10,28 +10,28 @@ const OrderInformation = () => {
           <div className="text-cognilense-blue">
             <Truck size={20} />
           </div>
-          <span className="text-xs">Free delivery</span>
+          <span className="text-sm">Free delivery</span>
         </div>
         
         <div className="flex items-center gap-2">
           <div className="text-cognilense-orange">
             <PackageX size={20} />
           </div>
-          <span className="text-xs">No return</span>
+          <span className="text-sm">No return</span>
         </div>
         
         <div className="flex items-center gap-2">
           <div className="text-cognilense-green">
             <CreditCard size={20} />
           </div>
-          <span className="text-xs">No replacement</span>
+          <span className="text-sm">No replacement</span>
         </div>
         
         <div className="flex items-center gap-2">
           <div className="text-cognilense-blue">
             <ShieldCheck size={20} />
           </div>
-          <span className="text-xs">Secure payment</span>
+          <span className="text-sm">Secure payment</span>
         </div>
       </div>
     </div>
