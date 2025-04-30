@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   ExternalLink, 
   ArrowUpRight,
@@ -19,52 +18,52 @@ import { useCart } from "@/context/CartContext";
 const cardDecks = [{
   id: 1,
   title: "Cognitive Biases Card Deck",
-  description: "Mental shortcuts that shape thinking. Use this tool to spot them and decide smarter.",
+  oneLiner: "Mental shortcuts that shape thinking. Use this tool to spot them and decide smarter.",
+  description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
   imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: 699,
-  displayPrice: "₹699",
+  price: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
   id: 2,
   title: "Research Method Card Deck",
-  description: "Start with smart questions. Use this tool to explore, uncover, and decide better.",
+  oneLiner: "Start with smart questions. Use this tool to explore, uncover, and decide better.",
+  description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
   imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: 699,
-  displayPrice: "₹699",
+  price: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
   id: 3,
   title: "Thinking Hat Card Deck",
-  description: "Shift perspectives. Use each hat to ideate, analyze, empathize, or evaluate.",
+  oneLiner: "Shift perspectives. Use each hat to ideate, analyze, empathize, or evaluate.",
+  description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
   imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: 699,
-  displayPrice: "₹699",
+  price: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
   id: 4,
   title: "UX Laws Card Deck",
-  description: "Design rules that feel right. Apply patterns for simple, human-centered experiences.",
+  oneLiner: "Design rules that feel right. Apply patterns for simple, human-centered experiences.",
+  description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
   imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: 699,
-  displayPrice: "₹699",
+  price: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
@@ -80,17 +79,6 @@ const ResultsActionTabs = () => {
     3: 0,
     4: 0
   });
-  const [subtotal, setSubtotal] = useState(0);
-
-  useEffect(() => {
-    // Calculate subtotal whenever quantities change
-    const newSubtotal = Object.entries(quantities).reduce((total, [deckId, quantity]) => {
-      const deck = cardDecks.find(d => d.id === parseInt(deckId));
-      return total + (deck ? deck.price * quantity : 0);
-    }, 0);
-    
-    setSubtotal(newSubtotal);
-  }, [quantities]);
 
   const handleQuantityChange = (deckId: number, change: number) => {
     setQuantities(prev => {
@@ -111,7 +99,7 @@ const ResultsActionTabs = () => {
       addToCart({
         title: deck.title,
         quantity,
-        price: deck.price
+        price: parseInt(deck.price.replace("₹", ""))
       });
       
       toast.success(`${quantity} ${deck.title}${quantity > 1 ? 's' : ''} added to cart`);
@@ -131,10 +119,6 @@ const ResultsActionTabs = () => {
 
   const handleViewCart = () => {
     navigate('/cart');
-  };
-
-  const formatPrice = (price: number) => {
-    return `₹${price.toLocaleString('en-IN')}`;
   };
 
   return (
@@ -172,11 +156,11 @@ const ResultsActionTabs = () => {
                 
                 <div className="flex-1 cursor-pointer" onClick={() => handleDeckClick(deck.title)}>
                   <h4 className="font-medium line-clamp-1">{deck.title}</h4>
-                  <p className="text-xs text-muted-foreground mt-1">{deck.description}</p>
+                  <p className="text-xs text-gray-600 mb-1">{deck.oneLiner}</p>
                   <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
                   
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="font-semibold">{deck.displayPrice}</span>
+                    <span className="font-semibold">{deck.price}</span>
                     <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
                       {deck.discount}
                     </Badge>
@@ -221,33 +205,6 @@ const ResultsActionTabs = () => {
               </div>
             ))}
           </div>
-          
-          {/* Dynamic Price Summary */}
-          {subtotal > 0 && (
-            <div className="mt-6 border-t border-gray-100 pt-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-medium">{formatPrice(subtotal)}</span>
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-muted-foreground">Discount (30%)</span>
-                <span className="text-green-600">-{formatPrice(subtotal * 0.3)}</span>
-              </div>
-              <div className="flex justify-between items-center font-semibold border-t border-gray-100 pt-2 mt-2">
-                <span>Total</span>
-                <span>{formatPrice(subtotal * 0.7)}</span>
-              </div>
-              
-              <Button 
-                className="w-full mt-4" 
-                variant="default"
-                onClick={handleViewCart}
-                disabled={subtotal === 0}
-              >
-                View Cart
-              </Button>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>
