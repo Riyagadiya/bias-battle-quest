@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
@@ -56,15 +57,14 @@ const ResultsSection = () => {
     <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Changed column span from md:col-span-2 to md:col-span-1 to make it narrower */}
           <motion.div 
-            className="md:col-span-2"
+            className="md:col-span-1"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              {/* Removed all background illustration divs */}
-              
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
                 <motion.div
@@ -127,9 +127,9 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          
+          {/* Changed column span from md:col-span-1 to md:col-span-2 to make it wider */}
           <motion.div
-            className="md:col-span-1"
+            className="md:col-span-2"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
