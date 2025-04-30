@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   ExternalLink, 
   ArrowUpRight,
@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
 import { useCart } from "@/context/CartContext";
+import { Separator } from "@/components/ui/separator";
 
 // Card deck data
 const cardDecks = [{
@@ -29,8 +30,8 @@ const cardDecks = [{
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: "₹699",
-  mrp: "₹999",
+  price: 699,
+  mrp: 999,
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
@@ -42,8 +43,8 @@ const cardDecks = [{
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: "₹699",
-  mrp: "₹999",
+  price: 699,
+  mrp: 999,
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
@@ -55,8 +56,8 @@ const cardDecks = [{
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: "₹699",
-  mrp: "₹999",
+  price: 699,
+  mrp: 999,
   discount: "30% off",
   shipping: "Free Shipping",
 }, {
@@ -68,8 +69,8 @@ const cardDecks = [{
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: "₹699",
-  mrp: "₹999",
+  price: 699,
+  mrp: 999,
   discount: "30% off",
   shipping: "Free Shipping",
 }];
@@ -84,6 +85,41 @@ const ResultsActionTabs = () => {
     3: 0,
     4: 0
   });
+  
+  // State for price calculations
+  const [priceSummary, setPriceSummary] = useState({
+    subtotal: 0,
+    mrpTotal: 0,
+    discount: 0,
+    total: 0,
+    itemCount: 0
+  });
+  
+  // Calculate price whenever quantities change
+  useEffect(() => {
+    let subtotal = 0;
+    let mrpTotal = 0;
+    let itemCount = 0;
+    
+    Object.entries(quantities).forEach(([deckId, quantity]) => {
+      const deck = cardDecks.find(d => d.id === parseInt(deckId));
+      if (deck && quantity > 0) {
+        subtotal += deck.price * quantity;
+        mrpTotal += deck.mrp * quantity;
+        itemCount += quantity;
+      }
+    });
+    
+    const discount = mrpTotal - subtotal;
+    
+    setPriceSummary({
+      subtotal,
+      mrpTotal,
+      discount,
+      total: subtotal,
+      itemCount
+    });
+  }, [quantities]);
 
   const handleQuantityChange = (deckId: number, change: number) => {
     setQuantities(prev => {
@@ -104,7 +140,7 @@ const ResultsActionTabs = () => {
       addToCart({
         title: deck.title,
         quantity,
-        price: parseInt(deck.price.replace("₹", ""))
+        price: deck.price
       });
       
       toast.success(`${quantity} ${deck.title}${quantity > 1 ? 's' : ''} added to cart`);
@@ -165,12 +201,12 @@ const ResultsActionTabs = () => {
                   <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
                   
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="font-semibold">{deck.price}</span>
+                    <span className="font-semibold">₹{deck.price}</span>
                     <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
                       {deck.discount}
                     </Badge>
                     <span className="text-xs text-muted-foreground line-through">
-                      {deck.mrp}
+                      ₹{deck.mrp}
                     </span>
                   </div>
                 </div>
@@ -210,6 +246,39 @@ const ResultsActionTabs = () => {
               </div>
             ))}
           </div>
+          
+          {/* Dynamic Price Summary Section */}
+          {priceSummary.itemCount > 0 && (
+            <div className="mt-6 pt-4 border-t border-gray-100">
+              <h4 className="font-medium text-sm mb-3">Order Summary</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Subtotal ({priceSummary.itemCount} items)</span>
+                  <span>₹{priceSummary.subtotal}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">MRP Total</span>
+                  <span className="line-through text-muted-foreground">₹{priceSummary.mrpTotal}</span>
+                </div>
+                <div className="flex justify-between text-sm text-green-600">
+                  <span>Discount</span>
+                  <span>- ₹{priceSummary.discount}</span>
+                </div>
+                <Separator className="my-2" />
+                <div className="flex justify-between font-medium">
+                  <span>Total</span>
+                  <span>₹{priceSummary.total}</span>
+                </div>
+              </div>
+              
+              <Button 
+                className="w-full mt-4"
+                onClick={handleViewCart}
+              >
+                View Cart ({priceSummary.itemCount})
+              </Button>
+            </div>
+          )}
           
           {/* Order Information Section */}
           <div className="mt-8 pt-6 border-t border-gray-100">
