@@ -62,7 +62,7 @@ const CardDeckItem = ({
         </div>
         
         {quantity > 0 && (
-          <div className="text-xs text-cognilense-green mt-1 font-medium">
+          <div className="text-xs font-medium mt-1">
             Subtotal: ₹{deck.price * quantity}
           </div>
         )}
@@ -88,16 +88,6 @@ const CardDeckItem = ({
           className="h-8 w-8 rounded-full"
         >
           <Plus size={16} />
-        </Button>
-        
-        <Button 
-          className="ml-2"
-          variant="default"
-          size="sm"
-          onClick={() => onAddToCart(deck.id)}
-          disabled={quantity <= 0}
-        >
-          Add
         </Button>
       </div>
     </div>
