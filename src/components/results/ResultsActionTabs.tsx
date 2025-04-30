@@ -19,7 +19,7 @@ import { useCart } from "@/context/CartContext";
 const cardDecks = [{
   id: 1,
   title: "Cognitive Biases Card Deck",
-  description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
+  description: "Mental shortcuts that shape thinking. Use this tool to spot them and decide smarter.",
   imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
@@ -31,7 +31,7 @@ const cardDecks = [{
 }, {
   id: 2,
   title: "Research Method Card Deck",
-  description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
+  description: "Start with smart questions. Use this tool to explore, uncover, and decide better.",
   imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
@@ -43,7 +43,7 @@ const cardDecks = [{
 }, {
   id: 3,
   title: "Thinking Hat Card Deck",
-  description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
+  description: "Shift perspectives. Use each hat to ideate, analyze, empathize, or evaluate.",
   imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
@@ -55,7 +55,7 @@ const cardDecks = [{
 }, {
   id: 4,
   title: "UX Laws Card Deck",
-  description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
+  description: "Design rules that feel right. Apply patterns for simple, human-centered experiences.",
   imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
