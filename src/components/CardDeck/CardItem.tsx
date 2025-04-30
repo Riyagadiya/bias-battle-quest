@@ -54,7 +54,12 @@ const CardItem = ({
       </div>
       
       <div className="mt-auto">
-        <h3 className="text-xl font-domine font-semibold mb-2">{title}</h3>
+        <h3 
+          className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors" 
+          onClick={handleCardClick}
+        >
+          {title}
+        </h3>
         
         <p className="text-muted-foreground mb-4 text-sm">
           {description}
