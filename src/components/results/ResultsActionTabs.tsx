@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   ExternalLink, 
   ArrowUpRight,
@@ -24,7 +24,8 @@ const cardDecks = [{
   backgroundColor: "#FDDE81",
   hoverColor: "#FCD14D",
   cardCount: "38 Cards",
-  price: "₹699",
+  price: 699,
+  displayPrice: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
@@ -36,7 +37,8 @@ const cardDecks = [{
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
-  price: "₹699",
+  price: 699,
+  displayPrice: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
@@ -48,7 +50,8 @@ const cardDecks = [{
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
-  price: "₹699",
+  price: 699,
+  displayPrice: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
@@ -60,7 +63,8 @@ const cardDecks = [{
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
-  price: "₹699",
+  price: 699,
+  displayPrice: "₹699",
   mrp: "₹999",
   discount: "30% off",
   shipping: "Free Shipping",
@@ -76,6 +80,17 @@ const ResultsActionTabs = () => {
     3: 0,
     4: 0
   });
+  const [subtotal, setSubtotal] = useState(0);
+
+  useEffect(() => {
+    // Calculate subtotal whenever quantities change
+    const newSubtotal = Object.entries(quantities).reduce((total, [deckId, quantity]) => {
+      const deck = cardDecks.find(d => d.id === parseInt(deckId));
+      return total + (deck ? deck.price * quantity : 0);
+    }, 0);
+    
+    setSubtotal(newSubtotal);
+  }, [quantities]);
 
   const handleQuantityChange = (deckId: number, change: number) => {
     setQuantities(prev => {
@@ -96,7 +111,7 @@ const ResultsActionTabs = () => {
       addToCart({
         title: deck.title,
         quantity,
-        price: parseInt(deck.price.replace("₹", ""))
+        price: deck.price
       });
       
       toast.success(`${quantity} ${deck.title}${quantity > 1 ? 's' : ''} added to cart`);
@@ -116,6 +131,10 @@ const ResultsActionTabs = () => {
 
   const handleViewCart = () => {
     navigate('/cart');
+  };
+
+  const formatPrice = (price: number) => {
+    return `₹${price.toLocaleString('en-IN')}`;
   };
 
   return (
@@ -153,10 +172,11 @@ const ResultsActionTabs = () => {
                 
                 <div className="flex-1 cursor-pointer" onClick={() => handleDeckClick(deck.title)}>
                   <h4 className="font-medium line-clamp-1">{deck.title}</h4>
+                  <p className="text-xs text-muted-foreground mt-1">{deck.description}</p>
                   <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
                   
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="font-semibold">{deck.price}</span>
+                    <span className="font-semibold">{deck.displayPrice}</span>
                     <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
                       {deck.discount}
                     </Badge>
@@ -201,6 +221,33 @@ const ResultsActionTabs = () => {
               </div>
             ))}
           </div>
+          
+          {/* Dynamic Price Summary */}
+          {subtotal > 0 && (
+            <div className="mt-6 border-t border-gray-100 pt-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span className="font-medium">{formatPrice(subtotal)}</span>
+              </div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-muted-foreground">Discount (30%)</span>
+                <span className="text-green-600">-{formatPrice(subtotal * 0.3)}</span>
+              </div>
+              <div className="flex justify-between items-center font-semibold border-t border-gray-100 pt-2 mt-2">
+                <span>Total</span>
+                <span>{formatPrice(subtotal * 0.7)}</span>
+              </div>
+              
+              <Button 
+                className="w-full mt-4" 
+                variant="default"
+                onClick={handleViewCart}
+                disabled={subtotal === 0}
+              >
+                View Cart
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
