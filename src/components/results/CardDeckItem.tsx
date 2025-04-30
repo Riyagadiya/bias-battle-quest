@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface CardDeck {
   id: number;
@@ -33,6 +34,8 @@ const CardDeckItem = ({
   onAddToCart,
   onDeckClick
 }: CardDeckItemProps) => {
+  const navigate = useNavigate();
+  
   return (
     <div 
       key={deck.id} 
@@ -98,7 +101,11 @@ const CardDeckItem = ({
           <Button 
             variant="outline"
             size="sm"
-            onClick={() => onAddToCart(deck.id)}
+            onClick={() => {
+              onAddToCart(deck.id);
+              // Navigate to cart page after adding
+              navigate('/cart');
+            }}
             className="rounded-full px-4 py-1 text-xs h-8"
           >
             Add
@@ -110,10 +117,8 @@ const CardDeckItem = ({
             className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-4 py-1 text-xs h-8 flex items-center gap-1"
             onClick={() => {
               onAddToCart(deck.id);
-              // Redirect to cart after adding
-              setTimeout(() => {
-                window.location.href = '/cart';
-              }, 500);
+              // Navigate directly to checkout page
+              navigate('/checkout');
             }}
           >
             <ShoppingCart size={12} />
