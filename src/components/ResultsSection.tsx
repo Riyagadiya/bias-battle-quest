@@ -126,16 +126,12 @@ const ResultsSection = () => {
                   </GradientButton>
                 </motion.div>
 
-                {/* Tabs for Answer Summary */}
+                {/* Answer Summary Section - Now placed below buttons but styled like before */}
                 <div className="mt-8">
-                  <Tabs defaultValue="summary" className="w-full">
-                    <TabsList className="grid w-full grid-cols-1 bg-muted">
-                      <TabsTrigger value="summary">Your Answer Summary</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="summary" className="mt-4 max-h-[300px] overflow-y-auto pr-2">
-                      <QuestionSummaryList answersArray={answersArray} questions={questions} />
-                    </TabsContent>
-                  </Tabs>
+                  <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+                  <div className="max-h-[300px] overflow-y-auto pr-2">
+                    <QuestionSummaryList answersArray={answersArray} questions={questions} />
+                  </div>
                 </div>
               </div>
             </div>
