@@ -4,7 +4,8 @@ import {
   ExternalLink, 
   ArrowUpRight,
   Plus,
-  Minus
+  Minus,
+  ShoppingCart
 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -113,8 +114,8 @@ const ResultsActionTabs = () => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
 
-  const handleViewAllDecks = () => {
-    navigate('/card-decks');
+  const handleViewCart = () => {
+    navigate('/cart');
   };
 
   return (
@@ -130,9 +131,9 @@ const ResultsActionTabs = () => {
             <h4 className="font-domine text-lg font-medium">Card Decks</h4>
             <button 
               className="text-sm flex items-center text-cognilense-blue hover:underline" 
-              onClick={handleViewAllDecks}
+              onClick={handleViewCart}
             >
-              View all <ArrowUpRight size={16} className="ml-1" />
+              View cart <ShoppingCart size={16} className="ml-1" />
             </button>
           </div>
           
