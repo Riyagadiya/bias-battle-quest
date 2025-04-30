@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
 
 interface CardDeck {
   id: number;
@@ -68,27 +68,57 @@ const CardDeckItem = ({
         )}
       </div>
       
-      <div className="shrink-0 flex items-center gap-2">
-        <Button 
-          variant="outline" 
-          size="icon"
-          onClick={() => onQuantityChange(deck.id, -1)}
-          disabled={quantity <= 0}
-          className="h-8 w-8 rounded-full"
-        >
-          <Minus size={16} />
-        </Button>
+      <div className="shrink-0 flex flex-col items-center gap-2">
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="icon"
+            onClick={() => onQuantityChange(deck.id, -1)}
+            disabled={quantity <= 0}
+            className="h-8 w-8 rounded-full"
+          >
+            <Minus size={16} />
+          </Button>
+          
+          <span className="w-8 text-center">{quantity || 0}</span>
+          
+          <Button 
+            variant="outline" 
+            size="icon"
+            onClick={() => onQuantityChange(deck.id, 1)}
+            className="h-8 w-8 rounded-full"
+          >
+            <Plus size={16} />
+          </Button>
+        </div>
         
-        <span className="w-8 text-center">{quantity || 0}</span>
-        
-        <Button 
-          variant="outline" 
-          size="icon"
-          onClick={() => onQuantityChange(deck.id, 1)}
-          className="h-8 w-8 rounded-full"
-        >
-          <Plus size={16} />
-        </Button>
+        {/* Side-by-side Add and Buy buttons */}
+        <div className="flex items-center gap-2 mt-2 w-full">
+          <Button 
+            variant="outline"
+            size="sm"
+            onClick={() => onAddToCart(deck.id)}
+            className="rounded-full px-4 py-1 text-xs h-8"
+          >
+            Add
+          </Button>
+          
+          <Button 
+            variant="default"
+            size="sm"
+            className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-4 py-1 text-xs h-8 flex items-center gap-1"
+            onClick={() => {
+              onAddToCart(deck.id);
+              // Redirect to cart after adding
+              setTimeout(() => {
+                window.location.href = '/cart';
+              }, 500);
+            }}
+          >
+            <ShoppingCart size={12} />
+            Buy
+          </Button>
+        </div>
       </div>
     </div>
   );
