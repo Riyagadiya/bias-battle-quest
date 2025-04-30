@@ -1,13 +1,14 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
+import { RotateCcw, Share2 } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import ResultsSummary from "./results/ResultsSummary";
 import QuestionSummaryList from "./results/QuestionSummaryList";
 import GradientButton from "./GradientButton";
 import { Separator } from "@/components/ui/separator";
+import ResultsActionTabs from "./results/ResultsActionTabs";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
@@ -128,58 +129,8 @@ const ResultsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
-              <div className="flex flex-col h-full relative z-10">
-                <div className="px-6 py-4 border-b border-gray-100">
-                  <h3 className="font-domine text-lg font-semibold">Grab your cards now!</h3>
-                </div>
-                
-                <div className="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-cognilense-orange/10 flex items-center justify-center">
-                      <Code size={18} className="text-cognilense-orange" />
-                    </div>
-                    <div>
-                      <h4 className="font-domine font-semibold">Apply exclusive code</h4>
-                      <p className="text-xs text-muted-foreground">25% off on Cognilense cards</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 mt-4">
-                    <div className="flex-1 bg-cognilense-background px-4 py-2 rounded border shadow-sm font-medium tracking-wider text-center">
-                      COGNIQUIZ25
-                    </div>
-                    <CopyButton code="COGNIQUIZ25" />
-                  </div>
-                </div>
-                
-                <div className="p-6 flex-grow flex flex-col hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-cognilense-blue/10 flex items-center justify-center">
-                      <Award size={18} className="text-cognilense-blue" />
-                    </div>
-                    <div>
-                      <h4 className="font-domine font-semibold">Discover the full potential of CogniLense!</h4>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-3 mb-1">
-                    <p className="text-sm font-medium mb-1">Concepts, Ideas & Perspectives</p>
-                    <p className="text-sm">that open up your mind to look at problems and situations in products, business and life in general.</p>
-                  </div>
-                  
-                  <div className="mt-auto pt-4">
-                    <a 
-                      href="/card-decks"
-                      className="w-full flex items-center justify-center gap-2 text-white bg-cognilense-blue hover:bg-cognilense-blue/90 hover:shadow-lg hover:scale-[1.02] rounded-full py-3 px-6 transition-all font-medium"
-                    >
-                      Buy Card decks
-                      <ArrowUpRight size={16} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* New tabbed interface with card decks */}
+            <ResultsActionTabs />
           </motion.div>
           
           <motion.div
@@ -198,33 +149,6 @@ const ResultsSection = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-const CopyButton = ({ code }: { code: string }) => {
-  const [isCopied, setIsCopied] = useState(false);
-  
-  const copyDiscountCode = () => {
-    navigator.clipboard.writeText(code);
-    setIsCopied(true);
-    toast.success("Discount code copied to clipboard!");
-    setTimeout(() => setIsCopied(false), 2000);
-  };
-  
-  return (
-    <Button 
-      onClick={copyDiscountCode}
-      variant="outline"
-      size="icon"
-      className="h-10 w-10 rounded-full"
-      aria-label="Copy discount code"
-    >
-      {isCopied ? (
-        <Check size={18} className="text-green-600" />
-      ) : (
-        <Copy size={18} />
-      )}
-    </Button>
   );
 };
 
