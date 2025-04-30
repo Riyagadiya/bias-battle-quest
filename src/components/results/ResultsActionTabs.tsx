@@ -14,7 +14,7 @@ import OrderInformation from "./OrderInformation";
 const cardDecks = [{
   id: 1,
   title: "Cognitive Biases Card Deck",
-  oneLiner: "Mental shortcuts that shape thinking. Use this tool to spot them and decide smarter.",
+  oneLiner: "",
   description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
   imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
   backgroundColor: "#FDDE81",
@@ -53,7 +53,7 @@ const cardDecks = [{
 }, {
   id: 4,
   title: "UX Laws Card Deck",
-  oneLiner: "Design rules that feel right. Apply patterns for simple, human-centered experiences.",
+  oneLiner: "",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
   imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
   backgroundColor: "#BEE5FA",
