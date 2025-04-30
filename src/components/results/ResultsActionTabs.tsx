@@ -141,7 +141,7 @@ const ResultsActionTabs = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-auto">
       <Card className="border-0 shadow-none h-full">
         <CardContent className="pt-6 px-4 h-full">
           <div className="text-center mb-6">

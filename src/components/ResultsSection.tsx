@@ -126,9 +126,11 @@ const ResultsSection = () => {
                   </GradientButton>
                 </motion.div>
 
-                {/* Answer Summary Section - Now placed below buttons but styled like before */}
+                {/* Answer Summary Section - Modified to have title in one line */}
                 <div className="mt-8">
-                  <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-domine text-xl font-semibold">Your Answer Summary</h3>
+                  </div>
                   <div className="max-h-[300px] overflow-y-auto pr-2">
                     <QuestionSummaryList answersArray={answersArray} questions={questions} />
                   </div>
