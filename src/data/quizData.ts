@@ -67,7 +67,7 @@ export function getRandomQuestions(count: number): Question[] {
 }
 
 // Array of cognitive bias types
-const questionData: Question[] = [
+export const questionData: Question[] = [
   {
     id: 1,
     question: "After a sports match, Jake claims he knew his team would win all along, even though he expressed doubts before the game. What bias is he displaying?",
