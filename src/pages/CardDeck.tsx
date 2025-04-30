@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -71,8 +72,9 @@ const CardDeck = () => {
         duration: 0.4
       }} className="container mx-auto">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl font-domine font-semibold text-center mb-4 md:text-3xl py-[19px]">Ready, Set, Grab a Deck!</h1>
-            
+            {/* New title and subtitle */}
+            <h1 className="text-3xl font-domine font-semibold text-center mb-2 md:text-4xl">Boom! You Just Unlocked 30% Off!</h1>
+            <p className="text-center text-black/70 mb-10 text-lg">Grab your Card Decks now – offer valid for a limited time!</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {cardDecks.map((deck, index) => <motion.div key={deck.title} initial={{
