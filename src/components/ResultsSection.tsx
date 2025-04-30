@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { RotateCcw, Share2 } from "lucide-react";
@@ -8,9 +9,11 @@ import QuestionSummaryList from "./results/QuestionSummaryList";
 import GradientButton from "./GradientButton";
 import { Separator } from "@/components/ui/separator";
 import ResultsActionTabs from "./results/ResultsActionTabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
+  const [activeTab, setActiveTab] = useState("summary");
   
   if (status !== "active") return null;
   
@@ -122,6 +125,18 @@ const ResultsSection = () => {
                     <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </GradientButton>
                 </motion.div>
+
+                {/* Tabs for Answer Summary */}
+                <div className="mt-8">
+                  <Tabs defaultValue="summary" className="w-full">
+                    <TabsList className="grid w-full grid-cols-1 bg-muted">
+                      <TabsTrigger value="summary">Your Answer Summary</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="summary" className="mt-4 max-h-[300px] overflow-y-auto pr-2">
+                      <QuestionSummaryList answersArray={answersArray} questions={questions} />
+                    </TabsContent>
+                  </Tabs>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -134,20 +149,6 @@ const ResultsSection = () => {
           >
             {/* New tabbed interface with card decks */}
             <ResultsActionTabs />
-          </motion.div>
-          
-          <motion.div
-            className="md:col-span-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <div className="bg-cognilense-background rounded-xl shadow-lg p-6 md:p-8 relative">
-              <div className="relative z-10">
-                <h3 className="font-domine text-xl font-semibold mb-4">Your Answer Summary</h3>
-                <QuestionSummaryList answersArray={answersArray} questions={questions} />
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>
