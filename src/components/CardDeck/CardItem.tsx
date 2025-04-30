@@ -2,7 +2,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
 
 interface CardItemProps {
   title: string;
@@ -81,14 +80,7 @@ const CardItem = ({
           </div>
         </div>
         
-        <div className="mt-4">
-          <button 
-            onClick={handleCardClick}
-            className="text-cognilense-blue hover:text-cognilense-blue/80 text-sm flex items-center gap-1"
-          >
-            View details <ExternalLink size={14} />
-          </button>
-        </div>
+        {/* Removed the View details hyperlink section */}
       </div>
     </div>
   );
