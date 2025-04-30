@@ -67,10 +67,13 @@ const cardDecks = [{
 
 const ResultsActionTabs = () => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, getCartCount } = useCart();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
+  
+  // Get current cart count
+  const cartCount = getCartCount();
   
   // State for price calculations
   const [priceSummary, setPriceSummary] = useState({
@@ -115,13 +118,9 @@ const ResultsActionTabs = () => {
   };
 
   const handleAddToCart = (deckId: number) => {
-    const quantity = quantities[deckId];
-    if (quantity <= 0) {
-      toast.error("Please select a quantity first");
-      return;
-    }
-
+    const quantity = 1; // Add one at a time
     const deck = cardDecks.find(d => d.id === deckId);
+    
     if (deck) {
       addToCart({
         title: deck.title,
@@ -129,8 +128,7 @@ const ResultsActionTabs = () => {
         price: deck.price
       });
       
-      toast.success(`${quantity} ${deck.title}${quantity > 1 ? 's' : ''} added to cart`);
-      setQuantities(prev => ({ ...prev, [deckId]: 0 }));
+      toast.success(`${deck.title} added to cart`);
     }
   };
 
@@ -154,10 +152,16 @@ const ResultsActionTabs = () => {
           <div className="flex items-center justify-between mb-4">
             <h4 className="font-domine text-lg font-medium">Card Decks</h4>
             <button 
-              className="text-sm flex items-center text-cognilense-blue hover:underline" 
+              className="text-sm flex items-center text-cognilense-blue hover:underline relative" 
               onClick={handleViewCart}
             >
-              View Cart <ShoppingCart size={16} className="ml-1" />
+              View Cart 
+              <ShoppingCart size={16} className="ml-1" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black/20 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
+                  {cartCount}
+                </span>
+              )}
             </button>
           </div>
           

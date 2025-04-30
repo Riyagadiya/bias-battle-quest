@@ -36,6 +36,15 @@ const CardDeckItem = ({
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
   
+  // Handle quantity change and update cart directly
+  const handleQuantityChange = (change: number) => {
+    onQuantityChange(deck.id, change);
+    // If quantity is increasing, add to cart immediately
+    if (change > 0) {
+      onAddToCart(deck.id);
+    }
+  };
+  
   return (
     <div 
       key={deck.id} 
@@ -77,7 +86,7 @@ const CardDeckItem = ({
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => onQuantityChange(deck.id, -1)}
+            onClick={() => handleQuantityChange(-1)}
             disabled={quantity <= 0}
             className="h-8 w-8 rounded-none border-r border-gray-100"
           >
@@ -89,14 +98,14 @@ const CardDeckItem = ({
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => onQuantityChange(deck.id, 1)}
+            onClick={() => handleQuantityChange(1)}
             className="h-8 w-8 rounded-none border-l border-gray-100"
           >
             <Plus size={16} />
           </Button>
         </div>
         
-        {/* Side-by-side View details, Add and Buy buttons */}
+        {/* View details and Buy buttons */}
         <div className="flex items-center gap-2 mt-2 w-full">
           <Button 
             variant="ghost"
@@ -107,26 +116,16 @@ const CardDeckItem = ({
             View details
             <ExternalLink size={12} />
           </Button>
-        
-          <Button 
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              onAddToCart(deck.id);
-              // Navigate to cart page after adding
-              navigate('/cart');
-            }}
-            className="rounded-full px-4 py-1 text-xs h-8"
-          >
-            Add
-          </Button>
           
           <Button 
             variant="default"
             size="sm"
             className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-4 py-1 text-xs h-8 flex items-center gap-1"
             onClick={() => {
-              onAddToCart(deck.id);
+              // If there's no quantity selected yet, add 1 first
+              if (quantity <= 0) {
+                handleQuantityChange(1);
+              }
               // Navigate directly to checkout page
               navigate('/checkout');
             }}
