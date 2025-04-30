@@ -1,18 +1,19 @@
 
 import { useState } from "react";
 import { 
-  ShoppingCart,
   ExternalLink, 
-  RotateCcw,
-  Share2,
-  ArrowUpRight
+  ArrowUpRight,
+  Plus,
+  Minus
 } from "lucide-react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
+import { useCart } from "@/context/CartContext";
 
 // Card deck data
 const cardDecks = [{
@@ -68,6 +69,40 @@ const cardDecks = [{
 const ResultsActionTabs = () => {
   const { restartQuiz } = useQuiz();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [quantities, setQuantities] = useState<{[key: number]: number}>({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0
+  });
+
+  const handleQuantityChange = (deckId: number, change: number) => {
+    setQuantities(prev => {
+      const newQuantity = Math.max(0, (prev[deckId] || 0) + change);
+      return { ...prev, [deckId]: newQuantity };
+    });
+  };
+
+  const handleAddToCart = (deckId: number) => {
+    const quantity = quantities[deckId];
+    if (quantity <= 0) {
+      toast.error("Please select a quantity first");
+      return;
+    }
+
+    const deck = cardDecks.find(d => d.id === deckId);
+    if (deck) {
+      addToCart({
+        title: deck.title,
+        quantity,
+        price: parseInt(deck.price.replace("₹", ""))
+      });
+      
+      toast.success(`${quantity} ${deck.title}${quantity > 1 ? 's' : ''} added to cart`);
+      setQuantities(prev => ({ ...prev, [deckId]: 0 }));
+    }
+  };
 
   const shareQuiz = () => {
     const shareUrl = window.location.origin;
@@ -112,17 +147,17 @@ const ResultsActionTabs = () => {
                   {cardDecks.map((deck) => (
                     <div 
                       key={deck.id} 
-                      className="flex items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                      onClick={() => handleDeckClick(deck.title)}
+                      className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
                     >
                       <div 
-                        className="w-20 h-20 rounded-lg flex items-center justify-center p-2"
+                        className="w-20 h-20 rounded-lg flex items-center justify-center p-2 cursor-pointer"
                         style={{ backgroundColor: deck.backgroundColor }}
+                        onClick={() => handleDeckClick(deck.title)}
                       >
                         <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full" />
                       </div>
                       
-                      <div className="flex-1">
+                      <div className="flex-1 cursor-pointer" onClick={() => handleDeckClick(deck.title)}>
                         <h4 className="font-medium line-clamp-1">{deck.title}</h4>
                         <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
                         
@@ -137,15 +172,38 @@ const ResultsActionTabs = () => {
                         </div>
                       </div>
                       
-                      <button 
-                        className="shrink-0 p-2 rounded-full bg-cognilense-background hover:bg-cognilense-background/80 transition-colors"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/product/${encodeURIComponent(deck.title)}`);
-                        }}
-                      >
-                        <ShoppingCart size={18} />
-                      </button>
+                      <div className="shrink-0 flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(deck.id, -1)}
+                          disabled={quantities[deck.id] <= 0}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Minus size={16} />
+                        </Button>
+                        
+                        <span className="w-8 text-center">{quantities[deck.id] || 0}</span>
+                        
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(deck.id, 1)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Plus size={16} />
+                        </Button>
+                        
+                        <Button 
+                          className="ml-2"
+                          variant="default"
+                          size="sm"
+                          onClick={() => handleAddToCart(deck.id)}
+                          disabled={quantities[deck.id] <= 0}
+                        >
+                          Add
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -162,13 +220,11 @@ const ResultsActionTabs = () => {
                     <h3 className="font-domine text-lg font-semibold">Cognitive Bias Deck</h3>
                   </div>
                   
-                  <div 
-                    className="flex flex-col items-center border border-gray-100 rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer"
-                    onClick={() => handleDeckClick("Cognitive Biases Card Deck")}
-                  >
+                  <div className="flex flex-col items-center border border-gray-100 rounded-lg p-6">
                     <div 
-                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4"
+                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4 cursor-pointer"
                       style={{ backgroundColor: '#FDDE81' }}
+                      onClick={() => handleDeckClick("Cognitive Biases Card Deck")}
                     >
                       <img 
                         src="/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png" 
@@ -177,12 +233,23 @@ const ResultsActionTabs = () => {
                       />
                     </div>
                     
-                    <h4 className="font-medium text-lg">Cognitive Biases Card Deck</h4>
-                    <p className="text-sm text-muted-foreground text-center mt-2 mb-4">
+                    <h4 
+                      className="font-medium text-lg cursor-pointer"
+                      onClick={() => handleDeckClick("Cognitive Biases Card Deck")}
+                    >
+                      Cognitive Biases Card Deck
+                    </h4>
+                    <p 
+                      className="text-sm text-muted-foreground text-center mt-2 mb-4 cursor-pointer"
+                      onClick={() => handleDeckClick("Cognitive Biases Card Deck")}
+                    >
                       38 Cards to help you identify and mitigate cognitive biases in decision making
                     </p>
                     
-                    <div className="flex items-center gap-3 mb-6">
+                    <div 
+                      className="flex items-center gap-3 mb-6 cursor-pointer"
+                      onClick={() => handleDeckClick("Cognitive Biases Card Deck")}
+                    >
                       <span className="font-semibold text-xl">₹699</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         30% off
@@ -192,15 +259,37 @@ const ResultsActionTabs = () => {
                       </span>
                     </div>
                     
-                    <button 
-                      className="flex items-center gap-2 bg-cognilense-blue text-white px-6 py-3 rounded-full hover:bg-cognilense-blue/90 transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate('/product/Cognitive%20Biases%20Card%20Deck');
-                      }}
-                    >
-                      View Details <ArrowUpRight size={18} />
-                    </button>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(1, -1)}
+                          disabled={quantities[1] <= 0}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Minus size={16} />
+                        </Button>
+                        
+                        <span className="w-8 text-center">{quantities[1] || 0}</span>
+                        
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(1, 1)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Plus size={16} />
+                        </Button>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleAddToCart(1)}
+                        disabled={quantities[1] <= 0}
+                      >
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -216,13 +305,11 @@ const ResultsActionTabs = () => {
                     <h3 className="font-domine text-lg font-semibold">Research Method Deck</h3>
                   </div>
                   
-                  <div 
-                    className="flex flex-col items-center border border-gray-100 rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer"
-                    onClick={() => handleDeckClick("Research Method Card Deck")}
-                  >
+                  <div className="flex flex-col items-center border border-gray-100 rounded-lg p-6">
                     <div 
-                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4"
+                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4 cursor-pointer"
                       style={{ backgroundColor: '#D4E3A6' }}
+                      onClick={() => handleDeckClick("Research Method Card Deck")}
                     >
                       <img 
                         src="/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png" 
@@ -231,12 +318,23 @@ const ResultsActionTabs = () => {
                       />
                     </div>
                     
-                    <h4 className="font-medium text-lg">Research Method Card Deck</h4>
-                    <p className="text-sm text-muted-foreground text-center mt-2 mb-4">
+                    <h4
+                      className="font-medium text-lg cursor-pointer"
+                      onClick={() => handleDeckClick("Research Method Card Deck")}
+                    >
+                      Research Method Card Deck
+                    </h4>
+                    <p 
+                      className="text-sm text-muted-foreground text-center mt-2 mb-4 cursor-pointer"
+                      onClick={() => handleDeckClick("Research Method Card Deck")}
+                    >
                       42 Cards with research methodologies for designing user-centered solutions
                     </p>
                     
-                    <div className="flex items-center gap-3 mb-6">
+                    <div 
+                      className="flex items-center gap-3 mb-6 cursor-pointer"
+                      onClick={() => handleDeckClick("Research Method Card Deck")}
+                    >
                       <span className="font-semibold text-xl">₹699</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         30% off
@@ -246,15 +344,37 @@ const ResultsActionTabs = () => {
                       </span>
                     </div>
                     
-                    <button 
-                      className="flex items-center gap-2 bg-cognilense-green text-white px-6 py-3 rounded-full hover:bg-cognilense-green/90 transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate('/product/Research%20Method%20Card%20Deck');
-                      }}
-                    >
-                      View Details <ArrowUpRight size={18} />
-                    </button>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(2, -1)}
+                          disabled={quantities[2] <= 0}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Minus size={16} />
+                        </Button>
+                        
+                        <span className="w-8 text-center">{quantities[2] || 0}</span>
+                        
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(2, 1)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Plus size={16} />
+                        </Button>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleAddToCart(2)}
+                        disabled={quantities[2] <= 0}
+                      >
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -270,13 +390,11 @@ const ResultsActionTabs = () => {
                     <h3 className="font-domine text-lg font-semibold">UX Laws Deck</h3>
                   </div>
                   
-                  <div 
-                    className="flex flex-col items-center border border-gray-100 rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer"
-                    onClick={() => handleDeckClick("UX Laws Card Deck")}
-                  >
+                  <div className="flex flex-col items-center border border-gray-100 rounded-lg p-6">
                     <div 
-                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4"
+                      className="w-40 h-40 rounded-lg flex items-center justify-center p-6 mb-4 cursor-pointer"
                       style={{ backgroundColor: '#BEE5FA' }}
+                      onClick={() => handleDeckClick("UX Laws Card Deck")}
                     >
                       <img 
                         src="/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png" 
@@ -285,12 +403,23 @@ const ResultsActionTabs = () => {
                       />
                     </div>
                     
-                    <h4 className="font-medium text-lg">UX Laws Card Deck</h4>
-                    <p className="text-sm text-muted-foreground text-center mt-2 mb-4">
+                    <h4
+                      className="font-medium text-lg cursor-pointer"
+                      onClick={() => handleDeckClick("UX Laws Card Deck")}
+                    >
+                      UX Laws Card Deck
+                    </h4>
+                    <p 
+                      className="text-sm text-muted-foreground text-center mt-2 mb-4 cursor-pointer"
+                      onClick={() => handleDeckClick("UX Laws Card Deck")}
+                    >
                       40 Cards with essential UX principles for creating intuitive user experiences
                     </p>
                     
-                    <div className="flex items-center gap-3 mb-6">
+                    <div 
+                      className="flex items-center gap-3 mb-6 cursor-pointer"
+                      onClick={() => handleDeckClick("UX Laws Card Deck")}
+                    >
                       <span className="font-semibold text-xl">₹699</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         30% off
@@ -300,15 +429,37 @@ const ResultsActionTabs = () => {
                       </span>
                     </div>
                     
-                    <button 
-                      className="flex items-center gap-2 bg-cognilense-blue text-white px-6 py-3 rounded-full hover:bg-cognilense-blue/90 transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate('/product/UX%20Laws%20Card%20Deck');
-                      }}
-                    >
-                      View Details <ArrowUpRight size={18} />
-                    </button>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(4, -1)}
+                          disabled={quantities[4] <= 0}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Minus size={16} />
+                        </Button>
+                        
+                        <span className="w-8 text-center">{quantities[4] || 0}</span>
+                        
+                        <Button 
+                          variant="outline" 
+                          size="icon"
+                          onClick={() => handleQuantityChange(4, 1)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Plus size={16} />
+                        </Button>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleAddToCart(4)}
+                        disabled={quantities[4] <= 0}
+                      >
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

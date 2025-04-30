@@ -1,12 +1,18 @@
 
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CartIcon = () => {
   const { getCartCount } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
   const count = getCartCount();
+  
+  // Hide the cart icon on the results page
+  if (location.pathname === "/results") {
+    return null;
+  }
 
   return (
     <div className="fixed right-6 top-16 z-50">
