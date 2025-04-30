@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { Plus, Minus, ShoppingCart, ExternalLink } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface CardDeck {
@@ -96,8 +96,18 @@ const CardDeckItem = ({
           </Button>
         </div>
         
-        {/* Side-by-side Add and Buy buttons */}
+        {/* Side-by-side View details, Add and Buy buttons */}
         <div className="flex items-center gap-2 mt-2 w-full">
+          <Button 
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate(`/product/${encodeURIComponent(deck.title)}`)}
+            className="text-cognilense-blue rounded-full px-3 py-1 text-xs h-8 flex items-center gap-1"
+          >
+            View details
+            <ExternalLink size={12} />
+          </Button>
+        
           <Button 
             variant="outline"
             size="sm"
