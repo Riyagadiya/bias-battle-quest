@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { RotateCcw, Share2 } from "lucide-react";
@@ -33,16 +32,17 @@ const ResultsSection = () => {
   let resultMessage = "";
   let resultSubtitle = "";
   
-  if (correctAnswers === 0) {
+  // Set result message and subtitle based on percentage
+  if (percentage === 0) {
     resultMessage = "Lost in Bias!";
-    resultSubtitle = "Every expert starts somewhere. You can beat it—one bias at a time.";
-  } else if (correctAnswers >= 1 && correctAnswers <= 2) {
+    resultSubtitle = "Every expert starts somewhere. Now that you see it, you can beat it—one bias at a time.";
+  } else if (percentage >= 1 && percentage <= 20) {
     resultMessage = "Cognitive Fog Ahead!";
     resultSubtitle = "You're beginning to notice the patterns. Keep going—clarity is closer than you think!";
-  } else if (correctAnswers >= 3 && correctAnswers <= 5) {
+  } else if (percentage >= 30 && percentage <= 50) {
     resultMessage = "Getting Wiser!";
     resultSubtitle = "You're on the path to sharper thinking. Stay mindful, stay curious!";
-  } else if (correctAnswers >= 6 && correctAnswers <= 10) {
+  } else if (percentage >= 60 && percentage <= 100) {
     resultMessage = "Sharp & Unbiased!";
     resultSubtitle = "Impressive awareness! Your clear thinking is a skill—keep sharpening it.";
   }
@@ -81,11 +81,14 @@ const ResultsSection = () => {
                     showCorrectCount={false}
                   />
                   
-                  {/* Result Message without subtitle below the ring */}
+                  {/* Result Message and subtitle below the ring */}
                   <div className="text-center mt-4">
                     <h3 className="text-2xl md:text-3xl font-domine font-medium">
                       {resultMessage}
                     </h3>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {resultSubtitle}
+                    </p>
                   </div>
                   
                   {/* Stats with subtle divider */}
