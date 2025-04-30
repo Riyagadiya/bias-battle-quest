@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PartyPopper, RotateCcw, Award, Share2, Code, Check, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
@@ -57,7 +56,6 @@ const ResultsSection = () => {
     <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* Changed column span from md:col-span-2 to md:col-span-1 to make it narrower */}
           <motion.div 
             className="md:col-span-1"
             initial={{ opacity: 0, y: 20 }}
@@ -82,14 +80,11 @@ const ResultsSection = () => {
                     showCorrectCount={false}
                   />
                   
-                  {/* Result Message and subtitle below the ring */}
+                  {/* Result Message without subtitle below the ring */}
                   <div className="text-center mt-4">
                     <h3 className="text-2xl md:text-3xl font-domine font-medium">
                       {resultMessage}
                     </h3>
-                    <p className="text-muted-foreground mt-2 max-w-lg mx-auto">
-                      {resultSubtitle}
-                    </p>
                   </div>
                   
                   {/* Stats with subtle divider */}
@@ -106,19 +101,19 @@ const ResultsSection = () => {
                   </div>
                 </motion.div>
 
-                {/* Action Buttons centered below the result message */}
+                {/* Action Buttons stacked vertically */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
+                  className="flex flex-col gap-4 mt-8"
                 >
-                  <GradientButton onClick={restartQuiz} className="group" icon={false}>
+                  <GradientButton onClick={restartQuiz} className="group w-full" icon={false}>
                     <span>Try Again</span>
                     <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
                   </GradientButton>
                   
-                  <GradientButton onClick={shareQuiz} className="group" icon={false}>
+                  <GradientButton onClick={shareQuiz} className="group w-full" icon={false}>
                     <span>Share Quiz</span>
                     <Share2 size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </GradientButton>
@@ -127,7 +122,6 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          {/* Changed column span from md:col-span-1 to md:col-span-2 to make it wider */}
           <motion.div
             className="md:col-span-2"
             initial={{ opacity: 0, x: 20 }}
