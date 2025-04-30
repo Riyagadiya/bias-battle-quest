@@ -141,9 +141,10 @@ const ResultsActionTabs = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full">
-      <Card className="border-0 shadow-none h-full">
-        <CardContent className="pt-6 px-4 h-full">
+    // Modified to have h-full to take full height of parent container
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+      <Card className="border-0 shadow-none h-full flex-1">
+        <CardContent className="pt-6 px-4 h-full flex flex-col">
           <div className="text-center mb-6">
             <h3 className="font-domine text-2xl font-semibold">Boom! You Just Unlocked 30% Off!</h3>
             <p className="text-muted-foreground mt-2">Grab your Card Decks now – offer valid for a limited time!</p>
@@ -165,7 +166,8 @@ const ResultsActionTabs = () => {
             </button>
           </div>
           
-          <div className="space-y-4">
+          {/* Make this div flex-grow to take available space */}
+          <div className="space-y-4 flex-grow overflow-y-auto">
             {cardDecks.map((deck) => (
               <CardDeckItem
                 key={deck.id}

@@ -143,8 +143,12 @@ const ResultsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            {/* New tabbed interface with card decks */}
-            <ResultsActionTabs />
+            <div className="h-full flex">
+              {/* Changed to flex-1 to allow dynamic height based on content */}
+              <div className="w-full flex-1 flex flex-col">
+                <ResultsActionTabs />
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
