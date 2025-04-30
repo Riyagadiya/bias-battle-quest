@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus, ShoppingCart, ExternalLink } from "lucide-react";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface CardDeck {
@@ -49,8 +49,8 @@ const CardDeckItem = ({
         <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full" />
       </div>
       
-      <div className="flex-1">
-        <h4 className="font-medium line-clamp-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>{deck.title}</h4>
+      <div className="flex-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>
+        <h4 className="font-medium line-clamp-1">{deck.title}</h4>
         <p className="text-xs text-gray-600 mb-1">{deck.oneLiner}</p>
         <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
         
@@ -69,14 +69,6 @@ const CardDeckItem = ({
             Subtotal: ₹{deck.price * quantity}
           </div>
         )}
-        
-        {/* View details link */}
-        <button 
-          onClick={() => onDeckClick(deck.title)} 
-          className="text-xs text-cognilense-blue hover:underline mt-1 flex items-center gap-1"
-        >
-          View details <ExternalLink size={10} />
-        </button>
       </div>
       
       <div className="shrink-0 flex flex-col items-center gap-2">

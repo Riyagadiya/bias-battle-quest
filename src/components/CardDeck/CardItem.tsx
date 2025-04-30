@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
 
 interface CardItemProps {
   title: string;
@@ -41,17 +39,21 @@ const CardItem = ({
         backgroundColor,
         ['--hover-color' as string]: hoverColor
       }} 
-      className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative overflow-hidden py-[49px]"
+      onMouseEnter={e => {
+        (e.target as HTMLElement).style.backgroundColor = hoverColor;
+      }} 
+      onMouseLeave={e => {
+        (e.target as HTMLElement).style.backgroundColor = backgroundColor;
+      }} 
+      onClick={handleCardClick} 
+      className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]"
     >
-      <div 
-        className="mb-8 flex justify-center flex-grow cursor-pointer"
-        onClick={handleCardClick}
-      >
+      <div className="mb-8 flex justify-center flex-grow">
         <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" />
       </div>
       
       <div className="mt-auto">
-        <h3 className="text-xl font-domine font-semibold mb-2 cursor-pointer" onClick={handleCardClick}>{title}</h3>
+        <h3 className="text-xl font-domine font-semibold mb-2">{title}</h3>
         
         <p className="text-muted-foreground mb-4 text-sm">
           {description}
@@ -72,14 +74,6 @@ const CardItem = ({
             <p className="text-xs text-muted-foreground line-through">MRP: {mrp}</p>
           </div>
         </div>
-        
-        {/* View details link */}
-        <button 
-          onClick={handleCardClick} 
-          className="text-xs text-cognilense-blue hover:underline mt-3 flex items-center gap-1"
-        >
-          View details <ExternalLink size={10} />
-        </button>
       </div>
     </div>
   );
