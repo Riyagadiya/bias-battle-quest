@@ -26,7 +26,7 @@ const PriceSummary = ({
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Subtotal ({itemCount} items)</span>
-          <span className="text-green-600">₹{subtotal}</span>
+          <span>₹{subtotal}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">MRP Total</span>
