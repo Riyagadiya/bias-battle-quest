@@ -1,24 +1,14 @@
 
 import { useState, useEffect } from "react";
-import { 
-  ExternalLink, 
-  ArrowUpRight,
-  Plus,
-  Minus,
-  ShoppingCart,
-  Truck,
-  PackageX,
-  CreditCard,
-  ShieldCheck
-} from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
 import { useCart } from "@/context/CartContext";
-import { Separator } from "@/components/ui/separator";
+import CardDeckItem from "./CardDeckItem";
+import PriceSummary from "./PriceSummary";
+import OrderInformation from "./OrderInformation";
 
 // Card deck data
 const cardDecks = [{
@@ -76,14 +66,10 @@ const cardDecks = [{
 }];
 
 const ResultsActionTabs = () => {
-  const { restartQuiz } = useQuiz();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0
+    1: 0, 2: 0, 3: 0, 4: 0
   });
   
   // State for price calculations
@@ -148,12 +134,6 @@ const ResultsActionTabs = () => {
     }
   };
 
-  const shareQuiz = () => {
-    const shareUrl = window.location.origin;
-    navigator.clipboard.writeText(shareUrl);
-    toast.success("Quiz URL copied to clipboard!");
-  };
-
   const handleDeckClick = (title: string) => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
@@ -183,148 +163,25 @@ const ResultsActionTabs = () => {
           
           <div className="space-y-4">
             {cardDecks.map((deck) => (
-              <div 
-                key={deck.id} 
-                className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <div 
-                  className="w-20 h-20 rounded-lg flex items-center justify-center p-2 cursor-pointer"
-                  style={{ backgroundColor: deck.backgroundColor }}
-                  onClick={() => handleDeckClick(deck.title)}
-                >
-                  <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full" />
-                </div>
-                
-                <div className="flex-1 cursor-pointer" onClick={() => handleDeckClick(deck.title)}>
-                  <h4 className="font-medium line-clamp-1">{deck.title}</h4>
-                  <p className="text-xs text-gray-600 mb-1">{deck.oneLiner}</p>
-                  <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
-                  
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="font-semibold">₹{deck.price}</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                      {deck.discount}
-                    </Badge>
-                    <span className="text-xs text-muted-foreground line-through">
-                      ₹{deck.mrp}
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="shrink-0 flex items-center gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="icon"
-                    onClick={() => handleQuantityChange(deck.id, -1)}
-                    disabled={quantities[deck.id] <= 0}
-                    className="h-8 w-8 rounded-full"
-                  >
-                    <Minus size={16} />
-                  </Button>
-                  
-                  <span className="w-8 text-center">{quantities[deck.id] || 0}</span>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="icon"
-                    onClick={() => handleQuantityChange(deck.id, 1)}
-                    className="h-8 w-8 rounded-full"
-                  >
-                    <Plus size={16} />
-                  </Button>
-                  
-                  <Button 
-                    className="ml-2"
-                    variant="default"
-                    size="sm"
-                    onClick={() => handleAddToCart(deck.id)}
-                    disabled={quantities[deck.id] <= 0}
-                  >
-                    Add
-                  </Button>
-                </div>
-              </div>
+              <CardDeckItem
+                key={deck.id}
+                deck={deck}
+                quantity={quantities[deck.id] || 0}
+                onQuantityChange={handleQuantityChange}
+                onAddToCart={handleAddToCart}
+                onDeckClick={handleDeckClick}
+              />
             ))}
           </div>
           
           {/* Dynamic Price Summary Section */}
-          {priceSummary.itemCount > 0 && (
-            <div className="mt-6 pt-4 border-t border-gray-100">
-              <h4 className="font-medium text-sm mb-3">Order Summary</h4>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Subtotal ({priceSummary.itemCount} items)</span>
-                  <span>₹{priceSummary.subtotal}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">MRP Total</span>
-                  <span className="line-through text-muted-foreground">₹{priceSummary.mrpTotal}</span>
-                </div>
-                <div className="flex justify-between text-sm text-green-600">
-                  <span>Discount</span>
-                  <span>- ₹{priceSummary.discount}</span>
-                </div>
-                <Separator className="my-2" />
-                <div className="flex justify-between font-medium">
-                  <span>Total</span>
-                  <span>₹{priceSummary.total}</span>
-                </div>
-              </div>
-              
-              <Button 
-                className="w-full mt-4"
-                onClick={handleViewCart}
-              >
-                View Cart ({priceSummary.itemCount})
-              </Button>
-            </div>
-          )}
+          <PriceSummary 
+            {...priceSummary}
+            onViewCart={handleViewCart}
+          />
           
           {/* Order Information Section */}
-          <div className="mt-8 pt-6 border-t border-gray-100">
-            <h4 className="font-domine text-lg font-medium mb-4">Order Information</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="mt-0.5 text-cognilense-blue">
-                  <Truck size={20} />
-                </div>
-                <div>
-                  <h5 className="font-medium text-sm">Free Delivery</h5>
-                  <p className="text-xs text-muted-foreground">Get free standard shipping on all orders</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="mt-0.5 text-cognilense-orange">
-                  <PackageX size={20} />
-                </div>
-                <div>
-                  <h5 className="font-medium text-sm">No Returns</h5>
-                  <p className="text-xs text-muted-foreground">All sales are final, no returns or replacements</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="mt-0.5 text-cognilense-green">
-                  <CreditCard size={20} />
-                </div>
-                <div>
-                  <h5 className="font-medium text-sm">Secure Payment</h5>
-                  <p className="text-xs text-muted-foreground">Payments processed securely via Razorpay</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="mt-0.5 text-cognilense-blue">
-                  <ShieldCheck size={20} />
-                </div>
-                <div>
-                  <h5 className="font-medium text-sm">Quality Guarantee</h5>
-                  <p className="text-xs text-muted-foreground">Premium materials and craftsmanship</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <OrderInformation />
         </CardContent>
       </Card>
     </div>
