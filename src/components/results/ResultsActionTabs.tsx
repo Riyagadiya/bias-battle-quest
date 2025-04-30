@@ -27,7 +27,7 @@ const cardDecks = [{
 }, {
   id: 2,
   title: "Research Method Card Deck",
-  oneLiner: "Start with smart questions. Use this tool to explore, uncover, and decide better.",
+  oneLiner: "",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
   imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
   backgroundColor: "#D4E3A6",
@@ -40,7 +40,7 @@ const cardDecks = [{
 }, {
   id: 3,
   title: "Thinking Hat Card Deck",
-  oneLiner: "Shift perspectives. Use each hat to ideate, analyze, empathize, or evaluate.",
+  oneLiner: "",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
   imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
   backgroundColor: "#F8C1A6",
