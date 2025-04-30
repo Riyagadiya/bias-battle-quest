@@ -69,24 +69,25 @@ const CardDeckItem = ({
       </div>
       
       <div className="shrink-0 flex flex-col items-center gap-2">
-        <div className="flex items-center gap-2">
+        {/* Unified quantity control in a single rounded rectangle */}
+        <div className="flex items-center border rounded-full overflow-hidden">
           <Button 
-            variant="outline" 
+            variant="ghost" 
             size="icon"
             onClick={() => onQuantityChange(deck.id, -1)}
             disabled={quantity <= 0}
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-none border-r border-gray-100"
           >
             <Minus size={16} />
           </Button>
           
-          <span className="w-8 text-center">{quantity || 0}</span>
+          <span className="w-8 text-center font-medium">{quantity || 0}</span>
           
           <Button 
-            variant="outline" 
+            variant="ghost" 
             size="icon"
             onClick={() => onQuantityChange(deck.id, 1)}
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-none border-l border-gray-100"
           >
             <Plus size={16} />
           </Button>
