@@ -71,6 +71,12 @@ const CardItem = ({
     setQuantity(prev => Math.max(1, prev - 1));
   };
   
+  // Calculate the dynamic price based on quantity
+  const calculateTotalPrice = () => {
+    const basePrice = parseInt(mrp.replace('₹', ''));
+    return `₹${basePrice * quantity}`;
+  };
+  
   return (
     <div 
       style={{
@@ -101,18 +107,20 @@ const CardItem = ({
               {description}
             </p>
 
-            <p className="font-medium text-sm mb-1">{cardCount}</p>
             <p className="text-sm text-muted-foreground mb-4">{shipping}</p>
           </div>
           
           {/* Price and quantity section - on the right */}
           <div className="flex flex-col items-end justify-between">
             {/* Price - only showing the final price */}
-            <div className="text-right mb-4">
+            <div className="text-right mb-2">
               <span className="text-xl font-semibold">{mrp}</span>
             </div>
             
-            {/* Quantity control */}
+            {/* Card Count - moved below the price */}
+            <p className="font-medium text-sm mb-2 text-right">{cardCount}</p>
+            
+            {/* Quantity control - moved below card count */}
             <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4">
               <button 
                 onClick={decreaseQuantity} 
@@ -127,6 +135,11 @@ const CardItem = ({
               >
                 <Plus size={20} />
               </button>
+            </div>
+            
+            {/* Display the dynamic total based on quantity */}
+            <div className="text-right mb-4">
+              <p className="text-sm font-semibold">Total: {calculateTotalPrice()}</p>
             </div>
           </div>
         </div>
@@ -145,7 +158,7 @@ const CardItem = ({
           
           <GradientButton 
             className="h-11 flex items-center justify-center" 
-            onClick={(e: React.MouseEvent) => handleBuyNow(e)}
+            onClick={handleBuyNow}
             icon={false}
           >
             <span className="flex items-center">
