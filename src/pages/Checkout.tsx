@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, CreditCard, ArrowLeft } from "lucide-react";
+import { Loader2, CreditCard, ArrowLeft, ReceiptIndianRupee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
 import { useCart } from "@/context/CartContext";
 import { supabase } from "@/integrations/supabase/client";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 declare global {
   interface Window {
@@ -350,7 +352,8 @@ const Checkout = () => {
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="container mx-auto py-12 flex flex-col lg:flex-row gap-8 justify-center">
-          <Card className="flex-1 max-w-2xl mx-auto shadow-lg border border-[#eee] bg-white">
+          {/* Left side - Shipping form */}
+          <Card className="flex-1 max-w-2xl mx-auto shadow-lg border border-[#eee] bg-white order-2 lg:order-1">
             <CardContent className="p-0">
               <div className="px-10 pt-10 pb-0">
                 <h1 className="text-3xl font-bold text-left mb-6 tracking-tight font-domine">Shipping Details</h1>
@@ -508,67 +511,75 @@ const Checkout = () => {
               </form>
             </CardContent>
           </Card>
-          <Card className="w-full max-w-sm mx-auto h-fit self-start border border-[#eee] shadow-md bg-white">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-6 text-left font-domine tracking-tight">Order Summary</h2>
-              {items.length === 0 ? (
-                <div className="text-center text-muted-foreground py-6">Your cart is empty</div>
-              ) : (
-                <>
-                  {items.map((item, idx) => (
-                    <div className="flex items-center gap-4 mb-6" key={item.id}>
-                      <div>
-                        <img
-                          src={"/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png"}
-                          alt={item.title}
-                          className="w-20 h-20 rounded object-cover border border-gray-200"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-base font-domine truncate">{item.title}</div>
-                        <div className="font-worksans text-sm text-gray-700 mt-1">
-                          Quantity: <span className="font-semibold">{item.quantity}</span>
+          
+          {/* Right side - Order summary - styled like the shopping cart */}
+          {items.length > 0 && (
+            <div className="w-full lg:w-[300px] xl:w-[350px] order-1 lg:order-2 mb-6 lg:mb-0">
+              <Card className="rounded-lg border-2 border-muted shadow-md bg-white sticky top-24">
+                <CardContent className="py-6 px-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <ReceiptIndianRupee className="text-primary" size={28} />
+                    <h2 className="text-xl font-semibold">Order Summary</h2>
+                  </div>
+                  <Separator className="mb-4" />
+                  <ScrollArea className="h-full max-h-[400px]">
+                    <div className="space-y-4 pr-4">
+                      {items.map((item) => (
+                        <div key={item.id} className="flex gap-3">
+                          <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
+                            <img
+                              src="/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png"
+                              alt={item.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-sm font-medium line-clamp-1">{item.title}</h4>
+                            <div className="flex justify-between items-center mt-1">
+                              <span className="text-xs text-muted-foreground">Qty: {item.quantity}</span>
+                              <span className="text-sm font-medium">₹{item.price * item.quantity}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <span className="font-bold text-lg font-worksans text-black">₹{item.price * item.quantity}</span>
-                          <span className="line-through text-gray-400 font-worksans text-base">
-                            ₹{calculateOriginalPrice(item.price) * item.quantity}
-                          </span>
-                          <span className="text-green-600 text-xs font-medium ml-0.5">
-                            {DISCOUNT_PERCENT}% off
-                          </span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                  <div className="border-t border-gray-200 my-1 mb-4" />
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Number of Items</span>
-                    <span className="font-medium">{totalItems}</span>
+                  </ScrollArea>
+                  <Separator className="my-4" />
+                  <div className="flex flex-col gap-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Number of Items</span>
+                      <span className="font-medium">{totalItems}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Total Original MRP</span>
+                      <span className="line-through text-slate-400">
+                        ₹{totalOriginal}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Discount Applied</span>
+                      <span className="text-green-600 font-semibold">
+                        -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Total Saved</span>
+                      <span className="text-green-800 font-semibold">
+                        ₹{totalSaved}
+                      </span>
+                    </div>
+                    <Separator className="my-2" />
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span className="text-black">Final Price</span>
+                      <span className="text-primary text-2xl font-bold">
+                        ₹{finalPrice}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Total Original MRP</span>
-                    <span className="line-through text-gray-400">₹{totalOriginal}</span>
-                  </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Discount Applied</span>
-                    <span className="text-green-600 font-semibold">
-                      -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Total Saved</span>
-                    <span className="text-green-800 font-semibold">₹{totalSaved}</span>
-                  </div>
-                  <div className="border-t border-gray-200 my-4" />
-                  <div className="flex justify-between items-center text-xl font-bold font-worksans mt-2">
-                    <span className="text-black">Total Amount</span>
-                    <span className="text-primary text-2xl font-bold">₹{finalPrice}</span>
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </main>
       <Footer />
