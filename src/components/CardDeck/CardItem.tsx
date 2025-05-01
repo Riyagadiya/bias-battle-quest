@@ -87,54 +87,58 @@ const CardItem = ({
       className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]"
       onClick={handleCardClick}
     >
-      <div className="mb-8 flex justify-center flex-grow">
+      <div className="mb-6 flex justify-center flex-grow">
         <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" />
       </div>
       
       <div className="mt-auto">
-        <h3 className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors">
-          {title}
-        </h3>
-        
-        <p className="text-muted-foreground mb-4 text-sm">
-          {description}
-        </p>
+        <div className="flex flex-col md:flex-row md:justify-between gap-4">
+          <div className="flex-grow">
+            <h3 className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors">
+              {title}
+            </h3>
+            
+            <p className="text-muted-foreground mb-4 text-sm">
+              {description}
+            </p>
 
-        <div className="flex items-center justify-between mb-4">
-          <div>
             <p className="font-medium text-sm mb-1">{cardCount}</p>
-            <p className="text-sm text-muted-foreground">{shipping}</p>
+            <p className="text-sm text-muted-foreground mb-4">{shipping}</p>
           </div>
-          <div className="text-right">
-            <div className="flex items-center gap-2 justify-end mb-1">
-              <span className="text-xl font-semibold">{price}</span>
-              <Badge variant="secondary" className="bg-green-100 text-green-800">
-                {discount}
-              </Badge>
+          
+          {/* Price and quantity section - now on the right */}
+          <div className="flex flex-col items-end justify-between">
+            <div className="text-right mb-4">
+              <div className="flex items-center gap-2 justify-end mb-1">
+                <span className="text-xl font-semibold">{price}</span>
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                  {discount}
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground line-through">MRP: {mrp}</p>
             </div>
-            <p className="text-xs text-muted-foreground line-through">MRP: {mrp}</p>
+            
+            {/* Quantity control */}
+            <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4">
+              <button 
+                onClick={decreaseQuantity} 
+                className="p-1 hover:bg-black/5 rounded-full"
+              >
+                <Minus size={20} />
+              </button>
+              <span className="font-medium">{quantity}</span>
+              <button 
+                onClick={increaseQuantity}
+                className="p-1 hover:bg-black/5 rounded-full"
+              >
+                <Plus size={20} />
+              </button>
+            </div>
           </div>
-        </div>
-        
-        {/* Quantity control */}
-        <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4 mx-auto">
-          <button 
-            onClick={decreaseQuantity} 
-            className="p-1 hover:bg-black/5 rounded-full"
-          >
-            <Minus size={20} />
-          </button>
-          <span className="font-medium">{quantity}</span>
-          <button 
-            onClick={increaseQuantity}
-            className="p-1 hover:bg-black/5 rounded-full"
-          >
-            <Plus size={20} />
-          </button>
         </div>
         
         {/* Action buttons */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 mt-4">
           <Button 
             className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 h-11 flex items-center justify-center"
             onClick={handleAddToCart}

@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -75,7 +76,7 @@ const CardDeck = () => {
           className="container mx-auto"
         >
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl font-domine font-semibold text-center mb-8 md:text-4xl">Ready, Set, Grab a Deck!</h1>
+            <h1 className="text-3xl font-domine font-semibold text-center mb-12 md:text-4xl">Ready, Set, Grab a Deck!</h1>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {cardDecks.map((deck, index) => (
