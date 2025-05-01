@@ -42,7 +42,8 @@ const CardItem = ({
     navigate(`/product/${encodeURIComponent(title)}`);
   };
   
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
     addToCart({
       title,
       quantity,
@@ -51,7 +52,8 @@ const CardItem = ({
     toast.success(`${quantity} x ${title} added to cart`);
   };
   
-  const handleBuyNow = () => {
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
     addToCart({
       title,
       quantity,
@@ -60,8 +62,15 @@ const CardItem = ({
     navigate('/checkout');
   };
   
-  const increaseQuantity = () => setQuantity(prev => prev + 1);
-  const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
+  const increaseQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setQuantity(prev => prev + 1);
+  };
+  
+  const decreaseQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setQuantity(prev => Math.max(1, prev - 1));
+  };
   
   return (
     <div 
@@ -76,16 +85,14 @@ const CardItem = ({
         (e.target as HTMLElement).style.backgroundColor = backgroundColor;
       }} 
       className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]"
+      onClick={handleCardClick}
     >
       <div className="mb-8 flex justify-center flex-grow">
-        <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" onClick={handleCardClick} />
+        <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" />
       </div>
       
       <div className="mt-auto">
-        <h3 
-          className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors" 
-          onClick={handleCardClick}
-        >
+        <h3 className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors">
           {title}
         </h3>
         
@@ -112,20 +119,14 @@ const CardItem = ({
         {/* Quantity control */}
         <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4 mx-auto">
           <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              decreaseQuantity();
-            }} 
+            onClick={decreaseQuantity} 
             className="p-1 hover:bg-black/5 rounded-full"
           >
             <Minus size={20} />
           </button>
           <span className="font-medium">{quantity}</span>
           <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              increaseQuantity();
-            }}
+            onClick={increaseQuantity}
             className="p-1 hover:bg-black/5 rounded-full"
           >
             <Plus size={20} />
@@ -133,27 +134,26 @@ const CardItem = ({
         </div>
         
         {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Button 
-            className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 flex-1"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleAddToCart();
-            }}
+            className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 h-11 flex items-center justify-center"
+            onClick={handleAddToCart}
           >
-            <ShoppingCart className="mr-2" size={20} />
-            Add to Cart
+            <span className="flex items-center">
+              Add to Cart
+              <ShoppingCart className="ml-2" size={18} />
+            </span>
           </Button>
           
           <GradientButton 
-            className="flex-1 py-3" 
-            onClick={(e) => {
-              e.stopPropagation();
-              handleBuyNow();
-            }}
+            className="h-11 flex items-center justify-center" 
+            onClick={handleBuyNow}
             icon={false}
           >
-            Buy Now
+            <span className="flex items-center">
+              Buy Now
+              <ShoppingCart className="ml-2" size={18} />
+            </span>
           </GradientButton>
         </div>
       </div>
