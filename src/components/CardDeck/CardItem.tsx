@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -106,16 +105,11 @@ const CardItem = ({
             <p className="text-sm text-muted-foreground mb-4">{shipping}</p>
           </div>
           
-          {/* Price and quantity section - now on the right */}
+          {/* Price and quantity section - on the right */}
           <div className="flex flex-col items-end justify-between">
+            {/* Price - only showing the final price */}
             <div className="text-right mb-4">
-              <div className="flex items-center gap-2 justify-end mb-1">
-                <span className="text-xl font-semibold">{price}</span>
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
-                  {discount}
-                </Badge>
-              </div>
-              <p className="text-xs text-muted-foreground line-through">MRP: {mrp}</p>
+              <span className="text-xl font-semibold">{mrp}</span>
             </div>
             
             {/* Quantity control */}
@@ -151,7 +145,7 @@ const CardItem = ({
           
           <GradientButton 
             className="h-11 flex items-center justify-center" 
-            onClick={handleBuyNow}
+            onClick={(e: React.MouseEvent) => handleBuyNow(e)}
             icon={false}
           >
             <span className="flex items-center">
