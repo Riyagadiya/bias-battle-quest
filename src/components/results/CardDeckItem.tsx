@@ -64,12 +64,12 @@ const CardDeckItem = ({
         <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
         
         <div className="flex items-center gap-2 mt-1">
-          <span className="font-semibold">₹{deck.price}</span>
+          <span className="font-semibold">₹{deck.mrp}</span>
           <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
             {deck.discount}
           </Badge>
           <span className="text-xs text-muted-foreground line-through">
-            ₹{deck.mrp}
+            ₹{deck.price}
           </span>
         </div>
         
