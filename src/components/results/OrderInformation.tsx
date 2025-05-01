@@ -31,12 +31,7 @@ const OrderInformation = () => {
           <div className="text-cognilense-blue p-2 bg-blue-50 rounded-full">
             <ShieldCheck size={20} />
           </div>
-          <span className="text-sm flex items-center gap-1">
-            <img 
-              src="/lovable-uploads/f83f426e-ac7c-4f47-a747-187cfdbb3471.png" 
-              alt="Razorpay" 
-              className="h-4 w-auto"
-            />
+          <span className="text-sm">
             Secure payment
           </span>
         </div>
