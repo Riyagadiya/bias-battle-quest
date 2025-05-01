@@ -4,7 +4,6 @@ import { Truck, PackageX, CreditCard, ShieldCheck } from "lucide-react";
 const OrderInformation = () => {
   return (
     <div className="mt-10 pt-8 border-t border-gray-100">
-      <h4 className="font-domine text-lg font-medium mb-6">Order Information</h4>
       <div className="flex flex-wrap items-center justify-between gap-4 px-3">
         <div className="flex items-center gap-3">
           <div className="text-cognilense-blue p-2 bg-blue-50 rounded-full">
