@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import GradientButton from "@/components/GradientButton";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const ShoppingCart = () => {
   const {
@@ -79,7 +80,7 @@ const ShoppingCart = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow container mx-auto py-24 px-4">
+      <main className="flex-grow container mx-auto py-8 md:py-16 px-4">
         <div className="flex items-center gap-4 mb-6">
           <Button
             variant="outline"
@@ -92,12 +93,12 @@ const ShoppingCart = () => {
           <h1 className="text-3xl font-semibold">Shopping Cart</h1>
         </div>
 
-        {/* Restructured layout - flex container with order summary on right */}
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Left side - Tabs content */}
-          <div className="flex-grow">
+        {/* Optimized layout with top alignment */}
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          {/* Left side - Tabs content with improved spacing */}
+          <div className="w-full lg:max-w-[65%]">
             <Tabs defaultValue="items" className="w-full">
-              <TabsList className="mb-6">
+              <TabsList className="mb-4">
                 <TabsTrigger value="items">Items ({items.length})</TabsTrigger>
                 <TabsTrigger value="saved">
                   Saved for Later ({savedItems?.length || 0})
@@ -106,123 +107,64 @@ const ShoppingCart = () => {
 
               <TabsContent value="items">
                 <Card>
-                  <CardContent className="pt-6">
-                    {items.map((item, index) => (
-                      <div key={item.id}>
-                        <div className="flex items-start gap-6 py-4">
-                          <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
-                          <div className="flex-grow">
-                            <h3 className="text-lg font-medium">{item.title}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              Premium Quality Card Deck
-                            </p>
-                            <div className="flex items-center gap-4 mt-4">
-                              <div className="flex items-center justify-between border rounded-full p-2 w-32 bg-white">
-                                <button
-                                  onClick={() => handleUpdateQuantity(item.title, item.quantity - 1)}
-                                  className="p-1 hover:bg-black/5 rounded-full disabled:opacity-60"
-                                  disabled={item.quantity === 1}
-                                >
-                                  {item.quantity === 1 ? (
-                                    <img 
-                                      src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
-                                      alt="Delete" 
-                                      className="w-5 h-5"
-                                    />
-                                  ) : (
-                                    <Minus size={20} />
-                                  )}
-                                </button>
-                                <span className="font-medium">{item.quantity}</span>
-                                <button
-                                  onClick={() => handleUpdateQuantity(item.title, item.quantity + 1)}
-                                  className="p-1 hover:bg-black/5 rounded-full"
-                                >
-                                  <Plus size={20} />
-                                </button>
-                              </div>
-
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-red-600 rounded-lg border-2 border-muted"
-                                onClick={() => handleRemoveFromCart(item.title)}
-                              >
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Delete
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="rounded-lg border-2 border-muted"
-                                onClick={() => handleSaveForLater(item)}
-                              >
-                                <Save className="mr-2 h-4 w-4" />
-                                Save for later
-                              </Button>
-                            </div>
-                          </div>
-                          <div className="text-right min-w-[150px]">
-                            <div className="flex flex-col items-end gap-1">
-                              <p className="font-medium text-lg">
-                                ₹{item.price * item.quantity}
-                              </p>
-                              <p className="text-sm text-muted-foreground line-through">
-                                ₹{calculateOriginalPrice(item.price) * item.quantity}
-                              </p>
-                              <p className="text-green-600 text-sm font-medium">
-                                {DISCOUNT_PERCENT}% off
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        {index < items.length - 1 && <Separator className="my-4" />}
-                      </div>
-                    ))}
-
-                    {items.length === 0 && (
-                      <p className="text-center text-muted-foreground py-8">
-                        Your cart is empty
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="saved">
-                <Card>
-                  <CardContent className="pt-6">
-                    {savedItems && savedItems.length > 0 ? (
-                      savedItems.map((item, index) => (
+                  <ScrollArea className="max-h-[calc(100vh-360px)]">
+                    <CardContent className="pt-6">
+                      {items.map((item, index) => (
                         <div key={item.id}>
-                          <div className="flex items-start gap-6 py-4">
-                            <div className="w-48 h-48 bg-muted rounded-lg shrink-0"></div>
-                            <div className="flex-grow">
+                          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6 py-4">
+                            <div className="w-full md:w-48 h-48 bg-muted rounded-lg shrink-0"></div>
+                            <div className="flex-grow w-full">
                               <h3 className="text-lg font-medium">{item.title}</h3>
                               <p className="text-sm text-muted-foreground mt-1">
                                 Premium Quality Card Deck
                               </p>
-                              <div className="flex items-center gap-4 mt-4">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="rounded-lg border-2 border-muted"
-                                  onClick={() => handleMoveToCart(item)}
-                                >
-                                  Move to Cart
-                                </Button>
+                              <div className="flex flex-wrap items-center gap-4 mt-4">
+                                <div className="flex items-center justify-between border rounded-full p-2 w-32 bg-white">
+                                  <button
+                                    onClick={() => handleUpdateQuantity(item.title, item.quantity - 1)}
+                                    className="p-1 hover:bg-black/5 rounded-full disabled:opacity-60"
+                                    disabled={item.quantity === 1}
+                                  >
+                                    {item.quantity === 1 ? (
+                                      <img 
+                                        src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" 
+                                        alt="Delete" 
+                                        className="w-5 h-5"
+                                      />
+                                    ) : (
+                                      <Minus size={20} />
+                                    )}
+                                  </button>
+                                  <span className="font-medium">{item.quantity}</span>
+                                  <button
+                                    onClick={() => handleUpdateQuantity(item.title, item.quantity + 1)}
+                                    className="p-1 hover:bg-black/5 rounded-full"
+                                  >
+                                    <Plus size={20} />
+                                  </button>
+                                </div>
+
                                 <Button
                                   variant="outline"
                                   size="sm"
                                   className="text-red-600 rounded-lg border-2 border-muted"
-                                  onClick={() => handleRemoveSavedItem(item.title)}
+                                  onClick={() => handleRemoveFromCart(item.title)}
                                 >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Delete
                                 </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="rounded-lg border-2 border-muted"
+                                  onClick={() => handleSaveForLater(item)}
+                                >
+                                  <Save className="mr-2 h-4 w-4" />
+                                  Save for later
+                                </Button>
                               </div>
                             </div>
-                            <div className="text-right min-w-[150px]">
+                            <div className="text-right min-w-[150px] mt-4 md:mt-0">
                               <div className="flex flex-col items-end gap-1">
                                 <p className="font-medium text-lg">
                                   ₹{item.price * item.quantity}
@@ -236,72 +178,137 @@ const ShoppingCart = () => {
                               </div>
                             </div>
                           </div>
-                          {index < savedItems.length - 1 && <Separator className="my-4" />}
+                          {index < items.length - 1 && <Separator className="my-4" />}
                         </div>
-                      ))
-                    ) : (
-                      <p className="text-center text-muted-foreground py-8">
-                        No items saved for later
-                      </p>
-                    )}
-                  </CardContent>
+                      ))}
+
+                      {items.length === 0 && (
+                        <p className="text-center text-muted-foreground py-8">
+                          Your cart is empty
+                        </p>
+                      )}
+                    </CardContent>
+                  </ScrollArea>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="saved">
+                <Card>
+                  <ScrollArea className="max-h-[calc(100vh-360px)]">
+                    <CardContent className="pt-6">
+                      {savedItems && savedItems.length > 0 ? (
+                        savedItems.map((item, index) => (
+                          <div key={item.id}>
+                            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6 py-4">
+                              <div className="w-full md:w-48 h-48 bg-muted rounded-lg shrink-0"></div>
+                              <div className="flex-grow w-full">
+                                <h3 className="text-lg font-medium">{item.title}</h3>
+                                <p className="text-sm text-muted-foreground mt-1">
+                                  Premium Quality Card Deck
+                                </p>
+                                <div className="flex flex-wrap items-center gap-4 mt-4">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="rounded-lg border-2 border-muted"
+                                    onClick={() => handleMoveToCart(item)}
+                                  >
+                                    Move to Cart
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-red-600 rounded-lg border-2 border-muted"
+                                    onClick={() => handleRemoveSavedItem(item.title)}
+                                  >
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Delete
+                                  </Button>
+                                </div>
+                              </div>
+                              <div className="text-right min-w-[150px] mt-4 md:mt-0">
+                                <div className="flex flex-col items-end gap-1">
+                                  <p className="font-medium text-lg">
+                                    ₹{item.price * item.quantity}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground line-through">
+                                    ₹{calculateOriginalPrice(item.price) * item.quantity}
+                                  </p>
+                                  <p className="text-green-600 text-sm font-medium">
+                                    {DISCOUNT_PERCENT}% off
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            {index < savedItems.length - 1 && <Separator className="my-4" />}
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-center text-muted-foreground py-8">
+                          No items saved for later
+                        </p>
+                      )}
+                    </CardContent>
+                  </ScrollArea>
                 </Card>
               </TabsContent>
             </Tabs>
           </div>
 
-          {/* Right side - Order summary */}
+          {/* Right side - Order summary - sticky and aligned from top */}
           {items.length > 0 && (
-            <div className="w-full md:w-80 lg:w-96 shrink-0">
-              <Card className="rounded-lg border-2 border-muted shadow-md bg-white sticky top-24">
-                <CardContent className="py-6 px-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <ReceiptIndianRupee className="text-primary" size={28} />
-                    <h2 className="text-xl font-semibold">Order Summary</h2>
-                  </div>
-                  <Separator className="mb-4" />
-                  <div className="flex flex-col gap-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Number of Items</span>
-                      <span className="font-medium">{totalItems}</span>
+            <div className="w-full lg:w-[35%]">
+              <div className="sticky top-24">
+                <Card className="rounded-lg border-2 border-muted shadow-md bg-white h-full">
+                  <CardContent className="py-6 px-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <ReceiptIndianRupee className="text-primary" size={28} />
+                      <h2 className="text-xl font-semibold">Order Summary</h2>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Total Original MRP</span>
-                      <span className="line-through text-slate-400">
-                        ₹{totalOriginal}
-                      </span>
+                    <Separator className="mb-4" />
+                    <div className="flex flex-col gap-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Number of Items</span>
+                        <span className="font-medium">{totalItems}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Total Original MRP</span>
+                        <span className="line-through text-slate-400">
+                          ₹{totalOriginal}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Discount Applied</span>
+                        <span className="text-green-600 font-semibold">
+                          -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Total Saved</span>
+                        <span className="text-green-800 font-semibold">
+                          ₹{totalSaved}
+                        </span>
+                      </div>
+                      <Separator className="my-2" />
+                      <div className="flex justify-between items-center text-lg font-bold">
+                        <span className="text-black">Final Price</span>
+                        <span className="text-primary text-2xl font-bold">
+                          ₹{finalPrice}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Discount Applied</span>
-                      <span className="text-green-600 font-semibold">
-                        -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                      </span>
+                    <div className="mt-6">
+                      <GradientButton
+                        className="w-full h-14 text-lg font-semibold rounded-full tracking-wide"
+                        onClick={handleProceedToBuy}
+                        type="button"
+                      >
+                        Proceed to Buy
+                      </GradientButton>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Total Saved</span>
-                      <span className="text-green-800 font-semibold">
-                        ₹{totalSaved}
-                      </span>
-                    </div>
-                    <Separator className="my-2" />
-                    <div className="flex justify-between items-center text-lg font-bold">
-                      <span className="text-black">Final Price</span>
-                      <span className="text-primary text-2xl font-bold">
-                        ₹{finalPrice}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <GradientButton
-                      className="w-full h-14 text-lg font-semibold rounded-full tracking-wide"
-                      onClick={handleProceedToBuy}
-                      type="button"
-                    >
-                      Proceed to Buy
-                    </GradientButton>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           )}
         </div>
