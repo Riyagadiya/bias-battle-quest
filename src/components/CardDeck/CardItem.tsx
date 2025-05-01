@@ -1,7 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
+import GradientButton from "@/components/GradientButton";
 
 interface CardItemProps {
   title: string;
@@ -29,10 +34,34 @@ const CardItem = ({
   shipping
 }: CardItemProps) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  
   const handleCardClick = () => {
     console.log('Navigating to product detail:', title);
     navigate(`/product/${encodeURIComponent(title)}`);
   };
+  
+  const handleAddToCart = () => {
+    addToCart({
+      title,
+      quantity,
+      price: parseInt(price.replace('₹', ''))
+    });
+    toast.success(`${quantity} x ${title} added to cart`);
+  };
+  
+  const handleBuyNow = () => {
+    addToCart({
+      title,
+      quantity,
+      price: parseInt(price.replace('₹', ''))
+    });
+    navigate('/checkout');
+  };
+  
+  const increaseQuantity = () => setQuantity(prev => prev + 1);
+  const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
   
   return (
     <div 
@@ -64,7 +93,7 @@ const CardItem = ({
           {description}
         </p>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <div>
             <p className="font-medium text-sm mb-1">{cardCount}</p>
             <p className="text-sm text-muted-foreground">{shipping}</p>
@@ -80,7 +109,53 @@ const CardItem = ({
           </div>
         </div>
         
-        {/* Removed the View details hyperlink section */}
+        {/* Quantity control */}
+        <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4 mx-auto">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              decreaseQuantity();
+            }} 
+            className="p-1 hover:bg-black/5 rounded-full"
+          >
+            <Minus size={20} />
+          </button>
+          <span className="font-medium">{quantity}</span>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              increaseQuantity();
+            }}
+            className="p-1 hover:bg-black/5 rounded-full"
+          >
+            <Plus size={20} />
+          </button>
+        </div>
+        
+        {/* Action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button 
+            className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 flex-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddToCart();
+            }}
+          >
+            <ShoppingCart className="mr-2" size={20} />
+            Add to Cart
+          </Button>
+          
+          <GradientButton 
+            className="flex-1 py-3" 
+            onClick={(e) => {
+              e.stopPropagation();
+              handleBuyNow();
+            }}
+            icon={false}
+          >
+            Buy Now
+          </GradientButton>
+        </div>
       </div>
     </div>
   );

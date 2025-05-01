@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -54,46 +55,43 @@ const cardDecks = [{
 }];
 
 const CardDeck = () => {
-  return <div className="flex flex-col min-h-screen">
+  const navigate = useNavigate();
+  
+  return (
+    <div className="flex flex-col min-h-screen">
       <Header />
       <CartIcon />
       
       <main className="flex-grow py-24 px-6">
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} exit={{
-        opacity: 0
-      }} transition={{
-        duration: 0.4
-      }} className="container mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          exit={{ opacity: 0 }} 
+          transition={{ duration: 0.4 }} 
+          className="container mx-auto"
+        >
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-domine font-semibold text-center mb-4 md:text-3xl py-[19px]">Ready, Set, Grab a Deck!</h1>
             
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {cardDecks.map((deck, index) => <motion.div key={deck.title} initial={{
-              opacity: 0,
-              y: 20
-            }} animate={{
-              opacity: 1,
-              y: 0
-            }} transition={{
-              duration: 0.4,
-              delay: index * 0.1
-            }}>
+              {cardDecks.map((deck, index) => (
+                <motion.div 
+                  key={deck.title} 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
                   <CardItem {...deck} />
-                </motion.div>)}
+                </motion.div>
+              ))}
             </div>
           </div>
         </motion.div>
       </main>
       
       <Footer />
-    </div>;
+    </div>
+  );
 };
 
 export default CardDeck;
