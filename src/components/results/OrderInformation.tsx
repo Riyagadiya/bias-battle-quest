@@ -35,7 +35,7 @@ const OrderInformation = () => {
             <img 
               src="/lovable-uploads/f83f426e-ac7c-4f47-a747-187cfdbb3471.png" 
               alt="Razorpay" 
-              className="h-2.5 w-auto"
+              className="h-3 w-auto"
             />
             Secure payment
           </span>
