@@ -95,11 +95,11 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     illustrationUrl = biasIllustrations[baseType];
   }
   
-  // If still no illustration found, use a default illustration
+  // If still no illustration found, use the new default illustration
   if (!illustrationUrl) {
     console.log(`Using default illustration for bias type: ${biasTypeToUse} (normalized: ${normalizedBiasType})`);
-    // Use the brain illustration as default
-    illustrationUrl = "/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png"; 
+    // Use the uploaded cognitive bias image as default
+    illustrationUrl = "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png"; 
   }
 
   return (
@@ -111,7 +111,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
         loading="eager" // Prioritize loading this image
         onError={(e) => {
           // Fallback if image fails to load
-          e.currentTarget.src = "/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png";
+          e.currentTarget.src = "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png";
           console.log(`Fallback to default image for ${biasTypeToUse}`);
         }}
       />
