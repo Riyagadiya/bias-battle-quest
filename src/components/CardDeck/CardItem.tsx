@@ -83,10 +83,10 @@ const CardItem = ({
         backgroundColor,
         ['--hover-color' as string]: hoverColor
       }} 
-      onMouseEnter={e => {
+      onMouseEnter={(e) => {
         (e.target as HTMLElement).style.backgroundColor = hoverColor;
       }} 
-      onMouseLeave={e => {
+      onMouseLeave={(e) => {
         (e.target as HTMLElement).style.backgroundColor = backgroundColor;
       }} 
       className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]"
