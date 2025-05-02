@@ -81,7 +81,7 @@ const CardItem = ({
     <div 
       style={{
         backgroundColor,
-        ['--hover-color' as string]: hoverColor
+        ['--hover-color' as any]: hoverColor
       }} 
       onMouseEnter={e => {
         (e.target as HTMLElement).style.backgroundColor = hoverColor;

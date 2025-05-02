@@ -149,6 +149,21 @@ const ResultsActionTabs = () => {
             <p className="text-muted-foreground mt-2">Grab your Card Decks now – offer valid for a limited time!</p>
           </div>
           
+          {/* Featured Image - Added Cognitive Bias Card visual showcase */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative max-w-xl mx-auto">
+              <img 
+                src="/lovable-uploads/3b5d0b8e-1320-4c15-95d8-883f4cc85f7b.png" 
+                alt="Cognitive Bias Card Showcase" 
+                className="w-full rounded-lg shadow-md"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-lg">
+                <h4 className="text-white font-medium">Cards designed to help you think better</h4>
+                <p className="text-white/80 text-sm">Overcome cognitive biases in your daily decisions</p>
+              </div>
+            </div>
+          </div>
+          
           <div className="flex items-center justify-between mb-4">
             <h4 className="font-domine text-lg font-medium">Card Decks</h4>
             <button 
@@ -165,7 +180,7 @@ const ResultsActionTabs = () => {
             </button>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin">
             {cardDecks.map((deck) => (
               <CardDeckItem
                 key={deck.id}
