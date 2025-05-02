@@ -99,7 +99,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
   if (!illustrationUrl) {
     console.log(`Using default illustration for bias type: ${biasTypeToUse} (normalized: ${normalizedBiasType})`);
     // Use the uploaded cognitive bias image as default
-    illustrationUrl = "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png"; 
+    illustrationUrl = "/lovable-uploads/9aaed1ee-f807-444b-83b9-d785c312a22c.png"; 
   }
 
   return (
@@ -111,7 +111,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
         loading="eager" // Prioritize loading this image
         onError={(e) => {
           // Fallback if image fails to load
-          e.currentTarget.src = "/lovable-uploads/456a18af-44c9-4d2e-a5de-1e030e62ff56.png";
+          e.currentTarget.src = "/lovable-uploads/9aaed1ee-f807-444b-83b9-d785c312a22c.png";
           console.log(`Fallback to default image for ${biasTypeToUse}`);
         }}
       />
