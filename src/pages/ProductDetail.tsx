@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -31,8 +32,7 @@ const cardDecks = [{
   images: [
     "/lovable-uploads/87f79b0e-a057-4477-bb79-d8eeadcb1e11.png",
     "/lovable-uploads/3c940b73-d08b-41af-b9d8-6be5ef9f234a.png",
-    "/lovable-uploads/1ebce4a9-5e4b-4fca-8da5-abd34ce21c2b.png",
-    "/lovable-uploads/d27c64b7-bd80-4618-94f5-7c7836f47d7f.png"  // Added the new image
+    "/lovable-uploads/1ebce4a9-5e4b-4fca-8da5-abd34ce21c2b.png"
   ]
 }, {
   title: "Research Method Card Deck",
