@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, Plus, Minus, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
@@ -103,6 +104,35 @@ const ProductDetail = () => {
   const handleBackClick = () => {
     navigate('/card-decks');
   };
+  
+  // Create a ref for the carousel API
+  const [api, setApi] = useState(null);
+  
+  // Update carousel when selectedImageIndex changes
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(selectedImageIndex);
+    }
+  }, [selectedImageIndex, api]);
+  
+  // Update selectedImageIndex when carousel slides
+  const handleCarouselSelect = () => {
+    if (api) {
+      setSelectedImageIndex(api.selectedScrollSnap());
+    }
+  };
+  
+  // Set up event listeners for the carousel
+  useEffect(() => {
+    if (!api) return;
+    
+    api.on('select', handleCarouselSelect);
+    
+    return () => {
+      api.off('select', handleCarouselSelect);
+    };
+  }, [api]);
+  
   if (!product) {
     return <div className="flex flex-col min-h-screen">
         <Header />
@@ -165,11 +195,11 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  {/* Carousel for product images with 3:2 aspect ratio (without navigation arrows) */}
+                  {/* Carousel for product images with 3:2 aspect ratio */}
                   <div className="rounded-xl overflow-hidden relative" style={{
                     backgroundColor: product.backgroundColor
                   }}>
-                    <Carousel className="w-full">
+                    <Carousel className="w-full" setApi={setApi}>
                       <CarouselContent>
                         {product.images.map((image, index) => (
                           <CarouselItem key={index}>
