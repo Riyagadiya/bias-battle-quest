@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Plus, Minus, ArrowRight } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowRight, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import GradientButton from "@/components/GradientButton";
@@ -221,23 +221,24 @@ const CardDeck = () => {
                             </button>
                           </div>
                           
-                          {/* Action buttons side by side */}
-                          <div className="flex gap-2 w-full">
+                          {/* Action buttons side by side - UPDATED */}
+                          <div className="flex justify-center gap-2 w-full">
                             <Button 
                               variant="outline" 
-                              className="w-full rounded-full text-sm"
+                              className="w-full rounded-full text-sm flex items-center justify-center"
                               onClick={() => handleAddToCart(deck)}
                             >
-                              <ShoppingCart className="h-4 w-4 mr-1" />
                               Add to Cart
+                              <ShoppingCart className="h-4 w-4 ml-1" />
                             </Button>
                             
                             <GradientButton 
-                              className="w-full text-sm py-2"
+                              className="w-full text-sm py-2 flex items-center justify-center"
                               onClick={() => handleBuyNow(deck)}
+                              icon={false}
                             >
                               Buy Now
-                              <ArrowRight className="h-4 w-4" />
+                              <ShoppingBag className="h-4 w-4 ml-1" />
                             </GradientButton>
                           </div>
                         </div>
