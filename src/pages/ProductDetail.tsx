@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -62,7 +63,11 @@ const cardDecks = [{
   discount: "30% off",
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
-  images: ["/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png", "/lovable-uploads/89d61a08-dc89-46ce-8b4d-6f27cbeea0db.png", "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png"]
+  images: [
+    "/lovable-uploads/714c4bab-7924-4f4a-ab3a-2d45ae90a116.png", 
+    "/lovable-uploads/bc34523c-f562-425e-b26a-d9a583d0a68e.png", 
+    "/lovable-uploads/5f77be4b-9b96-4bc1-a8bc-04b1e70c19f9.png"
+  ]
 }, {
   title: "UX Laws Card Deck",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
