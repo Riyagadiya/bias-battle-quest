@@ -150,10 +150,14 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <div className="rounded-xl p-8 flex items-center justify-center" style={{
+                  <div className="rounded-xl p-8 flex items-center justify-center h-[350px]" style={{
                   backgroundColor: product.backgroundColor
                 }}>
-                    <img src={product.images[selectedImageIndex]} alt={product.title} className="w-full h-full object-contain" />
+                    <img 
+                      src={product.images[selectedImageIndex]} 
+                      alt={product.title} 
+                      className="max-w-full max-h-full object-contain"
+                    />
                   </div>
                   
                   <div className="flex justify-center gap-4">

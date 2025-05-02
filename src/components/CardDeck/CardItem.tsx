@@ -1,195 +1,91 @@
 
-import { useState, useEffect } from "react";
-import { ShoppingCart } from "lucide-react";
-import { toast } from "sonner";
-import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { useQuiz } from "@/context/QuizContext";
-import { useCart } from "@/context/CartContext";
-import CardDeckItem from "@/components/results/CardDeckItem";
-import PriceSummary from "@/components/results/PriceSummary";
-import OrderInformation from "@/components/results/OrderInformation";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 
-// Card deck data
-const cardDecks = [{
-  id: 1,
-  title: "Cognitive Biases Card Deck",
-  oneLiner: "",
-  description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
-  backgroundColor: "#FDDE81",
-  hoverColor: "#FCD14D",
-  cardCount: "38 Cards",
-  price: 699,
-  mrp: 999,
-  discount: "30% off",
-  shipping: "Free Shipping",
-}, {
-  id: 2,
-  title: "Research Method Card Deck",
-  oneLiner: "",
-  description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
-  backgroundColor: "#D4E3A6",
-  hoverColor: "#C4D985",
-  cardCount: "42 Cards",
-  price: 699,
-  mrp: 999,
-  discount: "30% off",
-  shipping: "Free Shipping",
-}, {
-  id: 3,
-  title: "Thinking Hat Card Deck",
-  oneLiner: "",
-  description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
-  backgroundColor: "#F8C1A6",
-  hoverColor: "#F3986B",
-  cardCount: "36 Cards",
-  price: 699,
-  mrp: 999,
-  discount: "30% off",
-  shipping: "Free Shipping",
-}, {
-  id: 4,
-  title: "UX Laws Card Deck",
-  oneLiner: "",
-  description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
-  backgroundColor: "#BEE5FA",
-  hoverColor: "#92D4F6",
-  cardCount: "40 Cards",
-  price: 699,
-  mrp: 999,
-  discount: "30% off",
-  shipping: "Free Shipping",
-}];
+interface CardItemProps {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  backgroundColor: string;
+  hoverColor: string;
+  cardCount: string;
+  price: string;
+  mrp: string;
+  discount: string;
+  shipping: string;
+}
 
-const ResultsActionTabs = () => {
+const CardItem = ({ 
+  title, 
+  description, 
+  imageUrl, 
+  backgroundColor, 
+  hoverColor,
+  cardCount,
+  price,
+  mrp,
+  discount,
+  shipping
+}: CardItemProps) => {
   const navigate = useNavigate();
-  const { addToCart, getCartCount } = useCart();
-  const [quantities, setQuantities] = useState<{[key: number]: number}>({
-    1: 0, 2: 0, 3: 0, 4: 0
-  });
-  
-  // Get current cart count
-  const cartCount = getCartCount();
-  
-  // State for price calculations
-  const [priceSummary, setPriceSummary] = useState({
-    subtotal: 0,
-    mrpTotal: 0,
-    discount: 0,
-    total: 0,
-    itemCount: 0
-  });
-  
-  // Calculate price whenever quantities change
-  useEffect(() => {
-    let subtotal = 0;
-    let mrpTotal = 0;
-    let itemCount = 0;
-    
-    Object.entries(quantities).forEach(([deckId, quantity]) => {
-      const deck = cardDecks.find(d => d.id === parseInt(deckId));
-      if (deck && quantity > 0) {
-        subtotal += deck.price * quantity;
-        mrpTotal += deck.mrp * quantity;
-        itemCount += quantity;
-      }
-    });
-    
-    const discount = mrpTotal - subtotal;
-    
-    setPriceSummary({
-      subtotal,
-      mrpTotal,
-      discount,
-      total: subtotal,
-      itemCount
-    });
-  }, [quantities]);
 
-  const handleQuantityChange = (deckId: number, change: number) => {
-    setQuantities(prev => {
-      const newQuantity = Math.max(0, (prev[deckId] || 0) + change);
-      return { ...prev, [deckId]: newQuantity };
-    });
-  };
-
-  const handleAddToCart = (deckId: number) => {
-    const quantity = 1; // Add one at a time
-    const deck = cardDecks.find(d => d.id === deckId);
-    
-    if (deck) {
-      addToCart({
-        title: deck.title,
-        quantity,
-        price: deck.price
-      });
-      
-      toast.success(`${deck.title} added to cart`);
-    }
-  };
-
-  const handleDeckClick = (title: string) => {
+  const handleViewDetails = () => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
 
-  const handleViewCart = () => {
-    navigate('/cart');
-  };
-
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-auto">
-      <Card className="border-0 shadow-none h-full">
-        <CardContent className="pt-6 px-4 h-full">
-          <div className="text-center mb-6">
-            <h3 className="font-domine text-2xl font-semibold">Boom! You Just Unlocked 30% Off!</h3>
-            <p className="text-muted-foreground mt-2">Grab your Card Decks now – offer valid for a limited time!</p>
-          </div>
+    <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
+      <CardContent className="p-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full">
+          <motion.div 
+            className="h-48 md:h-auto flex items-center justify-center p-6"
+            style={{ backgroundColor }}
+            whileHover={{ backgroundColor: hoverColor }}
+            transition={{ duration: 0.2 }}
+          >
+            <img 
+              src={imageUrl} 
+              alt={title}
+              className="max-h-full w-auto object-contain"
+            />
+          </motion.div>
           
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="font-domine text-lg font-medium">Card Decks</h4>
-            <button 
-              className="text-sm flex items-center text-cognilense-blue hover:underline relative" 
-              onClick={handleViewCart}
+          <div className="col-span-2 p-6 space-y-3">
+            <div className="flex items-start justify-between">
+              <div>
+                <h2 className="text-xl font-semibold font-domine">{title}</h2>
+                <p className="text-sm text-muted-foreground">{cardCount}</p>
+              </div>
+              <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
+                {discount}
+              </Badge>
+            </div>
+            
+            <p className="text-gray-600 line-clamp-2">{description}</p>
+            
+            <div className="flex items-center space-x-2">
+              <span className="text-xl font-semibold">{price}</span>
+              <span className="text-sm text-muted-foreground line-through">{mrp}</span>
+              <span className="text-sm text-green-600">{shipping}</span>
+            </div>
+            
+            <Button 
+              className="mt-4 rounded-full"
+              onClick={handleViewDetails}
             >
-              View Cart 
-              <ShoppingCart size={16} className="ml-1" />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black/20 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
-                  {cartCount}
-                </span>
-              )}
-            </button>
+              View Details
+              <ArrowUpRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
-          
-          <div className="space-y-4">
-            {cardDecks.map((deck) => (
-              <CardDeckItem
-                key={deck.id}
-                deck={deck}
-                quantity={quantities[deck.id] || 0}
-                onQuantityChange={handleQuantityChange}
-                onAddToCart={handleAddToCart}
-                onDeckClick={handleDeckClick}
-              />
-            ))}
-          </div>
-          
-          {/* Dynamic Price Summary Section */}
-          <PriceSummary 
-            {...priceSummary}
-            onViewCart={handleViewCart}
-          />
-          
-          {/* Order Information Section */}
-          <OrderInformation />
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
-export default ResultsActionTabs;
+export default CardItem;
