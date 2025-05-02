@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -29,7 +28,9 @@ const cardDecks = [{
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: [
-    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png"
+    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png", 
+    "/lovable-uploads/9981c0b7-51b3-40c1-b7be-4887f5bee6d3.png",
+    "/lovable-uploads/bd895570-aaf2-4dec-a5e0-b9ccd9bb4119.png"
   ]
 }, {
   title: "Research Method Card Deck",
@@ -77,6 +78,7 @@ const ProductDetail = () => {
     title
   } = useParams();
   const [quantity, setQuantity] = useState(1);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const {
     toast
   } = useToast();
@@ -149,14 +151,14 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  {/* Single image display with AspectRatio component for 3:2 ratio */}
+                  {/* Updated with AspectRatio component for 3:2 ratio */}
                   <div className="rounded-xl overflow-hidden" style={{
                     backgroundColor: product.backgroundColor
                   }}>
                     <AspectRatio ratio={3/2} className="w-full">
                       <div className="flex items-center justify-center w-full h-full p-8">
                         <img 
-                          src={product.images[0]} 
+                          src={product.images[selectedImageIndex]} 
                           alt={product.title} 
                           className="max-w-full max-h-full object-contain"
                         />
@@ -164,7 +166,12 @@ const ProductDetail = () => {
                     </AspectRatio>
                   </div>
                   
-                  {/* Removed the carousel thumbnails section */}
+                  <div className="flex justify-center gap-4">
+                    {product.images.map((image, index) => <div key={index} className={`cursor-pointer rounded-lg overflow-hidden border-2 p-2 w-16 h-16 transition-all
+                          ${index === selectedImageIndex ? 'border-black' : 'border-transparent'}`} onClick={() => setSelectedImageIndex(index)}>
+                        <img src={image} alt={`${product.title} - view ${index + 1}`} className="w-full h-full object-contain" />
+                      </div>)}
+                  </div>
                 </div>
 
                 <div className="space-y-4">
