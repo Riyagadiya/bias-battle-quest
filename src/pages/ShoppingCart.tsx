@@ -105,11 +105,11 @@ const ShoppingCart = () => {
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="items">
-                <Card>
-                  {/* Changed the ScrollArea to have a more appropriate height */}
-                  <ScrollArea className="h-full max-h-[65vh]">
-                    <CardContent className="pt-6">
+              <TabsContent value="items" className="h-full">
+                <Card className="h-full">
+                  {/* Removed height constraint from ScrollArea to show all content */}
+                  <ScrollArea className="h-full">
+                    <CardContent className="pt-6 pb-6">
                       {items.map((item, index) => (
                         <div key={item.id}>
                           <div className="flex flex-col sm:flex-row items-start gap-6 py-4">
@@ -195,11 +195,11 @@ const ShoppingCart = () => {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="saved">
-                <Card>
-                  {/* Changed the ScrollArea height for saved items as well */}
-                  <ScrollArea className="h-full max-h-[65vh]">
-                    <CardContent className="pt-6">
+              <TabsContent value="saved" className="h-full">
+                <Card className="h-full">
+                  {/* Removed height constraint from ScrollArea for saved items as well */}
+                  <ScrollArea className="h-full">
+                    <CardContent className="pt-6 pb-6">
                       {savedItems && savedItems.length > 0 ? (
                         savedItems.map((item, index) => (
                           <div key={item.id}>
@@ -259,7 +259,7 @@ const ShoppingCart = () => {
             </Tabs>
           </div>
 
-          {/* Right side - Order summary - sticky at top on large screens */}
+          {/* Right side - Order summary */}
           {items.length > 0 && (
             <div className="w-full lg:w-[300px] xl:w-[350px] order-1 lg:order-2 mb-6 lg:mb-0">
               <Card className="rounded-lg border-2 border-muted shadow-md bg-white sticky top-24">
