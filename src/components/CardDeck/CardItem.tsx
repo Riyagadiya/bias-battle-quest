@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
@@ -5,9 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
 import { useCart } from "@/context/CartContext";
-import CardDeckItem from "./CardDeckItem";
-import PriceSummary from "./PriceSummary";
-import OrderInformation from "./OrderInformation";
+import CardDeckItem from "@/components/results/CardDeckItem";
+import PriceSummary from "@/components/results/PriceSummary";
+import OrderInformation from "@/components/results/OrderInformation";
 
 // Card deck data
 const cardDecks = [{
@@ -28,7 +29,7 @@ const cardDecks = [{
   title: "Research Method Card Deck",
   oneLiner: "",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-  imageUrl: "/lovable-uploads/0f6aede7-210c-4f4e-837d-e09e0c67085a.png",
+  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
@@ -41,7 +42,7 @@ const cardDecks = [{
   title: "Thinking Hat Card Deck",
   oneLiner: "",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-  imageUrl: "/lovable-uploads/ae9b32f9-46f6-4a12-bddf-008c696b1e23.png",
+  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
@@ -54,7 +55,7 @@ const cardDecks = [{
   title: "UX Laws Card Deck",
   oneLiner: "",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-  imageUrl: "/lovable-uploads/9ec8bf7f-4bac-4482-9cca-2080d8a9717c.png",
+  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
