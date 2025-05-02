@@ -30,8 +30,8 @@ const cardDecks = [{
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: [
-    "/lovable-uploads/3c940b73-d08b-41af-b9d8-6be5ef9f234a.png", 
     "/lovable-uploads/87f79b0e-a057-4477-bb79-d8eeadcb1e11.png",
+    "/lovable-uploads/3c940b73-d08b-41af-b9d8-6be5ef9f234a.png",
     "/lovable-uploads/1ebce4a9-5e4b-4fca-8da5-abd34ce21c2b.png"
   ]
 }, {
