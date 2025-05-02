@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -14,6 +13,7 @@ import { useCart } from "@/context/CartContext";
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
@@ -151,14 +151,19 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <div className="rounded-xl p-8 flex items-center justify-center h-[350px]" style={{
-                  backgroundColor: product.backgroundColor
-                }}>
-                    <img 
-                      src={product.images[selectedImageIndex]} 
-                      alt={product.title} 
-                      className="max-w-full max-h-full object-contain"
-                    />
+                  {/* Updated with AspectRatio component for 3:2 ratio */}
+                  <div className="rounded-xl overflow-hidden" style={{
+                    backgroundColor: product.backgroundColor
+                  }}>
+                    <AspectRatio ratio={3/2} className="w-full">
+                      <div className="flex items-center justify-center w-full h-full p-8">
+                        <img 
+                          src={product.images[selectedImageIndex]} 
+                          alt={product.title} 
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                    </AspectRatio>
                   </div>
                   
                   <div className="flex justify-center gap-4">
