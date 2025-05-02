@@ -1,27 +1,20 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ShoppingCart, Plus, Minus, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft } from "lucide-react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
 import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
@@ -36,9 +29,7 @@ const cardDecks = [{
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: [
-    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png",
-    "/lovable-uploads/9981c0b7-51b3-40c1-b7be-4887f5bee6d3.png",
-    "/lovable-uploads/bd895570-aaf2-4dec-a5e0-b9ccd9bb4119.png"
+    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png"
   ]
 }, {
   title: "Research Method Card Deck",
@@ -86,7 +77,6 @@ const ProductDetail = () => {
     title
   } = useParams();
   const [quantity, setQuantity] = useState(1);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const {
     toast
   } = useToast();
@@ -95,11 +85,9 @@ const ProductDetail = () => {
     addToCart
   } = useCart();
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
-  
   const handleBackClick = () => {
     navigate('/card-decks');
   };
-  
   if (!product) {
     return <div className="flex flex-col min-h-screen">
         <Header />
@@ -114,20 +102,17 @@ const ProductDetail = () => {
         <Footer />
       </div>;
   }
-  
   const basePrice = parseInt(product.price); // Base price after discount
   const originalPrice = parseInt(product.mrp); // Original price before discount
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
   };
-  
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(prev => prev - 1);
     }
   };
-  
   const handleAddToCart = () => {
     addToCart({
       title: product.title,
@@ -139,11 +124,9 @@ const ProductDetail = () => {
       description: `${quantity} x ${product.title} added to cart - Total: ₹${basePrice * quantity}`
     });
   };
-  
   const handleBuyNow = () => {
     navigate("/checkout");
   };
-
   return <div className="flex flex-col min-h-screen">
       <Header />
       <CartIcon />
@@ -166,50 +149,22 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  {/* Product carousel with 3:2 aspect ratio */}
-                  <Carousel className="w-full relative">
-                    <CarouselContent>
-                      {product.images.map((image, index) => (
-                        <CarouselItem key={index}>
-                          <div className="rounded-xl overflow-hidden" style={{
-                            backgroundColor: product.backgroundColor
-                          }}>
-                            <AspectRatio ratio={3/2} className="w-full">
-                              <div className="flex items-center justify-center w-full h-full p-8">
-                                <img 
-                                  src={image} 
-                                  alt={`${product.title} - view ${index + 1}`} 
-                                  className="max-w-full max-h-full object-contain"
-                                />
-                              </div>
-                            </AspectRatio>
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-2 bg-white/80 backdrop-blur-sm border border-gray-200" />
-                    <CarouselNext className="right-2 bg-white/80 backdrop-blur-sm border border-gray-200" />
-                  </Carousel>
-                  
-                  {/* Thumbnails */}
-                  <div className="flex justify-center gap-2">
-                    {product.images.map((image, index) => (
-                      <Button 
-                        key={index} 
-                        variant="outline" 
-                        className={`p-0 h-12 w-12 rounded-md overflow-hidden ${
-                          currentImageIndex === index ? 'ring-2 ring-black' : ''
-                        }`}
-                        onClick={() => setCurrentImageIndex(index)}
-                      >
+                  {/* Single image display with AspectRatio component for 3:2 ratio */}
+                  <div className="rounded-xl overflow-hidden" style={{
+                    backgroundColor: product.backgroundColor
+                  }}>
+                    <AspectRatio ratio={3/2} className="w-full">
+                      <div className="flex items-center justify-center w-full h-full p-8">
                         <img 
-                          src={image} 
-                          alt={`Thumbnail ${index + 1}`} 
-                          className="w-full h-full object-contain"
+                          src={product.images[0]} 
+                          alt={product.title} 
+                          className="max-w-full max-h-full object-contain"
                         />
-                      </Button>
-                    ))}
+                      </div>
+                    </AspectRatio>
                   </div>
+                  
+                  {/* Removed the carousel thumbnails section */}
                 </div>
 
                 <div className="space-y-4">
