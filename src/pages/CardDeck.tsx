@@ -6,8 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Plus, Minus, ArrowLeft, ArrowRight } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import GradientButton from "@/components/GradientButton";
@@ -21,11 +20,7 @@ type CardDeckProps = {
   backgroundColor: string;
   hoverColor: string;
   cardCount: string;
-  price: string;
-  numericPrice: number;
-  mrp: string;
-  numericMrp: number;
-  discount: string;
+  price: number;
   shipping: string;
 }
 
@@ -39,11 +34,7 @@ const cardDecks: CardDeckProps[] = [
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
-    price: "₹699",
-    numericPrice: 699,
-    mrp: "₹999",
-    numericMrp: 999,
-    discount: "30% off",
+    price: 999,
     shipping: "Free Shipping"
   },
   {
@@ -55,11 +46,7 @@ const cardDecks: CardDeckProps[] = [
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
     cardCount: "42 Cards",
-    price: "₹699",
-    numericPrice: 699,
-    mrp: "₹999",
-    numericMrp: 999,
-    discount: "30% off",
+    price: 999,
     shipping: "Free Shipping"
   },
   {
@@ -71,11 +58,7 @@ const cardDecks: CardDeckProps[] = [
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
-    price: "₹699",
-    numericPrice: 699,
-    mrp: "₹999",
-    numericMrp: 999,
-    discount: "30% off",
+    price: 999,
     shipping: "Free Shipping"
   },
   {
@@ -87,11 +70,7 @@ const cardDecks: CardDeckProps[] = [
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
-    price: "₹699",
-    numericPrice: 699,
-    mrp: "₹999",
-    numericMrp: 999,
-    discount: "30% off",
+    price: 999,
     shipping: "Free Shipping"
   }
 ];
@@ -122,7 +101,7 @@ const CardDeck = () => {
     addToCart({
       title: deck.title,
       quantity: quantity > 0 ? quantity : 1,
-      price: deck.numericPrice
+      price: deck.price
     });
     
     toast({
@@ -142,7 +121,7 @@ const CardDeck = () => {
     addToCart({
       title: deck.title,
       quantity: quantity > 0 ? quantity : 1,
-      price: deck.numericPrice
+      price: deck.price
     });
     
     navigate('/checkout');
@@ -150,6 +129,12 @@ const CardDeck = () => {
   
   const handleViewDetails = (title: string) => {
     navigate(`/product/${encodeURIComponent(title)}`);
+  };
+  
+  // Calculate subtotal for each deck
+  const calculateSubtotal = (deckId: number, price: number) => {
+    const quantity = quantities[deckId] || 0;
+    return quantity > 0 ? quantity * price : price;
   };
   
   return (
@@ -212,15 +197,11 @@ const CardDeck = () => {
                         
                         {/* Right side: Price, shipping, quantity, buttons */}
                         <div className="flex flex-col items-start md:items-end">
-                          <div className="flex items-center gap-2">
-                            <span className="font-semibold">{deck.price}</span>
-                            <span className="text-sm text-gray-400 line-through">{deck.mrp}</span>
-                            <Badge variant="outline" className="text-green-600 bg-green-50">
-                              {deck.discount}
-                            </Badge>
+                          {/* Single price with dynamic subtotal */}
+                          <div className="flex flex-col items-end">
+                            <span className="font-bold text-lg">₹{calculateSubtotal(deck.id, deck.price)}</span>
+                            <p className="text-xs text-gray-500 mb-3">{deck.shipping}</p>
                           </div>
-                          
-                          <p className="text-xs text-gray-500 mb-3">{deck.shipping}</p>
                           
                           {/* Quantity control */}
                           <div className="flex items-center justify-between border rounded-full p-1 w-28 mb-4">
