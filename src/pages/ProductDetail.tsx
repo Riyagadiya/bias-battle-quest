@@ -45,7 +45,11 @@ const cardDecks = [{
   discount: "30% off",
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
-  images: ["/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png", "/lovable-uploads/059b502b-7f97-4a43-9c41-3788ac3a0a9d.png", "/lovable-uploads/9b7c8643-f4a8-4489-aa83-d6bd8564fa83.png"]
+  images: [
+    "/lovable-uploads/493d6450-ae7d-4b04-a96c-bbbbf02d685d.png", 
+    "/lovable-uploads/127562a9-62f7-4d18-836b-65b6dcdf808f.png", 
+    "/lovable-uploads/43f61f6b-0705-492c-baf8-10b7602045c2.png"
+  ]
 }, {
   title: "Thinking Hat Card Deck",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
