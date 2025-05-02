@@ -18,7 +18,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
   // Map of bias types to their corresponding illustration URLs
   const biasIllustrations: Record<string, string> = {
     // Core bias types
-    "barnum": "/lovable-uploads/2f646fc4-7b1b-4ab0-a045-a112d84b1684.png", 
+    "barnum": "/lovable-uploads/4d1b4fdd-7c14-4203-90e3-71a2338ec5a7.png", // Updated Barnum effect image
     "hindsight": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png",
     "backfire": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png",
     "sunk_cost": "/lovable-uploads/d18fb039-8893-4f9b-aabd-a58996d164ee.png",
@@ -61,7 +61,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     // Common variations with effect/bias/fallacy suffixes
     "backfire_effect": "/lovable-uploads/94ae1a17-4c71-4f1b-b94e-2cd2a9ac172a.png",
     "hindsight_bias": "/lovable-uploads/e8a8ca5c-8876-4645-8c87-ef900d83d4f9.png",
-    "barnum_effect": "/lovable-uploads/2f646fc4-7b1b-4ab0-a045-a112d84b1684.png",
+    "barnum_effect": "/lovable-uploads/4d1b4fdd-7c14-4203-90e3-71a2338ec5a7.png", // Updated Barnum effect image
     "sunk_cost_fallacy": "/lovable-uploads/d18fb039-8893-4f9b-aabd-a58996d164ee.png",
     "ingroup_bias": "/lovable-uploads/cc080e1b-a965-49df-bdd9-d4e6c1539e6f.png",
     "belief_bias": "/lovable-uploads/6a8d4646-af7c-4942-b055-c7cdf32e544e.png",
@@ -98,8 +98,8 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
   // If still no illustration found, use a default illustration
   if (!illustrationUrl) {
     console.log(`Using default illustration for bias type: ${biasTypeToUse} (normalized: ${normalizedBiasType})`);
-    // Use the brain illustration as default
-    illustrationUrl = "/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png"; 
+    // Use the new cognitive bias card image as default
+    illustrationUrl = "/lovable-uploads/4d1b4fdd-7c14-4203-90e3-71a2338ec5a7.png"; 
   }
 
   return (
@@ -111,7 +111,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
         loading="eager" // Prioritize loading this image
         onError={(e) => {
           // Fallback if image fails to load
-          e.currentTarget.src = "/lovable-uploads/0c8c5f2a-45bc-4474-aad2-3255da8f8bb2.png";
+          e.currentTarget.src = "/lovable-uploads/4d1b4fdd-7c14-4203-90e3-71a2338ec5a7.png";
           console.log(`Fallback to default image for ${biasTypeToUse}`);
         }}
       />
