@@ -221,8 +221,8 @@ const CardDeck = () => {
                             </button>
                           </div>
                           
-                          {/* Action buttons */}
-                          <div className="flex flex-col w-full gap-2">
+                          {/* Action buttons side by side */}
+                          <div className="flex gap-2 w-full">
                             <Button 
                               variant="outline" 
                               className="w-full rounded-full text-sm"
