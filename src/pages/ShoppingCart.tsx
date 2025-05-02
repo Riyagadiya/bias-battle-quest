@@ -306,7 +306,7 @@ const ShoppingCart = () => {
                       onClick={handleProceedToBuy}
                       type="button"
                     >
-                      Proceed to Checkout
+                      Proceed to Buy
                     </GradientButton>
                   </div>
                 </CardContent>
