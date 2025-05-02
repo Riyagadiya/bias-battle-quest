@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -15,7 +14,7 @@ import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
@@ -154,7 +153,7 @@ const ProductDetail = () => {
             <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  {/* Carousel for product images with 3:2 aspect ratio */}
+                  {/* Carousel for product images with 3:2 aspect ratio (without navigation arrows) */}
                   <div className="rounded-xl overflow-hidden relative" style={{
                     backgroundColor: product.backgroundColor
                   }}>
@@ -174,8 +173,6 @@ const ProductDetail = () => {
                           </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
-                      <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
                     </Carousel>
                   </div>
                   
@@ -268,4 +265,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-
