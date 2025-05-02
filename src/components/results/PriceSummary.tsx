@@ -47,7 +47,7 @@ const PriceSummary = ({
         className="w-full mt-4 bg-cognilense-blue text-white py-2 rounded-md hover:bg-opacity-90 transition-colors"
         onClick={onViewCart}
       >
-        Proceed to Checkout ({itemCount})
+        Proceed to Buy ({itemCount})
       </button>
     </div>
   );
