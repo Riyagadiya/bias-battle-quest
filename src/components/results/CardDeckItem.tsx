@@ -51,11 +51,11 @@ const CardDeckItem = ({
       className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
       <div 
-        className="w-20 h-20 rounded-lg flex items-center justify-center p-2 cursor-pointer"
-        style={{ backgroundColor: deck.backgroundColor }}
+        className="w-22 h-22 rounded-lg flex items-center justify-center p-2 cursor-pointer"
+        style={{ backgroundColor: deck.backgroundColor, width: "5.5rem", height: "5.5rem" }}
         onClick={() => onDeckClick(deck.title)}
       >
-        <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full" />
+        <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full max-w-full" />
       </div>
       
       <div className="flex-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>
