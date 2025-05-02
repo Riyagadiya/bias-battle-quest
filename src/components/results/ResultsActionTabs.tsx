@@ -42,7 +42,7 @@ const cardDecks = [{
   title: "Thinking Hat Card Deck",
   oneLiner: "",
   description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-  imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
+  imageUrl: "/lovable-uploads/ae9b32f9-46f6-4a12-bddf-008c696b1e23.png",
   backgroundColor: "#F8C1A6",
   hoverColor: "#F3986B",
   cardCount: "36 Cards",
