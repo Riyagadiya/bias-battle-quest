@@ -1,175 +1,194 @@
-
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Plus, Minus, ShoppingCart } from "lucide-react";
-import { useCart } from "@/context/CartContext";
+import { useState, useEffect } from "react";
+import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
-import GradientButton from "@/components/GradientButton";
+import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
+import { useQuiz } from "@/context/QuizContext";
+import { useCart } from "@/context/CartContext";
+import CardDeckItem from "./CardDeckItem";
+import PriceSummary from "./PriceSummary";
+import OrderInformation from "./OrderInformation";
 
-interface CardItemProps {
-  title: string;
-  description: string;
-  imageUrl: string;
-  backgroundColor: string;
-  hoverColor: string;
-  cardCount: string;
-  price: string;
-  mrp: string;
-  discount: string;
-  shipping: string;
-}
+// Card deck data
+const cardDecks = [{
+  id: 1,
+  title: "Cognitive Biases Card Deck",
+  oneLiner: "",
+  description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
+  imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
+  backgroundColor: "#FDDE81",
+  hoverColor: "#FCD14D",
+  cardCount: "38 Cards",
+  price: 699,
+  mrp: 999,
+  discount: "30% off",
+  shipping: "Free Shipping",
+}, {
+  id: 2,
+  title: "Research Method Card Deck",
+  oneLiner: "",
+  description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
+  imageUrl: "/lovable-uploads/0f6aede7-210c-4f4e-837d-e09e0c67085a.png",
+  backgroundColor: "#D4E3A6",
+  hoverColor: "#C4D985",
+  cardCount: "42 Cards",
+  price: 699,
+  mrp: 999,
+  discount: "30% off",
+  shipping: "Free Shipping",
+}, {
+  id: 3,
+  title: "Thinking Hat Card Deck",
+  oneLiner: "",
+  description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
+  imageUrl: "/lovable-uploads/ae9b32f9-46f6-4a12-bddf-008c696b1e23.png",
+  backgroundColor: "#F8C1A6",
+  hoverColor: "#F3986B",
+  cardCount: "36 Cards",
+  price: 699,
+  mrp: 999,
+  discount: "30% off",
+  shipping: "Free Shipping",
+}, {
+  id: 4,
+  title: "UX Laws Card Deck",
+  oneLiner: "",
+  description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
+  imageUrl: "/lovable-uploads/9ec8bf7f-4bac-4482-9cca-2080d8a9717c.png",
+  backgroundColor: "#BEE5FA",
+  hoverColor: "#92D4F6",
+  cardCount: "40 Cards",
+  price: 699,
+  mrp: 999,
+  discount: "30% off",
+  shipping: "Free Shipping",
+}];
 
-const CardItem = ({
-  title,
-  description,
-  imageUrl,
-  backgroundColor,
-  hoverColor,
-  cardCount,
-  price,
-  mrp,
-  discount,
-  shipping
-}: CardItemProps) => {
+const ResultsActionTabs = () => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
+  const { addToCart, getCartCount } = useCart();
+  const [quantities, setQuantities] = useState<{[key: number]: number}>({
+    1: 0, 2: 0, 3: 0, 4: 0
+  });
   
-  const handleCardClick = () => {
-    console.log('Navigating to product detail:', title);
+  // Get current cart count
+  const cartCount = getCartCount();
+  
+  // State for price calculations
+  const [priceSummary, setPriceSummary] = useState({
+    subtotal: 0,
+    mrpTotal: 0,
+    discount: 0,
+    total: 0,
+    itemCount: 0
+  });
+  
+  // Calculate price whenever quantities change
+  useEffect(() => {
+    let subtotal = 0;
+    let mrpTotal = 0;
+    let itemCount = 0;
+    
+    Object.entries(quantities).forEach(([deckId, quantity]) => {
+      const deck = cardDecks.find(d => d.id === parseInt(deckId));
+      if (deck && quantity > 0) {
+        subtotal += deck.price * quantity;
+        mrpTotal += deck.mrp * quantity;
+        itemCount += quantity;
+      }
+    });
+    
+    const discount = mrpTotal - subtotal;
+    
+    setPriceSummary({
+      subtotal,
+      mrpTotal,
+      discount,
+      total: subtotal,
+      itemCount
+    });
+  }, [quantities]);
+
+  const handleQuantityChange = (deckId: number, change: number) => {
+    setQuantities(prev => {
+      const newQuantity = Math.max(0, (prev[deckId] || 0) + change);
+      return { ...prev, [deckId]: newQuantity };
+    });
+  };
+
+  const handleAddToCart = (deckId: number) => {
+    const quantity = 1; // Add one at a time
+    const deck = cardDecks.find(d => d.id === deckId);
+    
+    if (deck) {
+      addToCart({
+        title: deck.title,
+        quantity,
+        price: deck.price
+      });
+      
+      toast.success(`${deck.title} added to cart`);
+    }
+  };
+
+  const handleDeckClick = (title: string) => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
-  
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart({
-      title,
-      quantity,
-      price: parseInt(price.replace('₹', ''))
-    });
-    toast.success(`${quantity} x ${title} added to cart`);
-  };
-  
-  const handleBuyNow = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart({
-      title,
-      quantity,
-      price: parseInt(price.replace('₹', ''))
-    });
-    navigate('/checkout');
-  };
-  
-  const increaseQuantity = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setQuantity(prev => prev + 1);
-  };
-  
-  const decreaseQuantity = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setQuantity(prev => Math.max(1, prev - 1));
-  };
-  
-  // Calculate the dynamic price based on quantity
-  const calculateTotalPrice = () => {
-    const basePrice = parseInt(mrp.replace('₹', ''));
-    return `₹${basePrice * quantity}`;
-  };
-  
-  return (
-    <div 
-      style={{
-        backgroundColor,
-        ['--hover-color' as string]: hoverColor
-      }} 
-      onMouseEnter={e => {
-        (e.target as HTMLElement).style.backgroundColor = hoverColor;
-      }} 
-      onMouseLeave={e => {
-        (e.target as HTMLElement).style.backgroundColor = backgroundColor;
-      }} 
-      className="rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col h-full relative cursor-pointer overflow-hidden py-[49px]"
-      onClick={handleCardClick}
-    >
-      <div className="mb-6 flex justify-center flex-grow">
-        <img src={imageUrl} alt={title} className="w-72 h-72 object-contain transform transition-transform hover:scale-105" />
-      </div>
-      
-      <div className="mt-auto">
-        <div className="flex flex-col md:flex-row md:justify-between gap-4">
-          <div className="flex-grow">
-            <h3 className="text-xl font-domine font-semibold mb-2 text-black hover:text-gray-500 transition-colors">
-              {title}
-            </h3>
-            
-            <p className="text-muted-foreground mb-4 text-sm">
-              {description}
-            </p>
 
-            <p className="text-sm text-muted-foreground mb-4">{shipping}</p>
+  const handleViewCart = () => {
+    navigate('/cart');
+  };
+
+  return (
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-auto">
+      <Card className="border-0 shadow-none h-full">
+        <CardContent className="pt-6 px-4 h-full">
+          <div className="text-center mb-6">
+            <h3 className="font-domine text-2xl font-semibold">Boom! You Just Unlocked 30% Off!</h3>
+            <p className="text-muted-foreground mt-2">Grab your Card Decks now – offer valid for a limited time!</p>
           </div>
           
-          {/* Price and quantity section - on the right */}
-          <div className="flex flex-col items-end justify-between">
-            {/* Price - only showing the final price */}
-            <div className="text-right mb-2">
-              <span className="text-xl font-semibold">{mrp}</span>
-            </div>
-            
-            {/* Card Count - moved below the price */}
-            <p className="font-medium text-sm mb-2 text-right">{cardCount}</p>
-            
-            {/* Quantity control - moved below card count */}
-            <div className="flex items-center justify-between border rounded-full p-2 w-32 mb-4">
-              <button 
-                onClick={decreaseQuantity} 
-                className="p-1 hover:bg-black/5 rounded-full"
-              >
-                <Minus size={20} />
-              </button>
-              <span className="font-medium">{quantity}</span>
-              <button 
-                onClick={increaseQuantity}
-                className="p-1 hover:bg-black/5 rounded-full"
-              >
-                <Plus size={20} />
-              </button>
-            </div>
-            
-            {/* Display the dynamic total based on quantity */}
-            <div className="text-right mb-4">
-              <p className="text-sm font-semibold">Total: {calculateTotalPrice()}</p>
-            </div>
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-domine text-lg font-medium">Card Decks</h4>
+            <button 
+              className="text-sm flex items-center text-cognilense-blue hover:underline relative" 
+              onClick={handleViewCart}
+            >
+              View Cart 
+              <ShoppingCart size={16} className="ml-1" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black/20 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
+                  {cartCount}
+                </span>
+              )}
+            </button>
           </div>
-        </div>
-        
-        {/* Action buttons */}
-        <div className="grid grid-cols-2 gap-3 mt-4">
-          <Button 
-            className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 h-11 flex items-center justify-center"
-            onClick={handleAddToCart}
-          >
-            <span className="flex items-center">
-              Add to Cart
-              <ShoppingCart className="ml-2" size={18} />
-            </span>
-          </Button>
           
-          <GradientButton 
-            className="h-11 flex items-center justify-center" 
-            onClick={handleBuyNow}
-            icon={false}
-          >
-            <span className="flex items-center">
-              Buy Now
-              <ShoppingCart className="ml-2" size={18} />
-            </span>
-          </GradientButton>
-        </div>
-      </div>
+          <div className="space-y-4">
+            {cardDecks.map((deck) => (
+              <CardDeckItem
+                key={deck.id}
+                deck={deck}
+                quantity={quantities[deck.id] || 0}
+                onQuantityChange={handleQuantityChange}
+                onAddToCart={handleAddToCart}
+                onDeckClick={handleDeckClick}
+              />
+            ))}
+          </div>
+          
+          {/* Dynamic Price Summary Section */}
+          <PriceSummary 
+            {...priceSummary}
+            onViewCart={handleViewCart}
+          />
+          
+          {/* Order Information Section */}
+          <OrderInformation />
+        </CardContent>
+      </Card>
     </div>
   );
 };
 
-export default CardItem;
+export default ResultsActionTabs;

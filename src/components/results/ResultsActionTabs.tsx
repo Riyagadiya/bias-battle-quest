@@ -29,7 +29,7 @@ const cardDecks = [{
   title: "Research Method Card Deck",
   oneLiner: "",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-  imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
+  imageUrl: "/lovable-uploads/0f6aede7-210c-4f4e-837d-e09e0c67085a.png",
   backgroundColor: "#D4E3A6",
   hoverColor: "#C4D985",
   cardCount: "42 Cards",
