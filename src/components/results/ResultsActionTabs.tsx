@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
@@ -54,7 +55,7 @@ const cardDecks = [{
   title: "UX Laws Card Deck",
   oneLiner: "",
   description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-  imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
+  imageUrl: "/lovable-uploads/9ec8bf7f-4bac-4482-9cca-2080d8a9717c.png",
   backgroundColor: "#BEE5FA",
   hoverColor: "#92D4F6",
   cardCount: "40 Cards",
