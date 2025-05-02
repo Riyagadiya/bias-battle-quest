@@ -27,9 +27,9 @@ const cardDecks = [{
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
   images: [
-    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png", 
     "/lovable-uploads/bd895570-aaf2-4dec-a5e0-b9ccd9bb4119.png", 
-    "/lovable-uploads/9981c0b7-51b3-40c1-b7be-4887f5bee6d3.png"
+    "/lovable-uploads/9981c0b7-51b3-40c1-b7be-4887f5bee6d3.png",
+    "/lovable-uploads/503662df-822d-463a-ad18-d060a65db473.png"
   ]
 }, {
   title: "Research Method Card Deck",
