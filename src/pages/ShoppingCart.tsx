@@ -107,7 +107,8 @@ const ShoppingCart = () => {
 
               <TabsContent value="items">
                 <Card>
-                  <ScrollArea className="h-full max-h-[calc(100vh-300px)]">
+                  {/* Changed the ScrollArea to have a more appropriate height */}
+                  <ScrollArea className="h-full max-h-[65vh]">
                     <CardContent className="pt-6">
                       {items.map((item, index) => (
                         <div key={item.id}>
@@ -196,7 +197,8 @@ const ShoppingCart = () => {
 
               <TabsContent value="saved">
                 <Card>
-                  <ScrollArea className="h-full max-h-[calc(100vh-300px)]">
+                  {/* Changed the ScrollArea height for saved items as well */}
+                  <ScrollArea className="h-full max-h-[65vh]">
                     <CardContent className="pt-6">
                       {savedItems && savedItems.length > 0 ? (
                         savedItems.map((item, index) => (

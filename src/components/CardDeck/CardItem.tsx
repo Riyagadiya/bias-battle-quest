@@ -165,7 +165,7 @@ const CardItem = ({
               Buy Now
               <ShoppingCart className="ml-2" size={18} />
             </span>
-          </GradientButton>
+          </Button>
         </div>
       </div>
     </div>
