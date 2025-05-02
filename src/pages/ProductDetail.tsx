@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -80,7 +79,11 @@ const cardDecks = [{
   discount: "30% off",
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
-  images: ["/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png", "/lovable-uploads/2c1a6075-7e9b-44d3-806d-10cfa2a28a3a.png", "/lovable-uploads/887500cd-9161-4cb4-99cf-262104bee34a.png"]
+  images: [
+    "/lovable-uploads/53ae4095-d4dc-4908-8135-6855b7b99e88.png", 
+    "/lovable-uploads/962f0884-2994-48a4-87a1-af8bf5ad8ef3.png", 
+    "/lovable-uploads/076f1c47-53f3-455f-bf0e-f5644b1c5437.png"
+  ]
 }];
 
 const ProductDetail = () => {
