@@ -1,23 +1,30 @@
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartIcon from "@/components/CartIcon";
-import CardItem from "@/components/CardDeck/CardItem";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ShoppingCart, Plus, Minus, ArrowLeft, ArrowRight } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/hooks/use-toast";
+import GradientButton from "@/components/GradientButton";
 
 type CardDeckProps = {
   id: number;
   title: string;
+  oneLiner: string;
   description: string;
   imageUrl: string;
   backgroundColor: string;
   hoverColor: string;
   cardCount: string;
   price: string;
+  numericPrice: number;
   mrp: string;
+  numericMrp: number;
   discount: string;
   shipping: string;
 }
@@ -26,52 +33,64 @@ const cardDecks: CardDeckProps[] = [
   {
     id: 1,
     title: "Cognitive Biases Card Deck",
+    oneLiner: "Harness mental shortcuts for better decisions",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
     imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
     price: "₹699",
+    numericPrice: 699,
     mrp: "₹999",
+    numericMrp: 999,
     discount: "30% off",
     shipping: "Free Shipping"
   },
   {
     id: 2,
     title: "Research Method Card Deck",
+    oneLiner: "Explore structured creative thinking frameworks",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
     imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
     cardCount: "42 Cards",
     price: "₹699",
+    numericPrice: 699,
     mrp: "₹999",
+    numericMrp: 999,
     discount: "30% off",
     shipping: "Free Shipping"
   },
   {
     id: 3,
     title: "Thinking Hat Card Deck",
+    oneLiner: "Deeper insights for human-centered solutions",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
     imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
     price: "₹699",
+    numericPrice: 699,
     mrp: "₹999",
+    numericMrp: 999,
     discount: "30% off",
     shipping: "Free Shipping"
   },
   {
     id: 4,
     title: "UX Laws Card Deck",
+    oneLiner: "Create intuitive user experiences with ease",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
     imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
     price: "₹699",
+    numericPrice: 699,
     mrp: "₹999",
+    numericMrp: 999,
     discount: "30% off",
     shipping: "Free Shipping"
   }
@@ -79,6 +98,59 @@ const cardDecks: CardDeckProps[] = [
 
 const CardDeck = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const { addToCart } = useCart();
+  const [quantities, setQuantities] = useState<{[key: number]: number}>({
+    1: 0, 2: 0, 3: 0, 4: 0
+  });
+  
+  const handleQuantityChange = (deckId: number, change: number) => {
+    setQuantities(prev => {
+      const newQuantity = Math.max(0, (prev[deckId] || 0) + change);
+      return { ...prev, [deckId]: newQuantity };
+    });
+  };
+  
+  const handleAddToCart = (deck: CardDeckProps) => {
+    const quantity = quantities[deck.id] || 1;
+    
+    // If quantity is 0, set it to 1 before adding to cart
+    if (quantities[deck.id] <= 0) {
+      handleQuantityChange(deck.id, 1);
+    }
+    
+    addToCart({
+      title: deck.title,
+      quantity: quantity > 0 ? quantity : 1,
+      price: deck.numericPrice
+    });
+    
+    toast({
+      title: "Added to cart",
+      description: `${quantity > 0 ? quantity : 1} x ${deck.title} added to cart`
+    });
+  };
+  
+  const handleBuyNow = (deck: CardDeckProps) => {
+    const quantity = quantities[deck.id] || 1;
+    
+    // If quantity is 0, set it to 1 before buying
+    if (quantities[deck.id] <= 0) {
+      handleQuantityChange(deck.id, 1);
+    }
+    
+    addToCart({
+      title: deck.title,
+      quantity: quantity > 0 ? quantity : 1,
+      price: deck.numericPrice
+    });
+    
+    navigate('/checkout');
+  };
+  
+  const handleViewDetails = (title: string) => {
+    navigate(`/product/${encodeURIComponent(title)}`);
+  };
   
   return (
     <div className="flex flex-col min-h-screen">
@@ -96,15 +168,101 @@ const CardDeck = () => {
           <div className="max-w-7xl mx-auto">
             <h1 className="text-3xl font-domine font-semibold text-center mb-12 md:text-4xl">Ready, Set, Grab a Deck!</h1>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {cardDecks.map((deck, index) => (
                 <motion.div 
                   key={deck.title} 
                   initial={{ opacity: 0, y: 20 }} 
                   animate={{ opacity: 1, y: 0 }} 
                   transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
                 >
-                  <CardItem {...deck} />
+                  <div className="p-5">
+                    <div className="flex flex-col">
+                      {/* Image section with 1:1 ratio */}
+                      <div 
+                        className="w-full mb-5 cursor-pointer"
+                        onClick={() => handleViewDetails(deck.title)}
+                      >
+                        <div 
+                          className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden"
+                          style={{ backgroundColor: deck.backgroundColor }}
+                        >
+                          <img 
+                            src={deck.imageUrl} 
+                            alt={deck.title} 
+                            className="object-contain max-h-[70%] max-w-[70%] transition-all duration-300 hover:scale-105"
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Content section */}
+                      <div className="flex flex-col md:flex-row justify-between">
+                        {/* Left side: Title, description, card count */}
+                        <div className="flex-1 mb-4 md:mb-0 md:pr-4">
+                          <h3 
+                            className="text-xl font-domine font-semibold mb-1 cursor-pointer hover:text-gray-700 transition-colors"
+                            onClick={() => handleViewDetails(deck.title)}
+                          >
+                            {deck.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm mb-1">{deck.oneLiner}</p>
+                          <p className="text-gray-500 text-xs">{deck.cardCount}</p>
+                        </div>
+                        
+                        {/* Right side: Price, shipping, quantity, buttons */}
+                        <div className="flex flex-col items-start md:items-end">
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold">{deck.price}</span>
+                            <span className="text-sm text-gray-400 line-through">{deck.mrp}</span>
+                            <Badge variant="outline" className="text-green-600 bg-green-50">
+                              {deck.discount}
+                            </Badge>
+                          </div>
+                          
+                          <p className="text-xs text-gray-500 mb-3">{deck.shipping}</p>
+                          
+                          {/* Quantity control */}
+                          <div className="flex items-center justify-between border rounded-full p-1 w-28 mb-4">
+                            <button 
+                              onClick={() => handleQuantityChange(deck.id, -1)} 
+                              className="p-1 hover:bg-gray-100 rounded-full"
+                              disabled={quantities[deck.id] <= 0}
+                            >
+                              <Minus size={16} className={quantities[deck.id] <= 0 ? "text-gray-300" : ""} />
+                            </button>
+                            <span className="font-medium text-sm">{quantities[deck.id] || 0}</span>
+                            <button 
+                              onClick={() => handleQuantityChange(deck.id, 1)} 
+                              className="p-1 hover:bg-gray-100 rounded-full"
+                            >
+                              <Plus size={16} />
+                            </button>
+                          </div>
+                          
+                          {/* Action buttons */}
+                          <div className="flex flex-col w-full gap-2">
+                            <Button 
+                              variant="outline" 
+                              className="w-full rounded-full text-sm"
+                              onClick={() => handleAddToCart(deck)}
+                            >
+                              <ShoppingCart className="h-4 w-4 mr-1" />
+                              Add to Cart
+                            </Button>
+                            
+                            <GradientButton 
+                              className="w-full text-sm py-2"
+                              onClick={() => handleBuyNow(deck)}
+                            >
+                              Buy Now
+                              <ArrowRight className="h-4 w-4" />
+                            </GradientButton>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
