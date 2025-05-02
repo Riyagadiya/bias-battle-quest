@@ -8,7 +8,21 @@ import CardItem from "@/components/CardDeck/CardItem";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
-const cardDecks = [
+type CardDeckProps = {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  backgroundColor: string;
+  hoverColor: string;
+  cardCount: string;
+  price: string;
+  mrp: string;
+  discount: string;
+  shipping: string;
+}
+
+const cardDecks: CardDeckProps[] = [
   {
     id: 1,
     title: "Cognitive Biases Card Deck",
@@ -90,19 +104,7 @@ const CardDeck = () => {
                   animate={{ opacity: 1, y: 0 }} 
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
-                  <CardItem 
-                    id={deck.id}
-                    title={deck.title}
-                    description={deck.description}
-                    imageUrl={deck.imageUrl}
-                    backgroundColor={deck.backgroundColor}
-                    hoverColor={deck.hoverColor}
-                    cardCount={deck.cardCount}
-                    price={deck.price}
-                    mrp={deck.mrp}
-                    discount={deck.discount}
-                    shipping={deck.shipping}
-                  />
+                  <CardItem {...deck} />
                 </motion.div>
               ))}
             </div>
