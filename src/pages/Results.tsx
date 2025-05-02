@@ -28,7 +28,6 @@ const Results = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="min-h-screen bg-gradient-to-b from-white to-gray-100"
         >
           <ResultsSection />
         </motion.div>

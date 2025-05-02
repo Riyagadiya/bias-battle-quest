@@ -9,9 +9,11 @@ import QuestionSummaryList from "./results/QuestionSummaryList";
 import GradientButton from "./GradientButton";
 import { Separator } from "@/components/ui/separator";
 import ResultsActionTabs from "./results/ResultsActionTabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ResultsSection = () => {
   const { status, score, questions, answers, restartQuiz } = useQuiz();
+  const [activeTab, setActiveTab] = useState("summary");
   
   if (status !== "active") return null;
   
@@ -55,9 +57,9 @@ const ResultsSection = () => {
   };
 
   return (
-    <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center bg-gray-50">
+    <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <motion.div 
             className="md:col-span-1"
             initial={{ opacity: 0, y: 20 }}
@@ -129,7 +131,7 @@ const ResultsSection = () => {
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-domine text-xl font-semibold">Your Answer Summary</h3>
                   </div>
-                  <div className="max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                  <div className="max-h-[300px] overflow-y-auto pr-2">
                     <QuestionSummaryList answersArray={answersArray} questions={questions} />
                   </div>
                 </div>
@@ -143,7 +145,7 @@ const ResultsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            {/* Results action tabs with card decks */}
+            {/* New tabbed interface with card decks */}
             <ResultsActionTabs />
           </motion.div>
         </div>
