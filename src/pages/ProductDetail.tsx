@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -26,7 +27,11 @@ const cardDecks = [{
   discount: "30% off",
   shipping: "Free Shipping",
   dimensions: "12.3 x 7.9 x 2 cm",
-  images: ["/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png", "/lovable-uploads/e7f760c9-51aa-4063-b97d-6126cc75c8f6.png", "/lovable-uploads/127df004-c4c0-4733-a1a1-511e730bbc3b.png"]
+  images: [
+    "/lovable-uploads/cc339fa1-3134-4981-a732-c2eafcebbd6f.png", 
+    "/lovable-uploads/bd895570-aaf2-4dec-a5e0-b9ccd9bb4119.png", 
+    "/lovable-uploads/9981c0b7-51b3-40c1-b7be-4887f5bee6d3.png"
+  ]
 }, {
   title: "Research Method Card Deck",
   description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",

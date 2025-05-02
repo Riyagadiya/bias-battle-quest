@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 
 const cardDecks = [
   {
+    id: 1,
     title: "Cognitive Biases Card Deck",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
     imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
@@ -22,6 +23,7 @@ const cardDecks = [
     shipping: "Free Shipping"
   },
   {
+    id: 2,
     title: "Research Method Card Deck",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
     imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
@@ -34,6 +36,7 @@ const cardDecks = [
     shipping: "Free Shipping"
   },
   {
+    id: 3,
     title: "Thinking Hat Card Deck",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
     imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
@@ -46,6 +49,7 @@ const cardDecks = [
     shipping: "Free Shipping"
   },
   {
+    id: 4,
     title: "UX Laws Card Deck",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
     imageUrl: "/lovable-uploads/063475da-7147-4ad6-9584-fe8c2e87706d.png",
@@ -86,7 +90,19 @@ const CardDeck = () => {
                   animate={{ opacity: 1, y: 0 }} 
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
-                  <CardItem {...deck} />
+                  <CardItem 
+                    id={deck.id}
+                    title={deck.title}
+                    description={deck.description}
+                    imageUrl={deck.imageUrl}
+                    backgroundColor={deck.backgroundColor}
+                    hoverColor={deck.hoverColor}
+                    cardCount={deck.cardCount}
+                    price={deck.price}
+                    mrp={deck.mrp}
+                    discount={deck.discount}
+                    shipping={deck.shipping}
+                  />
                 </motion.div>
               ))}
             </div>
