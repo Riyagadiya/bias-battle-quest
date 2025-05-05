@@ -152,8 +152,9 @@ const ProductDetail = () => {
   const isCognitiveBias = product?.title.includes("Cognitive Bias") || false;
   const isThinkingHat = product?.title.includes("Thinking Hat") || false;
   const isResearchMethod = product?.title.includes("Research Method") || false;
+  const isUXLaws = product?.title.includes("UX Laws") || false;
   
-  const needsObjectCover = isCognitiveBias || isThinkingHat || isResearchMethod;
+  const needsObjectCover = isCognitiveBias || isThinkingHat || isResearchMethod || isUXLaws;
   
   const basePrice = parseInt(product.price); // Base price after discount
   const originalPrice = parseInt(product.mrp); // Original price before discount

@@ -41,7 +41,8 @@ const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, cur
   const needsObjectCover = (title: string) => {
     return title.includes("Cognitive Bias") || 
            title.includes("Thinking Hat") || 
-           title.includes("Research Method");
+           title.includes("Research Method") ||
+           title.includes("UX Laws");
   };
   
   const handleViewProduct = (title: string) => {

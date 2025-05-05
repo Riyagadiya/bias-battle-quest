@@ -82,7 +82,7 @@ const CardDeckItem = ({
           <img 
             src={imageUrl} 
             alt={deck.title} 
-            className="object-cover w-full h-full" 
+            className={`object-cover w-full h-full`} 
           />
         </AspectRatio>
       </div>
