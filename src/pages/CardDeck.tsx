@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -136,7 +137,7 @@ const CardDeck = () => {
   };
   
   // Calculate subtotal based on discount status
-  const calculateSubtotal = (deckId: number, price: number) => {
+  const calculateSubtotal = (deckId: number) => {
     const quantity = quantities[deckId] || 0;
     // Apply actual price based on discount
     const actualPrice = showDiscount ? 699 : 999;
@@ -237,6 +238,19 @@ const CardDeck = () => {
                               <Plus size={16} />
                             </button>
                           </div>
+                          
+                          {/* Display calculated subtotal when quantity > 0 */}
+                          {quantities[deck.id] > 0 && (
+                            <div className="text-sm mb-3 flex flex-col items-end">
+                              <div className="flex items-center gap-1">
+                                <span className="text-gray-600">Subtotal:</span>
+                                <span className="font-semibold">₹{calculateSubtotal(deck.id)}</span>
+                              </div>
+                              <span className="text-xs text-gray-500">
+                                (₹{showDiscount ? 699 : 999} × {quantities[deck.id]})
+                              </span>
+                            </div>
+                          )}
                           
                           {/* Action buttons side by side */}
                           <div className="flex justify-center gap-2 w-full">

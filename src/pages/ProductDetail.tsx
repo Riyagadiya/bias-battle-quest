@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -161,6 +162,10 @@ const ProductDetail = () => {
   const originalPrice = parseInt(product.mrp); // Original price before discount
   const discountedPrice = parseInt(product.price); // Discounted price (after discount)
   const basePrice = showDiscount ? discountedPrice : originalPrice; // Price to use
+  
+  // Calculate total price based on quantity
+  const totalPrice = basePrice * quantity;
+  const totalOriginalPrice = originalPrice * quantity;
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
@@ -178,7 +183,7 @@ const ProductDetail = () => {
     });
     toast({
       title: "Added to cart",
-      description: `${quantity} x ${product.title} added to cart - Total: ₹${basePrice * quantity}`
+      description: `${quantity} x ${product.title} added to cart - Total: ₹${totalPrice}`
     });
   };
   const handleBuyNow = () => {
@@ -272,14 +277,14 @@ const ProductDetail = () => {
                   </div>
 
                   <div className="flex items-center gap-3 my-4">
-                    <span className="text-2xl font-semibold">₹{basePrice * quantity}</span>
+                    <span className="text-2xl font-semibold">₹{totalPrice}</span>
                     {showDiscount && (
                       <>
                         <Badge variant="secondary" className="bg-green-100 text-green-800">
                           {product.discount}
                         </Badge>
                         <span className="text-sm text-muted-foreground line-through">
-                          ₹{originalPrice * quantity}
+                          ₹{totalOriginalPrice}
                         </span>
                       </>
                     )}
@@ -297,6 +302,9 @@ const ProductDetail = () => {
                         <button onClick={increaseQuantity} className="p-1 hover:bg-black/5 rounded-full">
                           <Plus size={20} />
                         </button>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Unit Price: ₹{basePrice} × {quantity}
                       </div>
                     </div>
 

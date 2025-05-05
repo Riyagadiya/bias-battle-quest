@@ -69,6 +69,9 @@ const CardDeckItem = ({
   // Calculate actual price based on discount status
   const actualPrice = showDiscount ? deck.price : deck.mrp;
   
+  // Calculate total price based on quantity
+  const totalPrice = quantity > 0 ? actualPrice * quantity : actualPrice;
+  
   return (
     <div 
       key={deck.id} 
@@ -112,8 +115,12 @@ const CardDeckItem = ({
         </div>
         
         {quantity > 0 && (
-          <div className="text-xs font-medium mt-1">
-            Subtotal: ₹{actualPrice * quantity}
+          <div className="text-xs font-medium mt-1 flex items-center gap-2">
+            <span>Subtotal:</span>
+            <span className="text-sm font-semibold">₹{totalPrice}</span>
+            <span className="text-xs text-muted-foreground">
+              (₹{actualPrice} × {quantity})
+            </span>
           </div>
         )}
       </div>
