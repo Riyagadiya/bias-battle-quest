@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +43,7 @@ const cardDecks: CardDeckProps[] = [
     title: "Research Method Card Deck",
     oneLiner: "Explore structured creative thinking frameworks",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-    imageUrl: "/lovable-uploads/e64a3165-39cf-43df-bade-1cd41991cf97.png",
+    imageUrl: "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png", // Updated with new image
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
     cardCount: "42 Cards",

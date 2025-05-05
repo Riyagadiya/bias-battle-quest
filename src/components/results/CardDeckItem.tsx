@@ -37,11 +37,17 @@ const CardDeckItem = ({
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
   
-  // Special image handling for cognitive bias deck
+  // Special image handling for specific decks
   const isCognitiveBiasDeck = deck.title.includes("Cognitive Bias");
-  const imageUrl = isCognitiveBiasDeck 
-    ? "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png" 
-    : deck.imageUrl;
+  const isResearchMethodDeck = deck.title.includes("Research Method");
+  
+  let imageUrl = deck.imageUrl;
+  
+  if (isCognitiveBiasDeck) {
+    imageUrl = "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png";
+  } else if (isResearchMethodDeck) {
+    imageUrl = "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
+  }
   
   // Handle quantity change and update cart directly
   const handleQuantityChange = (change: number) => {

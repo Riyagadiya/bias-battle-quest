@@ -34,6 +34,16 @@ const CardItem = ({
 }: CardItemProps) => {
   const navigate = useNavigate();
 
+  // Special image handling for specific deck types
+  const getImageUrl = () => {
+    if (title.includes("Cognitive Bias")) {
+      return "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png";
+    } else if (title.includes("Research Method")) {
+      return "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
+    }
+    return imageUrl;
+  };
+
   const handleViewDetails = () => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
@@ -49,7 +59,7 @@ const CardItem = ({
             transition={{ duration: 0.2 }}
           >
             <img 
-              src={imageUrl} 
+              src={getImageUrl()} 
               alt={title}
               className="max-h-full w-auto object-contain"
             />
