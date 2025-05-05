@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
@@ -122,6 +123,11 @@ const QuizSection = () => {
         </div>
       </div>
     );
+  }
+
+  // Only render questions if quiz has started
+  if (!quizStarted) {
+    return null;
   }
 
   const currentQuestion = questions[currentQuestionIndex];

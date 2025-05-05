@@ -24,6 +24,7 @@ const Quiz = () => {
   
   const [isInitializing, setIsInitializing] = useState(true);
   const [isPreparing, setIsPreparing] = useState(true);
+  const [canShowQuestions, setCanShowQuestions] = useState(false);
   
   useEffect(() => {
     console.log("Quiz component rendering with questions:", questions?.length);
@@ -54,17 +55,17 @@ const Quiz = () => {
       }
     };
     
-    if (!quizStarted) {
-      initializeQuiz();
-    } else {
-      setIsInitializing(false);
-      setIsPreparing(false);
-    }
-  }, [quizCompleted, navigate, startQuiz, setQuizStarted, quizStarted, setQuizNavigation]);
+    // Always initialize and show loading screen, even if quiz was started
+    initializeQuiz();
+    // Reset canShowQuestions to false when component mounts
+    setCanShowQuestions(false);
+    
+  }, [quizCompleted, navigate, startQuiz, setQuizStarted, setQuizNavigation]);
 
   const handleBeginQuiz = () => {
     setIsPreparing(false);
     setQuizStarted(true);
+    setCanShowQuestions(true);
   };
 
   const handleLoadingComplete = () => {
@@ -100,7 +101,7 @@ const Quiz = () => {
           ) : isPreparing ? (
             <QuizLoading onLoadingComplete={handleLoadingComplete} />
           ) : (
-            <QuizSection />
+            canShowQuestions && <QuizSection />
           )}
         </motion.div>
       </main>
