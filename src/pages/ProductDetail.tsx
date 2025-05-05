@@ -197,15 +197,16 @@ const ProductDetail = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   {/* Carousel for product images with 3:2 aspect ratio */}
-                  <div className="rounded-xl overflow-hidden relative" style={{
-                    backgroundColor: product.backgroundColor
-                  }}>
+                  <div className="rounded-xl overflow-hidden relative">
                     <Carousel className="w-full" setApi={setApi}>
                       <CarouselContent>
                         {product.images.map((image, index) => (
                           <CarouselItem key={index}>
                             <AspectRatio ratio={3/2} className="w-full">
-                              <div className="flex items-center justify-center w-full h-full p-8">
+                              <div 
+                                className="flex items-center justify-center w-full h-full p-8"
+                                style={{ backgroundColor: product.backgroundColor }}
+                              >
                                 <img 
                                   src={image} 
                                   alt={`${product.title} - view ${index + 1}`} 
@@ -226,6 +227,7 @@ const ProductDetail = () => {
                         className={`cursor-pointer rounded-lg overflow-hidden border-2 p-2 w-16 h-16 transition-all
                           ${selectedImageIndex === index ? 'border-black' : 'border-transparent'}`} 
                         onClick={() => setSelectedImageIndex(index)}
+                        style={{ backgroundColor: product.backgroundColor }}
                       >
                         <img src={image} alt={`${product.title} - thumbnail ${index + 1}`} className="w-full h-full object-contain" />
                       </div>

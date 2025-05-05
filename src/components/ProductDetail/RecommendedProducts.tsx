@@ -1,67 +1,83 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-interface ProductData {
+interface Product {
   title: string;
-  description: string;
-  imageUrl: string;
   backgroundColor: string;
-  price: string;
-  mrp: string;
-  discount: string;
+  imageUrl: string;
 }
 
 interface RecommendedProductsProps {
-  products: ProductData[];
+  products: Product[];
   currentProductTitle: string;
 }
 
-const RecommendedProducts = ({ products, currentProductTitle }: RecommendedProductsProps) => {
+const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, currentProductTitle }) => {
   const navigate = useNavigate();
   
   // Filter out the current product
-  const filteredProducts = products.filter(product => product.title !== currentProductTitle);
+  const recommendedProducts = products.filter(product => product.title !== currentProductTitle);
+  
+  // Special image handling for specific deck types
+  const getImageUrl = (title: string) => {
+    if (title.includes("Cognitive Bias")) {
+      return "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png";
+    } else if (title.includes("Research Method")) {
+      return "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
+    } else if (title.includes("Thinking Hat")) {
+      return "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png";
+    } else if (title.includes("UX Laws")) {
+      return "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png";
+    }
+    return "/placeholder.svg";
+  };
+  
+  const handleViewProduct = (title: string) => {
+    navigate(`/product/${encodeURIComponent(title)}`);
+  };
   
   return (
-    <div className="mt-16">
-      <h2 className="text-2xl font-domine font-semibold mb-6">Recommended Products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => (
-          <Card 
+    <div className="mt-12">
+      <h2 className="text-2xl font-domine font-semibold mb-6">You may also like</h2>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {recommendedProducts.slice(0, 3).map((product) => (
+          <motion.div 
             key={product.title}
-            className="cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => {
-              console.log(`Navigating to product: ${product.title}`);
-              navigate(`/product/${encodeURIComponent(product.title)}`);
-            }}
+            whileHover={{ y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
           >
-            <CardContent className="p-4">
+            <AspectRatio ratio={3/2}>
               <div 
-                className="mb-4 p-4 rounded-lg flex items-center justify-center"
+                className="w-full h-full flex items-center justify-center p-4"
                 style={{ backgroundColor: product.backgroundColor }}
               >
                 <img 
-                  src={product.imageUrl} 
+                  src={getImageUrl(product.title)} 
                   alt={product.title} 
-                  className="w-24 h-24 object-contain" 
+                  className="max-h-full max-w-full object-contain"
                 />
               </div>
-              
-              <h3 className="font-medium text-base mb-1 line-clamp-1">{product.title}</h3>
-              <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{product.description}</p>
-              
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">{product.price}</span>
-                <span className="text-sm text-muted-foreground line-through">{product.mrp}</span>
-                <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                  {product.discount}
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
+            </AspectRatio>
+            
+            <div className="p-4">
+              <h3 className="font-medium text-lg mb-2 line-clamp-1">{product.title}</h3>
+              <Button 
+                variant="ghost" 
+                className="text-gray-600 hover:text-gray-900 p-0 h-auto font-normal"
+                onClick={() => handleViewProduct(product.title)}
+              >
+                View details
+                <ArrowUpRight className="ml-1 h-4 w-4" />
+              </Button>
+            </div>
+          </motion.div>
         ))}
       </div>
     </div>
