@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { RotateCcw, Share2 } from "lucide-react";
@@ -10,31 +9,31 @@ import GradientButton from "./GradientButton";
 import { Separator } from "@/components/ui/separator";
 import ResultsActionTabs from "./results/ResultsActionTabs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 const ResultsSection = () => {
-  const { status, score, questions, answers, restartQuiz } = useQuiz();
+  const {
+    status,
+    score,
+    questions,
+    answers,
+    restartQuiz
+  } = useQuiz();
   const [activeTab, setActiveTab] = useState("summary");
-  
   if (status !== "active") return null;
-  
   const answersArray = questions.map((question, index) => {
     const answer = answers[index];
     const isCorrect = answer === question.options.find(option => option.isCorrect)?.text;
-    
     return {
       questionIndex: index,
       selectedOption: answer === "skipped" ? null : answer,
       isCorrect
     };
   });
-  
   const correctAnswers = answersArray.filter(a => a.isCorrect).length;
   const answeredQuestions = answers.filter(a => a !== null && a !== "skipped").length;
-  const percentage = Math.round((correctAnswers / questions.length) * 100);
-  
+  const percentage = Math.round(correctAnswers / questions.length * 100);
   let resultMessage = "";
   let resultSubtitle = "";
-  
+
   // Set result message and subtitle based on percentage
   if (percentage === 0) {
     resultMessage = "Lost in Bias!";
@@ -49,40 +48,36 @@ const ResultsSection = () => {
     resultMessage = "Sharp & Unbiased!";
     resultSubtitle = "Impressive awareness! Your clear thinking is a skill—keep sharpening it.";
   }
-
   const shareQuiz = () => {
     const shareUrl = window.location.origin;
     navigator.clipboard.writeText(shareUrl);
     toast.success("Quiz URL copied to clipboard!");
   };
-
-  return (
-    <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
+  return <section className="py-12 md:py-24 px-6 md:px-8 min-h-screen flex items-center">
       <div className="container mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <motion.div 
-            className="md:col-span-1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div className="md:col-span-1" initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.5
+        }}>
             <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full relative">
               <div className="px-6 py-8 md:p-10 relative z-10">
                 {/* Results Summary in the center with animation */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="flex flex-col items-center mb-6"
-                >
+                <motion.div initial={{
+                opacity: 0
+              }} animate={{
+                opacity: 1
+              }} transition={{
+                duration: 0.5,
+                delay: 0.2
+              }} className="flex flex-col items-center mb-6">
                   {/* Score Ring */}
-                  <ResultsSummary 
-                    percentage={percentage} 
-                    correctAnswers={correctAnswers} 
-                    totalQuestions={questions.length} 
-                    resultMessage={resultMessage}
-                    showCorrectCount={false}
-                  />
+                  <ResultsSummary percentage={percentage} correctAnswers={correctAnswers} totalQuestions={questions.length} resultMessage={resultMessage} showCorrectCount={false} />
                   
                   {/* Result Message and subtitle below the ring */}
                   <div className="text-center mt-4">
@@ -109,12 +104,16 @@ const ResultsSection = () => {
                 </motion.div>
 
                 {/* Action Buttons stacked vertically */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="flex flex-col gap-4 mt-8"
-                >
+                <motion.div initial={{
+                opacity: 0,
+                y: 20
+              }} animate={{
+                opacity: 1,
+                y: 0
+              }} transition={{
+                duration: 0.5,
+                delay: 0.6
+              }} className="flex flex-col gap-4 mt-8">
                   <GradientButton onClick={restartQuiz} className="group w-full" icon={false}>
                     <span>Try Again</span>
                     <RotateCcw size={18} className="transition-transform duration-300 group-hover:rotate-180" />
@@ -127,7 +126,7 @@ const ResultsSection = () => {
                 </motion.div>
 
                 {/* Answer Summary Section - Modified to have title in one line */}
-                <div className="mt-8">
+                <div className="mt-8 my-[68px]">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-domine text-xl font-semibold">Your Answer Summary</h3>
                   </div>
@@ -139,19 +138,21 @@ const ResultsSection = () => {
             </div>
           </motion.div>
           
-          <motion.div
-            className="md:col-span-2"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
+          <motion.div className="md:col-span-2" initial={{
+          opacity: 0,
+          x: 20
+        }} animate={{
+          opacity: 1,
+          x: 0
+        }} transition={{
+          duration: 0.5,
+          delay: 0.3
+        }}>
             {/* New tabbed interface with card decks */}
             <ResultsActionTabs />
           </motion.div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ResultsSection;
