@@ -40,6 +40,8 @@ const CardItem = ({
       return "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png";
     } else if (title.includes("Research Method")) {
       return "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
+    } else if (title.includes("Thinking Hat")) {
+      return "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png";
     }
     return imageUrl;
   };

@@ -55,7 +55,7 @@ const cardDecks: CardDeckProps[] = [
     title: "Thinking Hat Card Deck",
     oneLiner: "Deeper insights for human-centered solutions",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-    imageUrl: "/lovable-uploads/fd80351d-b396-4b23-ad6d-03e387f35f3e.png",
+    imageUrl: "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png", // Updated with new thinking hats image
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
