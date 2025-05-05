@@ -8,7 +8,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Header from "@/components/Header";
 import QuizSection from "@/components/QuizSection";
 import Footer from "@/components/Footer";
-import QuizLoading from "@/components/quiz/QuizLoading";
 import { toast } from "sonner";
 
 const Quiz = () => {
@@ -17,15 +16,12 @@ const Quiz = () => {
   const { 
     startQuiz, 
     quizCompleted, 
-    quizStarted,
     setQuizStarted,
     questions
   } = useQuiz();
   const { setQuizNavigation } = useDiscount();
   
   const [isInitializing, setIsInitializing] = useState(true);
-  const [isPreparing, setIsPreparing] = useState(false);
-  const [canShowQuestions, setCanShowQuestions] = useState(false);
   
   useEffect(() => {
     // Ensure we set quizNavigation to true when on quiz page
@@ -40,8 +36,8 @@ const Quiz = () => {
       setIsInitializing(true);
       try {
         await startQuiz();
-        // After startQuiz completes, show the loading screen
-        setIsPreparing(true);
+        // Directly set quiz as started without loading screen
+        setQuizStarted(true);
         setIsInitializing(false);
       } catch (error) {
         console.error("Error starting quiz:", error);
@@ -50,21 +46,12 @@ const Quiz = () => {
       }
     };
     
-    // Always initialize and show loading screen
+    // Initialize quiz without loading screen
     initializeQuiz();
-    // Reset canShowQuestions to false when component mounts
-    setCanShowQuestions(false);
     
   }, [quizCompleted, navigate, startQuiz, setQuizStarted, setQuizNavigation]);
 
-  const handleLoadingComplete = () => {
-    // Wait a moment before showing the quiz questions
-    setQuizStarted(true);
-    setIsPreparing(false);
-    setCanShowQuestions(true);
-  };
-
-  // Show only the loading screen when initializing or preparing
+  // Show a simple initializing message
   if (isInitializing) {
     return (
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-cognilense-background bg-wave-pattern">
@@ -81,11 +68,6 @@ const Quiz = () => {
     );
   }
 
-  if (isPreparing) {
-    // Show full-screen loading without header/footer
-    return <QuizLoading onLoadingComplete={handleLoadingComplete} />;
-  }
-
   return (
     <div className="flex flex-col min-h-screen bg-cognilense-background">
       <Header />
@@ -98,7 +80,7 @@ const Quiz = () => {
           transition={{ duration: 0.4 }}
           className="container mx-auto px-4 relative h-full"
         >
-          {canShowQuestions && <QuizSection />}
+          <QuizSection />
         </motion.div>
       </main>
       
