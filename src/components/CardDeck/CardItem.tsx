@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useDiscount } from "@/context/DiscountContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CardItemProps {
   id: number;
@@ -35,6 +36,7 @@ const CardItem = ({
 }: CardItemProps) => {
   const navigate = useNavigate();
   const { showDiscount } = useDiscount();
+  const isMobile = useIsMobile();
 
   // Calculate actual price based on discount status
   const actualPrice = showDiscount ? price : mrp;
@@ -62,7 +64,7 @@ const CardItem = ({
       <CardContent className="p-0">
         <div className="grid grid-cols-1 md:grid-cols-3 w-full">
           <motion.div 
-            className="h-48 md:h-auto flex items-center justify-center p-6"
+            className="h-40 md:h-auto flex items-center justify-center p-4 md:p-6"
             style={{ backgroundColor }}
             whileHover={{ backgroundColor: hoverColor }}
             transition={{ duration: 0.2 }}
@@ -74,31 +76,31 @@ const CardItem = ({
             />
           </motion.div>
           
-          <div className="col-span-2 p-6 space-y-3">
+          <div className="col-span-2 p-4 md:p-6 space-y-2 md:space-y-3">
             <div className="flex items-start justify-between">
               <div>
-                <h2 className="text-xl font-semibold font-domine">{title}</h2>
-                <p className="text-sm text-muted-foreground">{cardCount}</p>
+                <h2 className="text-lg md:text-xl font-semibold font-domine">{title}</h2>
+                <p className="text-xs md:text-sm text-muted-foreground">{cardCount}</p>
               </div>
               {showDiscount && (
-                <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
+                <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100 text-xs">
                   {discount}
                 </Badge>
               )}
             </div>
             
-            <p className="text-gray-600 line-clamp-2">{description}</p>
+            <p className="text-sm md:text-base text-gray-600 line-clamp-2">{description}</p>
             
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-semibold">₹{actualPrice}</span>
+              <span className="text-lg md:text-xl font-semibold">₹{actualPrice}</span>
               {showDiscount && (
-                <span className="text-sm text-muted-foreground line-through">₹{mrp}</span>
+                <span className="text-xs md:text-sm text-muted-foreground line-through">₹{mrp}</span>
               )}
-              <span className="text-sm text-green-600">{shipping}</span>
+              <span className="text-xs md:text-sm text-green-600">{shipping}</span>
             </div>
             
             <Button 
-              className="mt-4 rounded-full"
+              className="mt-2 md:mt-4 rounded-full text-sm md:text-base"
               onClick={handleViewDetails}
             >
               View Details
