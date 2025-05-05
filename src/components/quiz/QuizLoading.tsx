@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
-import { Play } from "lucide-react";
 
 interface QuizLoadingProps {
   onLoadingComplete: () => void;
@@ -48,20 +47,6 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
         </h2>
         
         <div className="w-full max-w-sm mb-6 relative">
-          {isComplete ? (
-            <motion.div 
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full border-2 border-cognilense-blue text-cognilense-blue"
-            >
-              <Play className="w-6 h-6" />
-            </motion.div>
-          ) : (
-            <div className="mb-3">
-              <div className="w-12 h-12 mx-auto animate-pulse rounded-full bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue"></div>
-            </div>
-          )}
-          
           <div className="flex flex-col gap-2">
             <div className="relative">
               <Progress 
