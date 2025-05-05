@@ -39,7 +39,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     
     // Additional bias types
     "survivorship": "/lovable-uploads/f190dc1a-0888-48d0-b2f7-958a90226f11.png",
-    "cheating": "/lovable-uploads/b4addb6a-57e8-4f24-8f21-73aacd0dfa87.png",
+    "cheating": "/lovable-uploads/edd9c709-e4c0-42d3-b3c2-c3d86e8839ad.png", // Updated to the new image
     "restraint": "/lovable-uploads/fd80c14a-0d65-4ce4-bc87-2fc9b0d1570d.png",
     "scarcity": "/lovable-uploads/80ff0a9d-06d8-47a0-aa74-98042b2e500b.png",
     "prestige": "/lovable-uploads/c3e37cc6-0bb1-429b-a4d3-b3b89ed91d93.png",
