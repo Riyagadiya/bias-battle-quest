@@ -55,13 +55,18 @@ const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, cur
           >
             <AspectRatio ratio={3/2}>
               <div 
-                className="w-full h-full flex items-center justify-center p-4"
-                style={{ backgroundColor: product.backgroundColor }}
+                className="w-full h-full rounded-t-lg overflow-hidden"
+                style={{ 
+                  backgroundColor: product.backgroundColor,
+                  position: 'relative'
+                }}
               >
                 <img 
                   src={getImageUrl(product.title)} 
                   alt={product.title} 
-                  className="max-h-full max-w-full object-contain"
+                  className={`w-full h-full object-cover absolute inset-0 ${
+                    product.title.includes("Cognitive Bias") ? "object-cover" : "object-contain p-4"
+                  }`}
                 />
               </div>
             </AspectRatio>

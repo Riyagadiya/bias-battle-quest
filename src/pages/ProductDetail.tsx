@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -7,7 +6,7 @@ import CartIcon from "@/components/CartIcon";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ShoppingCart, Plus, Minus, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
@@ -148,6 +147,10 @@ const ProductDetail = () => {
         <Footer />
       </div>;
   }
+  
+  // Check if it's the Cognitive Bias deck
+  const isCognitiveBias = product.title.includes("Cognitive Bias");
+  
   const basePrice = parseInt(product.price); // Base price after discount
   const originalPrice = parseInt(product.mrp); // Original price before discount
 
@@ -204,13 +207,15 @@ const ProductDetail = () => {
                           <CarouselItem key={index}>
                             <AspectRatio ratio={3/2} className="w-full">
                               <div 
-                                className="flex items-center justify-center w-full h-full p-8"
+                                className="relative w-full h-full rounded-lg overflow-hidden"
                                 style={{ backgroundColor: product.backgroundColor }}
                               >
                                 <img 
                                   src={image} 
                                   alt={`${product.title} - view ${index + 1}`} 
-                                  className="max-w-full max-h-full object-contain"
+                                  className={`absolute inset-0 w-full h-full ${
+                                    isCognitiveBias ? "object-cover" : "object-contain p-8"
+                                  }`}
                                 />
                               </div>
                             </AspectRatio>
@@ -224,12 +229,18 @@ const ProductDetail = () => {
                     {product.images.map((image, index) => (
                       <div 
                         key={index} 
-                        className={`cursor-pointer rounded-lg overflow-hidden border-2 p-2 w-16 h-16 transition-all
+                        className={`cursor-pointer rounded-lg overflow-hidden border-2 w-16 h-16 transition-all relative
                           ${selectedImageIndex === index ? 'border-black' : 'border-transparent'}`} 
                         onClick={() => setSelectedImageIndex(index)}
                         style={{ backgroundColor: product.backgroundColor }}
                       >
-                        <img src={image} alt={`${product.title} - thumbnail ${index + 1}`} className="w-full h-full object-contain" />
+                        <img 
+                          src={image} 
+                          alt={`${product.title} - thumbnail ${index + 1}`} 
+                          className={`absolute inset-0 w-full h-full ${
+                            isCognitiveBias ? "object-cover" : "object-contain p-2"
+                          }`}
+                        />
                       </div>
                     ))}
                   </div>
