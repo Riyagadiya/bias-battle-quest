@@ -14,13 +14,17 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Simulate loading progress over time
-    const interval = setInterval(() => {
+    // Simulate loading progress over time with smoother progression
+    const totalDuration = 5000; // 5 seconds total
+    const interval = 50; // Update every 50ms for smoother animation
+    const incrementPerInterval = (interval / totalDuration) * 100;
+    
+    const timer = setInterval(() => {
       setProgress(prevProgress => {
-        const newProgress = prevProgress + 2; // Increment by 2% each time
+        const newProgress = Math.min(prevProgress + incrementPerInterval, 100);
         
         if (newProgress >= 100) {
-          clearInterval(interval);
+          clearInterval(timer);
           setIsComplete(true);
           // Allow animation to complete before triggering the callback
           setTimeout(() => {
@@ -31,13 +35,13 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
         
         return newProgress;
       });
-    }, 100); // Update every 100ms for a total loading time of ~5 seconds
+    }, interval);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, [onLoadingComplete]);
 
   return (
-    <div className="py-8 md:py-12 px-4 md:px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto my-4 md:my-0">
+    <div className="py-6 md:py-10 px-4 md:px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto my-4 md:my-0">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }} 
         animate={{ opacity: 1, scale: 1 }}
@@ -50,28 +54,16 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
         
         <div className="w-full max-w-sm mb-4 md:mb-6 relative">
           <div className="flex flex-col gap-2">
-            <div className="relative">
-              <Progress 
-                value={progress} 
-                progressColor={isComplete ? "bg-cognilense-blue" : "bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue"}
-                className="h-2 md:h-3"
-              />
-              {isComplete && (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="absolute left-0 top-0 w-full h-full overflow-hidden pointer-events-none"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-shine"></div>
-                </motion.div>
-              )}
-            </div>
-            
-            <div className="flex justify-between items-center text-xs md:text-sm text-cognilense-blue font-medium">
-              <span>{isComplete ? "COMPLETE!" : "LOADING..."}</span>
-              <span>{progress}%</span>
-            </div>
+            <Progress 
+              value={progress} 
+              progressColor={isComplete ? "bg-cognilense-blue" : "bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue"}
+              className="h-2 md:h-3"
+            />
+          </div>
+          
+          <div className="flex justify-between items-center mt-2 text-xs md:text-sm text-cognilense-blue font-medium">
+            <span>{isComplete ? "COMPLETE!" : "LOADING..."}</span>
+            <span>{Math.round(progress)}%</span>
           </div>
         </div>
         

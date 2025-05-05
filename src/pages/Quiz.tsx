@@ -8,9 +8,8 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Header from "@/components/Header";
 import QuizSection from "@/components/QuizSection";
 import Footer from "@/components/Footer";
-import GradientButton from "@/components/GradientButton";
-import { toast } from "sonner";
 import QuizLoading from "@/components/quiz/QuizLoading";
+import { toast } from "sonner";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -25,12 +24,8 @@ const Quiz = () => {
   const { setQuizNavigation } = useDiscount();
   
   const [isInitializing, setIsInitializing] = useState(true);
-  const [isPreparing, setIsPreparing] = useState(true);
+  const [isPreparing, setIsPreparing] = useState(false);
   const [canShowQuestions, setCanShowQuestions] = useState(false);
-  
-  useEffect(() => {
-    console.log("Quiz component rendering with questions:", questions?.length);
-  }, [questions]);
   
   useEffect(() => {
     // Ensure we set quizNavigation to true when on quiz page
@@ -45,11 +40,9 @@ const Quiz = () => {
       setIsInitializing(true);
       try {
         await startQuiz();
-        // After startQuiz completes, set a small delay to allow context to update
-        setTimeout(() => {
-          setIsPreparing(true);
-          setIsInitializing(false);
-        }, 500);
+        // After startQuiz completes, show the loading screen
+        setIsPreparing(true);
+        setIsInitializing(false);
       } catch (error) {
         console.error("Error starting quiz:", error);
         toast.error("There was an error starting the quiz");
@@ -57,24 +50,20 @@ const Quiz = () => {
       }
     };
     
-    // Always initialize and show loading screen, even if quiz was started
+    // Always initialize and show loading screen
     initializeQuiz();
     // Reset canShowQuestions to false when component mounts
     setCanShowQuestions(false);
     
   }, [quizCompleted, navigate, startQuiz, setQuizStarted, setQuizNavigation]);
 
-  const handleBeginQuiz = () => {
-    setIsPreparing(false);
-    setQuizStarted(true);
-    setCanShowQuestions(true);
-  };
-
   const handleLoadingComplete = () => {
-    // Wait a moment before showing the begin button
+    // Wait a moment before showing the quiz questions
     setTimeout(() => {
-      handleBeginQuiz();
-    }, 1500); // 1.5 seconds after loading completes
+      setIsPreparing(false);
+      setQuizStarted(true);
+      setCanShowQuestions(true);
+    }, 500);
   };
 
   return (
@@ -91,11 +80,10 @@ const Quiz = () => {
         >
           {isInitializing ? (
             <div className="py-8 md:py-12 px-4 md:px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto my-4 md:my-0">
-              <div className="spinner-container mx-auto mb-4 md:mb-6">
-                <div className="spinner"></div>
-                <div className="spinner"></div>
-                <div className="spinner"></div>
-                <div className="spinner"></div>
+              <div className="w-full max-w-sm mx-auto mb-4 md:mb-6">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="animate-pulse h-full bg-gray-400"></div>
+                </div>
               </div>
               <h2 className="text-xl md:text-2xl font-domine font-bold mb-3 md:mb-4">Loading your quiz...</h2>
               <p className="text-sm md:text-base text-gray-600 font-worksans">Preparing your cognitive bias challenge</p>
