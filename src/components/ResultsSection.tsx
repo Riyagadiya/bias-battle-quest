@@ -126,7 +126,7 @@ const ResultsSection = () => {
                 </motion.div>
 
                 {/* Answer Summary Section - Modified to have title in one line */}
-                <div className="mt-8 my-[68px]">
+                <div className="mt-8 my-[71px]">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-domine text-xl font-semibold">Your Answer Summary</h3>
                   </div>
