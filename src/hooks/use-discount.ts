@@ -1,5 +1,5 @@
 
-// This is a barrel file to re-export the useDiscount hook
-import { useDiscount } from "@/context/DiscountContext";
+import { useDiscount as useDiscountContext } from "@/context/DiscountContext";
 
-export { useDiscount };
+// Export the hook directly from the context for backwards compatibility
+export const useDiscount = useDiscountContext;
