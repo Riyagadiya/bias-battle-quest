@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import { ShoppingCart, Plus, Minus, ArrowRight, ShoppingBag } from "lucide-react
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import GradientButton from "@/components/GradientButton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 type CardDeckProps = {
   id: number;
@@ -30,7 +30,7 @@ const cardDecks: CardDeckProps[] = [
     title: "Cognitive Biases Card Deck",
     oneLiner: "Harness mental shortcuts for better decisions",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-    imageUrl: "/lovable-uploads/e2f6c9a6-de98-414b-ab11-9d986bc15f8f.png",
+    imageUrl: "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png", // Updated image URL
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
@@ -170,14 +170,16 @@ const CardDeck = () => {
                         onClick={() => handleViewDetails(deck.title)}
                       >
                         <div 
-                          className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden"
+                          className="aspect-square rounded-lg overflow-hidden flex items-center justify-center relative"
                           style={{ backgroundColor: deck.backgroundColor }}
                         >
-                          <img 
-                            src={deck.imageUrl} 
-                            alt={deck.title} 
-                            className="object-contain max-h-[70%] max-w-[70%] transition-all duration-300 hover:scale-105"
-                          />
+                          <AspectRatio ratio={1/1} className="w-full h-full">
+                            <img 
+                              src={deck.imageUrl} 
+                              alt={deck.title} 
+                              className="object-cover w-full h-full transition-all duration-300 hover:scale-105" 
+                            />
+                          </AspectRatio>
                         </div>
                       </div>
                       
@@ -221,7 +223,7 @@ const CardDeck = () => {
                             </button>
                           </div>
                           
-                          {/* Action buttons side by side - UPDATED */}
+                          {/* Action buttons side by side */}
                           <div className="flex justify-center gap-2 w-full">
                             <Button 
                               variant="outline" 

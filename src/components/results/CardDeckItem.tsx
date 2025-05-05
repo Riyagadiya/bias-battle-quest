@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface CardDeck {
   id: number;
@@ -36,6 +37,12 @@ const CardDeckItem = ({
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
   
+  // Special image handling for cognitive bias deck
+  const isCognitiveBiasDeck = deck.title.includes("Cognitive Bias");
+  const imageUrl = isCognitiveBiasDeck 
+    ? "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png" 
+    : deck.imageUrl;
+  
   // Handle quantity change and update cart directly
   const handleQuantityChange = (change: number) => {
     onQuantityChange(deck.id, change);
@@ -50,12 +57,22 @@ const CardDeckItem = ({
       key={deck.id} 
       className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
-      <div 
-        className="w-22 h-22 rounded-lg flex items-center justify-center p-2 cursor-pointer"
-        style={{ backgroundColor: deck.backgroundColor, width: "5.5rem", height: "5.5rem" }}
+      <div
+        className="relative w-22 h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+        style={{ 
+          backgroundColor: deck.backgroundColor, 
+          width: "5.5rem", 
+          height: "5.5rem" 
+        }}
         onClick={() => onDeckClick(deck.title)}
       >
-        <img src={deck.imageUrl} alt={deck.title} className="object-contain max-h-full max-w-full" />
+        <AspectRatio ratio={1/1} className="w-full h-full">
+          <img 
+            src={imageUrl} 
+            alt={deck.title} 
+            className="object-cover w-full h-full" 
+          />
+        </AspectRatio>
       </div>
       
       <div className="flex-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>
