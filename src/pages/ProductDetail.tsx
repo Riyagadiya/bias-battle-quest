@@ -10,6 +10,7 @@ import { ShoppingCart, Plus, Minus, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
+import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -31,8 +32,8 @@ const cardDecks = [{
   images: [
     "/lovable-uploads/87f79b0e-a057-4477-bb79-d8eeadcb1e11.png",
     "/lovable-uploads/3c940b73-d08b-41af-b9d8-6be5ef9f234a.png",
-    "/lovable-uploads/1ebce4a9-5e4b-4fca-8da5-abd34ce21c2b.png"
-    // Fourth image removed: "/lovable-uploads/8645b6bb-679d-42ba-87a6-a96cead09fbf.png"
+    "/lovable-uploads/1ebce4a9-5e4b-4fca-8da5-abd34ce21c2b.png",
+    "/lovable-uploads/8645b6bb-679d-42ba-87a6-a96cead09fbf.png"
   ]
 }, {
   title: "Research Method Card Deck",
@@ -312,7 +313,13 @@ const ProductDetail = () => {
                     </div>
                   </div>
 
-                  {/* Removed the Feature Icons section */}
+                  <Separator className="my-4" />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <FeatureIcon type="replacement" text="7 Days Replacement" />
+                    <FeatureIcon type="secure" text="Secure Transaction" />
+                    <FeatureIcon type="delivery" text="Fast Delivery" />
+                  </div>
                 </div>
               </div>
             </div>

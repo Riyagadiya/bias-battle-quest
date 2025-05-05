@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Plus, Minus, ArrowRight, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { useDiscount } from "@/hooks/use-discount";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useDiscount } from "@/context/DiscountContext";
 
 type CardDeckProps = {
   id: number;
@@ -80,16 +80,10 @@ const CardDeck = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { addToCart } = useCart();
-  const { showDiscount, isFromQuiz } = useDiscount();
+  const { showDiscount } = useDiscount();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
-  
-  // Debug log to understand navigation source
-  useEffect(() => {
-    console.log("Card Deck Page - Navigation source:", isFromQuiz ? "From Quiz" : "Direct");
-    console.log("Card Deck Page - Show discount:", showDiscount);
-  }, [isFromQuiz, showDiscount]);
   
   const handleQuantityChange = (deckId: number, change: number) => {
     setQuantities(prev => {
@@ -128,13 +122,10 @@ const CardDeck = () => {
       handleQuantityChange(deck.id, 1);
     }
     
-    // Price based on discount status
-    const price = showDiscount ? 699 : 999;
-    
     addToCart({
       title: deck.title,
       quantity: quantity > 0 ? quantity : 1,
-      price: price
+      price: deck.price
     });
     
     navigate('/checkout');

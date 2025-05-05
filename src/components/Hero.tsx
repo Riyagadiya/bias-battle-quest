@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Brain, Target, Zap, ShoppingBag } from "lucide-react";
 import { useQuiz } from "@/context/QuizContext";
-import { useDiscount } from "@/hooks/use-discount";
 import { toast } from "sonner";
 import GradientButton from "./GradientButton";
 
 const Hero = () => {
   const { startQuiz } = useQuiz();
-  const { setQuizNavigation } = useDiscount();
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -37,8 +35,6 @@ const Hero = () => {
 
   const handleStartQuiz = () => {
     try {
-      // Set quiz navigation flag to true when taking the quiz path
-      setQuizNavigation(true);
       toast.success("Starting quiz challenge!");
       navigate("/quiz");
     } catch (error) {
@@ -48,8 +44,6 @@ const Hero = () => {
   };
 
   const handleBuyCardDecks = () => {
-    // Set quiz navigation flag to false when directly going to card decks
-    setQuizNavigation(false);
     navigate("/card-decks");
   };
 

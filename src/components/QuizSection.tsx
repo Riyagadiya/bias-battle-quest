@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
 import QuizContent from "./quiz/QuizContent";
 import { Skeleton } from "./ui/skeleton";
 
@@ -24,7 +22,6 @@ const QuizSection = () => {
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   const [isLoading, setIsLoading] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
-  const isMobile = useIsMobile();
   
   useEffect(() => {
     console.log("QuizSection mounted with questions count:", questions?.length);
@@ -75,6 +72,8 @@ const QuizSection = () => {
     
     setSelectedOption(selectedAnswer);
     setShowExplanation(true);
+    
+    // Don't automatically move to next question, let user read explanation and click next
   };
   
   const handlePrevious = () => {
@@ -110,24 +109,19 @@ const QuizSection = () => {
   if (isLoading) {
     console.log("QuizSection showing loading skeleton (questions not ready)");
     return (
-      <div className="py-8 md:py-12 px-4 md:px-6 text-center">
-        <h2 className="text-lg md:text-xl font-medium mb-4 md:mb-6">Loading quiz questions...</h2>
+      <div className="py-12 px-6 text-center">
+        <h2 className="text-xl font-medium mb-6">Loading quiz questions...</h2>
         <div className="space-y-4 max-w-3xl mx-auto">
-          <Skeleton className="h-16 md:h-24 w-full rounded-lg" />
+          <Skeleton className="h-24 w-full rounded-lg" />
           <div className="grid grid-cols-1 gap-3">
-            <Skeleton className="h-12 md:h-16 w-full rounded-lg" />
-            <Skeleton className="h-12 md:h-16 w-full rounded-lg" />
-            <Skeleton className="h-12 md:h-16 w-full rounded-lg" />
-            <Skeleton className="h-12 md:h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
           </div>
         </div>
       </div>
     );
-  }
-
-  // Only render questions if quiz has started
-  if (!quizStarted) {
-    return null;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -136,8 +130,8 @@ const QuizSection = () => {
     console.log("Current question not found for index:", currentQuestionIndex);
     console.log("Available questions:", questions);
     return (
-      <div className="py-8 md:py-12 px-4 md:px-6 text-center">
-        <h2 className="text-lg md:text-xl font-medium">Question not found. Please try again.</h2>
+      <div className="py-12 px-6 text-center">
+        <h2 className="text-xl font-medium">Question not found. Please try again.</h2>
       </div>
     );
   }
@@ -145,7 +139,7 @@ const QuizSection = () => {
   console.log("Rendering question:", currentQuestion.question);
 
   return (
-    <section className="py-4 md:py-8 px-3 md:px-6">
+    <section className="py-8 px-4 md:px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
