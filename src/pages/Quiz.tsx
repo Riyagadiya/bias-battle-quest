@@ -76,17 +76,19 @@ const Quiz = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="container mx-auto px-4"
+          className="container mx-auto px-4 relative h-full"
         >
           {isInitializing ? (
-            <div className="py-8 md:py-12 px-4 md:px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto my-4 md:my-0">
-              <div className="w-full max-w-sm mx-auto mb-4 md:mb-6">
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div className="animate-pulse h-full bg-gray-400"></div>
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+                <h2 className="text-xl md:text-2xl font-domine font-bold mb-4 text-center">Initializing Quiz</h2>
+                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+                  <div className="animate-pulse h-full bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue"></div>
                 </div>
+                <p className="text-sm md:text-base text-gray-600 font-worksans text-center">
+                  Preparing your cognitive bias challenge
+                </p>
               </div>
-              <h2 className="text-xl md:text-2xl font-domine font-bold mb-3 md:mb-4">Loading your quiz...</h2>
-              <p className="text-sm md:text-base text-gray-600 font-worksans">Preparing your cognitive bias challenge</p>
             </div>
           ) : isPreparing ? (
             <QuizLoading onLoadingComplete={handleLoadingComplete} />
