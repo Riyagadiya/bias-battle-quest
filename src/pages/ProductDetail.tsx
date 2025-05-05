@@ -148,9 +148,12 @@ const ProductDetail = () => {
       </div>;
   }
   
-  // Check if it's the Cognitive Bias deck or Thinking Hat deck
+  // Check if it's a special deck that needs object-cover styling
   const isCognitiveBias = product?.title.includes("Cognitive Bias") || false;
   const isThinkingHat = product?.title.includes("Thinking Hat") || false;
+  const isResearchMethod = product?.title.includes("Research Method") || false;
+  
+  const needsObjectCover = isCognitiveBias || isThinkingHat || isResearchMethod;
   
   const basePrice = parseInt(product.price); // Base price after discount
   const originalPrice = parseInt(product.mrp); // Original price before discount
@@ -215,7 +218,7 @@ const ProductDetail = () => {
                                   src={image} 
                                   alt={`${product.title} - view ${index + 1}`} 
                                   className={`absolute inset-0 w-full h-full ${
-                                    isCognitiveBias || isThinkingHat ? "object-cover" : "object-contain p-8"
+                                    needsObjectCover ? "object-cover" : "object-contain p-8"
                                   }`}
                                 />
                               </div>
@@ -239,7 +242,7 @@ const ProductDetail = () => {
                           src={image} 
                           alt={`${product.title} - thumbnail ${index + 1}`} 
                           className={`absolute inset-0 w-full h-full ${
-                            isCognitiveBias || isThinkingHat ? "object-cover" : "object-contain p-2"
+                            needsObjectCover ? "object-cover" : "object-contain p-2"
                           }`}
                         />
                       </div>
