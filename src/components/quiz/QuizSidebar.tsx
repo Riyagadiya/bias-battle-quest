@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Brain } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import QuizIllustration from "./QuizIllustration";
 import QuizProgressTracker from "./QuizProgressTracker";
 
@@ -17,8 +17,27 @@ const QuizSidebar = ({
   currentQuestionIndex,
   answers
 }: QuizSidebarProps) => {
+  const isMobile = useIsMobile();
+  
   if (!currentQuestion) return null;
   
+  // On mobile, just show progress tracker
+  if (isMobile) {
+    return (
+      <div className="w-full mb-4">
+        <div className="bg-white rounded-xl shadow-md p-4">
+          <h4 className="font-medium mb-2 text-sm">Your Progress</h4>
+          <QuizProgressTracker 
+            questions={questions}
+            currentQuestionIndex={currentQuestionIndex}
+            answers={answers}
+          />
+        </div>
+      </div>
+    );
+  }
+  
+  // Desktop view with full sidebar
   return (
     <div className="w-full md:w-2/5 lg:w-1/3 space-y-6 sticky top-24">
       <div className="bg-white rounded-xl shadow-md p-6">

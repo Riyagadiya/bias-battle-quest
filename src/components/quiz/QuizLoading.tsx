@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface QuizLoadingProps {
   onLoadingComplete: () => void;
@@ -10,6 +11,7 @@ interface QuizLoadingProps {
 const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Simulate loading progress over time
@@ -35,24 +37,24 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
   }, [onLoadingComplete]);
 
   return (
-    <div className="py-12 px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto">
+    <div className="py-8 md:py-12 px-4 md:px-6 text-center bg-white rounded-lg shadow-md max-w-md mx-auto my-4 md:my-0">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }} 
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         className="flex flex-col items-center"
       >
-        <h2 className="text-2xl font-domine font-bold mb-4">
+        <h2 className="text-xl md:text-2xl font-domine font-bold mb-4">
           {isComplete ? "Get, set, go!" : "Preparing your quiz"}
         </h2>
         
-        <div className="w-full max-w-sm mb-6 relative">
+        <div className="w-full max-w-sm mb-4 md:mb-6 relative">
           <div className="flex flex-col gap-2">
             <div className="relative">
               <Progress 
                 value={progress} 
                 progressColor={isComplete ? "bg-cognilense-blue" : "bg-gradient-to-r from-cognilense-green via-cognilense-yellow to-cognilense-blue"}
-                className="h-3"
+                className="h-2 md:h-3"
               />
               {isComplete && (
                 <motion.div 
@@ -66,14 +68,14 @@ const QuizLoading = ({ onLoadingComplete }: QuizLoadingProps) => {
               )}
             </div>
             
-            <div className="flex justify-between items-center text-xs text-cognilense-blue font-medium">
+            <div className="flex justify-between items-center text-xs md:text-sm text-cognilense-blue font-medium">
               <span>{isComplete ? "COMPLETE!" : "LOADING..."}</span>
               <span>{progress}%</span>
             </div>
           </div>
         </div>
         
-        <p className="text-gray-600 font-worksans">
+        <p className="text-sm md:text-base text-gray-600 font-worksans">
           {isComplete 
             ? "Your cognitive bias challenge is ready!" 
             : "Preparing your cognitive bias challenge"}
