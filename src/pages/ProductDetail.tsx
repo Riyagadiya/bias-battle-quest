@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -229,8 +230,8 @@ const ProductDetail = () => {
                     {product.images.map((image, index) => (
                       <div 
                         key={index} 
-                        className={`cursor-pointer rounded-lg overflow-hidden border-2 w-16 h-16 transition-all relative
-                          ${selectedImageIndex === index ? 'border-black' : 'border-transparent'}`} 
+                        className={`cursor-pointer rounded-lg overflow-hidden w-16 h-16 transition-all relative
+                          ${selectedImageIndex === index ? 'border-2 border-black' : ''}`} 
                         onClick={() => setSelectedImageIndex(index)}
                         style={{ backgroundColor: product.backgroundColor }}
                       >
