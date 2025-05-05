@@ -1,12 +1,10 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,16 +23,16 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
-        scrolled ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-sm py-2 md:py-3" : "bg-transparent py-3 md:py-4"
+        scrolled ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-sm py-3" : "bg-transparent py-4"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           <a href="/" className="flex items-center">
             <img 
               src="/lovable-uploads/edf5b2d2-b28c-4ff8-9e6a-458af9b1b8f8.png" 
               alt="Cognilense Logo" 
-              className="h-6 md:h-8 w-auto"
+              className="h-8 w-auto"
             />
           </a>
 
@@ -66,9 +64,9 @@ const Header = () => {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X size={22} className="text-black transition-all duration-300 ease-in-out" />
+              <X size={24} className="text-black transition-all duration-300 ease-in-out" />
             ) : (
-              <Menu size={22} className="text-black transition-all duration-300 ease-in-out" />
+              <Menu size={24} className="text-black transition-all duration-300 ease-in-out" />
             )}
           </button>
         </div>
@@ -80,7 +78,7 @@ const Header = () => {
           mobileMenuOpen ? "max-h-64 py-4" : "max-h-0 overflow-hidden"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <nav className="flex flex-col space-y-4 pb-4">
             <a 
               href="https://monsoonfish.com" 

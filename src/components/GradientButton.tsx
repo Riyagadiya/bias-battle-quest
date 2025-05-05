@@ -1,41 +1,59 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 interface GradientButtonProps {
   children: React.ReactNode;
-  className?: string;
   onClick?: () => void;
+  className?: string;
   icon?: boolean;
-  variant?: string;
-  type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary";
 }
 
-const GradientButton = ({ 
-  children, 
-  className = "", 
-  onClick, 
+const GradientButton = ({
+  children,
+  onClick,
+  className,
   icon = true,
-  variant = "primary",
+  disabled = false,
   type = "button",
-  disabled = false
+  variant = "primary",
 }: GradientButtonProps) => {
   return (
     <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
       className={cn(
-        "gradient-border-button bg-black text-white rounded-full font-medium px-6 py-3",
-        "hover:bg-gray-800 transition-colors flex items-center justify-center gap-2",
-        variant === "secondary" && "bg-white text-black hover:bg-gray-100 border border-gray-200",
+        "relative rounded-full font-worksans font-normal",
+        "text-foreground py-3 px-6",
+        "transition-all duration-300 ease-in-out",
+        "focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2",
+        variant === "primary" && [
+          "gradient-border-rectangle",
+          "bg-white", // Changed from bg-cognilense-background to white
+          "hover:shadow-glow hover:scale-[1.02] hover:font-medium",
+        ],
+        variant === "secondary" && [
+          "border border-gray-200",
+          "hover:border-cognilense-blue hover:shadow-md hover:scale-[1.02]",
+        ],
+        disabled && "opacity-70 pointer-events-none",
         className
       )}
-      onClick={onClick}
-      type={type}
-      disabled={disabled}
     >
-      <span>{children}</span>
-      {icon && <ArrowRight className="w-5 h-5" />}
+      <span className="flex items-center justify-center gap-2">
+        {children}
+        {icon && variant === "primary" && (
+          <ArrowUpRight 
+            size={18} 
+            className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+          />
+        )}
+      </span>
     </button>
   );
 };

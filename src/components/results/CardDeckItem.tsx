@@ -5,7 +5,6 @@ import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useDiscount } from "@/context/DiscountContext";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CardDeck {
   id: number;
@@ -39,7 +38,6 @@ const CardDeckItem = ({
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
   const { showDiscount } = useDiscount();
-  const isMobile = useIsMobile();
   
   // Special image handling for specific decks
   const isCognitiveBiasDeck = deck.title.includes("Cognitive Bias");
@@ -77,14 +75,14 @@ const CardDeckItem = ({
   return (
     <div 
       key={deck.id} 
-      className="flex flex-col xs:flex-row items-center gap-3 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+      className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
       <div
-        className="relative w-20 h-20 xs:w-22 xs:h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+        className="relative w-22 h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
         style={{ 
           backgroundColor: deck.backgroundColor, 
-          width: isMobile ? "5rem" : "5.5rem", 
-          height: isMobile ? "5rem" : "5.5rem" 
+          width: "5.5rem", 
+          height: "5.5rem" 
         }}
         onClick={() => onDeckClick(deck.title)}
       >
@@ -97,14 +95,12 @@ const CardDeckItem = ({
         </AspectRatio>
       </div>
       
-      <div className="flex-1 cursor-pointer py-2 xs:py-0" onClick={() => onDeckClick(deck.title)}>
-        <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-center xs:text-left">
-          {deck.title}
-        </h4>
-        <p className="text-xs text-gray-600 mb-1 text-center xs:text-left">{deck.oneLiner}</p>
-        <p className="text-xs text-muted-foreground text-center xs:text-left">{deck.cardCount}</p>
+      <div className="flex-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>
+        <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors">{deck.title}</h4>
+        <p className="text-xs text-gray-600 mb-1">{deck.oneLiner}</p>
+        <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
         
-        <div className="flex items-center gap-2 mt-1 justify-center xs:justify-start">
+        <div className="flex items-center gap-2 mt-1">
           {showDiscount && (
             <>
               <span className="text-xs text-muted-foreground line-through">
@@ -119,7 +115,7 @@ const CardDeckItem = ({
         </div>
         
         {quantity > 0 && (
-          <div className="text-xs font-medium mt-1 flex items-center gap-1 xs:gap-2 justify-center xs:justify-start flex-wrap">
+          <div className="text-xs font-medium mt-1 flex items-center gap-2">
             <span>Subtotal:</span>
             <span className="text-sm font-semibold">₹{totalPrice}</span>
             <span className="text-xs text-muted-foreground">
@@ -154,7 +150,7 @@ const CardDeckItem = ({
           </Button>
         </div>
         
-        {/* Buy button only */}
+        {/* Buy button only (removed View details) */}
         <div className="flex items-center justify-center gap-2 mt-2 w-full">
           <Button 
             variant="default"

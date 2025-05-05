@@ -10,7 +10,6 @@ import { useDiscount } from "@/context/DiscountContext";
 import CardDeckItem from "./CardDeckItem";
 import PriceSummary from "./PriceSummary";
 import OrderInformation from "./OrderInformation";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 // Card deck data
 const cardDecks = [{
@@ -71,7 +70,6 @@ const ResultsActionTabs = () => {
   const navigate = useNavigate();
   const { addToCart, getCartCount } = useCart();
   const { showDiscount } = useDiscount();
-  const isMobile = useIsMobile();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
@@ -150,20 +148,20 @@ const ResultsActionTabs = () => {
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden h-auto">
       <Card className="border-0 shadow-none h-full">
-        <CardContent className="pt-4 md:pt-6 px-3 md:px-4 h-full">
-          <div className="text-center mb-4 md:mb-6">
-            <h3 className="font-domine text-xl md:text-2xl font-semibold">
+        <CardContent className="pt-6 px-4 h-full">
+          <div className="text-center mb-6">
+            <h3 className="font-domine text-2xl font-semibold">
               {showDiscount ? "Boom! You Just Unlocked 30% Off!" : "Check Out Our Card Decks!"}
             </h3>
-            <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
+            <p className="text-muted-foreground mt-2">
               {showDiscount 
                 ? "Grab your Card Decks now – offer valid for a limited time!" 
                 : "Complete the quiz to unlock special discounts!"}
             </p>
           </div>
           
-          <div className="flex items-center justify-between mb-3 md:mb-4">
-            <h4 className="font-domine text-base md:text-lg font-medium">Card Decks</h4>
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-domine text-lg font-medium">Card Decks</h4>
             <button 
               className="text-sm flex items-center text-cognilense-blue hover:underline relative" 
               onClick={handleViewCart}
@@ -178,8 +176,7 @@ const ResultsActionTabs = () => {
             </button>
           </div>
           
-          <div className="space-y-3 md:space-y-4">
-            {/* For mobile, maybe show fewer decks initially with a "Show More" button */}
+          <div className="space-y-4">
             {cardDecks.map((deck) => (
               <CardDeckItem
                 key={deck.id}
