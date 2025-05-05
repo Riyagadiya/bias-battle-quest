@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -11,7 +10,6 @@ import { ShoppingCart, Plus, Minus, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/context/CartContext";
-import FeatureIcon from "@/components/ProductDetail/FeatureIcon";
 import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -314,13 +312,7 @@ const ProductDetail = () => {
                     </div>
                   </div>
 
-                  <Separator className="my-4" />
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <FeatureIcon type="replacement" text="7 Days Replacement" />
-                    <FeatureIcon type="secure" text="Secure Transaction" />
-                    <FeatureIcon type="delivery" text="Fast Delivery" />
-                  </div>
+                  {/* Removed the Feature Icons section */}
                 </div>
               </div>
             </div>
