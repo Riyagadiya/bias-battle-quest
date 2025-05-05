@@ -39,7 +39,7 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     
     // Additional bias types
     "survivorship": "/lovable-uploads/f190dc1a-0888-48d0-b2f7-958a90226f11.png",
-    "cheating": "/lovable-uploads/b4addb6a-57e8-4f24-8f21-73aacd0dfa87.png",
+    "cheating": "/lovable-uploads/13fe799d-4db1-4461-aae9-8d25c06c4ddb.png", // Updated with the new image
     "restraint": "/lovable-uploads/fd80c14a-0d65-4ce4-bc87-2fc9b0d1570d.png",
     "scarcity": "/lovable-uploads/80ff0a9d-06d8-47a0-aa74-98042b2e500b.png",
     "prestige": "/lovable-uploads/c3e37cc6-0bb1-429b-a4d3-b3b89ed91d93.png",
@@ -70,7 +70,8 @@ const QuizIllustration: React.FC<QuizIllustrationProps> = ({
     "ikea_effect": "/lovable-uploads/418130a9-eef4-4a8d-ac95-f0e32df0aab2.png",
     "action_bias": "/lovable-uploads/32cc47e7-c453-42c7-8b97-f1dab707c9ad.png",
     "spotlight_effect": "/lovable-uploads/4e3bcf09-b2bb-46ed-9de2-427e90c3219f.png",
-    "first_impression_bias": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png"
+    "first_impression_bias": "/lovable-uploads/4ab37e07-281c-41cf-8be5-b6cb98f15b60.png",
+    "cheating_bias": "/lovable-uploads/13fe799d-4db1-4461-aae9-8d25c06c4ddb.png" // Added variation with bias suffix
   };
 
   // Determine which bias type to use for the illustration
