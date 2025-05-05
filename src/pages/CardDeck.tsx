@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -163,22 +164,20 @@ const CardDeck = () => {
                 >
                   <div className="p-5">
                     <div className="flex flex-col">
-                      {/* Image section with 1:1 ratio - REDUCED BY 10% */}
+                      {/* Image section with 1:1 ratio */}
                       <div 
                         className="w-full mb-5 cursor-pointer"
                         onClick={() => handleViewDetails(deck.title)}
                       >
-                        <div className="flex items-center justify-center">
-                          <div 
-                            className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden w-[90%]"
-                            style={{ backgroundColor: deck.backgroundColor }}
-                          >
-                            <img 
-                              src={deck.imageUrl} 
-                              alt={deck.title} 
-                              className="object-contain max-h-[70%] max-w-[70%] transition-all duration-300 hover:scale-105"
-                            />
-                          </div>
+                        <div 
+                          className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden"
+                          style={{ backgroundColor: deck.backgroundColor }}
+                        >
+                          <img 
+                            src={deck.imageUrl} 
+                            alt={deck.title} 
+                            className="object-contain max-h-[70%] max-w-[70%] transition-all duration-300 hover:scale-105"
+                          />
                         </div>
                       </div>
                       
