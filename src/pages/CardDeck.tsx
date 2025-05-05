@@ -164,13 +164,13 @@ const CardDeck = () => {
                 >
                   <div className="p-5">
                     <div className="flex flex-col">
-                      {/* Image section with 1:1 ratio */}
+                      {/* Image section with 1:1 ratio - REDUCED BY 10% */}
                       <div 
                         className="w-full mb-5 cursor-pointer"
                         onClick={() => handleViewDetails(deck.title)}
                       >
                         <div 
-                          className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden"
+                          className="aspect-square rounded-lg flex items-center justify-center relative overflow-hidden w-[90%] mx-auto"
                           style={{ backgroundColor: deck.backgroundColor }}
                         >
                           <img 
