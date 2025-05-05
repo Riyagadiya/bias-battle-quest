@@ -42,6 +42,8 @@ const CardItem = ({
       return "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
     } else if (title.includes("Thinking Hat")) {
       return "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png";
+    } else if (title.includes("UX Laws")) {
+      return "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png";
     }
     return imageUrl;
   };
