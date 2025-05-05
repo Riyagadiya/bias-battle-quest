@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -149,8 +148,9 @@ const ProductDetail = () => {
       </div>;
   }
   
-  // Check if it's the Cognitive Bias deck
-  const isCognitiveBias = product.title.includes("Cognitive Bias");
+  // Check if it's the Cognitive Bias deck or Thinking Hat deck
+  const isCognitiveBias = product?.title.includes("Cognitive Bias") || false;
+  const isThinkingHat = product?.title.includes("Thinking Hat") || false;
   
   const basePrice = parseInt(product.price); // Base price after discount
   const originalPrice = parseInt(product.mrp); // Original price before discount
@@ -215,7 +215,7 @@ const ProductDetail = () => {
                                   src={image} 
                                   alt={`${product.title} - view ${index + 1}`} 
                                   className={`absolute inset-0 w-full h-full ${
-                                    isCognitiveBias ? "object-cover" : "object-contain p-8"
+                                    isCognitiveBias || isThinkingHat ? "object-cover" : "object-contain p-8"
                                   }`}
                                 />
                               </div>
@@ -239,7 +239,7 @@ const ProductDetail = () => {
                           src={image} 
                           alt={`${product.title} - thumbnail ${index + 1}`} 
                           className={`absolute inset-0 w-full h-full ${
-                            isCognitiveBias ? "object-cover" : "object-contain p-2"
+                            isCognitiveBias || isThinkingHat ? "object-cover" : "object-contain p-2"
                           }`}
                         />
                       </div>

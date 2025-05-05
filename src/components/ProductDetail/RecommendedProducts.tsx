@@ -64,8 +64,8 @@ const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, cur
                 <img 
                   src={getImageUrl(product.title)} 
                   alt={product.title} 
-                  className={`w-full h-full object-cover absolute inset-0 ${
-                    product.title.includes("Cognitive Bias") ? "object-cover" : "object-contain p-4"
+                  className={`w-full h-full absolute inset-0 ${
+                    product.title.includes("Cognitive Bias") || product.title.includes("Thinking Hat") ? "object-cover" : "object-contain p-4"
                   }`}
                 />
               </div>
