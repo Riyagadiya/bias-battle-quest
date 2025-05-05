@@ -74,6 +74,20 @@
     animation: shine 4s linear infinite;
   }
 
+  /* New shine effect animation */
+  @keyframes shine-effect {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shine {
+    animation: shine-effect 2s infinite;
+  }
+
   /* Gradient border button - round style */
   .gradient-border-button {
     position: relative;
