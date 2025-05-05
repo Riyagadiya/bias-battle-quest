@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,7 @@ import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useDiscount } from "@/context/DiscountContext";
 
 type CardDeckProps = {
   id: number;
@@ -80,6 +80,7 @@ const CardDeck = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { addToCart } = useCart();
+  const { showDiscount } = useDiscount();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
@@ -93,6 +94,8 @@ const CardDeck = () => {
   
   const handleAddToCart = (deck: CardDeckProps) => {
     const quantity = quantities[deck.id] || 1;
+    // Price based on discount status
+    const price = showDiscount ? 699 : 999;
     
     // If quantity is 0, set it to 1 before adding to cart
     if (quantities[deck.id] <= 0) {
@@ -102,7 +105,7 @@ const CardDeck = () => {
     addToCart({
       title: deck.title,
       quantity: quantity > 0 ? quantity : 1,
-      price: deck.price
+      price: price
     });
     
     toast({
@@ -132,10 +135,12 @@ const CardDeck = () => {
     navigate(`/product/${encodeURIComponent(title)}`);
   };
   
-  // Calculate subtotal for each deck
+  // Calculate subtotal based on discount status
   const calculateSubtotal = (deckId: number, price: number) => {
     const quantity = quantities[deckId] || 0;
-    return quantity > 0 ? quantity * price : price;
+    // Apply actual price based on discount
+    const actualPrice = showDiscount ? 699 : 999;
+    return quantity > 0 ? quantity * actualPrice : actualPrice;
   };
   
   return (
@@ -202,7 +207,16 @@ const CardDeck = () => {
                         <div className="flex flex-col items-start md:items-end">
                           {/* Single price with dynamic subtotal */}
                           <div className="flex flex-col items-end">
-                            <span className="font-bold text-lg">₹{calculateSubtotal(deck.id, deck.price)}</span>
+                            <div className="flex items-center">
+                              <span className="font-bold text-lg">₹{showDiscount ? 699 : 999}</span>
+                              
+                              {showDiscount && (
+                                <>
+                                  <span className="text-xs text-gray-500 ml-2 line-through">₹999</span>
+                                  <span className="text-xs text-green-600 ml-2">30% off</span>
+                                </>
+                              )}
+                            </div>
                             <p className="text-xs text-gray-500 mb-3">{deck.shipping}</p>
                           </div>
                           

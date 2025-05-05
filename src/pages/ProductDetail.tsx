@@ -15,6 +15,7 @@ import RecommendedProducts from "@/components/ProductDetail/RecommendedProducts"
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useDiscount } from "@/hooks/use-discount";
 
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
@@ -100,6 +101,7 @@ const ProductDetail = () => {
   const {
     addToCart
   } = useCart();
+  const { showDiscount } = useDiscount();
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
   const handleBackClick = () => {
     navigate('/card-decks');
@@ -156,8 +158,10 @@ const ProductDetail = () => {
   
   const needsObjectCover = isCognitiveBias || isThinkingHat || isResearchMethod || isUXLaws;
   
-  const basePrice = parseInt(product.price); // Base price after discount
+  // Calculate pricing based on discount status
   const originalPrice = parseInt(product.mrp); // Original price before discount
+  const discountedPrice = parseInt(product.price); // Discounted price (after discount)
+  const basePrice = showDiscount ? discountedPrice : originalPrice; // Price to use
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
@@ -270,12 +274,16 @@ const ProductDetail = () => {
 
                   <div className="flex items-center gap-3 my-4">
                     <span className="text-2xl font-semibold">₹{basePrice * quantity}</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      {product.discount}
-                    </Badge>
-                    <span className="text-sm text-muted-foreground line-through">
-                      ₹{originalPrice * quantity}
-                    </span>
+                    {showDiscount && (
+                      <>
+                        <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          {product.discount}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground line-through">
+                          ₹{originalPrice * quantity}
+                        </span>
+                      </>
+                    )}
                   </div>
 
                   <Separator className="my-4" />

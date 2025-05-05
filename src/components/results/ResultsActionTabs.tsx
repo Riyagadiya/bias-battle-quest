@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
 import { useCart } from "@/context/CartContext";
+import { useDiscount } from "@/context/DiscountContext";
 import CardDeckItem from "./CardDeckItem";
 import PriceSummary from "./PriceSummary";
 import OrderInformation from "./OrderInformation";
@@ -68,6 +69,7 @@ const cardDecks = [{
 const ResultsActionTabs = () => {
   const navigate = useNavigate();
   const { addToCart, getCartCount } = useCart();
+  const { showDiscount } = useDiscount();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
@@ -93,13 +95,14 @@ const ResultsActionTabs = () => {
     Object.entries(quantities).forEach(([deckId, quantity]) => {
       const deck = cardDecks.find(d => d.id === parseInt(deckId));
       if (deck && quantity > 0) {
-        subtotal += deck.price * quantity;
+        const actualPrice = showDiscount ? deck.price : deck.mrp;
+        subtotal += actualPrice * quantity;
         mrpTotal += deck.mrp * quantity;
         itemCount += quantity;
       }
     });
     
-    const discount = mrpTotal - subtotal;
+    const discount = showDiscount ? (mrpTotal - subtotal) : 0;
     
     setPriceSummary({
       subtotal,
@@ -108,7 +111,7 @@ const ResultsActionTabs = () => {
       total: subtotal,
       itemCount
     });
-  }, [quantities]);
+  }, [quantities, showDiscount]);
 
   const handleQuantityChange = (deckId: number, change: number) => {
     setQuantities(prev => {
@@ -122,10 +125,12 @@ const ResultsActionTabs = () => {
     const deck = cardDecks.find(d => d.id === deckId);
     
     if (deck) {
+      const actualPrice = showDiscount ? deck.price : deck.mrp;
+      
       addToCart({
         title: deck.title,
         quantity,
-        price: deck.price
+        price: actualPrice
       });
       
       toast.success(`${deck.title} added to cart`);
@@ -145,8 +150,14 @@ const ResultsActionTabs = () => {
       <Card className="border-0 shadow-none h-full">
         <CardContent className="pt-6 px-4 h-full">
           <div className="text-center mb-6">
-            <h3 className="font-domine text-2xl font-semibold">Boom! You Just Unlocked 30% Off!</h3>
-            <p className="text-muted-foreground mt-2">Grab your Card Decks now – offer valid for a limited time!</p>
+            <h3 className="font-domine text-2xl font-semibold">
+              {showDiscount ? "Boom! You Just Unlocked 30% Off!" : "Check Out Our Card Decks!"}
+            </h3>
+            <p className="text-muted-foreground mt-2">
+              {showDiscount 
+                ? "Grab your Card Decks now – offer valid for a limited time!" 
+                : "Complete the quiz to unlock special discounts!"}
+            </p>
           </div>
           
           <div className="flex items-center justify-between mb-4">
@@ -182,6 +193,7 @@ const ResultsActionTabs = () => {
           <PriceSummary 
             {...priceSummary}
             onViewCart={handleViewCart}
+            showDiscount={showDiscount}
           />
           
           {/* Order Information Section */}

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useDiscount } from "@/context/DiscountContext";
 
 interface CardDeck {
   id: number;
@@ -36,6 +37,7 @@ const CardDeckItem = ({
   onDeckClick
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
+  const { showDiscount } = useDiscount();
   
   // Special image handling for specific decks
   const isCognitiveBiasDeck = deck.title.includes("Cognitive Bias");
@@ -63,6 +65,9 @@ const CardDeckItem = ({
       onAddToCart(deck.id);
     }
   };
+  
+  // Calculate actual price based on discount status
+  const actualPrice = showDiscount ? deck.price : deck.mrp;
   
   return (
     <div 
@@ -93,18 +98,22 @@ const CardDeckItem = ({
         <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
         
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-xs text-muted-foreground line-through">
-            ₹{deck.mrp}
-          </span>
-          <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-            {deck.discount}
-          </Badge>
-          <span className="font-medium">₹{deck.price}</span>
+          {showDiscount && (
+            <>
+              <span className="text-xs text-muted-foreground line-through">
+                ₹{deck.mrp}
+              </span>
+              <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                {deck.discount}
+              </Badge>
+            </>
+          )}
+          <span className="font-medium">₹{actualPrice}</span>
         </div>
         
         {quantity > 0 && (
           <div className="text-xs font-medium mt-1">
-            Subtotal: ₹{deck.price * quantity}
+            Subtotal: ₹{actualPrice * quantity}
           </div>
         )}
       </div>

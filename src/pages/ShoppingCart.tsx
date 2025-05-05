@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -12,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import GradientButton from "@/components/GradientButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useDiscount } from "@/context/DiscountContext";
 
 const ShoppingCart = () => {
   const {
@@ -23,12 +23,19 @@ const ShoppingCart = () => {
     removeSavedItem,
     moveToCart,
   } = useCart();
+  const { showDiscount } = useDiscount();
   const navigate = useNavigate();
 
-  const DISCOUNT_PERCENT = 30;
+  // Discount percentage based on context
+  const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
 
   const calculateOriginalPrice = (price: number) => {
-    return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
+    // If discount is active, calculate the original price
+    if (showDiscount) {
+      return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
+    }
+    // If no discount is active, the current price is the original price
+    return price;
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -37,8 +44,8 @@ const ShoppingCart = () => {
     (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
     0
   );
-  const discountAmount = totalOriginal - subtotal;
-  const discountPercent = totalOriginal > 0 ? Math.round((discountAmount / totalOriginal) * 100) : 0;
+  const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
+  const discountPercent = (showDiscount && totalOriginal > 0) ? Math.round((discountAmount / totalOriginal) * 100) : 0;
   const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
@@ -172,12 +179,16 @@ const ShoppingCart = () => {
                                 <p className="font-medium text-lg">
                                   ₹{item.price * item.quantity}
                                 </p>
-                                <p className="text-sm text-muted-foreground line-through">
-                                  ₹{calculateOriginalPrice(item.price) * item.quantity}
-                                </p>
-                                <p className="text-green-600 text-sm font-medium">
-                                  {DISCOUNT_PERCENT}% off
-                                </p>
+                                {showDiscount && (
+                                  <>
+                                    <p className="text-sm text-muted-foreground line-through">
+                                      ₹{calculateOriginalPrice(item.price) * item.quantity}
+                                    </p>
+                                    <p className="text-green-600 text-sm font-medium">
+                                      {DISCOUNT_PERCENT}% off
+                                    </p>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -274,24 +285,28 @@ const ShoppingCart = () => {
                       <span className="text-muted-foreground">Number of Items</span>
                       <span className="font-medium">{totalItems}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Total Original MRP</span>
-                      <span className="line-through text-slate-400">
-                        ₹{totalOriginal}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Discount Applied</span>
-                      <span className="text-green-600 font-semibold">
-                        -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Total Saved</span>
-                      <span className="text-green-800 font-semibold">
-                        ₹{totalSaved}
-                      </span>
-                    </div>
+                    {showDiscount && (
+                      <>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Total Original MRP</span>
+                          <span className="line-through text-slate-400">
+                            ₹{totalOriginal}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Discount Applied</span>
+                          <span className="text-green-600 font-semibold">
+                            -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Total Saved</span>
+                          <span className="text-green-800 font-semibold">
+                            ₹{totalSaved}
+                          </span>
+                        </div>
+                      </>
+                    )}
                     <Separator className="my-2" />
                     <div className="flex justify-between items-center text-lg font-bold">
                       <span className="text-black">Final Price</span>

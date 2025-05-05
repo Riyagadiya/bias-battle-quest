@@ -7,6 +7,7 @@ interface PriceSummaryProps {
   discount: number;
   total: number;
   itemCount: number;
+  showDiscount?: boolean;
   onViewCart: () => void;
 }
 
@@ -16,6 +17,7 @@ const PriceSummary = ({
   discount, 
   total, 
   itemCount,
+  showDiscount = false,
   onViewCart 
 }: PriceSummaryProps) => {
   if (itemCount <= 0) return null;
@@ -28,14 +30,18 @@ const PriceSummary = ({
           <span className="text-muted-foreground">Subtotal ({itemCount} items)</span>
           <span>₹{subtotal}</span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">MRP Total</span>
-          <span className="line-through text-muted-foreground">₹{mrpTotal}</span>
-        </div>
-        <div className="flex justify-between text-sm text-green-600">
-          <span>Discount</span>
-          <span>- ₹{discount}</span>
-        </div>
+        {showDiscount && (
+          <>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">MRP Total</span>
+              <span className="line-through text-muted-foreground">₹{mrpTotal}</span>
+            </div>
+            <div className="flex justify-between text-sm text-green-600">
+              <span>Discount</span>
+              <span>- ₹{discount}</span>
+            </div>
+          </>
+        )}
         <Separator className="my-2" />
         <div className="flex justify-between font-medium">
           <span>Total</span>

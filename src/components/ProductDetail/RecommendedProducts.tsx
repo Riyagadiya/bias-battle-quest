@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useDiscount } from "@/context/DiscountContext";
 
 interface Product {
   title: string;
@@ -19,6 +20,7 @@ interface RecommendedProductsProps {
 
 const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, currentProductTitle }) => {
   const navigate = useNavigate();
+  const { showDiscount } = useDiscount();
   
   // Filter out the current product
   const recommendedProducts = products.filter(product => product.title !== currentProductTitle);
@@ -80,7 +82,20 @@ const RecommendedProducts: React.FC<RecommendedProductsProps> = ({ products, cur
             </AspectRatio>
             
             <div className="p-4">
-              <h3 className="font-medium text-lg mb-2 line-clamp-1">{product.title}</h3>
+              <div className="flex justify-between mb-2">
+                <h3 className="font-medium text-lg line-clamp-1">{product.title}</h3>
+                {showDiscount && (
+                  <span className="text-sm text-green-600 font-medium">30% off</span>
+                )}
+              </div>
+              
+              <div className="flex items-center mb-2 gap-2">
+                <span className="font-medium">₹{showDiscount ? 699 : 999}</span>
+                {showDiscount && (
+                  <span className="text-xs text-muted-foreground line-through">₹999</span>
+                )}
+              </div>
+              
               <Button 
                 variant="ghost" 
                 className="text-gray-600 hover:text-gray-900 p-0 h-auto font-normal"

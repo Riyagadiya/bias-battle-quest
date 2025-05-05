@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDiscount } from "@/context/DiscountContext";
 
 interface CardItemProps {
   id: number;
@@ -14,8 +15,8 @@ interface CardItemProps {
   backgroundColor: string;
   hoverColor: string;
   cardCount: string;
-  price: string;
-  mrp: string;
+  price: number;
+  mrp: number;
   discount: string;
   shipping: string;
 }
@@ -33,6 +34,10 @@ const CardItem = ({
   shipping
 }: CardItemProps) => {
   const navigate = useNavigate();
+  const { showDiscount } = useDiscount();
+
+  // Calculate actual price based on discount status
+  const actualPrice = showDiscount ? price : mrp;
 
   // Special image handling for specific deck types
   const getImageUrl = () => {
@@ -75,16 +80,20 @@ const CardItem = ({
                 <h2 className="text-xl font-semibold font-domine">{title}</h2>
                 <p className="text-sm text-muted-foreground">{cardCount}</p>
               </div>
-              <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
-                {discount}
-              </Badge>
+              {showDiscount && (
+                <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
+                  {discount}
+                </Badge>
+              )}
             </div>
             
             <p className="text-gray-600 line-clamp-2">{description}</p>
             
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-semibold">{price}</span>
-              <span className="text-sm text-muted-foreground line-through">{mrp}</span>
+              <span className="text-xl font-semibold">₹{actualPrice}</span>
+              {showDiscount && (
+                <span className="text-sm text-muted-foreground line-through">₹{mrp}</span>
+              )}
               <span className="text-sm text-green-600">{shipping}</span>
             </div>
             
