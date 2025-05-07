@@ -1,5 +1,6 @@
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ResultsSummaryProps {
   percentage: number;
@@ -16,12 +17,15 @@ const ResultsSummary = ({
   resultMessage,
   showCorrectCount = true
 }: ResultsSummaryProps) => {
+  const isMobile = useIsMobile();
+  const circleSize = isMobile ? "w-32 h-32" : "w-40 h-40";
+  
   return (
     <motion.div
       className="flex flex-col items-center"
     >
       <motion.div 
-        className="relative w-40 h-40"
+        className={`relative ${circleSize}`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ 
@@ -73,7 +77,7 @@ const ResultsSummary = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <span className="text-3xl font-bold text-gray-800">
+          <span className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-gray-800`}>
             {percentage}%
           </span>
           {showCorrectCount && (
