@@ -38,7 +38,7 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const savedDiscount = localStorage.getItem("quizCompletedDiscount");
     const earnedThroughQuiz = localStorage.getItem("discountEarnedThroughQuiz");
     
-    // Reset discount if navigating directly to product pages, cart or checkout without quiz
+    // Reset discount for direct navigation to cart, checkout, or product pages
     if (location.pathname.includes('/card-decks') || 
         location.pathname.includes('/product/') ||
         location.pathname === '/cart' || 
@@ -46,13 +46,16 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       
       // Check the referrer to determine navigation source
       const referrer = document.referrer;
-      const isDirectNavigation = 
-        (referrer.includes("/") && !referrer.includes("/quiz") && !referrer.includes("/results")) || 
-        referrer === "";
       
-      // Reset discount if direct navigation without quiz completion
+      // This checks if user didn't come from the quiz/results page
+      // Empty referrer or non-quiz/results path indicates direct navigation or navigation from home
+      const isDirectNavigation = 
+        !referrer.includes("/quiz") && 
+        !referrer.includes("/results");
+      
+      // If direct navigation and not from quiz completion, remove discount
       if (isDirectNavigation && !quizCompleted) {
-        // If direct navigation from home without quiz completion, remove discount
+        console.log("Direct navigation detected - removing discount");
         localStorage.removeItem("quizCompletedDiscount");
         localStorage.removeItem("discountEarnedThroughQuiz");
         setShowDiscount(false);

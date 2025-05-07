@@ -29,31 +29,29 @@ const ShoppingCart = () => {
 
   // Calculate discount percentage - fixed at 30%
   const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
+  
+  // Original price is always 999 (MRP)
+  const ORIGINAL_PRICE = 999;
 
   // Helper function to get original price
   const getOriginalPrice = (price: number) => {
-    // For items with discounted prices, we need to calculate original price
-    if (showDiscount) {
-      // If discount is active and we have a discounted price, calculate original
-      return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
-    }
-    // If no discount, assume this is already the original price
-    return price;
+    // Always return the original price (MRP) of 999
+    return ORIGINAL_PRICE;
   };
 
   // Helper function to get discounted price if applicable
   const getDisplayPrice = (price: number) => {
     if (showDiscount) {
-      // If discount is active, the current price is already discounted
-      return price;
+      // If discount is active, use the price with discount applied
+      return Math.round(ORIGINAL_PRICE * (1 - DISCOUNT_PERCENT / 100));
     }
-    // If no discount, return the original price (which should be the price stored in cart)
-    return price;
+    // If no discount, return the original price
+    return ORIGINAL_PRICE;
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   
-  // Calculate subtotal (discounted price if discount applies, otherwise original price)
+  // Calculate subtotal based on whether discount applies
   const subtotal = items.reduce((sum, item) => sum + getDisplayPrice(item.price) * item.quantity, 0);
   
   // Calculate original total (always the original/MRP price)
@@ -66,7 +64,8 @@ const ShoppingCart = () => {
   const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
   const discountPercent = showDiscount ? 30 : 0;
   const totalSaved = discountAmount;
-  const finalPrice = subtotal;
+  // Final price is subtotal if discount active, otherwise original price
+  const finalPrice = showDiscount ? subtotal : totalOriginal;
 
   const handleRemoveFromCart = (title: string) => {
     removeFromCart(title);
@@ -337,7 +336,7 @@ const ShoppingCart = () => {
                     <div className="flex justify-between items-center text-lg font-bold">
                       <span className="text-black">Final Price</span>
                       <span className="text-primary text-2xl font-bold">
-                        ₹{showDiscount ? finalPrice : totalOriginal}
+                        ₹{finalPrice}
                       </span>
                     </div>
                   </div>

@@ -112,12 +112,13 @@ const ResultsActionTabs = () => {
     });
     
     const discount = showDiscount ? (mrpTotal - subtotal) : 0;
+    const total = showDiscount ? subtotal : mrpTotal;
     
     setPriceSummary({
       subtotal,
       mrpTotal,
       discount,
-      total: subtotal,
+      total,
       itemCount
     });
   }, [quantities, showDiscount]);
@@ -138,6 +139,7 @@ const ResultsActionTabs = () => {
       const actualPrice = showDiscount ? deck.price : deck.mrp;
       
       addToCart({
+        id: `deck-${deck.id}`,
         title: deck.title,
         quantity,
         price: actualPrice
