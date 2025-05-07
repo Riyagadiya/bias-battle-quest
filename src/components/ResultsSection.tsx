@@ -92,9 +92,12 @@ const ResultsSection = () => {
                     <h3 className="text-2xl md:text-3xl font-domine font-medium">
                       {resultMessage}
                     </h3>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      {resultSubtitle}
-                    </p>
+                    {/* Only show subtitle on desktop */}
+                    {!isMobile && (
+                      <p className="text-sm text-muted-foreground mt-2">
+                        {resultSubtitle}
+                      </p>
+                    )}
                   </div>
                   
                   {/* Stats with subtle divider */}
