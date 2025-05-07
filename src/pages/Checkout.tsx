@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -72,8 +71,8 @@ const Checkout = () => {
   const { items, clear } = useCart();
   const { showDiscount } = useDiscount();
   
-  // Use dynamic discount percentage based on context
-  const DISCOUNT_PERCENT = showDiscount ? 25 : 0;
+  // Use dynamic discount percentage based on context - always 30% exactly
+  const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
 
   useEffect(() => {
     loadRazorpayScript()
