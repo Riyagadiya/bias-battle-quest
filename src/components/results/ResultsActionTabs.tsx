@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
@@ -99,9 +100,13 @@ const ResultsActionTabs = () => {
     Object.entries(quantities).forEach(([deckId, quantity]) => {
       const deck = cardDecks.find(d => d.id === parseInt(deckId));
       if (deck && quantity > 0) {
+        // Always calculate mrpTotal using original price (999)
+        mrpTotal += deck.mrp * quantity;
+        
+        // Use discounted price only if discount is active
         const actualPrice = showDiscount ? deck.price : deck.mrp;
         subtotal += actualPrice * quantity;
-        mrpTotal += deck.mrp * quantity;
+        
         itemCount += quantity;
       }
     });
@@ -129,6 +134,7 @@ const ResultsActionTabs = () => {
     const deck = cardDecks.find(d => d.id === deckId);
     
     if (deck) {
+      // Use original price if no discount is active
       const actualPrice = showDiscount ? deck.price : deck.mrp;
       
       addToCart({

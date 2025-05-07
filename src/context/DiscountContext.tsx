@@ -33,12 +33,12 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [quizCompleted]);
   
-  // On initial load, check localStorage for previous quiz completion
+  // On initial load, check localStorage for previous quiz completion and handle direct navigation
   useEffect(() => {
     const savedDiscount = localStorage.getItem("quizCompletedDiscount");
     const earnedThroughQuiz = localStorage.getItem("discountEarnedThroughQuiz");
     
-    // Reset discount if navigating directly to card-decks without quiz
+    // Reset discount if navigating directly to product pages, cart or checkout without quiz
     if (location.pathname.includes('/card-decks') || 
         location.pathname.includes('/product/') ||
         location.pathname === '/cart' || 

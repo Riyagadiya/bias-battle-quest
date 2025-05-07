@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
@@ -130,19 +131,12 @@ const OrderSuccess = () => {
   }
 
   // Calculate the discount percentage - fixed at 30%
-  const calculateDiscountPercent = () => {
-    if (!orderDetails || !showDiscount) {
-      return 0;
-    }
-    return 30;
-  };
+  const discountPercent = showDiscount ? 30 : 0;
 
   // Only show discount information if discount is active
   const shouldShowDiscount = showDiscount && 
     orderDetails?.discount_amount > 0 && 
     orderDetails?.original_total > orderDetails?.final_price;
-
-  const discountPercent = calculateDiscountPercent();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -234,7 +228,7 @@ const OrderSuccess = () => {
                         <span className="line-through">₹{orderDetails?.original_total.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-green-600">
-                        <span>Discount (30%)</span>
+                        <span>Discount ({discountPercent}%)</span>
                         <span>-₹{orderDetails?.discount_amount.toLocaleString()}</span>
                       </div>
                     </>
