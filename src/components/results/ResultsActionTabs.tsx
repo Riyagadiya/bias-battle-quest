@@ -22,7 +22,7 @@ const cardDecks = [
     title: "Cognitive Biases Card Deck",
     oneLiner: "",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-    imageUrl: "/lovable-uploads/f8140051-e15c-4381-aefb-e5182410094f.png",
+    imageUrl: "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png",
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
@@ -36,7 +36,7 @@ const cardDecks = [
     title: "Research Method Card Deck",
     oneLiner: "",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-    imageUrl: "/lovable-uploads/0f6aede7-210c-4f4e-837d-e09e0c67085a.png",
+    imageUrl: "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png",
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
     cardCount: "42 Cards",
@@ -50,7 +50,7 @@ const cardDecks = [
     title: "Thinking Hat Card Deck",
     oneLiner: "",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-    imageUrl: "/lovable-uploads/ae9b32f9-46f6-4a12-bddf-008c696b1e23.png",
+    imageUrl: "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png",
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
@@ -64,7 +64,7 @@ const cardDecks = [
     title: "UX Laws Card Deck",
     oneLiner: "",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-    imageUrl: "/lovable-uploads/9ec8bf7f-4bac-4482-9cca-2080d8a9717c.png",
+    imageUrl: "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
@@ -143,7 +143,6 @@ const ResultsActionTabs = () => {
       const actualPrice = showDiscount ? deck.price : deck.mrp;
       
       addToCart({
-        id: `deck-${deck.id}`,
         title: deck.title,
         quantity,
         price: actualPrice

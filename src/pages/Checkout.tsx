@@ -63,6 +63,14 @@ const initialState = {
 const ORIGINAL_PRICE = 999; // Original price is always 999 per deck
 const DISCOUNT_PERCENT = 30; // 30% discount when applicable
 
+// Card deck image mapping
+const cardDeckImages = {
+  "Cognitive Biases Card Deck": "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png",
+  "Research Method Card Deck": "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png",
+  "Thinking Hat Card Deck": "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png",
+  "UX Laws Card Deck": "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png",
+};
+
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
@@ -258,7 +266,7 @@ const Checkout = () => {
             setSubmitting(false);
             toast({
               title: "Payment verification failed",
-              description: "Please contact support if you've been charged",
+              description: response.error.description || "Please try again",
               variant: "destructive",
             });
           }
@@ -343,6 +351,11 @@ const Checkout = () => {
   
   // Final price is the subtotal (which accounts for discount if applicable)
   const finalPrice = subtotal;
+
+  // Get image for a card deck based on title
+  const getCardDeckImage = (title: string) => {
+    return cardDeckImages[title as keyof typeof cardDeckImages] || "/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png";
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
@@ -527,7 +540,7 @@ const Checkout = () => {
                     <div className="flex items-center gap-4 mb-6" key={item.id}>
                       <div>
                         <img
-                          src={"/lovable-uploads/6bf3fb70-b012-4b8c-bbca-84f43109f746.png"}
+                          src={getCardDeckImage(item.title)}
                           alt={item.title}
                           className="w-20 h-20 rounded object-cover border border-gray-200"
                         />
