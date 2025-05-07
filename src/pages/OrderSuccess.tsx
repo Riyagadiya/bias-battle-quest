@@ -129,14 +129,12 @@ const OrderSuccess = () => {
     );
   }
 
-  // Calculate the discount percentage dynamically
+  // Calculate the discount percentage - fixed at 30%
   const calculateDiscountPercent = () => {
-    if (!orderDetails || !showDiscount || orderDetails.original_total <= 0) {
+    if (!orderDetails || !showDiscount) {
       return 0;
     }
-    return Math.round(
-      (orderDetails.discount_amount / orderDetails.original_total) * 100
-    );
+    return 30;
   };
 
   // Only show discount information if discount is active
@@ -236,7 +234,7 @@ const OrderSuccess = () => {
                         <span className="line-through">₹{orderDetails?.original_total.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-green-600">
-                        <span>Discount ({discountPercent}%)</span>
+                        <span>Discount (30%)</span>
                         <span>-₹{orderDetails?.discount_amount.toLocaleString()}</span>
                       </div>
                     </>

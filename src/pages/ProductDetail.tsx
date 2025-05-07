@@ -165,10 +165,9 @@ const ProductDetail = () => {
   const totalPrice = basePrice * quantity;
   const totalOriginalPrice = originalPrice * quantity;
   
-  // Calculate discount percentage dynamically
-  const discountPercent = Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+  // Calculate discount percentage - fixed at 30%
+  const discountPercent = 30;
   
-
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
   };

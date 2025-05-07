@@ -72,8 +72,8 @@ const CardDeckItem = ({
   // Calculate total price based on quantity
   const totalPrice = quantity > 0 ? actualPrice * quantity : actualPrice;
   
-  // Calculate discount percentage dynamically
-  const discountPercent = Math.round(((deck.mrp - deck.price) / deck.mrp) * 100);
+  // Calculate discount percentage dynamically - fixed at 30%
+  const discountPercent = 30;
   
   return (
     <div 

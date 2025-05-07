@@ -26,7 +26,7 @@ const ShoppingCart = () => {
   const { showDiscount } = useDiscount();
   const navigate = useNavigate();
 
-  // Calculate discount percentage dynamically
+  // Calculate discount percentage - fixed at 30%
   const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
 
   const calculateOriginalPrice = (price: number) => {
@@ -45,7 +45,7 @@ const ShoppingCart = () => {
     0
   );
   const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
-  const discountPercent = (showDiscount && totalOriginal > 0) ? Math.round((discountAmount / totalOriginal) * 100) : 0;
+  const discountPercent = showDiscount ? 30 : 0;
   const totalSaved = discountAmount;
   const finalPrice = subtotal;
 

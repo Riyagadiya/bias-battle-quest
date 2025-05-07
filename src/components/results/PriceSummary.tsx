@@ -25,8 +25,8 @@ const PriceSummary = ({
   // If not showing discount, ensure total matches subtotal
   const finalTotal = showDiscount ? total : subtotal;
   
-  // Calculate discount percentage
-  const discountPercent = mrpTotal > 0 ? Math.round((discount / mrpTotal) * 100) : 0;
+  // Calculate discount percentage - fixed at 30%
+  const discountPercent = showDiscount ? 30 : 0;
   
   return (
     <div className="mt-6 pt-4 border-t border-gray-100">

@@ -39,8 +39,8 @@ const CardItem = ({
   // Calculate actual price based on discount status
   const actualPrice = showDiscount ? price : mrp;
   
-  // Calculate discount percentage dynamically
-  const discountPercent = Math.round(((mrp - price) / mrp) * 100);
+  // Calculate discount percentage dynamically - always 30% exactly
+  const discountPercent = 30;
 
   // Special image handling for specific deck types
   const getImageUrl = () => {
