@@ -78,7 +78,7 @@ const Hero = () => {
         }} transition={{
           duration: 0.6,
           delay: 0.3
-        }} className="font-domine font-bold md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-10 text-left text-3xl">
+        }} className="font-domine font-bold md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-10 text-center text-3xl">
             Cognitive Biases:
             <br /> 
             <span className="text-foreground text-left my-0">
