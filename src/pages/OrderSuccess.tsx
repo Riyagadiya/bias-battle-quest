@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +8,7 @@ import Footer from "@/components/Footer";
 import { CheckCircle, Package, Mail, Phone, User, MapPin } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 import type { Database } from '@/integrations/supabase/types';
+import { useDiscount } from "@/hooks/use-discount";
 
 type Order = Database['public']['Tables']['orders']['Row'];
 type CartItem = {
@@ -25,6 +25,7 @@ const OrderSuccess = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const orderNumber = searchParams.get('order');
+  const { showDiscount } = useDiscount();
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -128,6 +129,11 @@ const OrderSuccess = () => {
     );
   }
 
+  // Only show discount information if discount is active
+  const shouldShowDiscount = showDiscount && 
+    orderDetails.discount_amount > 0 && 
+    orderDetails.original_total > orderDetails.final_price;
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -210,14 +216,20 @@ const OrderSuccess = () => {
                     <span>Subtotal</span>
                     <span>₹{orderDetails.subtotal.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Original Price</span>
-                    <span className="line-through">₹{orderDetails.original_total.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between text-green-600">
-                    <span>Discount</span>
-                    <span>-₹{orderDetails.discount_amount.toLocaleString()}</span>
-                  </div>
+                  
+                  {shouldShowDiscount && (
+                    <>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Original Price</span>
+                        <span className="line-through">₹{orderDetails.original_total.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between text-green-600">
+                        <span>Discount</span>
+                        <span>-₹{orderDetails.discount_amount.toLocaleString()}</span>
+                      </div>
+                    </>
+                  )}
+                  
                   <Separator className="my-2" />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total Paid</span>

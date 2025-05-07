@@ -1,3 +1,4 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -246,12 +247,16 @@ const ShoppingCart = () => {
                                   <p className="font-medium text-lg">
                                     ₹{item.price * item.quantity}
                                   </p>
-                                  <p className="text-sm text-muted-foreground line-through">
-                                    ₹{calculateOriginalPrice(item.price) * item.quantity}
-                                  </p>
-                                  <p className="text-green-600 text-sm font-medium">
-                                    {DISCOUNT_PERCENT}% off
-                                  </p>
+                                  {showDiscount && (
+                                    <>
+                                      <p className="text-sm text-muted-foreground line-through">
+                                        ₹{calculateOriginalPrice(item.price) * item.quantity}
+                                      </p>
+                                      <p className="text-green-600 text-sm font-medium">
+                                        {DISCOUNT_PERCENT}% off
+                                      </p>
+                                    </>
+                                  )}
                                 </div>
                               </div>
                             </div>

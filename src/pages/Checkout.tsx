@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import GradientButton from "@/components/GradientButton";
 import { useCart } from "@/context/CartContext";
 import { supabase } from "@/integrations/supabase/client";
+import { useDiscount } from "@/hooks/use-discount";
 
 declare global {
   interface Window {
@@ -58,12 +60,6 @@ const initialState = {
   pincode: "",
 };
 
-const DISCOUNT_PERCENT = 25;
-
-const calculateOriginalPrice = (price: number) => {
-  return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
-};
-
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
@@ -74,6 +70,10 @@ const Checkout = () => {
   } | null>(null);
   const navigate = useNavigate();
   const { items, clear } = useCart();
+  const { showDiscount } = useDiscount();
+  
+  // Use dynamic discount percentage based on context
+  const DISCOUNT_PERCENT = showDiscount ? 25 : 0;
 
   useEffect(() => {
     loadRazorpayScript()
@@ -326,13 +326,24 @@ const Checkout = () => {
     navigate(-1);
   };
 
+  const calculateOriginalPrice = (price: number) => {
+    // If discount is active, calculate the original price
+    if (showDiscount) {
+      return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
+    }
+    // If no discount is active, the current price is the original price
+    return price;
+  };
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const totalOriginal = items.reduce(
-    (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
-    0
-  );
-  const discountAmount = totalOriginal - subtotal;
+  
+  // Calculate original total based on discount status
+  const totalOriginal = showDiscount 
+    ? items.reduce((sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity, 0)
+    : subtotal; // If no discount, original is same as subtotal
+  
+  const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
   const totalSaved = discountAmount;
   const finalPrice = subtotal;
 
@@ -531,12 +542,16 @@ const Checkout = () => {
                         </div>
                         <div className="flex items-center gap-2 mt-2">
                           <span className="font-bold text-lg font-worksans text-black">₹{item.price * item.quantity}</span>
-                          <span className="line-through text-gray-400 font-worksans text-base">
-                            ₹{calculateOriginalPrice(item.price) * item.quantity}
-                          </span>
-                          <span className="text-green-600 text-xs font-medium ml-0.5">
-                            {DISCOUNT_PERCENT}% off
-                          </span>
+                          {showDiscount && (
+                            <>
+                              <span className="line-through text-gray-400 font-worksans text-base">
+                                ₹{calculateOriginalPrice(item.price) * item.quantity}
+                              </span>
+                              <span className="text-green-600 text-xs font-medium ml-0.5">
+                                {DISCOUNT_PERCENT}% off
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -546,20 +561,24 @@ const Checkout = () => {
                     <span className="text-gray-800">Number of Items</span>
                     <span className="font-medium">{totalItems}</span>
                   </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Total Original MRP</span>
-                    <span className="line-through text-gray-400">₹{totalOriginal}</span>
-                  </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Discount Applied</span>
-                    <span className="text-green-600 font-semibold">
-                      -{DISCOUNT_PERCENT}% / -₹{discountAmount}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1 text-base font-worksans">
-                    <span className="text-gray-800">Total Saved</span>
-                    <span className="text-green-800 font-semibold">₹{totalSaved}</span>
-                  </div>
+                  {showDiscount && (
+                    <>
+                      <div className="flex justify-between py-1 text-base font-worksans">
+                        <span className="text-gray-800">Total Original MRP</span>
+                        <span className="line-through text-gray-400">₹{totalOriginal}</span>
+                      </div>
+                      <div className="flex justify-between py-1 text-base font-worksans">
+                        <span className="text-gray-800">Discount Applied</span>
+                        <span className="text-green-600 font-semibold">
+                          -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                        </span>
+                      </div>
+                      <div className="flex justify-between py-1 text-base font-worksans">
+                        <span className="text-gray-800">Total Saved</span>
+                        <span className="text-green-800 font-semibold">₹{totalSaved}</span>
+                      </div>
+                    </>
+                  )}
                   <div className="border-t border-gray-200 my-4" />
                   <div className="flex justify-between items-center text-xl font-bold font-worksans mt-2">
                     <span className="text-black">Total Amount</span>
