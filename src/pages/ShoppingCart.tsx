@@ -14,6 +14,10 @@ import GradientButton from "@/components/GradientButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useDiscount } from "@/context/DiscountContext";
 
+// Constants for pricing
+const ORIGINAL_PRICE = 999; // Original price is always 999 per deck
+const DISCOUNT_PERCENT = 30; // 30% discount when applicable
+
 const ShoppingCart = () => {
   const {
     items,
@@ -26,46 +30,31 @@ const ShoppingCart = () => {
   } = useCart();
   const { showDiscount } = useDiscount();
   const navigate = useNavigate();
-
-  // Calculate discount percentage - fixed at 30%
-  const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
   
-  // Original price is always 999 (MRP)
-  const ORIGINAL_PRICE = 999;
-
-  // Helper function to get original price
-  const getOriginalPrice = (price: number) => {
-    // Always return the original price (MRP) of 999
-    return ORIGINAL_PRICE;
-  };
-
-  // Helper function to get discounted price if applicable
-  const getDisplayPrice = (price: number) => {
-    if (showDiscount) {
-      // If discount is active, use the price with discount applied
-      return Math.round(ORIGINAL_PRICE * (1 - DISCOUNT_PERCENT / 100));
-    }
-    // If no discount, return the original price
-    return ORIGINAL_PRICE;
-  };
-
+  // Calculate the total number of items
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   
   // Calculate subtotal based on whether discount applies
-  const subtotal = items.reduce((sum, item) => sum + getDisplayPrice(item.price) * item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => {
+    // Get price based on whether discount applies
+    const itemPrice = showDiscount ? 
+      Math.round(ORIGINAL_PRICE * (1 - DISCOUNT_PERCENT / 100)) : 
+      ORIGINAL_PRICE;
+    
+    return sum + itemPrice * item.quantity;
+  }, 0);
   
   // Calculate original total (always the original/MRP price)
   const totalOriginal = items.reduce(
-    (sum, item) => sum + getOriginalPrice(item.price) * item.quantity,
+    (sum, item) => sum + ORIGINAL_PRICE * item.quantity,
     0
   );
   
-  // Calculate discount amount (difference between original and subtotal, or 0 if no discount)
+  // Calculate discount amount
   const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
-  const discountPercent = showDiscount ? 30 : 0;
-  const totalSaved = discountAmount;
-  // Final price is subtotal if discount active, otherwise original price
-  const finalPrice = showDiscount ? subtotal : totalOriginal;
+  
+  // Final price is subtotal
+  const finalPrice = subtotal;
 
   const handleRemoveFromCart = (title: string) => {
     removeFromCart(title);
@@ -99,6 +88,13 @@ const ShoppingCart = () => {
 
   const handleProceedToBuy = () => {
     navigate("/checkout");
+  };
+
+  // Function to get the display price for an item
+  const getDisplayPrice = (basePrice: number) => {
+    return showDiscount ? 
+      Math.round(ORIGINAL_PRICE * (1 - DISCOUNT_PERCENT / 100)) : 
+      ORIGINAL_PRICE;
   };
 
   return (
@@ -199,10 +195,10 @@ const ShoppingCart = () => {
                                 {showDiscount && (
                                   <>
                                     <p className="text-sm text-muted-foreground line-through">
-                                      ₹{getOriginalPrice(item.price) * item.quantity}
+                                      ₹{ORIGINAL_PRICE * item.quantity}
                                     </p>
                                     <p className="text-green-600 text-sm font-medium">
-                                      {discountPercent}% off
+                                      {DISCOUNT_PERCENT}% off
                                     </p>
                                   </>
                                 )}
@@ -265,10 +261,10 @@ const ShoppingCart = () => {
                                   {showDiscount && (
                                     <>
                                       <p className="text-sm text-muted-foreground line-through">
-                                        ₹{getOriginalPrice(item.price) * item.quantity}
+                                        ₹{ORIGINAL_PRICE * item.quantity}
                                       </p>
                                       <p className="text-green-600 text-sm font-medium">
-                                        {discountPercent}% off
+                                        {DISCOUNT_PERCENT}% off
                                       </p>
                                     </>
                                   )}
@@ -316,13 +312,13 @@ const ShoppingCart = () => {
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Discount Applied</span>
                           <span className="text-green-600 font-semibold">
-                            -{discountPercent}% / -₹{discountAmount}
+                            -{DISCOUNT_PERCENT}% / -₹{discountAmount}
                           </span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Total Saved</span>
                           <span className="text-green-800 font-semibold">
-                            ₹{totalSaved}
+                            ₹{discountAmount}
                           </span>
                         </div>
                       </>

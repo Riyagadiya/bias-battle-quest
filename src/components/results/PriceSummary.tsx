@@ -23,7 +23,7 @@ const PriceSummary = ({
   if (itemCount <= 0) return null;
   
   // Calculate discount percentage - fixed at 30%
-  const discountPercent = showDiscount ? 30 : 0;
+  const discountPercent = 30;
   
   return (
     <div className="mt-6 pt-4 border-t border-gray-100">

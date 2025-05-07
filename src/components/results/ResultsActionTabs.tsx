@@ -11,6 +11,10 @@ import CardDeckItem from "./CardDeckItem";
 import PriceSummary from "./PriceSummary";
 import OrderInformation from "./OrderInformation";
 
+// Constants for pricing
+const ORIGINAL_PRICE = 999; // Original price is always 999 per deck
+const DISCOUNT_PERCENT = 30; // 30% discount when applicable
+
 // Card deck data
 const cardDecks = [
   {
@@ -23,8 +27,8 @@ const cardDecks = [
     hoverColor: "#FCD14D",
     cardCount: "38 Cards",
     price: 699,
-    mrp: 999,
-    discount: "30% off",
+    mrp: ORIGINAL_PRICE,
+    discount: `${DISCOUNT_PERCENT}% off`,
     shipping: "Free Shipping",
   },
   {
@@ -37,8 +41,8 @@ const cardDecks = [
     hoverColor: "#C4D985",
     cardCount: "42 Cards",
     price: 699,
-    mrp: 999,
-    discount: "30% off",
+    mrp: ORIGINAL_PRICE,
+    discount: `${DISCOUNT_PERCENT}% off`,
     shipping: "Free Shipping",
   },
   {
@@ -51,8 +55,8 @@ const cardDecks = [
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
     price: 699,
-    mrp: 999,
-    discount: "30% off",
+    mrp: ORIGINAL_PRICE,
+    discount: `${DISCOUNT_PERCENT}% off`,
     shipping: "Free Shipping",
   },
   {
@@ -65,8 +69,8 @@ const cardDecks = [
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",
     price: 699,
-    mrp: 999,
-    discount: "30% off",
+    mrp: ORIGINAL_PRICE,
+    discount: `${DISCOUNT_PERCENT}% off`,
     shipping: "Free Shipping",
   },
 ];
@@ -100,7 +104,7 @@ const ResultsActionTabs = () => {
     Object.entries(quantities).forEach(([deckId, quantity]) => {
       const deck = cardDecks.find(d => d.id === parseInt(deckId));
       if (deck && quantity > 0) {
-        // Always calculate mrpTotal using original price (999)
+        // Always calculate mrpTotal using original price
         mrpTotal += deck.mrp * quantity;
         
         // Use discounted price only if discount is active

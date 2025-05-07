@@ -25,6 +25,7 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     // When quiz is completed, enable discount
     if (quizCompleted) {
+      console.log("Quiz completed - enabling discount");
       setShowDiscount(true);
       // Store in localStorage to persist across page loads
       localStorage.setItem("quizCompletedDiscount", "true");
@@ -46,12 +47,18 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       
       // Check the referrer to determine navigation source
       const referrer = document.referrer;
+      const currentHost = window.location.host;
+      const referrerHost = referrer ? new URL(referrer).host : '';
       
       // This checks if user didn't come from the quiz/results page
-      // Empty referrer or non-quiz/results path indicates direct navigation or navigation from home
+      // Different host or empty referrer indicates external navigation
+      const isExternalNavigation = !referrer || referrerHost !== currentHost;
+      
+      // Check if navigation is direct (not from quiz results)
       const isDirectNavigation = 
-        !referrer.includes("/quiz") && 
-        !referrer.includes("/results");
+        isExternalNavigation || 
+        (!referrer.includes("/quiz") && 
+         !referrer.includes("/results"));
       
       // If direct navigation and not from quiz completion, remove discount
       if (isDirectNavigation && !quizCompleted) {

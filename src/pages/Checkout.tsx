@@ -59,6 +59,10 @@ const initialState = {
   pincode: "",
 };
 
+// Constants for pricing
+const ORIGINAL_PRICE = 999; // Original price is always 999 per deck
+const DISCOUNT_PERCENT = 30; // 30% discount when applicable
+
 const Checkout = () => {
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
@@ -71,9 +75,6 @@ const Checkout = () => {
   const { items, clear } = useCart();
   const { showDiscount } = useDiscount();
   
-  // Use dynamic discount percentage based on context - always 30% exactly
-  const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
-
   useEffect(() => {
     loadRazorpayScript()
       .then((loaded) => {
@@ -325,43 +326,23 @@ const Checkout = () => {
     navigate(-1);
   };
 
-  // Helper function to get correct original price
-  const getOriginalPrice = (price: number) => {
-    // For items with discounted prices, we need to calculate original price
-    if (showDiscount) {
-      // If discount is active and we have a discounted price, calculate original
-      return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
-    }
-    // If no discount is active, the current price is already original
-    return price;
-  };
-
-  // Helper function to get final display price
-  const getDisplayPrice = (price: number) => {
-    if (showDiscount) {
-      // If discount is active, the current price is already discounted
-      return price;
-    }
-    // If no discount, return the original price
-    return price;
-  };
-
+  // Calculate the number of items
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   
-  // Calculate subtotal based on whether discount applies
-  const subtotal = items.reduce((sum, item) => sum + getDisplayPrice(item.price) * item.quantity, 0);
-  
-  // Calculate original MRP total
+  // Calculate total based on original price (always 999 per item)
   const totalOriginal = items.reduce(
-    (sum, item) => sum + getOriginalPrice(item.price) * item.quantity, 
+    (sum, item) => sum + ORIGINAL_PRICE * item.quantity, 
     0
   );
   
-  // Only apply discount if discount is active
-  const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
+  // Apply discount only if showDiscount is true
+  const discountAmount = showDiscount ? Math.round(totalOriginal * (DISCOUNT_PERCENT / 100)) : 0;
   
-  // Final price is subtotal if discount, otherwise original price
-  const finalPrice = showDiscount ? subtotal : totalOriginal;
+  // Calculate the subtotal (after discount if applicable)
+  const subtotal = totalOriginal - discountAmount;
+  
+  // Final price is the subtotal (which accounts for discount if applicable)
+  const finalPrice = subtotal;
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F6F6F7]">
@@ -558,12 +539,12 @@ const Checkout = () => {
                         </div>
                         <div className="flex items-center gap-2 mt-2">
                           <span className="font-bold text-lg font-worksans text-black">
-                            ₹{getDisplayPrice(item.price) * item.quantity}
+                            ₹{showDiscount ? Math.round(ORIGINAL_PRICE * (1 - DISCOUNT_PERCENT / 100)) * item.quantity : ORIGINAL_PRICE * item.quantity}
                           </span>
                           {showDiscount && (
                             <>
                               <span className="line-through text-gray-400 font-worksans text-base">
-                                ₹{getOriginalPrice(item.price) * item.quantity}
+                                ₹{ORIGINAL_PRICE * item.quantity}
                               </span>
                               <span className="text-green-600 text-xs font-medium ml-0.5">
                                 {DISCOUNT_PERCENT}% off
