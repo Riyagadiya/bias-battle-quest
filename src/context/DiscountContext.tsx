@@ -38,34 +38,34 @@ export const DiscountProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const savedDiscount = localStorage.getItem("quizCompletedDiscount");
     const earnedThroughQuiz = localStorage.getItem("discountEarnedThroughQuiz");
     
+    // Reset discount if navigating directly to card-decks without quiz
+    if (location.pathname.includes('/card-decks') || 
+        location.pathname.includes('/product/') ||
+        location.pathname === '/cart' || 
+        location.pathname === '/checkout') {
+      
+      // Check the referrer to determine navigation source
+      const referrer = document.referrer;
+      const isDirectNavigation = 
+        (referrer.includes("/") && !referrer.includes("/quiz") && !referrer.includes("/results")) || 
+        referrer === "";
+      
+      // Reset discount if direct navigation without quiz completion
+      if (isDirectNavigation && !quizCompleted) {
+        // If direct navigation from home without quiz completion, remove discount
+        localStorage.removeItem("quizCompletedDiscount");
+        localStorage.removeItem("discountEarnedThroughQuiz");
+        setShowDiscount(false);
+        return;
+      }
+    }
+    
     // Only show discount if it was earned through quiz completion
     if (savedDiscount === "true" && earnedThroughQuiz === "true") {
       setShowDiscount(true);
     } else {
       setShowDiscount(false);
     }
-  }, [location.pathname]); // Re-check when route changes
-  
-  // Reset discount if navigating directly from home to card-decks without quiz
-  useEffect(() => {
-    // Listen for direct navigation from home page to card decks using "Buy Card decks" button
-    const handleDirectNavigation = () => {
-      if (location.pathname === "/card-decks") {
-        // Check if we're coming from home and not from quiz/results
-        const referrer = document.referrer;
-        const isFromHome = referrer.includes("/") && !referrer.includes("/quiz") && !referrer.includes("/results");
-        
-        // Is navigation direct from home page?
-        if (isFromHome && !quizCompleted) {
-          // If direct navigation from home without quiz completion, remove discount
-          localStorage.removeItem("quizCompletedDiscount");
-          localStorage.removeItem("discountEarnedThroughQuiz");
-          setShowDiscount(false);
-        }
-      }
-    };
-    
-    handleDirectNavigation();
   }, [location.pathname, quizCompleted]);
 
   return (
