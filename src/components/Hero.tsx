@@ -78,7 +78,7 @@ const Hero = () => {
         }} transition={{
           duration: 0.6,
           delay: 0.3
-        }} className="font-domine font-bold md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-10 text-3xl">
+        }} className="font-domine font-bold md:text-6xl lg:text-[64px] leading-[1.4] tracking-[-3%] mb-10 text-3xl my-[22px]">
             Cognitive Biases:
             <br /> 
             <span className="text-foreground">
@@ -95,7 +95,7 @@ const Hero = () => {
         }} transition={{
           duration: 0.6,
           delay: 0.4
-        }} className="font-inter font-normal text-xl md:text-2xl text-[24px] leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-12">
+        }} className="font-inter font-normal md:text-2xl leading-normal tracking-tight text-muted-foreground max-w-2xl mx-auto mb-12 text-base">
             Cognilense brings the power of cognitive biases to life. Take this quiz to test your 
             rational thinking and uncover the hidden biases that shape your decisions.
           </motion.p>
@@ -219,7 +219,7 @@ const Hero = () => {
         duration: 0.6,
         delay: 0.8
       }} className="mt-32 mb-24 max-w-6xl mx-auto bias-cards-section">
-          <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-8">
+          <h3 className="font-domine font-bold text-3xl md:text-[40px] leading-[58px] tracking-[-3%] text-center mb-8 py-[2px] my-[2px]">
             Sneak Peak into Cognitive Biases
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
