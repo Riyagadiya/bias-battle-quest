@@ -22,6 +22,9 @@ const PriceSummary = ({
 }: PriceSummaryProps) => {
   if (itemCount <= 0) return null;
   
+  // If not showing discount, ensure total matches subtotal
+  const finalTotal = showDiscount ? total : subtotal;
+  
   return (
     <div className="mt-6 pt-4 border-t border-gray-100">
       <h4 className="font-medium text-sm mb-3">Order Summary</h4>
@@ -45,7 +48,7 @@ const PriceSummary = ({
         <Separator className="my-2" />
         <div className="flex justify-between font-medium">
           <span>Total</span>
-          <span>₹{total}</span>
+          <span>₹{finalTotal}</span>
         </div>
       </div>
       

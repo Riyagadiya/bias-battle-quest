@@ -44,6 +44,9 @@ const Hero = () => {
   };
 
   const handleBuyCardDecks = () => {
+    // Clear any quiz-related discount flags for direct navigation
+    localStorage.removeItem("quizCompletedDiscount");
+    localStorage.removeItem("discountEarnedThroughQuiz");
     navigate("/card-decks");
   };
 
@@ -119,6 +122,7 @@ const Hero = () => {
               onClick={handleStartQuiz} 
               className="text-base md:text-lg px-8 py-4"
               icon={true}
+              variant="primary"
             >
               Take the challenge
             </GradientButton>
