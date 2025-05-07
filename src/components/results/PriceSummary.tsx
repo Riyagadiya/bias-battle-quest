@@ -22,8 +22,11 @@ const PriceSummary = ({
 }: PriceSummaryProps) => {
   if (itemCount <= 0) return null;
   
-  // If not showing discount, ensure total matches subtotal
-  const finalTotal = showDiscount ? total : subtotal;
+  // Use mrpTotal (original price) as subtotal when discount is not active
+  const displaySubtotal = showDiscount ? subtotal : mrpTotal;
+  
+  // If not showing discount, ensure total matches mrpTotal (original price)
+  const finalTotal = showDiscount ? total : mrpTotal;
   
   // Calculate discount percentage - fixed at 30%
   const discountPercent = showDiscount ? 30 : 0;
@@ -34,7 +37,7 @@ const PriceSummary = ({
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Subtotal ({itemCount} items)</span>
-          <span>₹{subtotal}</span>
+          <span>₹{displaySubtotal}</span>
         </div>
         {showDiscount && (
           <>

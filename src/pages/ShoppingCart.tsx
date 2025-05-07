@@ -1,3 +1,4 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -29,21 +30,39 @@ const ShoppingCart = () => {
   // Calculate discount percentage - fixed at 30%
   const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
 
-  const calculateOriginalPrice = (price: number) => {
-    // If discount is active, calculate the original price
+  // Helper function to get original price
+  const getOriginalPrice = (price: number) => {
+    // For items with discounted prices, we need to calculate original price
     if (showDiscount) {
+      // If discount is active and we have a discounted price, calculate original
       return Math.round(price / (1 - DISCOUNT_PERCENT / 100));
     }
-    // If no discount is active, the current price is the original price
+    // If no discount, assume this is already the original price
+    return price;
+  };
+
+  // Helper function to get discounted price if applicable
+  const getDisplayPrice = (price: number) => {
+    if (showDiscount) {
+      // If discount is active, the current price is already discounted
+      return price;
+    }
+    // If no discount, return the original price (which should be the price stored in cart)
     return price;
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  
+  // Calculate subtotal (discounted price if discount applies, otherwise original price)
+  const subtotal = items.reduce((sum, item) => sum + getDisplayPrice(item.price) * item.quantity, 0);
+  
+  // Calculate original total (always the original/MRP price)
   const totalOriginal = items.reduce(
-    (sum, item) => sum + calculateOriginalPrice(item.price) * item.quantity,
+    (sum, item) => sum + getOriginalPrice(item.price) * item.quantity,
     0
   );
+  
+  // Calculate discount amount (difference between original and subtotal, or 0 if no discount)
   const discountAmount = showDiscount ? (totalOriginal - subtotal) : 0;
   const discountPercent = showDiscount ? 30 : 0;
   const totalSaved = discountAmount;
@@ -176,12 +195,12 @@ const ShoppingCart = () => {
                             <div className="text-right min-w-[120px] mt-4 sm:mt-0">
                               <div className="flex flex-col items-end gap-1">
                                 <p className="font-medium text-lg">
-                                  ₹{item.price * item.quantity}
+                                  ₹{getDisplayPrice(item.price) * item.quantity}
                                 </p>
                                 {showDiscount && (
                                   <>
                                     <p className="text-sm text-muted-foreground line-through">
-                                      ₹{calculateOriginalPrice(item.price) * item.quantity}
+                                      ₹{getOriginalPrice(item.price) * item.quantity}
                                     </p>
                                     <p className="text-green-600 text-sm font-medium">
                                       {discountPercent}% off
@@ -242,12 +261,12 @@ const ShoppingCart = () => {
                               <div className="text-right min-w-[120px] mt-4 sm:mt-0">
                                 <div className="flex flex-col items-end gap-1">
                                   <p className="font-medium text-lg">
-                                    ₹{item.price * item.quantity}
+                                    ₹{getDisplayPrice(item.price) * item.quantity}
                                   </p>
                                   {showDiscount && (
                                     <>
                                       <p className="text-sm text-muted-foreground line-through">
-                                        ₹{calculateOriginalPrice(item.price) * item.quantity}
+                                        ₹{getOriginalPrice(item.price) * item.quantity}
                                       </p>
                                       <p className="text-green-600 text-sm font-medium">
                                         {discountPercent}% off
@@ -287,7 +306,7 @@ const ShoppingCart = () => {
                       <span className="text-muted-foreground">Number of Items</span>
                       <span className="font-medium">{totalItems}</span>
                     </div>
-                    {showDiscount && (
+                    {showDiscount ? (
                       <>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Total Original MRP</span>
@@ -308,12 +327,17 @@ const ShoppingCart = () => {
                           </span>
                         </div>
                       </>
+                    ) : (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Total MRP</span>
+                        <span>₹{totalOriginal}</span>
+                      </div>
                     )}
                     <Separator className="my-2" />
                     <div className="flex justify-between items-center text-lg font-bold">
                       <span className="text-black">Final Price</span>
                       <span className="text-primary text-2xl font-bold">
-                        ₹{finalPrice}
+                        ₹{showDiscount ? finalPrice : totalOriginal}
                       </span>
                     </div>
                   </div>
