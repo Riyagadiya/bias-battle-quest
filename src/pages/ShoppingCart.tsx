@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -27,7 +26,7 @@ const ShoppingCart = () => {
   const { showDiscount } = useDiscount();
   const navigate = useNavigate();
 
-  // Discount percentage based on context
+  // Calculate discount percentage dynamically
   const DISCOUNT_PERCENT = showDiscount ? 30 : 0;
 
   const calculateOriginalPrice = (price: number) => {
@@ -115,7 +114,6 @@ const ShoppingCart = () => {
 
               <TabsContent value="items" className="h-full">
                 <Card className="h-full">
-                  {/* Removed height constraint from ScrollArea to show all content */}
                   <ScrollArea className="h-full">
                     <CardContent className="pt-6 pb-6">
                       {items.map((item, index) => (
@@ -186,7 +184,7 @@ const ShoppingCart = () => {
                                       ₹{calculateOriginalPrice(item.price) * item.quantity}
                                     </p>
                                     <p className="text-green-600 text-sm font-medium">
-                                      {DISCOUNT_PERCENT}% off
+                                      {discountPercent}% off
                                     </p>
                                   </>
                                 )}
@@ -209,7 +207,6 @@ const ShoppingCart = () => {
 
               <TabsContent value="saved" className="h-full">
                 <Card className="h-full">
-                  {/* Removed height constraint from ScrollArea for saved items as well */}
                   <ScrollArea className="h-full">
                     <CardContent className="pt-6 pb-6">
                       {savedItems && savedItems.length > 0 ? (
@@ -253,7 +250,7 @@ const ShoppingCart = () => {
                                         ₹{calculateOriginalPrice(item.price) * item.quantity}
                                       </p>
                                       <p className="text-green-600 text-sm font-medium">
-                                        {DISCOUNT_PERCENT}% off
+                                        {discountPercent}% off
                                       </p>
                                     </>
                                   )}
@@ -301,7 +298,7 @@ const ShoppingCart = () => {
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Discount Applied</span>
                           <span className="text-green-600 font-semibold">
-                            -{DISCOUNT_PERCENT}% / -₹{discountAmount}
+                            -{discountPercent}% / -₹{discountAmount}
                           </span>
                         </div>
                         <div className="flex justify-between text-sm">
@@ -324,7 +321,6 @@ const ShoppingCart = () => {
                     <GradientButton
                       className="w-full h-14 text-lg font-semibold rounded-full tracking-wide"
                       onClick={handleProceedToBuy}
-                      type="button"
                     >
                       Proceed to Buy
                     </GradientButton>

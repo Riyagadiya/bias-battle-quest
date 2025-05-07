@@ -25,6 +25,9 @@ const PriceSummary = ({
   // If not showing discount, ensure total matches subtotal
   const finalTotal = showDiscount ? total : subtotal;
   
+  // Calculate discount percentage
+  const discountPercent = mrpTotal > 0 ? Math.round((discount / mrpTotal) * 100) : 0;
+  
   return (
     <div className="mt-6 pt-4 border-t border-gray-100">
       <h4 className="font-medium text-sm mb-3">Order Summary</h4>
@@ -40,7 +43,7 @@ const PriceSummary = ({
               <span className="line-through text-muted-foreground">₹{mrpTotal}</span>
             </div>
             <div className="flex justify-between text-sm text-green-600">
-              <span>Discount</span>
+              <span>Discount ({discountPercent}%)</span>
               <span>- ₹{discount}</span>
             </div>
           </>

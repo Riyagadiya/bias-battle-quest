@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
@@ -71,6 +72,9 @@ const CardDeckItem = ({
   // Calculate total price based on quantity
   const totalPrice = quantity > 0 ? actualPrice * quantity : actualPrice;
   
+  // Calculate discount percentage dynamically
+  const discountPercent = Math.round(((deck.mrp - deck.price) / deck.mrp) * 100);
+  
   return (
     <div 
       key={deck.id} 
@@ -106,7 +110,7 @@ const CardDeckItem = ({
                 ₹{deck.mrp}
               </span>
               <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                {deck.discount}
+                {discountPercent}% off
               </Badge>
             </>
           )}

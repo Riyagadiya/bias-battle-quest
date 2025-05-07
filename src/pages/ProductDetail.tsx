@@ -157,13 +157,17 @@ const ProductDetail = () => {
   const needsObjectCover = isCognitiveBias || isThinkingHat || isResearchMethod || isUXLaws;
   
   // Calculate pricing based on discount status
-  const originalPrice = parseInt(product.mrp); // Original price before discount
-  const discountedPrice = parseInt(product.price); // Discounted price (after discount)
+  const originalPrice = parseInt(product?.mrp || "999"); // Original price before discount
+  const discountedPrice = parseInt(product?.price || "699"); // Discounted price (after discount)
   const basePrice = showDiscount ? discountedPrice : originalPrice; // Price to use
   
   // Calculate total price based on quantity
   const totalPrice = basePrice * quantity;
   const totalOriginalPrice = originalPrice * quantity;
+  
+  // Calculate discount percentage dynamically
+  const discountPercent = Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+  
 
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
@@ -259,19 +263,19 @@ const ProductDetail = () => {
 
                 <div className="space-y-4">
                   <h1 className="text-2xl md:text-3xl font-domine font-semibold">
-                    {product.title}
+                    {product?.title}
                   </h1>
                   
                   <p className="text-lg text-muted-foreground">
-                    {product.description}
+                    {product?.description}
                   </p>
 
                   <p className="text-sm text-muted-foreground">by Siddharth Kabra</p>
                   
                   <div className="space-y-1">
-                    <p className="text-sm"><span className="font-medium">Size:</span> {product.dimensions}</p>
-                    <p className="text-sm"><span className="font-medium">Quantity:</span> {product.cardCount}</p>
-                    <p className="text-sm text-muted-foreground">{product.shipping}</p>
+                    <p className="text-sm"><span className="font-medium">Size:</span> {product?.dimensions}</p>
+                    <p className="text-sm"><span className="font-medium">Quantity:</span> {product?.cardCount}</p>
+                    <p className="text-sm text-muted-foreground">{product?.shipping}</p>
                   </div>
 
                   <div className="flex items-center gap-3 my-4">
@@ -279,7 +283,7 @@ const ProductDetail = () => {
                     {showDiscount && (
                       <>
                         <Badge variant="secondary" className="bg-green-100 text-green-800">
-                          {product.discount}
+                          {discountPercent}% off
                         </Badge>
                         <span className="text-sm text-muted-foreground line-through">
                           ₹{totalOriginalPrice}

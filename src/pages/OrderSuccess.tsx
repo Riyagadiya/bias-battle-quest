@@ -129,10 +129,22 @@ const OrderSuccess = () => {
     );
   }
 
+  // Calculate the discount percentage dynamically
+  const calculateDiscountPercent = () => {
+    if (!orderDetails || !showDiscount || orderDetails.original_total <= 0) {
+      return 0;
+    }
+    return Math.round(
+      (orderDetails.discount_amount / orderDetails.original_total) * 100
+    );
+  };
+
   // Only show discount information if discount is active
   const shouldShowDiscount = showDiscount && 
-    orderDetails.discount_amount > 0 && 
-    orderDetails.original_total > orderDetails.final_price;
+    orderDetails?.discount_amount > 0 && 
+    orderDetails?.original_total > orderDetails?.final_price;
+
+  const discountPercent = calculateDiscountPercent();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -145,8 +157,8 @@ const OrderSuccess = () => {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Thank You for Your Order!</h1>
               <p className="text-gray-600 mb-1">Order #{orderNumber}</p>
               <p className="text-gray-600">
-                Payment Status: <span className={orderDetails.payment_status === 'completed' ? 'text-green-600 font-medium' : 'text-yellow-600 font-medium'}>
-                  {orderDetails.payment_status === 'completed' ? 'Completed' : 'Processing'}
+                Payment Status: <span className={orderDetails?.payment_status === 'completed' ? 'text-green-600 font-medium' : 'text-yellow-600 font-medium'}>
+                  {orderDetails?.payment_status === 'completed' ? 'Completed' : 'Processing'}
                 </span>
               </p>
             </div>
@@ -198,7 +210,7 @@ const OrderSuccess = () => {
                 </h2>
                 
                 <div className="space-y-4 mb-6">
-                  {Array.isArray(orderDetails.items) && (orderDetails.items as CartItem[]).map((item, index) => (
+                  {Array.isArray(orderDetails?.items) && (orderDetails?.items as CartItem[]).map((item, index) => (
                     <div key={index} className="flex justify-between items-center">
                       <div>
                         <p className="font-medium">{item.title}</p>
@@ -214,18 +226,18 @@ const OrderSuccess = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-gray-600">
                     <span>Subtotal</span>
-                    <span>₹{orderDetails.subtotal.toLocaleString()}</span>
+                    <span>₹{orderDetails?.subtotal.toLocaleString()}</span>
                   </div>
                   
                   {shouldShowDiscount && (
                     <>
                       <div className="flex justify-between text-gray-600">
                         <span>Original Price</span>
-                        <span className="line-through">₹{orderDetails.original_total.toLocaleString()}</span>
+                        <span className="line-through">₹{orderDetails?.original_total.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-green-600">
-                        <span>Discount</span>
-                        <span>-₹{orderDetails.discount_amount.toLocaleString()}</span>
+                        <span>Discount ({discountPercent}%)</span>
+                        <span>-₹{orderDetails?.discount_amount.toLocaleString()}</span>
                       </div>
                     </>
                   )}
@@ -233,7 +245,7 @@ const OrderSuccess = () => {
                   <Separator className="my-2" />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total Paid</span>
-                    <span>₹{orderDetails.final_price.toLocaleString()}</span>
+                    <span>₹{orderDetails?.final_price.toLocaleString()}</span>
                   </div>
                 </div>
               </div>

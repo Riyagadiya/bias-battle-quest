@@ -6,6 +6,7 @@ import { Award, Copy, CheckCircle } from "lucide-react";
 const DiscountSection = () => {
   const [isCopied, setIsCopied] = useState(false);
   const discountCode = "COGNIQUIZ30";
+  const discountPercent = 30;
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(discountCode);
@@ -20,9 +21,9 @@ const DiscountSection = () => {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Award size={20} className="text-cognilense-orange" />
-            <h4 className="font-domine font-semibold">Exclusive Discount</h4>
+            <h4 className="font-domine font-semibold">Exclusive {discountPercent}% Discount</h4>
           </div>
-          <p className="text-sm text-muted-foreground mb-4 md:mb-0">Use this code for 30% off Cognilense card decks</p>
+          <p className="text-sm text-muted-foreground mb-4 md:mb-0">Use this code for {discountPercent}% off Cognilense card decks</p>
         </div>
         
         <div className="flex items-center gap-2">

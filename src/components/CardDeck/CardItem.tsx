@@ -38,6 +38,9 @@ const CardItem = ({
 
   // Calculate actual price based on discount status
   const actualPrice = showDiscount ? price : mrp;
+  
+  // Calculate discount percentage dynamically
+  const discountPercent = Math.round(((mrp - price) / mrp) * 100);
 
   // Special image handling for specific deck types
   const getImageUrl = () => {
@@ -82,7 +85,7 @@ const CardItem = ({
               </div>
               {showDiscount && (
                 <Badge className="bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
-                  {discount}
+                  {discountPercent}% off
                 </Badge>
               )}
             </div>
