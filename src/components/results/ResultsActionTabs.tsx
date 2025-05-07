@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuiz } from "@/context/QuizContext";
 import { useCart } from "@/context/CartContext";
 import { useDiscount } from "@/context/DiscountContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import CardDeckItem from "./CardDeckItem";
 import PriceSummary from "./PriceSummary";
 import OrderInformation from "./OrderInformation";
@@ -79,6 +80,7 @@ const ResultsActionTabs = () => {
   const navigate = useNavigate();
   const { addToCart, getCartCount } = useCart();
   const { showDiscount } = useDiscount();
+  const isMobile = useIsMobile();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
@@ -163,35 +165,35 @@ const ResultsActionTabs = () => {
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden h-auto">
       <Card className="border-0 shadow-none h-full">
-        <CardContent className="pt-6 px-4 h-full">
-          <div className="text-center mb-6">
-            <h3 className="font-domine text-2xl font-semibold">
+        <CardContent className="pt-4 md:pt-6 px-3 md:px-4 h-full">
+          <div className="text-center mb-4 md:mb-6">
+            <h3 className="font-domine text-xl md:text-2xl font-semibold">
               {showDiscount ? "Boom! You Just Unlocked 30% Off!" : "Check Out Our Card Decks!"}
             </h3>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-1 md:mt-2 text-sm md:text-base">
               {showDiscount 
                 ? "Grab your Card Decks now – offer valid for a limited time!" 
                 : "Complete the quiz to unlock special discounts!"}
             </p>
           </div>
           
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="font-domine text-lg font-medium">Card Decks</h4>
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <h4 className="font-domine text-base md:text-lg font-medium">Card Decks</h4>
             <button 
-              className="text-sm flex items-center text-cognilense-blue hover:underline relative" 
+              className="text-xs md:text-sm flex items-center text-cognilense-blue hover:underline relative" 
               onClick={handleViewCart}
             >
               View Cart 
-              <ShoppingCart size={16} className="ml-1" />
+              <ShoppingCart size={isMobile ? 14 : 16} className="ml-1" />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black/20 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <span className="absolute -top-2 -right-2 bg-black/20 text-black text-xs w-4 md:w-5 h-4 md:h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
                   {cartCount}
                 </span>
               )}
             </button>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {cardDecks.map((deck) => (
               <CardDeckItem
                 key={deck.id}

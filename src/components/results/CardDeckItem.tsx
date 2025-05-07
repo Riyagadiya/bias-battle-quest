@@ -5,6 +5,7 @@ import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useDiscount } from "@/context/DiscountContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CardDeck {
   id: number;
@@ -38,6 +39,7 @@ const CardDeckItem = ({
 }: CardDeckItemProps) => {
   const navigate = useNavigate();
   const { showDiscount } = useDiscount();
+  const isMobile = useIsMobile();
   
   // Special image handling for specific decks
   const isCognitiveBiasDeck = deck.title.includes("Cognitive Bias");
@@ -78,14 +80,14 @@ const CardDeckItem = ({
   return (
     <div 
       key={deck.id} 
-      className="flex flex-col md:flex-row items-center gap-4 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+      className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 p-2 md:p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
       <div
-        className="relative w-22 h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+        className="relative w-18 h-18 sm:w-22 sm:h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
         style={{ 
           backgroundColor: deck.backgroundColor, 
-          width: "5.5rem", 
-          height: "5.5rem" 
+          width: isMobile ? "4.5rem" : "5.5rem", 
+          height: isMobile ? "4.5rem" : "5.5rem" 
         }}
         onClick={() => onDeckClick(deck.title)}
       >
@@ -98,12 +100,13 @@ const CardDeckItem = ({
         </AspectRatio>
       </div>
       
-      <div className="flex-1 cursor-pointer" onClick={() => onDeckClick(deck.title)}>
-        <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors">{deck.title}</h4>
-        <p className="text-xs text-gray-600 mb-1">{deck.oneLiner}</p>
-        <p className="text-xs text-muted-foreground">{deck.cardCount}</p>
+      <div className="flex-1 cursor-pointer text-left w-full sm:w-auto" onClick={() => onDeckClick(deck.title)}>
+        <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-sm md:text-base">
+          {deck.title}
+        </h4>
+        <p className="text-xs text-gray-600 mb-1 line-clamp-1">{deck.oneLiner || deck.cardCount}</p>
         
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex flex-wrap items-center gap-2 mt-1">
           {showDiscount && (
             <>
               <span className="text-xs text-muted-foreground line-through">
@@ -114,13 +117,13 @@ const CardDeckItem = ({
               </Badge>
             </>
           )}
-          <span className="font-medium">₹{actualPrice}</span>
+          <span className="font-medium text-sm md:text-base">₹{actualPrice}</span>
         </div>
         
         {quantity > 0 && (
-          <div className="text-xs font-medium mt-1 flex items-center gap-2">
+          <div className="text-xs font-medium mt-1 flex flex-wrap items-center gap-2">
             <span>Subtotal:</span>
-            <span className="text-sm font-semibold">₹{totalPrice}</span>
+            <span className="text-xs md:text-sm font-semibold">₹{totalPrice}</span>
             <span className="text-xs text-muted-foreground">
               (₹{actualPrice} × {quantity})
             </span>
@@ -128,7 +131,7 @@ const CardDeckItem = ({
         )}
       </div>
       
-      <div className="shrink-0 flex flex-col items-center gap-2">
+      <div className="shrink-0 flex flex-col items-center gap-2 mt-2 sm:mt-0">
         {/* Unified quantity control in a single rounded rectangle */}
         <div className="flex items-center border rounded-full overflow-hidden">
           <Button 
@@ -136,20 +139,20 @@ const CardDeckItem = ({
             size="icon"
             onClick={() => handleQuantityChange(-1)}
             disabled={quantity <= 0}
-            className="h-8 w-8 rounded-none border-r border-gray-100"
+            className="h-7 w-7 sm:h-8 sm:w-8 rounded-none border-r border-gray-100 p-0"
           >
-            <Minus size={16} />
+            <Minus size={isMobile ? 14 : 16} />
           </Button>
           
-          <span className="w-8 text-center font-medium">{quantity || 0}</span>
+          <span className="w-6 sm:w-8 text-center font-medium text-xs sm:text-sm">{quantity || 0}</span>
           
           <Button 
             variant="ghost" 
             size="icon"
             onClick={() => handleQuantityChange(1)}
-            className="h-8 w-8 rounded-none border-l border-gray-100"
+            className="h-7 w-7 sm:h-8 sm:w-8 rounded-none border-l border-gray-100 p-0"
           >
-            <Plus size={16} />
+            <Plus size={isMobile ? 14 : 16} />
           </Button>
         </div>
         
@@ -158,7 +161,7 @@ const CardDeckItem = ({
           <Button 
             variant="default"
             size="sm"
-            className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-4 py-1 text-xs h-8 flex items-center gap-1"
+            className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-7 sm:h-8 flex items-center gap-1"
             onClick={() => {
               // If there's no quantity selected yet, add 1 first
               if (quantity <= 0) {
@@ -168,7 +171,7 @@ const CardDeckItem = ({
               navigate('/checkout');
             }}
           >
-            <ShoppingCart size={12} />
+            <ShoppingCart size={isMobile ? 12 : 14} />
             Buy
           </Button>
         </div>

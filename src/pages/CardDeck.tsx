@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useDiscount } from "@/context/DiscountContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type CardDeckProps = {
   id: number;
@@ -82,6 +83,7 @@ const CardDeck = () => {
   const { toast } = useToast();
   const { addToCart } = useCart();
   const { showDiscount } = useDiscount();
+  const isMobile = useIsMobile();
   const [quantities, setQuantities] = useState<{[key: number]: number}>({
     1: 0, 2: 0, 3: 0, 4: 0
   });
@@ -149,7 +151,7 @@ const CardDeck = () => {
       <Header />
       <CartIcon />
       
-      <main className="flex-grow py-16 px-6">
+      <main className="flex-grow py-8 md:py-16 px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
@@ -158,9 +160,9 @@ const CardDeck = () => {
           className="container mx-auto"
         >
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl font-domine font-semibold text-center mb-12 md:text-4xl">Ready, Set, Grab a Deck!</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-domine font-semibold text-left md:text-center mb-6 md:mb-12">Ready, Set, Grab a Deck!</h1>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               {cardDecks.map((deck, index) => (
                 <motion.div 
                   key={deck.title} 
@@ -169,11 +171,11 @@ const CardDeck = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="bg-white rounded-lg shadow-md overflow-hidden"
                 >
-                  <div className="p-5">
+                  <div className="p-3 md:p-5">
                     <div className="flex flex-col">
                       {/* Image section with 1:1 ratio */}
                       <div 
-                        className="w-full mb-5 cursor-pointer"
+                        className="w-full mb-3 md:mb-5 cursor-pointer"
                         onClick={() => handleViewDetails(deck.title)}
                       >
                         <div 
@@ -191,25 +193,25 @@ const CardDeck = () => {
                       </div>
                       
                       {/* Content section */}
-                      <div className="flex flex-col md:flex-row justify-between">
+                      <div className="flex flex-col sm:flex-row justify-between">
                         {/* Left side: Title, description, card count */}
-                        <div className="flex-1 mb-4 md:mb-0 md:pr-4">
+                        <div className="flex-1 mb-3 sm:mb-0 sm:pr-4 text-left">
                           <h3 
-                            className="text-xl font-domine font-semibold mb-1 cursor-pointer hover:text-gray-700 transition-colors"
+                            className="text-base md:text-xl font-domine font-semibold mb-1 cursor-pointer hover:text-gray-700 transition-colors"
                             onClick={() => handleViewDetails(deck.title)}
                           >
                             {deck.title}
                           </h3>
-                          <p className="text-gray-600 text-sm mb-1">{deck.oneLiner}</p>
+                          <p className="text-gray-600 text-xs md:text-sm mb-1 line-clamp-2">{deck.oneLiner}</p>
                           <p className="text-gray-500 text-xs">{deck.cardCount}</p>
                         </div>
                         
                         {/* Right side: Price, shipping, quantity, buttons */}
-                        <div className="flex flex-col items-start md:items-end">
+                        <div className={`flex flex-col items-start ${isMobile ? "" : "md:items-end"}`}>
                           {/* Single price with dynamic subtotal */}
-                          <div className="flex flex-col items-end">
+                          <div className="flex flex-col items-start md:items-end">
                             <div className="flex items-center">
-                              <span className="font-bold text-lg">₹{showDiscount ? 699 : 999}</span>
+                              <span className="font-bold text-base md:text-lg">₹{showDiscount ? 699 : 999}</span>
                               
                               {showDiscount && (
                                 <>
@@ -222,26 +224,26 @@ const CardDeck = () => {
                           </div>
                           
                           {/* Quantity control */}
-                          <div className="flex items-center justify-between border rounded-full p-1 w-28 mb-4">
+                          <div className="flex items-center justify-between border rounded-full p-1 w-24 md:w-28 mb-3 md:mb-4">
                             <button 
                               onClick={() => handleQuantityChange(deck.id, -1)} 
                               className="p-1 hover:bg-gray-100 rounded-full"
                               disabled={quantities[deck.id] <= 0}
                             >
-                              <Minus size={16} className={quantities[deck.id] <= 0 ? "text-gray-300" : ""} />
+                              <Minus size={isMobile ? 14 : 16} className={quantities[deck.id] <= 0 ? "text-gray-300" : ""} />
                             </button>
-                            <span className="font-medium text-sm">{quantities[deck.id] || 0}</span>
+                            <span className="font-medium text-xs md:text-sm">{quantities[deck.id] || 0}</span>
                             <button 
                               onClick={() => handleQuantityChange(deck.id, 1)} 
                               className="p-1 hover:bg-gray-100 rounded-full"
                             >
-                              <Plus size={16} />
+                              <Plus size={isMobile ? 14 : 16} />
                             </button>
                           </div>
                           
                           {/* Display calculated subtotal when quantity > 0 */}
                           {quantities[deck.id] > 0 && (
-                            <div className="text-sm mb-3 flex flex-col items-end">
+                            <div className="text-xs md:text-sm mb-3 flex flex-col items-start md:items-end">
                               <div className="flex items-center gap-1">
                                 <span className="text-gray-600">Subtotal:</span>
                                 <span className="font-semibold">₹{calculateSubtotal(deck.id)}</span>
@@ -256,20 +258,20 @@ const CardDeck = () => {
                           <div className="flex justify-center gap-2 w-full">
                             <Button 
                               variant="outline" 
-                              className="w-full rounded-full text-sm flex items-center justify-center"
+                              className="w-full rounded-full text-xs md:text-sm py-1 md:py-2 flex items-center justify-center"
                               onClick={() => handleAddToCart(deck)}
                             >
                               Add to Cart
-                              <ShoppingCart className="h-4 w-4 ml-1" />
+                              <ShoppingCart className="h-3 w-3 md:h-4 md:w-4 ml-1" />
                             </Button>
                             
                             <GradientButton 
-                              className="w-full text-sm py-2 flex items-center justify-center"
+                              className="w-full text-xs md:text-sm py-1 md:py-2 flex items-center justify-center"
                               onClick={() => handleBuyNow(deck)}
                               icon={false}
                             >
                               Buy Now
-                              <ShoppingBag className="h-4 w-4 ml-1" />
+                              <ShoppingBag className="h-3 w-3 md:h-4 md:w-4 ml-1" />
                             </GradientButton>
                           </div>
                         </div>

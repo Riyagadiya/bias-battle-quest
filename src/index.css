@@ -46,14 +46,46 @@
 
   body {
     @apply bg-cognilense-background text-foreground font-worksans antialiased;
+    font-size: 16px;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-domine font-bold tracking-tight;
+    word-wrap: break-word;
+  }
+
+  h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  h2 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+
+  h3 {
+    @apply text-lg md:text-xl lg:text-2xl;
   }
 
   p {
-    @apply text-base leading-7;
+    @apply text-sm md:text-base leading-relaxed md:leading-7;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Responsive container width */
+  .container {
+    @apply px-4 md:px-6 lg:px-8;
+    width: 100%;
+  }
+
+  /* Responsive card styles */
+  .responsive-card {
+    @apply p-3 md:p-4 lg:p-6;
+  }
+
+  /* Responsive button styles */
+  .responsive-button {
+    @apply text-sm md:text-base px-3 md:px-4 py-1.5 md:py-2;
   }
 
   /* Custom animations and utilities */

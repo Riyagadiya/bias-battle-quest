@@ -15,6 +15,7 @@ import GradientButton from "@/components/GradientButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useDiscount } from "@/hooks/use-discount";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const cardDecks = [{
   title: "Cognitive Biases Card Deck",
@@ -100,6 +101,7 @@ const ProductDetail = () => {
     addToCart
   } = useCart();
   const { showDiscount } = useDiscount();
+  const isMobile = useIsMobile();
   const product = cardDecks.find(deck => deck.title === decodeURIComponent(title || ""));
   const handleBackClick = () => {
     navigate('/card-decks');
@@ -136,9 +138,9 @@ const ProductDetail = () => {
   if (!product) {
     return <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow py-12 px-6 flex items-center justify-center">
+        <main className="flex-grow py-8 md:py-12 px-4 md:px-6 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-semibold mb-4">Product not found</h1>
+            <h1 className="text-xl md:text-2xl font-semibold mb-4">Product not found</h1>
             <Button onClick={() => navigate('/card-decks')}>
               Return to Products
             </Button>
@@ -195,11 +197,11 @@ const ProductDetail = () => {
       <Header />
       <CartIcon />
       
-      <Button variant="outline" size="icon" onClick={handleBackClick} className="fixed left-6 top-16 z-50 rounded-lg">
-        <ArrowLeft className="h-5 w-5" />
+      <Button variant="outline" size="icon" onClick={handleBackClick} className="fixed left-3 md:left-6 top-16 z-50 rounded-lg">
+        <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" />
       </Button>
 
-      <main className="flex-grow py-12 px-6">
+      <main className="flex-grow py-8 md:py-12 px-4 md:px-6">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -208,11 +210,11 @@ const ProductDetail = () => {
         y: 0
       }} transition={{
         duration: 0.4
-      }} className="container mx-auto py-[72px]">
+      }} className="container mx-auto py-8 md:py-[72px]">
           <div className="max-w-6xl mx-auto">
-            <div className="border border-gray-200 rounded-xl shadow-sm p-6 md:p-8 py-[31px]">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
+            <div className="border border-gray-200 rounded-xl shadow-sm p-4 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="space-y-3 md:space-y-4">
                   {/* Carousel for product images with 3:2 aspect ratio */}
                   <div className="rounded-xl overflow-hidden relative">
                     <Carousel className="w-full" setApi={setApi}>
@@ -228,7 +230,7 @@ const ProductDetail = () => {
                                   src={image} 
                                   alt={`${product.title} - view ${index + 1}`} 
                                   className={`absolute inset-0 w-full h-full ${
-                                    needsObjectCover ? "object-cover" : "object-contain p-8"
+                                    needsObjectCover ? "object-cover" : "object-contain p-4 md:p-8"
                                   }`}
                                 />
                               </div>
@@ -239,11 +241,11 @@ const ProductDetail = () => {
                     </Carousel>
                   </div>
                   
-                  <div className="flex justify-center gap-4">
+                  <div className="flex justify-center gap-2 md:gap-4 flex-wrap">
                     {product.images.map((image, index) => (
                       <div 
                         key={index} 
-                        className={`cursor-pointer rounded-lg overflow-hidden w-16 h-16 transition-all relative
+                        className={`cursor-pointer rounded-lg overflow-hidden w-12 h-12 md:w-16 md:h-16 transition-all relative
                           ${selectedImageIndex === index ? 'border-2 border-black' : ''}`} 
                         onClick={() => setSelectedImageIndex(index)}
                         style={{ backgroundColor: product.backgroundColor }}
@@ -252,7 +254,7 @@ const ProductDetail = () => {
                           src={image} 
                           alt={`${product.title} - thumbnail ${index + 1}`} 
                           className={`absolute inset-0 w-full h-full ${
-                            needsObjectCover ? "object-cover" : "object-contain p-2"
+                            needsObjectCover ? "object-cover" : "object-contain p-1 md:p-2"
                           }`}
                         />
                       </div>
@@ -260,68 +262,68 @@ const ProductDetail = () => {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h1 className="text-2xl md:text-3xl font-domine font-semibold">
+                <div className="space-y-3 md:space-y-4 text-left">
+                  <h1 className="text-xl md:text-2xl lg:text-3xl font-domine font-semibold">
                     {product?.title}
                   </h1>
                   
-                  <p className="text-lg text-muted-foreground">
+                  <p className="text-sm md:text-lg text-muted-foreground">
                     {product?.description}
                   </p>
 
-                  <p className="text-sm text-muted-foreground">by Siddharth Kabra</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">by Siddharth Kabra</p>
                   
                   <div className="space-y-1">
-                    <p className="text-sm"><span className="font-medium">Size:</span> {product?.dimensions}</p>
-                    <p className="text-sm"><span className="font-medium">Quantity:</span> {product?.cardCount}</p>
-                    <p className="text-sm text-muted-foreground">{product?.shipping}</p>
+                    <p className="text-xs md:text-sm"><span className="font-medium">Size:</span> {product?.dimensions}</p>
+                    <p className="text-xs md:text-sm"><span className="font-medium">Quantity:</span> {product?.cardCount}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">{product?.shipping}</p>
                   </div>
 
-                  <div className="flex items-center gap-3 my-4">
-                    <span className="text-2xl font-semibold">₹{totalPrice}</span>
+                  <div className="flex items-center gap-3 my-3 md:my-4">
+                    <span className="text-xl md:text-2xl font-semibold">₹{totalPrice}</span>
                     {showDiscount && (
                       <>
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
                           {discountPercent}% off
                         </Badge>
-                        <span className="text-sm text-muted-foreground line-through">
+                        <span className="text-xs md:text-sm text-muted-foreground line-through">
                           ₹{totalOriginalPrice}
                         </span>
                       </>
                     )}
                   </div>
 
-                  <Separator className="my-4" />
+                  <Separator className="my-3 md:my-4" />
 
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-start gap-4">
-                      <div className="flex items-center justify-between border rounded-full p-2 w-32">
+                  <div className="space-y-3 md:space-y-4">
+                    <div className="flex items-center justify-start gap-3 md:gap-4">
+                      <div className="flex items-center justify-between border rounded-full p-1 md:p-2 w-24 md:w-32">
                         <button onClick={decreaseQuantity} className="p-1 hover:bg-black/5 rounded-full" disabled={quantity === 1}>
-                          {quantity === 1 ? <img src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" alt="Delete" className="w-5 h-5" /> : <Minus size={20} />}
+                          {quantity === 1 ? 
+                            <img src="/lovable-uploads/05866d0c-5d21-48e5-9975-14282b3238d7.png" alt="Delete" className="w-4 h-4 md:w-5 md:h-5" /> : 
+                            <Minus size={isMobile ? 16 : 20} />}
                         </button>
-                        <span className="font-medium">{quantity}</span>
+                        <span className="font-medium text-sm md:text-base">{quantity}</span>
                         <button onClick={increaseQuantity} className="p-1 hover:bg-black/5 rounded-full">
-                          <Plus size={20} />
+                          <Plus size={isMobile ? 16 : 20} />
                         </button>
                       </div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-xs md:text-sm text-muted-foreground">
                         Unit Price: ₹{basePrice} × {quantity}
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Button className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 flex-1" onClick={handleAddToCart}>
-                        <ShoppingCart className="mr-2" size={20} />
+                    <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+                      <Button className="rounded-full bg-white text-black border border-black/20 hover:bg-black/5 flex-1 text-xs md:text-sm h-9 md:h-auto" onClick={handleAddToCart}>
+                        <ShoppingCart className="mr-1 md:mr-2" size={isMobile ? 16 : 20} />
                         Add to Cart
                       </Button>
                       
-                      <GradientButton className="flex-1 py-3" onClick={handleBuyNow} icon={false}>
+                      <GradientButton className="flex-1 py-1.5 md:py-3 text-xs md:text-sm" onClick={handleBuyNow} icon={false}>
                         Buy Now
                       </GradientButton>
                     </div>
                   </div>
-
-                  {/* Removed the Feature Icons section */}
                 </div>
               </div>
             </div>
