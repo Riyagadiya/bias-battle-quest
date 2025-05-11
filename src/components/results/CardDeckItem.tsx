@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
@@ -82,100 +81,203 @@ const CardDeckItem = ({
       key={deck.id} 
       className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 p-2 md:p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
-      <div
-        className="relative w-18 h-18 sm:w-22 sm:h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
-        style={{ 
-          backgroundColor: deck.backgroundColor, 
-          width: isMobile ? "4.5rem" : "5.5rem", 
-          height: isMobile ? "4.5rem" : "5.5rem" 
-        }}
-        onClick={() => onDeckClick(deck.title)}
-      >
-        <AspectRatio ratio={1/1} className="w-full h-full">
-          <img 
-            src={imageUrl} 
-            alt={deck.title} 
-            className={`object-cover w-full h-full`} 
-          />
-        </AspectRatio>
-      </div>
-      
-      <div className="flex-1 cursor-pointer text-left w-full sm:w-auto" onClick={() => onDeckClick(deck.title)}>
-        <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-sm md:text-base">
-          {deck.title}
-        </h4>
-        <p className="text-xs text-gray-600 mb-1 line-clamp-1">{deck.oneLiner || deck.cardCount}</p>
-        
-        <div className="flex flex-wrap items-center gap-2 mt-1">
-          {showDiscount && (
-            <>
-              <span className="text-xs text-muted-foreground line-through">
-                ₹{deck.mrp}
-              </span>
-              <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                {discountPercent}% off
-              </Badge>
-            </>
-          )}
-          <span className="font-medium text-sm md:text-base">₹{actualPrice}</span>
-        </div>
-        
-        {quantity > 0 && (
-          <div className="text-xs font-medium mt-1 flex flex-wrap items-center gap-2">
-            <span>Subtotal:</span>
-            <span className="text-xs md:text-sm font-semibold">₹{totalPrice}</span>
-            <span className="text-xs text-muted-foreground">
-              (₹{actualPrice} × {quantity})
-            </span>
-          </div>
-        )}
-      </div>
-      
-      <div className="shrink-0 flex flex-col items-center gap-2 mt-2 sm:mt-0">
-        {/* Unified quantity control in a single rounded rectangle */}
-        <div className="flex items-center border rounded-full overflow-hidden">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => handleQuantityChange(-1)}
-            disabled={quantity <= 0}
-            className="h-7 w-7 sm:h-8 sm:w-8 rounded-none border-r border-gray-100 p-0"
-          >
-            <Minus size={isMobile ? 14 : 16} />
-          </Button>
-          
-          <span className="w-6 sm:w-8 text-center font-medium text-xs sm:text-sm">{quantity || 0}</span>
-          
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => handleQuantityChange(1)}
-            className="h-7 w-7 sm:h-8 sm:w-8 rounded-none border-l border-gray-100 p-0"
-          >
-            <Plus size={isMobile ? 14 : 16} />
-          </Button>
-        </div>
-        
-        {/* Buy button only (removed View details) */}
-        <div className="flex items-center justify-center gap-2 mt-2 w-full">
-          <Button 
-            variant="default"
-            size="sm"
-            className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-7 sm:h-8 flex items-center gap-1"
-            onClick={() => {
-              // If there's no quantity selected yet, add 1 first
-              if (quantity <= 0) {
-                handleQuantityChange(1);
-              }
-              // Navigate directly to checkout page
-              navigate('/checkout');
+      {/* Mobile layout - arranged horizontally with image left-aligned */}
+      {isMobile && (
+        <>
+          <div 
+            className="relative rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+            style={{ 
+              backgroundColor: deck.backgroundColor, 
+              width: "4.5rem", 
+              height: "4.5rem" 
             }}
+            onClick={() => onDeckClick(deck.title)}
           >
-            <ShoppingCart size={isMobile ? 12 : 14} />
-            Buy
-          </Button>
-        </div>
-      </div>
+            <AspectRatio ratio={1/1} className="w-full h-full">
+              <img 
+                src={imageUrl} 
+                alt={deck.title} 
+                className="object-cover w-full h-full" 
+              />
+            </AspectRatio>
+          </div>
+          
+          <div className="flex-1 cursor-pointer text-left w-full" onClick={() => onDeckClick(deck.title)}>
+            <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-sm">
+              {deck.title}
+            </h4>
+            <p className="text-xs text-gray-600 mb-1 line-clamp-1">{deck.oneLiner || deck.cardCount}</p>
+            
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {showDiscount && (
+                <>
+                  <span className="text-xs text-muted-foreground line-through">
+                    ₹{deck.mrp}
+                  </span>
+                  <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                    {discountPercent}% off
+                  </Badge>
+                </>
+              )}
+              <span className="font-medium text-sm">₹{actualPrice}</span>
+            </div>
+            
+            {quantity > 0 && (
+              <div className="text-xs font-medium mt-1 flex flex-wrap items-center gap-2">
+                <span>Subtotal:</span>
+                <span className="text-xs font-semibold">₹{totalPrice}</span>
+                <span className="text-xs text-muted-foreground">
+                  (₹{actualPrice} × {quantity})
+                </span>
+              </div>
+            )}
+            
+            <div className="flex items-center gap-3 mt-3">
+              {/* Quantity control */}
+              <div className="flex items-center border rounded-full overflow-hidden">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => handleQuantityChange(-1)}
+                  disabled={quantity <= 0}
+                  className="h-7 w-7 rounded-none border-r border-gray-100 p-0"
+                >
+                  <Minus size={14} />
+                </Button>
+                
+                <span className="w-6 text-center font-medium text-xs">{quantity || 0}</span>
+                
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => handleQuantityChange(1)}
+                  className="h-7 w-7 rounded-none border-l border-gray-100 p-0"
+                >
+                  <Plus size={14} />
+                </Button>
+              </div>
+              
+              {/* Buy button */}
+              <Button 
+                variant="default"
+                size="sm"
+                className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-7 flex items-center gap-1"
+                onClick={() => {
+                  // If there's no quantity selected yet, add 1 first
+                  if (quantity <= 0) {
+                    handleQuantityChange(1);
+                  }
+                  // Navigate directly to checkout page
+                  navigate('/checkout');
+                }}
+              >
+                <ShoppingCart size={12} />
+                Buy
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
+      
+      {/* Desktop layout - unchanged */}
+      {!isMobile && (
+        <>
+          <div
+            className="relative w-22 h-22 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+            style={{ 
+              backgroundColor: deck.backgroundColor, 
+              width: "5.5rem", 
+              height: "5.5rem" 
+            }}
+            onClick={() => onDeckClick(deck.title)}
+          >
+            <AspectRatio ratio={1/1} className="w-full h-full">
+              <img 
+                src={imageUrl} 
+                alt={deck.title} 
+                className="object-cover w-full h-full" 
+              />
+            </AspectRatio>
+          </div>
+          
+          <div className="flex-1 cursor-pointer text-left" onClick={() => onDeckClick(deck.title)}>
+            <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-base">
+              {deck.title}
+            </h4>
+            <p className="text-xs text-gray-600 mb-1 line-clamp-1">{deck.oneLiner || deck.cardCount}</p>
+            
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {showDiscount && (
+                <>
+                  <span className="text-xs text-muted-foreground line-through">
+                    ₹{deck.mrp}
+                  </span>
+                  <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                    {discountPercent}% off
+                  </Badge>
+                </>
+              )}
+              <span className="font-medium text-base">₹{actualPrice}</span>
+            </div>
+            
+            {quantity > 0 && (
+              <div className="text-xs font-medium mt-1 flex flex-wrap items-center gap-2">
+                <span>Subtotal:</span>
+                <span className="text-sm font-semibold">₹{totalPrice}</span>
+                <span className="text-xs text-muted-foreground">
+                  (₹{actualPrice} × {quantity})
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <div className="shrink-0 flex flex-col items-center gap-2">
+            {/* Quantity control */}
+            <div className="flex items-center border rounded-full overflow-hidden">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => handleQuantityChange(-1)}
+                disabled={quantity <= 0}
+                className="h-8 w-8 rounded-none border-r border-gray-100 p-0"
+              >
+                <Minus size={16} />
+              </Button>
+              
+              <span className="w-8 text-center font-medium text-sm">{quantity || 0}</span>
+              
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => handleQuantityChange(1)}
+                className="h-8 w-8 rounded-none border-l border-gray-100 p-0"
+              >
+                <Plus size={16} />
+              </Button>
+            </div>
+            
+            {/* Buy button */}
+            <div className="flex items-center justify-center gap-2 mt-2 w-full">
+              <Button 
+                variant="default"
+                size="sm"
+                className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-8 flex items-center gap-1"
+                onClick={() => {
+                  // If there's no quantity selected yet, add 1 first
+                  if (quantity <= 0) {
+                    handleQuantityChange(1);
+                  }
+                  // Navigate directly to checkout page
+                  navigate('/checkout');
+                }}
+              >
+                <ShoppingCart size={14} />
+                Buy
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
