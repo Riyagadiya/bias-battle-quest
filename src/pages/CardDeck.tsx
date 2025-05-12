@@ -60,7 +60,7 @@ const cardDecks: CardDeckProps[] = [
     imageUrl: "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png",
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
-    cardCount: "36 Cards",
+    cardCount: "20 Cards",
     price: 999,
     shipping: "Free Shipping"
   },
@@ -72,7 +72,7 @@ const cardDecks: CardDeckProps[] = [
     imageUrl: "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
-    cardCount: "40 Cards",
+    cardCount: "20 Cards",
     price: 999,
     shipping: "Free Shipping"
   }
