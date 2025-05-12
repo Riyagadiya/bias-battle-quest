@@ -33,10 +33,10 @@ const cardDecks: CardDeckProps[] = [
     title: "Cognitive Biases Card Deck",
     oneLiner: "Harness mental shortcuts for better decisions",
     description: "Cognitive biases are mental shortcuts. Our tool helps you harness them to solve problems, challenge assumptions, and make better decisions.",
-    imageUrl: "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png", // Updated image URL
+    imageUrl: "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png",
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
-    cardCount: "38 Cards",
+    cardCount: "39 Cards",
     price: 999,
     shipping: "Free Shipping"
   },
@@ -45,10 +45,10 @@ const cardDecks: CardDeckProps[] = [
     title: "Research Method Card Deck",
     oneLiner: "Explore structured creative thinking frameworks",
     description: "Explore the design process—a structured framework for creative thinking and crafting meaningful, user-centered solutions.",
-    imageUrl: "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png", // Updated with new image
+    imageUrl: "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png",
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
-    cardCount: "42 Cards",
+    cardCount: "39 Cards",
     price: 999,
     shipping: "Free Shipping"
   },
@@ -57,7 +57,7 @@ const cardDecks: CardDeckProps[] = [
     title: "Thinking Hat Card Deck",
     oneLiner: "Deeper insights for human-centered solutions",
     description: "Delve into UX laws—fundamental principles that shape the way we think about design, encouraging deeper insights and fostering more intuitive, human-centered solutions.",
-    imageUrl: "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png", // Updated with new thinking hats image
+    imageUrl: "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png",
     backgroundColor: "#F8C1A6",
     hoverColor: "#F3986B",
     cardCount: "36 Cards",
@@ -69,7 +69,7 @@ const cardDecks: CardDeckProps[] = [
     title: "UX Laws Card Deck",
     oneLiner: "Create intuitive user experiences with ease",
     description: "Dive into UX laws, essential principles that streamline design decisions and empower you to create intuitive, user-centered experiences with ease.",
-    imageUrl: "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png", // Updated with new UX Laws image
+    imageUrl: "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png",
     backgroundColor: "#BEE5FA",
     hoverColor: "#92D4F6",
     cardCount: "40 Cards",

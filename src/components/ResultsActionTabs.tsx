@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
@@ -25,7 +26,7 @@ const cardDecks = [
     imageUrl: "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png",
     backgroundColor: "#FDDE81",
     hoverColor: "#FCD14D",
-    cardCount: "38 Cards",
+    cardCount: "39 Cards",
     price: 699,
     mrp: ORIGINAL_PRICE,
     discount: `${DISCOUNT_PERCENT}% off`,
@@ -39,7 +40,7 @@ const cardDecks = [
     imageUrl: "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png",
     backgroundColor: "#D4E3A6",
     hoverColor: "#C4D985",
-    cardCount: "42 Cards",
+    cardCount: "39 Cards",
     price: 699,
     mrp: ORIGINAL_PRICE,
     discount: `${DISCOUNT_PERCENT}% off`,
