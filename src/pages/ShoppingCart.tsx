@@ -13,6 +13,8 @@ import React from "react";
 import GradientButton from "@/components/GradientButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useDiscount } from "@/context/DiscountContext";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 // Constants for pricing
 const ORIGINAL_PRICE = 999; // Original price is always 999 per deck
@@ -30,6 +32,7 @@ const ShoppingCart = () => {
   } = useCart();
   const { showDiscount } = useDiscount();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   
   // Calculate the total number of items
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -97,6 +100,34 @@ const ShoppingCart = () => {
       ORIGINAL_PRICE;
   };
 
+  // Function to get image URL based on item title
+  const getItemImage = (title: string) => {
+    if (title.includes("Cognitive Bias")) {
+      return "/lovable-uploads/bfa3ac45-7fda-4588-b9a6-2b8aeae3aa5f.png";
+    } else if (title.includes("Research Method")) {
+      return "/lovable-uploads/5a5bfd84-16d2-4308-a4f3-099fe574dc51.png";
+    } else if (title.includes("Thinking Hat")) {
+      return "/lovable-uploads/587a795b-4e10-45d4-b143-5047a2be78a3.png";
+    } else if (title.includes("UX Laws")) {
+      return "/lovable-uploads/ec436adc-58d5-41f3-aeac-d47aafacef08.png";
+    }
+    return "/placeholder.svg";
+  };
+
+  // Function to get background color based on item title
+  const getItemBackgroundColor = (title: string) => {
+    if (title.includes("Cognitive Bias")) {
+      return "#FDDE81";
+    } else if (title.includes("Research Method")) {
+      return "#D4E3A6";
+    } else if (title.includes("Thinking Hat")) {
+      return "#F8C1A6";
+    } else if (title.includes("UX Laws")) {
+      return "#BEE5FA";
+    }
+    return "#f3f4f6"; // Default gray background
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -132,13 +163,29 @@ const ShoppingCart = () => {
                     <CardContent className="pt-6 pb-6">
                       {items.map((item, index) => (
                         <div key={item.id}>
-                          <div className="flex flex-col sm:flex-row items-start gap-6 py-4">
-                            <div className="w-full sm:w-36 h-36 bg-muted rounded-lg shrink-0 mx-auto sm:mx-0"></div>
+                          <div className={`flex ${isMobile ? "flex-row" : "flex-col sm:flex-row"} items-start gap-6 py-4`}>
+                            {/* Image with colored background */}
+                            <div 
+                              className={`${isMobile ? "w-[4.5rem] h-[4.5rem]" : "w-full sm:w-36 h-36"} rounded-lg shrink-0 mx-auto sm:mx-0 overflow-hidden`}
+                              style={{ backgroundColor: getItemBackgroundColor(item.title) }}
+                            >
+                              <AspectRatio ratio={1/1} className="w-full h-full">
+                                <img 
+                                  src={getItemImage(item.title)} 
+                                  alt={item.title}
+                                  className="object-cover w-full h-full" 
+                                />
+                              </AspectRatio>
+                            </div>
+                            
+                            {/* Content - aligned left of image on mobile */}
                             <div className="flex-grow w-full">
                               <h3 className="text-lg font-medium">{item.title}</h3>
                               <p className="text-sm text-muted-foreground mt-1">
                                 Premium Quality Card Deck
                               </p>
+                              
+                              {/* Quantity controls and buttons */}
                               <div className="flex flex-wrap items-center gap-3 mt-4">
                                 <div className="flex items-center justify-between border rounded-full p-2 w-32 bg-white">
                                   <button
@@ -187,7 +234,9 @@ const ShoppingCart = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="text-right min-w-[120px] mt-4 sm:mt-0">
+                            
+                            {/* Price - positioned at the top right */}
+                            <div className="text-right min-w-[120px] mt-0 sm:mt-0 ml-auto">
                               <div className="flex flex-col items-end gap-1">
                                 <p className="font-medium text-lg">
                                   ₹{getDisplayPrice(item.price) * item.quantity}
@@ -226,13 +275,29 @@ const ShoppingCart = () => {
                       {savedItems && savedItems.length > 0 ? (
                         savedItems.map((item, index) => (
                           <div key={item.id}>
-                            <div className="flex flex-col sm:flex-row items-start gap-6 py-4">
-                              <div className="w-full sm:w-36 h-36 bg-muted rounded-lg shrink-0 mx-auto sm:mx-0"></div>
+                            <div className={`flex ${isMobile ? "flex-row" : "flex-col sm:flex-row"} items-start gap-6 py-4`}>
+                              {/* Image with colored background */}
+                              <div 
+                                className={`${isMobile ? "w-[4.5rem] h-[4.5rem]" : "w-full sm:w-36 h-36"} rounded-lg shrink-0 mx-auto sm:mx-0 overflow-hidden`}
+                                style={{ backgroundColor: getItemBackgroundColor(item.title) }}
+                              >
+                                <AspectRatio ratio={1/1} className="w-full h-full">
+                                  <img 
+                                    src={getItemImage(item.title)} 
+                                    alt={item.title}
+                                    className="object-cover w-full h-full" 
+                                  />
+                                </AspectRatio>
+                              </div>
+                              
+                              {/* Content - aligned left of image on mobile */}
                               <div className="flex-grow w-full">
                                 <h3 className="text-lg font-medium">{item.title}</h3>
                                 <p className="text-sm text-muted-foreground mt-1">
                                   Premium Quality Card Deck
                                 </p>
+                                
+                                {/* Buttons */}
                                 <div className="flex flex-wrap items-center gap-3 mt-4">
                                   <Button
                                     variant="outline"
@@ -253,7 +318,9 @@ const ShoppingCart = () => {
                                   </Button>
                                 </div>
                               </div>
-                              <div className="text-right min-w-[120px] mt-4 sm:mt-0">
+                              
+                              {/* Price - positioned at the top right */}
+                              <div className="text-right min-w-[120px] mt-0 sm:mt-0 ml-auto">
                                 <div className="flex flex-col items-end gap-1">
                                   <p className="font-medium text-lg">
                                     ₹{getDisplayPrice(item.price) * item.quantity}
