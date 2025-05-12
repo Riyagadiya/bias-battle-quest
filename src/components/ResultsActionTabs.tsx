@@ -8,8 +8,8 @@ import { useCart } from "@/context/CartContext";
 import { useDiscount } from "@/context/DiscountContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import CardDeckItem from "./results/CardDeckItem";
-import PriceSummary from "./PriceSummary";
-import OrderInformation from "./OrderInformation";
+import PriceSummary from "./results/PriceSummary";
+import OrderInformation from "./results/OrderInformation";
 
 // Constants for pricing
 const ORIGINAL_PRICE = 999; // Original price is always 999 per deck

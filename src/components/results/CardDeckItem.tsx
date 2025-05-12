@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
@@ -79,13 +80,13 @@ const CardDeckItem = ({
   return (
     <div 
       key={deck.id} 
-      className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 p-2 md:p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+      className="flex p-2 md:p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
     >
-      {/* Mobile layout - arranged horizontally with image left-aligned */}
+      {/* Mobile layout - image on the left, all content to the right */}
       {isMobile && (
         <>
           <div 
-            className="relative rounded-lg overflow-hidden flex items-center justify-center cursor-pointer"
+            className="relative rounded-lg overflow-hidden flex items-center justify-center cursor-pointer shrink-0"
             style={{ 
               backgroundColor: deck.backgroundColor, 
               width: "4.5rem", 
@@ -102,7 +103,7 @@ const CardDeckItem = ({
             </AspectRatio>
           </div>
           
-          <div className="flex-1 cursor-pointer text-left w-full" onClick={() => onDeckClick(deck.title)}>
+          <div className="flex-1 cursor-pointer text-left pl-3 flex flex-col" onClick={() => onDeckClick(deck.title)}>
             <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-sm">
               {deck.title}
             </h4>
@@ -132,13 +133,16 @@ const CardDeckItem = ({
               </div>
             )}
             
-            <div className="flex items-center gap-3 mt-3">
+            <div className="flex items-center gap-3 mt-auto pt-2">
               {/* Quantity control */}
               <div className="flex items-center border rounded-full overflow-hidden">
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  onClick={() => handleQuantityChange(-1)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleQuantityChange(-1);
+                  }}
                   disabled={quantity <= 0}
                   className="h-7 w-7 rounded-none border-r border-gray-100 p-0"
                 >
@@ -150,7 +154,10 @@ const CardDeckItem = ({
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  onClick={() => handleQuantityChange(1)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleQuantityChange(1);
+                  }}
                   className="h-7 w-7 rounded-none border-l border-gray-100 p-0"
                 >
                   <Plus size={14} />
@@ -162,7 +169,8 @@ const CardDeckItem = ({
                 variant="default"
                 size="sm"
                 className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-7 flex items-center gap-1"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   // If there's no quantity selected yet, add 1 first
                   if (quantity <= 0) {
                     handleQuantityChange(1);
@@ -200,7 +208,7 @@ const CardDeckItem = ({
             </AspectRatio>
           </div>
           
-          <div className="flex-1 cursor-pointer text-left" onClick={() => onDeckClick(deck.title)}>
+          <div className="flex-1 cursor-pointer text-left ml-4" onClick={() => onDeckClick(deck.title)}>
             <h4 className="font-medium line-clamp-1 text-black hover:text-gray-500 transition-colors text-base">
               {deck.title}
             </h4>
@@ -237,7 +245,10 @@ const CardDeckItem = ({
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => handleQuantityChange(-1)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleQuantityChange(-1);
+                }}
                 disabled={quantity <= 0}
                 className="h-8 w-8 rounded-none border-r border-gray-100 p-0"
               >
@@ -249,7 +260,10 @@ const CardDeckItem = ({
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => handleQuantityChange(1)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleQuantityChange(1);
+                }}
                 className="h-8 w-8 rounded-none border-l border-gray-100 p-0"
               >
                 <Plus size={16} />
@@ -262,7 +276,8 @@ const CardDeckItem = ({
                 variant="default"
                 size="sm"
                 className="bg-cognilense-blue hover:bg-cognilense-blue/90 rounded-full px-3 py-1 text-xs h-8 flex items-center gap-1"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   // If there's no quantity selected yet, add 1 first
                   if (quantity <= 0) {
                     handleQuantityChange(1);
